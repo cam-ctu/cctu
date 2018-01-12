@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_ggplot.R
 \name{write_ggplot}
 \alias{write_ggplot}
-\title{Funtion to save ggplot figures .}
+\title{Function to save ggplot figures.}
 \usage{
 write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
   0.6, dpi = 300, units = "cm", clean_up = TRUE,
@@ -10,7 +10,7 @@ write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
   ...)
 }
 \arguments{
-\item{number}{the figure number used to link to the meta data file}
+\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
 
 \item{plot}{the plot object to save. defaults to \code{last_plot}}
 
@@ -31,8 +31,11 @@ write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
 \item{...}{arguments to feed into the printing function}
 }
 \value{
-writes a copy of a plot to file fig_number.. No return object.
+writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 }
 \description{
-Funtion to save ggplot figures .
+Function to save ggplot figures.
+}
+\seealso{
+\code{\link{get_file_name}} \code{\link{write_table}}
 }

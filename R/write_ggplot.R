@@ -1,6 +1,6 @@
 #' Function to save ggplot figures.
 #'
-#' @param number the figure number used to link to the meta data file and used to name the file fig_"number"
+#' @param number the number used to as a suffix in the output filename, and to link to TableofTables.
 #' @param plot the plot object to save. defaults to \code{last_plot}
 #' @param width the width to save as
 #' @param height the height to save as
@@ -13,6 +13,7 @@
 #'
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso \code{\link{get_file_name}} \code{\link{write_table}}
+#' @export
 
 
 
@@ -43,7 +44,7 @@ write_ggplot = function(number,
   # that calls this function
 
   if(exists("PATH")){
-    PATH <- eval(as.name("PATH"))
+    PATH <- get("PATH")
   }else{
     warning("''PATH'' was not defined in the parent environment")
     PATH <- getwd()
@@ -57,8 +58,8 @@ write_ggplot = function(number,
 
 
   if( exists("TableofTables")){
-    TableofTables <- eval(as.name("TableofTables"))
-  TableofTables[!is.na(TableofTables$Number) & as.character(TableofTables$Number) == number, "Program"] <- CallingProg
+    TableofTables <- get("TableofTables")
+    TableofTables[!is.na(TableofTables$Number) & as.character(TableofTables$Number) == number, "Program"] <- CallingProg
   assign("TableofTables", TableofTables, envir = .GlobalEnv)
   } else{
     warning("''TableofTables'' was not defined in the parent frame")

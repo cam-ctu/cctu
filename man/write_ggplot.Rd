@@ -6,8 +6,8 @@
 \usage{
 write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
   0.6, dpi = 300, units = "cm", clean_up = TRUE,
-  directory = "/Output/Figures", format = c("png", "postscript", "jpg"),
-  ...)
+  directory = "/Output/Figures", path_string = "PATH", ...,
+  format = c("png", "postscript", "jpeg"), graphics_args = NULL)
 }
 \arguments{
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
@@ -26,9 +26,13 @@ write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
 
 \item{directory}{where to save the figures}
 
+\item{path_string}{character string of the name of a global variable that contains the project filepath. Default is "PATH".}
+
+\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
+
 \item{format}{either "jpg", "postscript", or "png" to determine the file type to use}
 
-\item{...}{arguments to feed into the printing function}
+\item{graphics_args}{a list of named arguments to supply to graphics function (png, postscript, jpeg)}
 }
 \value{
 writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.

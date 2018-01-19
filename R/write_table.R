@@ -14,17 +14,13 @@ write_table = function(
                       X,
                       heading  = colnames(X),
                       clean_up = TRUE,
-                      directory="/Output/Figures"
+                      directory="/Output/Figures",
+                      path_string="PATH",
+                      ...
                       ){
 
 
-  if(exists("PATH")){
-    PATH <- get("PATH")
-  }else{
-    warning("''PATH'' was not defined in the parent environment")
-    PATH <- getwd()
-  }
-
+  PATH <- get_obj(path_string, alt=getwd())
   #
   if(is.null(sys.calls())){
     CallingProg <- "Missing"
@@ -32,6 +28,9 @@ write_table = function(
     CallingProg <- get_file_name()
   }
 
+
+
+  add_program(number, CallingProg, ... )
 
 
   output_string <- NULL
@@ -67,17 +66,10 @@ write_table = function(
 
 
 
-  if( exists("TableofTables")){
-    TableofTables <- get("TableofTables")
-    TableofTables[!is.na(TableofTables$Number) & as.character(TableofTables$Number) == number, "Program"] <- CallingProg
-    assign("TableofTables", TableofTables, envir = .GlobalEnv)
-  } else{
-    warning("''TableofTables'' was not defined in the parent frame")
-  }
 
 
   if(clean_up){
     parent_frame <- parent.frame()
-    clean_up(number, envir = parent_frame)
+    clean_up(number, envir = parent_frame,...)
   }
 }

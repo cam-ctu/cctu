@@ -1,12 +1,12 @@
-#### Function to remove blank rows/columns from a df 
-PROGNAME <- "remove_blank_rows_cols.R"
-#### Author: Simon Bond
-#### Study: ReACt
-#### DMC report Sep 2017
-#### Date created: 
-#### Notes: 
-#### - if convert = TRUE, actively modifies df in parent environment, else
-####   returns modified df
+#' Function to remove blank rows/columns from a df
+#'
+#' @param df a data.frame
+#' @param convert a logical to indicate if you want to modify \code{df} in the parent environment,
+#' or if not simply return a modified version of \code{df}
+#'
+#' @return this removes columns and rows that are totally empty (either "" or NA).
+#' @export
+
 
 
 remove_blank_rows_cols <- function(df, convert = TRUE){

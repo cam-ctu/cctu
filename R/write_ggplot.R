@@ -7,9 +7,12 @@
 #' @param dpi the resolution setting
 #' @param units either "cm" (the default) or "inches"
 #' @param clean_up logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE
-#' @param ... arguments to feed into the printing function
+#' @param ... modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}
 #' @param directory where to save the figures
+#' @param path_string character string of the name of a global variable that contains the project filepath. Default is "PATH".
+#' @inheritParams clean_up
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
+#' @param graphics_args a list of named arguments to supply to graphics function (png, postscript, jpeg)
 #'
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso \code{\link{get_file_name}} \code{\link{write_table}}
@@ -25,8 +28,10 @@ write_ggplot = function(number,
                        units    = "cm",
                        clean_up = TRUE,
                        directory="/Output/Figures",
-                       format=c("png","postscript","jpg"),
-                       ...
+                       path_string="PATH",
+                       ...,
+                       format=c("png","postscript","jpeg"),
+                       graphics_args=NULL
                        ){
 
 
@@ -43,12 +48,8 @@ write_ggplot = function(number,
   # TableofTables, PATH,  need to be defined in the environment
   # that calls this function
 
-  if(exists("PATH")){
-    PATH <- get("PATH")
-  }else{
-    warning("''PATH'' was not defined in the parent environment")
-    PATH <- getwd()
-  }
+  PATH <- get_obj(path_string, alt=getwd())
+
 
   if(is.null(sys.calls())){
     CallingProg <- "Missing"
@@ -56,27 +57,21 @@ write_ggplot = function(number,
     CallingProg <- get_file_name()
   }
 
+  add_program(number, CallingProg, ... )
 
-  if( exists("TableofTables")){
-    TableofTables <- get("TableofTables")
-    TableofTables[!is.na(TableofTables$Number) & as.character(TableofTables$Number) == number, "Program"] <- CallingProg
-  assign("TableofTables", TableofTables, envir = .GlobalEnv)
-  } else{
-    warning("''TableofTables'' was not defined in the parent frame")
-  }
   # deals with non-ggplot objects as well now
 
   format <- match.arg(format)
   file_name <- paste0(PATH, directory,"/fig_",number)
 
-  switch( format,
-  png=grDevices::png(file = paste0(file_name, ".png"),
-                 height = height, width = width, units = "in", res = dpi, ...),
-  postscript=grDevices::postscript(file=paste0(file_name,".eps"),
-                        height=height, width=width,  ...),
-  jpg=grDevices::jpeg(file=paste0(file_name,".jpg"),
-                       height=height, width=width, units="in", res=dpi, ...)
-)
+
+  args_list <- c( list( file = paste0(file_name, ".", format),
+                        height = height, width = width), graphics_args)
+  extra_args <-ifelse( format %in% c("png","jpeg"),
+                       list(units = "in", res = dpi),
+                       NULL
+                       )
+  do.call(paste0("grDevices::",format), c(args_list, extra_args))
   on.exit(utils::capture.output(grDevices::dev.off()))
   plot(plot)
   invisible()
@@ -86,6 +81,6 @@ write_ggplot = function(number,
   if(clean_up){
     # this has to be called outside the function
     parent_frame <- parent.frame()
-    clean_up(number, envir = parent_frame)
+    clean_up(number, envir = parent_frame, ...)
   }
 }

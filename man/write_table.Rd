@@ -5,7 +5,7 @@
 \title{Function to write a table into xml format in the correct directory, and edit TableofTables}
 \usage{
 write_table(number, X, heading = colnames(X), clean_up = TRUE,
-  directory = "/Output/Figures")
+  directory = "/Output/Figures", path_string = "PATH", ...)
 }
 \arguments{
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
@@ -17,6 +17,10 @@ write_table(number, X, heading = colnames(X), clean_up = TRUE,
 \item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
 
 \item{directory}{where to save the figures}
+
+\item{path_string}{character string of the name of a global variable that contains the project filepath. Default is "PATH".}
+
+\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
 }
 \value{
 writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.

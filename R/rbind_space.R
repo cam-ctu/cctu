@@ -1,11 +1,15 @@
-#### Function to bind tables/matrices with a blank row between them
-PROGNAME <- "rbind_space.R"
-#### Author: Simon Bond
-#### Study: ReACt
-#### DMC report Sep 2017
-#### Date created: 
-#### Notes: 
-#### - use with Reduce for a list of tables
+#' Function to bind tables/matrices with a blank row between them
+#'
+#' @param x a data.frame or array, possibly of character elements only
+#' @param y a data.frame or array, with the same number of columns as \code{x}
+#'
+#' @return a data.frame or array that is \code{x} stacked vertically above \code{y} with a row
+#' of blank values imbetween. Useful for formatting
+#'
+#' @details based largely on the \code{\link{rbind}} function.
+#' Use in conjuction with \code{\link{Reduce}} to join up more than two tables.
+#'
+#' @export
 
 
 rbind_space <- function(x, y){

@@ -1,43 +1,51 @@
-#### Function that uses attach() to switch between different sets of data.frames
-#### based on looking up from table no. in TableofTables - see population.R code
-PROGNAME <- "attach_pop.R"
-#### Author: Simon Bond
-#### Study: ReACt
-#### DMC report Sep 2017
-#### Date created: 24MAY2017
-#### Notes: 
+#' Functions that attach and detach functions based on which populations are used for a given table number
+#'
+#' @param number the number of a table or figure
+#' @param meta_table_string character string of the name of a global table that contains meta information on tables (title, population, number)
+#' @param popn_table_string character string of the name of a gloabl table that contains population names used in meta-table, and the equivalent names of environments
+#' @param ... modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}
+#'
+#' @return invisibly returns an environment for attaching, or NULL for detaching.
+#' @seealso \code{\link{attach}} \code{\link{detach}}
+#' @importFrom magrittr %>%
 
 
-# attach population
-attach_pop <- function(number 
-                       #TableofTables=TableofTables, 
-                       #population_title=population_title
+
+
+
+#'@describeIn attach_pop attaches a population
+#'@export
+attach_pop <- function(number,
+                       ...
                        ){
-  table_of_tables <- merge(TableofTables, population_title, 
-                           by.x = "Population", by.y = "title", all.x = TRUE)
-  pop_name        <- as.character(subset(table_of_tables, Number == number, select = "pop_name"))
-  eval(call("attach", as.name(pop_name)))
+  .eval_pop(number, function_name="attach",
+            ...)
 }
 
-# detach population
-# this will be used inside writeTable(), writeGgplot()
-detach_pop <- function(number 
-                       #TableofTables=TableofTables, 
-                       #population_title=population_title
-                      ){
-  table_of_tables <- merge(TableofTables, population_title, 
-                           by.x = "Population", by.y = "title", all.x = TRUE)
-  pop_name <- as.character(subset(table_of_tables, Number == number, select = "pop_name"))
-  eval(call("detach", as.name(pop_name)))
+#' @describeIn attach_pop detaches a populations
+#' @export
+
+detach_pop <- function(number,
+                       ... ){
+  .eval_pop(number, function_name="detach",
+            ...)
 }
 
+#'@describeIn attach_pop internal function
+#'@keywords internal
 
-clean_up <- function(number, envir = parent.frame()){
-  obj_list <- ls(envir)
-  if(!exists("RESERVED", envir = envir)){RESERVED <- NULL}
-  # belt and braces - try to define RESERVED elsewhere to contain an element with value "RESERVED"
-  keep     <- match(c("RESERVED", RESERVED), obj_list)
-  obj_list <- obj_list[-keep]
-  rm(list = obj_list, envir = envir)
-  detach_pop(number)
+.eval_pop <- function(number,
+                     function_name,
+                     meta_table_string="meta_table",
+                     popn_table_string="popn_table"
+                     #...
+                     # shouldn't need the ... but it helps avoid errors from  extraneous arguments
+){
+  meta_table <- get_obj(meta_table_string)
+  popn_table <- get_obj(popn_table_string)
+  meta_table <- merge(meta_table,popn_table,
+                      by.x = "Population", by.y = "title", all.x = TRUE)
+  index <- match(number, meta_table$Number)
+  pop_name <- meta_table[index, "pop_name"] %>% as.character
+  eval(call(function_name, as.name(pop_name)))
 }

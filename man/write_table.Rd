@@ -5,7 +5,7 @@
 \title{Function to write a table into xml format in the correct directory, and edit TableofTables}
 \usage{
 write_table(number, X, heading = colnames(X), clean_up = TRUE,
-  directory = "/Output/Figures", path_string = "PATH", ...)
+  directory = "/Output/Tables", path_string = "PATH", ...)
 }
 \arguments{
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}

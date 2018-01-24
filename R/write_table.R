@@ -14,7 +14,7 @@ write_table = function(
                       X,
                       heading  = colnames(X),
                       clean_up = TRUE,
-                      directory="/Output/Figures",
+                      directory="/Output/Core",
                       path_string="PATH",
                       ...
                       ){

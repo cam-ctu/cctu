@@ -12,6 +12,8 @@
 add_program <- function(number, calling_prog, meta_table_string="meta_table",...){
   if( exists(meta_table_string)){
     meta_table <- get(meta_table_string)
+    if( !("Number" %in% names(meta_table))){warning(paste("Need to have Number column in", meta_table_string))}
+    if( !("Program" %in% names(meta_table))){warning(paste("Need to have Program column in", meta_table_string))}
     index <- match(number, meta_table$Number)
     meta_table[index, "Program"] <- calling_prog
     assign(meta_table_string,meta_table, envir = .GlobalEnv)

@@ -17,7 +17,7 @@
 create_word_xml <- function(
   report_title,
   author,
-  filename="Output/Reports/Report.xml",
+  filename="Output/Reports/Report.doc",
   path_string="PATH",
   meta_table_string="meta_table",
   table_path="Output/Core/",
@@ -44,6 +44,15 @@ create_word_xml <- function(
                     '" "' ,
                     filename, '" /Y')
   shell(call)
+
+  #put a copy of the xslt file into the report path
+  report_folder <- normalizePath(paste0(PATH,filename,"/.."))
+  call = paste0('copy "',
+                system.file("extdata", "xml_to_word.xslt", package="cctu"),
+                '"  "',report_folder, '" /Y'
+                )
+  shell(call)
+
   cat(
     "\n <Report>
   <study>",report_title,"</study>
@@ -51,6 +60,8 @@ create_word_xml <- function(
     date(), "</datestamp>", file = filename, append = TRUE)
 
   ## not sure this will wash in a package as loads of these variabls are not defined
+
+  #need to write a function that cheks if meta_table has the right set of varaible/names
 
   headers = with(meta_table,
                  paste0("<heading><section>", Section,
@@ -72,27 +83,25 @@ create_word_xml <- function(
   Program = with(meta_table, paste("<Program>", Program, "</Program>"))
 
 
-  ### CONVERT the hardcoded filepaths into the function arguments
-
     for(i in 1:length(headers)){
     cat("\n", file = filename, append = TRUE)
 
     if(meta_table[i, "Item"] == "Table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      call = paste0('type "Output\\Core\\table_', meta_table[i, "Number"], '.xml" >> "',
+      call = paste0('type "',table_path,'table_', meta_table[i, "Number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], Program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "Item"] == "Figure"){
       cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
-      cat("<src>", PATH, "\\Output\\Figures\\fig_", meta_table[i, "Number"],
+      cat("<src>", PATH, figure_path,"fig_", meta_table[i, "Number"],
           ".png</src>", sep = "", file = filename, append = TRUE)
       cat(footers[i], Program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "Item"] == "Text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      call = paste0('type "Output\\Core\\text_', meta_table[i, "Number"], '.xml" >> "',
+      call = paste0('type "',table_path,'text_', meta_table[i, "Number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], Program[i], "\n </MetaText> \n", file = filename, append = TRUE)

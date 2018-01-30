@@ -4,7 +4,7 @@
 \alias{create_word_xml}
 \title{Produces the final xml file}
 \usage{
-create_word_xml(report_title, author, filename = "Output/Reports/Report.xml",
+create_word_xml(report_title, author, filename = "Output/Reports/Report.doc",
   path_string = "PATH", meta_table_string = "meta_table",
   table_path = "Output/Core/", figure_path = "Output/Figures/")
 }

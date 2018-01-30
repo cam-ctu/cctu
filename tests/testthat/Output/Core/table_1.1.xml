@@ -1,0 +1,7 @@
+ <table>
+<tr> <td> Variable </td> <td> Statistics </td> <td> A </td> <td> B </td> <td> Total </td> </tr>
+ <tr> <td> Endpoint </td> <td> n </td> <td> 50 </td> <td> 50 </td> <td> 100 </td> </tr>
+ <tr> <td>  </td> <td> Mean (SD) </td> <td> -0.0268 (1.006) </td> <td> -0.0958 (0.894) </td> <td> -0.0613 (0.947) </td> </tr>
+ <tr> <td>  </td> <td> Median </td> <td> 0.01 </td> <td> -0.075 </td> <td> -0.06 </td> </tr>
+ <tr> <td>  </td> <td> Min, Max </td> <td> -2.21, 2.5 </td> <td> -3.11, 1.54 </td> <td> -3.11, 2.5 </td> </tr>
+ </table>

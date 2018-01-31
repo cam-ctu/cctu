@@ -7,6 +7,7 @@
 #' @param ... modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}
 #'
 #' @return NULL, but removes objects
+#' @export
 
 clean_up <- function(number,
                      envir = parent.frame(),
@@ -18,5 +19,5 @@ clean_up <- function(number,
   keep     <- match(c(reserved_string, RESERVED), obj_list)
   obj_list <- obj_list[-keep]
   rm(list = obj_list, envir = envir)
-  detach_pop(number, envir, ...)
+  detach_pop(number,  ...)
 }

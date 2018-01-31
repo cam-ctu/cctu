@@ -17,6 +17,6 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --library="U:/My Documents/R/win-library/3.3"
-PackageCheckArgs: --no-tests --library="U:/My Documents/R/win-library/3.3"
+PackageInstallArgs: --library="U:/My Documents/R/win-library/3.4"
+PackageCheckArgs: --no-tests --library="U:/My Documents/R/win-library/3.4"
 PackageRoxygenize: rd,collate,namespace

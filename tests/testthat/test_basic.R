@@ -1,4 +1,4 @@
-.libPaths("V:/STATISTICS/STUDY PLANNING/R_library")
+.libPaths(c(.libPaths(),"V:/STATISTICS/STUDY PLANNING/R_library"))
 library(cctu)
 library(readxl)
 library(magrittr)

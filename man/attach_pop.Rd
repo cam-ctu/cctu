@@ -11,7 +11,7 @@ attach_pop(number, ...)
 detach_pop(number, ...)
 
 .eval_pop(number, function_name, meta_table_string = "meta_table",
-  popn_table_string = "popn_table")
+  popn_table_string = "popn_table", ...)
 }
 \arguments{
 \item{number}{the number of a table or figure}

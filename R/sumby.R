@@ -10,7 +10,7 @@
 #'
 #'@seealso \code{\link{sumfig}} , \code{\link{write_table}}
 #'
-#'@import magrittr
+#'@importFrom magrittr %<>% %>%
 #'@export
 
 

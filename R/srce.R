@@ -13,7 +13,7 @@
 
 
 
-srce <- function(file, backup = FALSE, path_string="PATH", backup_filepath= "\\Output\\R_images\\backup.Rdata"){
+srce <- function(file, backup = FALSE, path_string="PATH", backup_filepath= "Output\\R_images\\backup.Rdata"){
   # to allow you to rewind and re-run code
   PATH <- get_obj(path_string, alt=getwd())
   if(backup){save.image(file = paste0(PATH, backup_filepath))}

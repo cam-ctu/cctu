@@ -6,7 +6,7 @@
 \usage{
 write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
   0.6, dpi = 300, units = "cm", clean_up = TRUE,
-  directory = "/Output/Figures", path_string = "PATH", ...,
+  directory = "Output/Figures/", path_string = "PATH", ...,
   format = c("png", "postscript", "jpeg"), graphics_args = NULL)
 }
 \arguments{

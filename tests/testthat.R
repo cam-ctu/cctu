@@ -1,4 +1,6 @@
 library(testthat)
 library(cctu)
-
+library(readxl)
+library(magrittr)
+library(xml2)
 test_check("cctu")

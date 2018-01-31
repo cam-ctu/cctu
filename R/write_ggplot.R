@@ -17,6 +17,7 @@
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso \code{\link{get_file_name}} \code{\link{write_table}}
 #' @export
+#' @importFrom magrittr %>%
 
 
 
@@ -27,7 +28,7 @@ write_ggplot = function(number,
                        dpi      = 300,
                        units    = "cm",
                        clean_up = TRUE,
-                       directory="/Output/Figures",
+                       directory="Output/Figures/",
                        path_string="PATH",
                        ...,
                        format=c("png","postscript","jpeg"),
@@ -51,27 +52,27 @@ write_ggplot = function(number,
   PATH <- get_obj(path_string, alt=getwd())
 
 
-  if(is.null(sys.calls())){
+  CallingProg <- get_file_name()
+  if(is.null(CallingProg)){
+    warning(paste("Unable to identify the code file that created figure", number))
     CallingProg <- "Missing"
-  } else {
-    CallingProg <- get_file_name()
   }
-
   add_program(number, CallingProg, ... )
 
   # deals with non-ggplot objects as well now
 
   format <- match.arg(format)
-  file_name <- paste0(PATH, directory,"/fig_",number)
+  file_name <- paste0(PATH, directory,"fig_",number)
 
 
-  args_list <- c( list( file = paste0(file_name, ".", format),
+  args_list <- c( list( file = paste0(file_name, ".", format %>% ifelse(.=="postcript","ps",.)),
                         height = height, width = width), graphics_args)
-  extra_args <-ifelse( format %in% c("png","jpeg"),
-                       list(units = "in", res = dpi),
-                       NULL
-                       )
-  do.call(paste0("grDevices::",format), c(args_list, extra_args))
+  extra_args <-NULL
+  if( format %in% c("png","jpeg")){
+    extra_args <- list(units = "in", res = dpi)
+  }
+  plotting_function <- getExportedValue("grDevices", format)
+  do.call(plotting_function, c(args_list, extra_args))
   on.exit(utils::capture.output(grDevices::dev.off()))
   plot(plot)
   invisible()

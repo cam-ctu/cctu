@@ -37,9 +37,9 @@ detach_pop <- function(number,
 .eval_pop <- function(number,
                      function_name,
                      meta_table_string="meta_table",
-                     popn_table_string="popn_table"
-                     #...
-                     # shouldn't need the ... but it helps avoid errors from  extraneous arguments
+                     popn_table_string="popn_table",
+                     ...
+                     # needed to cope with functions who want PATH="C:" say
 ){
   meta_table <- get_obj(meta_table_string)
   popn_table <- get_obj(popn_table_string)

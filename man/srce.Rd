@@ -5,7 +5,7 @@
 \title{Wrapper function for \code{\link{source}}}
 \usage{
 srce(file, backup = FALSE, path_string = "PATH",
-  backup_filepath = "\\\\Output\\\\R_images\\\\backup.Rdata")
+  backup_filepath = "Output\\\\R_images\\\\backup.Rdata")
 }
 \arguments{
 \item{file}{a file to source}

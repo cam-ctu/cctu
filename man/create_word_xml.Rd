@@ -4,9 +4,11 @@
 \alias{create_word_xml}
 \title{Produces the final xml file}
 \usage{
-create_word_xml(report_title, author, filename = "Output/Reports/Report.doc",
-  path_string = "PATH", meta_table_string = "meta_table",
-  table_path = "Output/Core/", figure_path = "Output/Figures/")
+create_word_xml(report_title, author,
+  filename = "Output\\\\Reports\\\\Report.doc", path_string = "PATH",
+  meta_table_string = "meta_table", table_path = "Output\\\\Core\\\\",
+  figure_format = c("png", "jpeg", "ps"),
+  figure_path = "Output\\\\Figures\\\\")
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}
@@ -25,4 +27,7 @@ create_word_xml(report_title, author, filename = "Output/Reports/Report.doc",
 }
 \description{
 Produces the final xml file
+}
+\details{
+all file paths need to use "\\" as "/" will not work in windows dos
 }

@@ -22,14 +22,12 @@ write_table = function(
 
   PATH <- get_obj(path_string, alt=getwd())
   #
-  if(is.null(sys.calls())){
+
+  CallingProg <- get_file_name()
+  if(is.null(CallingProg)){
+    warning(paste("Unable to identify the code file that created table", number))
     CallingProg <- "Missing"
-  } else {
-    CallingProg <- get_file_name()
-  }
-
-
-
+    }
   add_program(number, CallingProg, ... )
 
 

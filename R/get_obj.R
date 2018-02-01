@@ -18,9 +18,10 @@
 
 
 
-get_obj <- function(name, alt=NULL){
-  if(exists(name)){
-    get(name)
+get_obj <- function(name, frame=parent.frame(), alt=NULL){
+
+  if(exists(name,where=frame)){
+    get(name, pos=frame)
   } else{
     warning(paste(name, "not found"))
     alt

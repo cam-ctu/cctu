@@ -14,7 +14,7 @@ write_table = function(
                       X,
                       heading  = colnames(X),
                       clean_up = TRUE,
-                      directory="/Output/Core",
+                      directory="Output/Core/",
                       path_string="PATH",
                       ...
                       ){
@@ -58,7 +58,7 @@ write_table = function(
   }
   paste_plus("</table>\n")
 
-  file_name <- paste0(PATH, directory,"/table_",number,".xml")
+  file_name <- paste0(PATH, directory,"table_",number,".xml")
 
   cat(output_string, file = file_name, append = FALSE)
 

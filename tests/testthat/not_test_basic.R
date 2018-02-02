@@ -33,8 +33,10 @@ source("analysis.R", echo = TRUE)
 
 
 #output
-create_word_xml("Test Report", "Simon Bond")
-create_word_xml("Test Report Jpeg", "Simon Bond",filename="Output\\Reports\\ReportJpg.doc", figure_format="jpeg")
+#override the datestamp to allow testing against a copy within the package
+#mostly you should use the default of the date/time at teh time of creation
+create_word_xml("Test Report", "Simon Bond", datestamp="Test Date")
+create_word_xml("Test Report Jpeg", "Simon Bond",datestamp="Test Date",filename="Output\\Reports\\ReportJpg.doc", figure_format="jpeg")
 
 test_that("Creation of files",{
   expect_true(file.exists("Output/Reports/Report.doc"))

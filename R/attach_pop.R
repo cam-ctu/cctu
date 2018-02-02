@@ -15,19 +15,19 @@
 
 #'@describeIn attach_pop attaches a population
 #'@export
-attach_pop <- function(number,
+attach_pop <- function(number,frame=parent.frame(),
                        ...
                        ){
-  .eval_pop(number, function_name="attach", frame=parent.frame(),
+  .eval_pop(number, function_name="attach", frame=frame,
             ...)
 }
 
 #' @describeIn attach_pop detaches a populations
 #' @export
 
-detach_pop <- function(number,
+detach_pop <- function(number, frame=parent.frame(),
                        ... ){
-  .eval_pop(number, function_name="detach", frame=parent.frame(),
+  .eval_pop(number, function_name="detach", frame=frame,
             ...)
 }
 

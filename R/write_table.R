@@ -16,11 +16,12 @@ write_table = function(
                       clean_up = TRUE,
                       directory="Output/Core/",
                       path_string="PATH",
+                      frame=parent.frame(),
                       ...
                       ){
 
 
-  PATH <- get_obj(path_string, alt=getwd())
+  PATH <- get_obj(path_string, frame=frame, alt=getwd())
   #
 
   CallingProg <- get_file_name()
@@ -28,7 +29,7 @@ write_table = function(
     warning(paste("Unable to identify the code file that created table", number))
     CallingProg <- "Missing"
     }
-  add_program(number, CallingProg, ... )
+  add_program(number, CallingProg,frame=frame,  ... )
 
 
   output_string <- NULL
@@ -67,7 +68,6 @@ write_table = function(
 
 
   if(clean_up){
-    parent_frame <- parent.frame()
-    clean_up(number, envir = parent_frame,...)
+     clean_up(number, envir = frame,...)
   }
 }

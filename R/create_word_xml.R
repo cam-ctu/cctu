@@ -2,6 +2,7 @@
 #'
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
+#' @param datestamp text used to give the date-time stampe, defaults to the system date/time at the time of running the function
 #' @param filename text string giving the filename/path to output the word document to
 #' @inheritParams write_ggplot
 #' @inheritParams attach_pop
@@ -19,22 +20,22 @@
 create_word_xml <- function(
   report_title,
   author,
+  datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
   filename="Output\\Reports\\Report.doc",
   path_string="PATH",
   meta_table_string="meta_table",
   table_path="Output\\Core\\",
   figure_format=c("png","jpeg","ps"),
-  figure_path="Output\\Figures\\"
+  figure_path="Output\\Figures\\",
+  frame=parent.frame()
 ){
-  meta_table <- get_obj(meta_table_string) %>%
+  PATH <- get_obj(path_string,frame=frame, alt="Missing Frame")
+  #check you are in the right working directory
+  if(getwd()!=sub("/$","",PATH)){warning(paste("you are calling create_word_xml with the working directory not equal to", PATH))}
+  meta_table <- get_obj(meta_table_string, frame=frame) %>%
     subset( !is.na(Number))
   ## CHekcs don't like this, but are OK using with(.)
     #meta_table = meta_table[!is.na(meta_table$Number), ]
-
-
-  #check you are in the right working directory
-  PATH <- get_obj(path_string, alt=getwd())
-  if(getwd()!=sub("/$","",PATH)){warning(paste("you are calling create_word_xml with the working directory not equal to", PATH))}
 
   ### NEED to put the header into the package data somehow and call it
 
@@ -60,7 +61,7 @@ create_word_xml <- function(
     "\n <Report>
   <study>",report_title,"</study>
   <author>",author,"</author><datestamp>",
-    date(), "</datestamp>", file = filename, append = TRUE)
+    datestamp, "</datestamp>", file = filename, append = TRUE)
 
   ## not sure this will wash in a package as loads of these variabls are not defined
 

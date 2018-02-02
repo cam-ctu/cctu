@@ -15,9 +15,9 @@ clean_up <- function(number,
                      ...
                      ){
   obj_list <- ls(envir)
-  RESERVED <- get_obj(reserved_string)
+  RESERVED <- get_obj(reserved_string, frame=envir)
   keep     <- match(c(reserved_string, RESERVED), obj_list)
   obj_list <- obj_list[-keep]
   rm(list = obj_list, envir = envir)
-  detach_pop(number,  ...)
+  detach_pop(number, frame=envir, ...)
 }

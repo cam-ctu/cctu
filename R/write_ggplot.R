@@ -32,7 +32,8 @@ write_ggplot = function(number,
                        path_string="PATH",
                        ...,
                        format=c("png","postscript","jpeg"),
-                       graphics_args=NULL
+                       graphics_args=NULL,
+                       frame=parent.frame()
                        ){
 
 
@@ -49,7 +50,7 @@ write_ggplot = function(number,
   # TableofTables, PATH,  need to be defined in the environment
   # that calls this function
 
-  PATH <- get_obj(path_string, alt=getwd())
+  PATH <- get_obj(path_string, frame=frame, alt=getwd())
 
 
   CallingProg <- get_file_name()
@@ -57,7 +58,7 @@ write_ggplot = function(number,
     warning(paste("Unable to identify the code file that created figure", number))
     CallingProg <- "Missing"
   }
-  add_program(number, CallingProg, ... )
+  add_program(number, CallingProg, frame=frame, ... )
 
   # deals with non-ggplot objects as well now
 
@@ -80,8 +81,6 @@ write_ggplot = function(number,
   # this links in with using environments to define the correct population
   # detach_pop(number)
   if(clean_up){
-    # this has to be called outside the function
-    parent_frame <- parent.frame()
-    clean_up(number, envir = parent_frame, ...)
+    clean_up(number, envir = frame, ...)
   }
 }

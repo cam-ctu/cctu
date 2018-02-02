@@ -4,7 +4,7 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
 ?>
  <Report>
   <study> Test Report </study>
-  <author> Simon Bond </author><datestamp> Wed Jan 31 16:30:36 2018 </datestamp>
+  <author> Simon Bond </author><datestamp> Test Date </datestamp>
 
  <MetaTable> 
  <heading><section>Baseline</section><title>Summary Table</title><population>Safety</population><subtitle>Note A</subtitle><number>1.1</number><orientation>portrait</orientation></heading> <table>

@@ -4,7 +4,7 @@
 \alias{get_obj}
 \title{Gets copies of objects from parent environments, or returns alternative if not found}
 \usage{
-get_obj(name, alt = NULL)
+get_obj(name, frame = parent.frame(), alt = NULL)
 }
 \arguments{
 \item{name}{text string of an object to find}

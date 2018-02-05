@@ -7,7 +7,8 @@
 write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
   0.6, dpi = 300, units = "cm", clean_up = TRUE,
   directory = "Output/Figures/", path_string = "PATH", ...,
-  format = c("png", "postscript", "jpeg"), graphics_args = NULL)
+  format = c("png", "postscript", "jpeg"), graphics_args = NULL,
+  frame = parent.frame())
 }
 \arguments{
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}

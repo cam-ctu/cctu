@@ -8,7 +8,7 @@ create_word_xml(report_title, author, datestamp = format(Sys.time(), format =
   "\%H:\%M \%d \%b \%Y"), filename = "Output\\\\Reports\\\\Report.doc",
   path_string = "PATH", meta_table_string = "meta_table",
   table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
-  figure_path = "Output\\\\Figures\\\\")
+  figure_path = "Output\\\\Figures\\\\", frame = parent.frame())
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}

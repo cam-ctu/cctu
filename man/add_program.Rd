@@ -4,7 +4,8 @@
 \alias{add_program}
 \title{program to add details of a code file path to the meta-table}
 \usage{
-add_program(number, calling_prog, meta_table_string = "meta_table", ...)
+add_program(number, calling_prog, meta_table_string = "meta_table",
+  frame = parent.frame(), ...)
 }
 \arguments{
 \item{number}{the number of the table or figure}

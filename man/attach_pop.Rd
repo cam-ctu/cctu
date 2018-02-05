@@ -6,9 +6,9 @@
 \alias{.eval_pop}
 \title{Functions that attach and detach functions based on which populations are used for a given table number}
 \usage{
-attach_pop(number, ...)
+attach_pop(number, frame = parent.frame(), ...)
 
-detach_pop(number, ...)
+detach_pop(number, frame = parent.frame(), ...)
 
 .eval_pop(number, function_name, meta_table_string = "meta_table",
   popn_table_string = "popn_table", frame = parent.frame(), ...)

@@ -15,13 +15,13 @@ write_table = function(
                       heading  = colnames(X),
                       clean_up = TRUE,
                       directory="Output/Core/",
-                      path_string="PATH",
+                      path=NULL,
                       frame=parent.frame(),
                       ...
                       ){
 
-
-  PATH <- get_obj(path_string, frame=frame, alt=getwd())
+  # don't need this unless want to override
+  #PATH <- get_obj(path_string, frame=frame, alt=getwd())
   #
 
   CallingProg <- get_file_name()
@@ -59,7 +59,7 @@ write_table = function(
   }
   paste_plus("</table>\n")
 
-  file_name <- paste0(PATH, directory,"table_",number,".xml")
+  file_name <- paste0(path, directory,"table_",number,".xml")
 
   cat(output_string, file = file_name, append = FALSE)
 

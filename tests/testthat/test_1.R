@@ -1,6 +1,6 @@
 #.libPaths(c(.libPaths(), "V:/STATISTICS/STUDY PLANNING/R_library"))
 
-
+rm(list=ls())
 context("Test the testing")
 library(cctu)
 library(testthat)
@@ -8,57 +8,68 @@ library(readxl)
 library(magrittr)
 
 #PATH <- paste0(getwd(),"/tests/testthat/")
-PATH <- paste0(getwd(),"/")
+#PATH <- paste0(getwd(),"/")
 #setwd(PATH)
 #meta_table is a special name that is set as default in numerous other functions
 meta_table <- read_excel(system.file("extdata", "meta_table.xlsx", package="cctu")) %>% as.data.frame(stringsAsFactors=FALSE)
 set.seed(1649)
-data <- data.frame( endpoint=rnorm(100) %>% round(2),
+data <- data.frame( subjid=1:100,
+                    endpoint=rnorm(100) %>% round(2),
                     response=rep(c("Fail","Respond"),rep(50,2)),
-                    rx=rep(c("A","B"),50))
-safety <- new.env()
-assign("data",data, envir=safety)
-rm(data)
-popn_table <- data.frame(title="Safety",pop_name="safety")
-RESERVED <- c("meta_table","PATH","popn_table","safety")
+                    rx=rep(c("A","B"),50)
+                    )
+popn <- data.frame(subjid=data$subjid,
+                   safety=rep(TRUE,100),
+                   full=rep(rep(c(TRUE,FALSE),c(9,1)),10)
+)
+
+create_popn_envir(c("data"), popn)
+
+#Don;t actually need PATH defined or included in RESERVED as the current code stands!
+RESERVED <- c("meta_table","popn","safety","full")
 source("analysis.R", echo = FALSE, local=TRUE)
 
-f <- function(){
-  if(exists("popn_table")){"yes"
-    }else{"no"}
-}
 
 
-get_obj2 <- function(name, alt=NULL){
-  if(exists(name)){
-    get(name)
-  } else{
-    warning(paste(name, "not found"))
-    alt
-  }
-}
+
 
 
 test_that("exist",
           {
-            expect_equal(f(), "yes")
-            expect_true(exists("popn_table"))
-            expect_equal(get_obj2("popn_table"),popn_table)
-            expect_equal(get_obj("popn_table"),popn_table)
+            expect_true(exists("popn"))
+            expect_equal(get_obj("popn"),popn)
           }
           )
 
+#create the correct population labels
+# need to check the order of unique(meta_table$Population)
 
+popn_size <- apply(popn[,names(popn)!="subjid"],2,sum)
+popn_labels <- paste0(c("Safety (N = ","Full Analysis (N = "), popn_size,c(")", ")"))
 
-create_word_xml("Test Report", "Simon Bond", datestamp="Test Date")
-create_word_xml("Test Report Jpeg", "Simon Bond",datestamp="Test Date",filename="Output\\Reports\\ReportJpg.doc", figure_format="jpeg")
+#setwd(PATH)
+create_word_xml("Test Report",
+                "Simon Bond",
+                meta_table,
+                datestamp="Test Date",
+                popn_labels = popn_labels)
+create_word_xml("Test Report Jpeg",
+                "Simon Bond",
+                meta_table,
+                datestamp="Test Date",
+                filename="Output\\Reports\\ReportJpg.doc",
+                figure_format="jpeg",
+                popn_labels = popn_labels)
+
+#out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
   expect_true(file.exists("Output/Reports/Report.doc"))
   expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists("Output/Core/table_1.1.xml"))
-  expect_true(file.exists("Output/Figures/fig_1.2.png"))
-  expect_true(file.exists("Output/Figures/fig_1.2.jpeg"))
+  expect_true(file.exists("Output/Core/table_1.2.xml"))
+  expect_true(file.exists("Output/Figures/fig_1.3.png"))
+  expect_true(file.exists("Output/Figures/fig_1.3.jpeg"))
 })
 
 

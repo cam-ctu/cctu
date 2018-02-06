@@ -8,7 +8,8 @@ create_word_xml(report_title, author, datestamp = format(Sys.time(), format =
   "\%H:\%M \%d \%b \%Y"), filename = "Output\\\\Reports\\\\Report.doc",
   path_string = "PATH", meta_table_string = "meta_table",
   table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
-  figure_path = "Output\\\\Figures\\\\", frame = parent.frame())
+  figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
+  popn_labels = NULL)
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}
@@ -26,6 +27,8 @@ create_word_xml(report_title, author, datestamp = format(Sys.time(), format =
 \item{table_path}{text string giving the filepath to the tables}
 
 \item{figure_path}{text string giving the filepath to the figures}
+
+\item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$Population)}
 }
 \description{
 Produces the final xml file

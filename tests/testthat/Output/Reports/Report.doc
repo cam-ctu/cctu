@@ -7,7 +7,7 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
   <author> Simon Bond </author><datestamp> Test Date </datestamp>
 
  <MetaTable> 
- <heading><section>Baseline</section><title>Summary Table</title><population>Safety</population><subtitle>Note A</subtitle><number>1.1</number><orientation>portrait</orientation></heading> <table>
+ <heading><section>Baseline</section><title>Summary Table</title><population>Safety (N = 100)</population><subtitle>Note A</subtitle><number>1.1</number><orientation>portrait</orientation></heading> <table>
 <tr> <td> Variable </td> <td> Statistics </td> <td> A </td> <td> B </td> <td> Total </td> </tr>
  <tr> <td> Endpoint </td> <td> n </td> <td> 50 </td> <td> 50 </td> <td> 100 </td> </tr>
  <tr> <td>  </td> <td> Mean (SD) </td> <td> -0.0020 (0.928) </td> <td>  0.0490 (1.125) </td> <td>  0.0235 (1.026) </td> </tr>
@@ -18,8 +18,20 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
  </MetaTable> 
 
 
+ <MetaTable> 
+ <heading><section>Baseline</section><title>Summary Table</title><population>Full Analysis (N = 90)</population><subtitle>Note A</subtitle><number>1.2</number><orientation>portrait</orientation></heading> <table>
+<tr> <td> Variable </td> <td> Statistics </td> <td> A </td> <td> B </td> <td> Total </td> </tr>
+ <tr> <td> Endpoint </td> <td> n </td> <td> 50 </td> <td> 40 </td> <td> 90 </td> </tr>
+ <tr> <td>  </td> <td> Mean (SD) </td> <td> -0.0020 (0.928) </td> <td>  0.0602 (1.195) </td> <td>  0.0257 (1.049) </td> </tr>
+ <tr> <td>  </td> <td> Median </td> <td> -0.015 </td> <td> 0.075 </td> <td> 0.045 </td> </tr>
+ <tr> <td>  </td> <td> Min, Max </td> <td> -2.13, 2.44 </td> <td> -3.11, 1.97 </td> <td> -3.11, 2.44 </td> </tr>
+ </table>
+<footnote> fictitious data </footnote><footnote>  </footnote> <Program> V:\STATISTICS\STUDY PLANNING\R_library\cctu\tests\testthat\analysis.R </Program> 
+ </MetaTable> 
+
+
  <MetaFigure> 
- <heading><section>Baseline</section><title>Summary Figure</title><population>Safety</population><subtitle>Note B</subtitle><number>1.2</number><orientation>landscape</orientation></heading><src>V:/STATISTICS/STUDY PLANNING/R_library/cctu/tests/testthat/Output\Figures\fig_1.2.png</src><footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\STUDY PLANNING\R_library\cctu\tests\testthat\analysis.R </Program> 
+ <heading><section>Baseline</section><title>Summary Figure</title><population>Safety (N = 100)</population><subtitle>Note B</subtitle><number>1.3</number><orientation>landscape</orientation></heading><src>V:/STATISTICS/STUDY PLANNING/R_library/cctu/tests/testthat/Output\Figures\fig_1.3.png</src><footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\STUDY PLANNING\R_library\cctu\tests\testthat\analysis.R </Program> 
  </MetaFigure> 
 
  </Report>

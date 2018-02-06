@@ -37,17 +37,12 @@ detach_pop <- function(number, frame=parent.frame(),
 .eval_pop <- function(number,
                      function_name,
                      meta_table_string="meta_table",
-                     popn_table_string="popn_table",
                      frame=parent.frame(),
                      ...
                      # needed to cope with functions who want PATH="C:" say
 ){
-  #print(frame)
   meta_table <- get_obj(meta_table_string, frame=frame)
-  popn_table <- get_obj(popn_table_string, frame=frame)
-  meta_table <- merge(meta_table,popn_table,
-                      by.x = "Population", by.y = "title", all.x = TRUE)
   index <- match(number, meta_table$Number)
-  pop_name <- meta_table[index, "pop_name"] %>% as.character
-  eval(call(function_name, as.name(pop_name)), envir=frame)
+  popn_name <- meta_table[index, "Population"] %>% as.character
+  eval(call(function_name, as.name(popn_name)), envir=frame)
 }

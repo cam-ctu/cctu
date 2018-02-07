@@ -12,6 +12,9 @@ library(magrittr)
 #setwd(PATH)
 #meta_table is a special name that is set as default in numerous other functions
 meta_table <- read_excel(system.file("extdata", "meta_table.xlsx", package="cctu")) %>% as.data.frame(stringsAsFactors=FALSE)
+meta_subset <- meta_table[3,]
+
+
 set.seed(1649)
 data <- data.frame( subjid=1:100,
                     endpoint=rnorm(100) %>% round(2),
@@ -26,12 +29,8 @@ popn <- data.frame(subjid=data$subjid,
 create_popn_envir(c("data"), popn)
 
 #Don;t actually need PATH defined or included in RESERVED as the current code stands!
-RESERVED <- c("meta_table","popn","safety","full")
+RESERVED <- c("meta_table","meta_subset","popn","safety","full")
 source("analysis.R", echo = FALSE, local=TRUE)
-
-
-
-
 
 
 test_that("exist",
@@ -55,7 +54,7 @@ create_word_xml("Test Report",
                 popn_labels = popn_labels)
 create_word_xml("Test Report Jpeg",
                 "Simon Bond",
-                meta_table,
+                meta_subset,
                 datestamp="Test Date",
                 filename="Output\\Reports\\ReportJpg.doc",
                 figure_format="jpeg",

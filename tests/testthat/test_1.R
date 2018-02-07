@@ -1,4 +1,6 @@
 #.libPaths(c(.libPaths(), "V:/STATISTICS/STUDY PLANNING/R_library"))
+#.libPaths("V:/STATISTICS/STUDY PLANNING/R_library")
+# Sys.setenv(R_LIBS_USER="V:/STATISTICS/STUDY PLANNING/R_library")
 
 rm(list=ls())
 context("Test the testing")

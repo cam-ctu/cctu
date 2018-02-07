@@ -35,6 +35,9 @@ create_word_xml <- function(
   #check you are in the right working directory
   if(getwd()!=sub("/$","",path)){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
   meta_table <- subset(meta_table,  !is.na(Number))
+  index <- meta_table$Number %>% as.character %>% order_dewey
+  meta_table <- meta_table[index,]
+
   ## CHekcs don't like this, but are OK using with(.)
     #meta_table = meta_table[!is.na(meta_table$Number), ]
 

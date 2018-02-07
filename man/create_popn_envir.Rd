@@ -4,15 +4,15 @@
 \alias{create_popn_envir}
 \title{create environments contain a set of data frames filtered for each population}
 \usage{
-create_popn_envir(data_names, popn_string = "popn",
-  subjid_string = "subjid", rm_from_frame = TRUE, frame = parent.frame())
+create_popn_envir(data_names, popn, subjid_string = "subjid",
+  rm_from_frame = TRUE, frame = parent.frame())
 }
 \arguments{
 \item{data_names}{a character vector of the key data frames to be filtered}
 
-\item{popn_string}{the chacter name of a data frame one-row per partipant  a subjid varaibel and a column for each population indicating if a participant belongs to the population}
+\item{popn}{a data frame one-row per partipant  a subjid varaibel and a column for each population indicating if a participant belongs to the population. The names of the variables must match up to the values in meta_table$Population.}
 
-\item{subjid_string}{the character naming the column used in each data frame to identify the subjid. Must be constant and also used in popn_data.}
+\item{subjid_string}{the character naming the column used in each data frame from data_names and popn, to identify the subjid.}
 
 \item{rm_from_frame}{a logical indicating if the data sets shoudl be removed from the frame environment}
 
@@ -25,5 +25,5 @@ create environments contain a set of data frames filtered for each population
 Now to use the data frames defined above in data_names you have to either directly
 call attach(safety), for example orr lookup with attach_pop(1.01) for a table number.
 There are separate R environments made for each of the populations in population & population_title
-be careful to use detach(safety) - this is automated with writeTable() and writeGGplot()
+be careful to use detach(safety) - this is automated with write_table() and write_ggplot()
 }

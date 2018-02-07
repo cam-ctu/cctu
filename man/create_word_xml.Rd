@@ -4,9 +4,9 @@
 \alias{create_word_xml}
 \title{Produces the final xml file}
 \usage{
-create_word_xml(report_title, author, datestamp = format(Sys.time(), format =
-  "\%H:\%M \%d \%b \%Y"), filename = "Output\\\\Reports\\\\Report.doc",
-  path_string = "PATH", meta_table_string = "meta_table",
+create_word_xml(report_title, author, meta_table,
+  datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
+  filename = "Output\\\\Reports\\\\Report.doc", path = paste0(getwd(), "/"),
   table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
   figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
   popn_labels = NULL)
@@ -20,13 +20,13 @@ create_word_xml(report_title, author, datestamp = format(Sys.time(), format =
 
 \item{filename}{text string giving the filename/path to output the word document to}
 
-\item{path_string}{character string of the name of a global variable that contains the project filepath. Default is "PATH".}
-
-\item{meta_table_string}{character string of the name of a global table that contains meta information on tables (title, population, number)}
+\item{path}{character string of the project filepath to save the table in. Default is NULL which implies the current working directory.}
 
 \item{table_path}{text string giving the filepath to the tables}
 
 \item{figure_path}{text string giving the filepath to the figures}
+
+\item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 
 \item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$Population)}
 }

@@ -2,6 +2,7 @@
 #'
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
+#' @param meta_table a data frame  that contains meta information on tables (title, population, number)
 #' @param datestamp text used to give the date-time stampe, defaults to the system date/time at the time of running the function
 #' @param filename text string giving the filename/path to output the word document to
 #' @inheritParams write_ggplot
@@ -11,7 +12,7 @@
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$Population)
 #'
 #' @export
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 #'
 #' @details  all file paths need to use "\\" as "/" will not work in windows dos
 
@@ -69,6 +70,12 @@ create_word_xml <- function(
 
   #need to write a function that cheks if meta_table has the right set of varaible/names
 
+  #this makes the variable names in meta_table case insensitive
+  if( any( names(meta_table) != names(meta_table) %>% propercase)){
+    warning("the variable names in meta_table supplied have been converted to propercase")
+    names(meta_table) %<>% propercase
+  }
+
   if(!is.null(popn_labels)){
     index <- match(meta_table$Population, unique(meta_table$Population))
     meta_table$Population <- popn_labels[index]
@@ -80,7 +87,7 @@ create_word_xml <- function(
                         "</section><title>", Title,
                         "</title><population>", Population,
                         "</population><subtitle>",
-                        ifelse(is.na(Subtitle), "N/A", as.character(Subtitle)),
+                        ifelse(is.na(Subtitle), "", as.character(Subtitle)),
                         "</subtitle><number>", Number,
                         "</number><orientation>", Orientation,
                         "</orientation></heading>"))

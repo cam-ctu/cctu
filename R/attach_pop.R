@@ -1,8 +1,9 @@
-#' Functions that attach and detach functions based on which populations are used for a given table number
+#' Functions that attach and detach environments based on which populations are used for a given table number
 #'
 #' @param number the number of a table or figure
 #' @param meta_table_string character string of the name of a global table that contains meta information on tables (title, population, number)
 #' @param popn_table_string character string of the name of a gloabl table that contains population names used in meta-table, and the equivalent names of environments
+#' @param frame the environment or frame in which to attach or detach the desired target environmen
 #' @param ... modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}
 #'
 #' @return invisibly returns an environment for attaching, or NULL for detaching.
@@ -31,8 +32,8 @@ detach_pop <- function(number, frame=parent.frame(),
             ...)
 }
 
-#'@describeIn attach_pop internal function
-#'@keywords internal
+#' @keywords internal
+
 
 .eval_pop <- function(number,
                      function_name,

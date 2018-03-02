@@ -3,6 +3,7 @@
 #' @inheritParams write_ggplot
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
+#' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
@@ -13,6 +14,7 @@ write_table = function(
                       number,
                       X,
                       heading  = colnames(X),
+                      na_to_empty=FALSE,
                       clean_up = TRUE,
                       directory="Output/Core/",
                       path=NULL,
@@ -48,10 +50,11 @@ write_table = function(
   for(row in 1:dim(X)[1]){
     paste_plus("<tr>")
     for(col in 1:dim(X)[2]){
-      text = as.character(X[row, col])
-      text = gsub("&","&amp;", text)
-      text = gsub("<","&lt;", text)
-      text = gsub(">", "&gt;", text)
+      text <-  as.character(X[row, col])
+      if(na_to_empty){  text <- ifelse(is.na(text),"", text) }
+      text <-  gsub("&","&amp;", text)
+      text <-  gsub("<","&lt;", text)
+      text <-  gsub(">", "&gt;", text)
       paste_plus("<td>", text, "</td>")
 
     }

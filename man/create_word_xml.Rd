@@ -16,6 +16,8 @@ create_word_xml(report_title, author, meta_table,
 
 \item{author}{text string naming the author}
 
+\item{meta_table}{a data frame  that contains meta information on tables (title, population, number)}
+
 \item{datestamp}{text used to give the date-time stampe, defaults to the system date/time at the time of running the function}
 
 \item{filename}{text string giving the filename/path to output the word document to}

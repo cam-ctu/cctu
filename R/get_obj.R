@@ -7,7 +7,7 @@
 #' @details this is designed to use within functions in the library to access global objects,
 #' but provide a route to avoid hard-coding specific variable names in
 #'
-#' @export
+#' @keywords internal
 #' @examples
 #' rm(PATH)
 #' get_obj("PATH")

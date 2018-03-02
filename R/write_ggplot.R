@@ -11,6 +11,7 @@
 #' @param directory where to save the figures within path or current working directory
 #' @param path character string of the project filepath to save the table in. Default is NULL which implies the current working directory.
 #' @inheritParams clean_up
+#' @inheritParams add_program
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
 #' @param graphics_args a list of named arguments to supply to graphics function (png, postscript, jpeg)
 #' @param frame the frame or environment in which lives the meta_table to be edited with teh path to the containing code file

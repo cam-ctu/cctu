@@ -12,6 +12,10 @@ add_program(number, calling_prog, meta_table_string = "meta_table",
 
 \item{calling_prog}{the file path}
 
+\item{meta_table_string}{character string of the name of a global table that contains meta information on tables (title, population, number)}
+
+\item{frame}{the environment or frame in which to attach or detach the desired target environmen}
+
 \item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
 }
 \description{

@@ -4,8 +4,9 @@
 \alias{write_table}
 \title{Function to write a table into xml format in the correct directory, and edit TableofTables}
 \usage{
-write_table(number, X, heading = colnames(X), clean_up = TRUE,
-  directory = "Output/Core/", path = NULL, frame = parent.frame(), ...)
+write_table(number, X, heading = colnames(X), na_to_empty = FALSE,
+  clean_up = TRUE, directory = "Output/Core/", path = NULL,
+  frame = parent.frame(), ...)
 }
 \arguments{
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
@@ -13,6 +14,8 @@ write_table(number, X, heading = colnames(X), clean_up = TRUE,
 \item{X}{the data.frame or table to be saved in xml format}
 
 \item{heading}{character vector of column titles. Defaults to the colnames of X}
+
+\item{na_to_empty}{logical, if true then any NA values will be written as empty strings. Defaults to false.}
 
 \item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
 

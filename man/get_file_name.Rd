@@ -2,23 +2,38 @@
 % Please edit documentation in R/get_file_name.R
 \name{get_file_name}
 \alias{get_file_name}
+\alias{get_parent}
 \title{Function to get the filename and path of the most deeply nested call to source(), or whatever function in pattern}
 \usage{
 get_file_name(pattern = "source", ...)
+
+get_parent(pattern = "source", root = "Main.R", ...)
 }
 \arguments{
 \item{pattern}{the name of a function to search for}
 
 \item{...}{arguments to supply to \code{\link{normalizePath}}}
+
+\item{root}{a character string of the root file to default to when recording the value of parent file. This cannot be found automatically if it is run iteractively on the command line.}
 }
 \value{
 a character string that is the value of \code{\link{normalizePath}} applied to the first
 argument of the most deeply nested call to \code{pattern}. Or, in lay terms, if you use source()
 in a nested fashion, then calling get_file_name() will give the name of the file it is called within.
+
+\code{\link{get_parent}} is similar to \code{\link{get_file_name}} but is used _inside_  the cctu package function \code{\link[cctu]{source}},
+so we need to look one level up the sequence of calls to get the filename that calls source().
 }
 \description{
 Function to get the filename and path of the most deeply nested call to source(), or whatever function in pattern
 }
+\section{Functions}{
+\itemize{
+\item \code{get_parent}: finds the file that was sourced to call the current file
+}}
+
 \seealso{
 \code{\link{write_ggplot}} \code{\link{write_table}}
+
+\code{\link[cctu]{source}}
 }

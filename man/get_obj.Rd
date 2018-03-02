@@ -29,3 +29,4 @@ PATH <- "C:/MyFile"
 get_obj("PATH")
 get_obj("PATH", alt=getwd())
 }
+\keyword{internal}

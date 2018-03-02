@@ -20,3 +20,4 @@ function to provide the environment in which an object is located
 \details{
 the search works upwards from the environment specified in env.
 }
+\keyword{internal}

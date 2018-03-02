@@ -32,7 +32,7 @@ create_popn_envir(c("data"), popn)
 
 #Don;t actually need PATH defined or included in RESERVED as the current code stands!
 RESERVED <- c("meta_table","meta_subset","popn","safety","full")
-source("analysis.R", echo = FALSE, local=TRUE)
+source("analysis.R", local=TRUE)
 
 
 test_that("exist",

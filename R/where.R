@@ -5,6 +5,8 @@
 #'
 #' @return an environment if the object is found, or NULL
 #' @details  the search works upwards from the environment specified in env.
+#' @keywords  internal
+#'
 
 
 where <- function(name, env = parent.frame()) {

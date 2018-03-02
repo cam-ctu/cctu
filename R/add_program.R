@@ -3,6 +3,7 @@
 #' @param number the number of the table or figure
 #' @param calling_prog the file path
 #' @inheritParams clean_up
+#' @inheritParams attach_pop
 #'
 #' @keywords internal
 

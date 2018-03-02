@@ -3,18 +3,16 @@
 \name{attach_pop}
 \alias{attach_pop}
 \alias{detach_pop}
-\alias{.eval_pop}
-\title{Functions that attach and detach functions based on which populations are used for a given table number}
+\title{Functions that attach and detach environments based on which populations are used for a given table number}
 \usage{
 attach_pop(number, frame = parent.frame(), ...)
 
 detach_pop(number, frame = parent.frame(), ...)
-
-.eval_pop(number, function_name, meta_table_string = "meta_table",
-  frame = parent.frame(), ...)
 }
 \arguments{
 \item{number}{the number of a table or figure}
+
+\item{frame}{the environment or frame in which to attach or detach the desired target environmen}
 
 \item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
 
@@ -26,18 +24,15 @@ detach_pop(number, frame = parent.frame(), ...)
 invisibly returns an environment for attaching, or NULL for detaching.
 }
 \description{
-Functions that attach and detach functions based on which populations are used for a given table number
+Functions that attach and detach environments based on which populations are used for a given table number
 }
 \section{Functions}{
 \itemize{
 \item \code{attach_pop}: attaches a population
 
 \item \code{detach_pop}: detaches a populations
-
-\item \code{.eval_pop}: internal function
 }}
 
 \seealso{
 \code{\link{attach}} \code{\link{detach}}
 }
-\keyword{internal}

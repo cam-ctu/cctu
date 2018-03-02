@@ -210,7 +210,9 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 	
 	
 	<xsl:template match="subtitle" name="subtitle">
-	Subtitle: <xsl:value-of select ="."/><w:br/>
+	<xsl:if test = ". != '' ">	
+		Subtitle: <xsl:value-of select ="."/><w:br/>
+	</xsl:if>
 	</xsl:template>
 	
 

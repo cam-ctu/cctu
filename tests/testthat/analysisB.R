@@ -14,5 +14,3 @@ sumby(response, rx, data=data )
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
 write_ggplot(1.3, meta_table_string="meta_subset", format="jpeg",clean_up=FALSE)
 write_ggplot(1.3, plot=fig, clean_up=TRUE)
-
-source("analysisB.R", local=TRUE)

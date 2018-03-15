@@ -34,6 +34,7 @@ create_popn_envir(c("data"), popn)
 RESERVED <- c("meta_table","meta_subset","popn","safety","full")
 source("analysis.R", local=TRUE)
 
+#print(code_tree)
 
 test_that("exist",
           {

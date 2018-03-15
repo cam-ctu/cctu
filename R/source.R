@@ -28,11 +28,14 @@ source <- function(file, code_tree_string="code_tree", frame=parent.frame(), loc
                      )
   names(code_tree) <- code_tree_names
   assign(code_tree_string, code_tree, envir= envir)
-  cctu_source <-cctu::source
+  #cctu_source <-cctu::source
   base_source <- base::source
-  assign("source", base_source,envir=frame)
-  eval( call( "source", file, echo=TRUE, max.deparse.length=Inf,local=local),envir=frame)
-  assign("source",cctu_source, envir=frame)
+  assign("temp_source", base_source,envir=frame)
+  #this function name will still match "source" in a regular expression used in get_file_name
+  eval( call( "temp_source", file, echo=TRUE, max.deparse.length=Inf,local=local),envir=frame)
+  #assign("source",cctu_source, envir=frame)
+  rm("temp_source", envir=frame)
+
 }
 
 

@@ -17,14 +17,15 @@ source <- function(file, code_tree_string="code_tree", frame=parent.frame(), loc
     code_tree <- get_obj(code_tree_string,frame=frame)
     envir <- where(code_tree_string, env=frame)
   }else{
-    code_tree <- data.frame(parent=as.character(NULL),child=as.character(NULL))
+    code_tree <- data.frame(parent=as.character(NULL),child=as.character(NULL), stringsAsFactors=FALSE)
     envir <- frame
   }
   parent <- get_parent()
   child <- normalizePath(file)
   code_tree_names <- names(code_tree)
   code_tree <- rbind(code_tree,
-                     c("parent"=parent, "child"=child)
+                     c("parent"=parent, "child"=child),
+                     stringsAsFactors=FALSE
                      )
   names(code_tree) <- code_tree_names
   assign(code_tree_string, code_tree, envir= envir)

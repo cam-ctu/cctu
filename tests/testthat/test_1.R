@@ -88,13 +88,20 @@ test_that("Comparison to saved output",{
 })
 
 
+#put this into a vignette
 
+# documentation on the meta_table, and code to run a check on the meta_table.
 
 
 #clean names
-#propercase
 #rbind space
 #remove blank rows cols
+#rm_envir
+#code_tree tests and make the pdf file
+
+
+# put in the R CMD BAtch to create the log file..
+# do the rmarkdown tempaltes to create the html version.
 
 #maybe
 #srce

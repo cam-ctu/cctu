@@ -7,7 +7,6 @@
 #' @param dpi the resolution setting
 #' @param units either "cm" (the default) or "inches"
 #' @param clean_up logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE
-#' @param ... modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}
 #' @param directory where to save the figures within path or current working directory
 #' @param path character string of the project filepath to save the table in. Default is NULL which implies the current working directory.
 #' @inheritParams clean_up
@@ -79,6 +78,6 @@ write_ggplot = function(number,
   # this links in with using environments to define the correct population
   # detach_pop(number)
   if(clean_up){
-    clean_up(number, envir = frame, ...)
+    clean_up(number, frame = frame, ...)
   }
 }

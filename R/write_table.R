@@ -52,9 +52,7 @@ write_table = function(
     for(col in 1:dim(X)[2]){
       text <-  as.character(X[row, col])
       if(na_to_empty){  text <- ifelse(is.na(text),"", text) }
-      text <-  gsub("&","&amp;", text)
-      text <-  gsub("<","&lt;", text)
-      text <-  gsub(">", "&gt;", text)
+      text <- remove_xml_specials(text)
       paste_plus("<td>", text, "</td>")
 
     }
@@ -71,6 +69,24 @@ write_table = function(
 
 
   if(clean_up){
-     clean_up(number, envir = frame,...)
+     clean_up(number, frame = frame,...)
   }
 }
+
+
+#' @keywords internal
+#'
+
+remove_xml_specials <- function(x){
+  x <- gsub("&","&amp;", x)
+  x <-  gsub("<","&lt;", x)
+  x <-  gsub(">", "&gt;",x)
+  x <- gsub('"', "&quot;",x)
+  x <- gsub("'", "&apos;",x)
+  x
+}
+
+
+
+
+

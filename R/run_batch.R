@@ -18,6 +18,7 @@
 #'
 #' @seealso \code{\link[devtools]{check_failures}} for future ideas for a function to check the log file
 #' for errors or warnings.
+#' @export
 
 
 

@@ -4,16 +4,16 @@
 \alias{clean_up}
 \title{removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number}
 \usage{
-clean_up(number, envir = parent.frame(), reserved_string = "RESERVED", ...)
+clean_up(number, frame = parent.frame(), reserved_string = "RESERVED", ...)
 }
 \arguments{
 \item{number}{a number associated with a table of figure}
 
-\item{envir}{an environment to clean up}
+\item{frame}{an environment win which to clean up}
 
 \item{reserved_string}{a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.}
 
-\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
+\item{...}{modifications to the default values \code{\link{detach_pop}}}
 }
 \value{
 NULL, but removes objects

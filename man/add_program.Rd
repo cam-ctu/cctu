@@ -14,9 +14,9 @@ add_program(number, calling_prog, meta_table_string = "meta_table",
 
 \item{meta_table_string}{character string of the name of a global table that contains meta information on tables (title, population, number)}
 
-\item{frame}{the environment or frame in which to attach or detach the desired target environmen}
+\item{frame}{an environment win which to clean up}
 
-\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
+\item{...}{modifications to the default values \code{\link{detach_pop}}}
 }
 \description{
 program to add details of a code file path to the meta-table

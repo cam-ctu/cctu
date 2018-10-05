@@ -28,7 +28,7 @@ write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
 
 \item{path}{character string of the project filepath to save the table in. Default is NULL which implies the current working directory.}
 
-\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
+\item{...}{modifications to the default values \code{\link{detach_pop}}}
 
 \item{format}{either "jpg", "postscript", or "png" to determine the file type to use}
 

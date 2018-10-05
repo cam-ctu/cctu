@@ -25,7 +25,7 @@ write_table(number, X, heading = colnames(X), na_to_empty = FALSE,
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 
-\item{...}{modifications to the default values of meta_table_string, reserved_string, popn_table_string see \code{\link{clean_up}}}
+\item{...}{modifications to the default values \code{\link{detach_pop}}}
 }
 \value{
 writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.

@@ -64,8 +64,8 @@ create_word_xml <- function(
 
   cat(
     "\n <Report>
-  <study>",report_title,"</study>
-  <author>",author,"</author><datestamp>",
+  <study>",  remove_xml_specials(report_title),"</study>
+  <author>",remove_xml_specials(author),"</author><datestamp>",
     datestamp, "</datestamp>", file = filename, append = TRUE)
 
   #need to write a function that cheks if meta_table has the right set of varaible/names
@@ -87,16 +87,16 @@ create_word_xml <- function(
                         "</section><title>", Title,
                         "</title><population>", Population,
                         "</population><subtitle>",
-                        ifelse(is.na(Subtitle), "", as.character(Subtitle)),
+                        ifelse(is.na(Subtitle), "", remove_xml_specials(as.character(Subtitle))),
                         "</subtitle><number>", Number,
                         "</number><orientation>", Orientation,
                         "</orientation></heading>"))
 
   footers = with(meta_table,
                  paste("<footnote>",
-                       ifelse(is.na(Footnote1), "", Footnote1),
+                       ifelse(is.na(Footnote1), "", remove_xml_specials(as.character(Footnote1))),
                        "</footnote><footnote>",
-                       ifelse(is.na(Footnote2), "", Footnote2),
+                       ifelse(is.na(Footnote2), "", remove_xml_specials(as.character(Footnote2))),
                        "</footnote>"))
 
   Program = with(meta_table, paste("<Program>", Program, "</Program>"))
@@ -107,7 +107,7 @@ create_word_xml <- function(
 
     if(meta_table[i, "Item"] == "Table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      call = paste0('type "',table_path,'table_', meta_table[i, "Number"], '.xml" >> "',
+      call = paste0('type "',normalizePath(table_path),'table_', meta_table[i, "Number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], Program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
@@ -120,7 +120,7 @@ create_word_xml <- function(
     }
     if(meta_table[i, "Item"] == "Text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      call = paste0('type "',table_path,'text_', meta_table[i, "Number"], '.xml" >> "',
+      call = paste0('type "',normalizePath(table_path),'text_', meta_table[i, "Number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], Program[i], "\n </MetaText> \n", file = filename, append = TRUE)

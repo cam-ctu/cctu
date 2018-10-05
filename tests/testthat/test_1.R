@@ -50,11 +50,25 @@ popn_size <- apply(popn[,names(popn)!="subjid"],2,sum)
 popn_labels <- paste0(c("Safety (N = ","Full Analysis (N = "), popn_size,c(")", ")"))
 
 #setwd(PATH)
-create_word_xml("Test Report",
-                "Simon Bond",
+create_word_xml("Test <Report>",
+                "Simon & Bond's",
                 meta_table,
                 datestamp="Test Date",
-                popn_labels = popn_labels)
+                popn_labels = popn_labels,
+                filename="tests/testthat/Output/Reports/Report.doc",
+                table_path = "tests/testthat/Output/Core/",
+                figure_path="tests/testthat/Output/Figures/"
+)
+
+setwd("tests/testthat")
+create_word_xml("Test <Report>",
+                "Simon & Bond's",
+                meta_table,
+                datestamp="Test Date",
+                popn_labels = popn_labels
+                )
+
+
 create_word_xml("Test Report Jpeg",
                 "Simon Bond",
                 meta_subset,

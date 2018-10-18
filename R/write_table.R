@@ -78,7 +78,7 @@ write_table = function(
 #'
 
 remove_xml_specials <- function(x){
-  x <- gsub("&","&amp;", x)
+  x <- gsub("&(?!#\\d+;)","&amp;\\1", x,perl=TRUE)
   x <-  gsub("<","&lt;", x)
   x <-  gsub(">", "&gt;",x)
   x <- gsub('"', "&quot;",x)

@@ -13,9 +13,13 @@ library(magrittr)
 #PATH <- paste0(getwd(),"/")
 #setwd(PATH)
 #meta_table is a special name that is set as default in numerous other functions
-meta_table <- read_excel(system.file("extdata", "meta_table.xlsx", package="cctu")) %>% as.data.frame(stringsAsFactors=FALSE)
+meta_table <- read_excel(system.file("extdata", "meta_table.xlsx", package="cctu")) %>% as.data.frame(stringsAsFactors=FALSE) %>% clean_names
+meta_table %<>% within(
+  item %<>% tolower
+) %>% dplyr::select(section, title, subtitle, number, population,
+                      orientation, program, item, footnote1, footnote2)
 meta_subset <- meta_table[3,]
-
+#devtools::use_data(meta_table, overwrite = TRUE)
 
 set.seed(1649)
 data <- data.frame( subjid=1:100,
@@ -32,7 +36,31 @@ create_popn_envir(c("data"), popn)
 
 #Don;t actually need PATH defined or included in RESERVED as the current code stands!
 RESERVED <- c("meta_table","meta_subset","popn","safety","full")
-source("analysis.R", local=TRUE)
+
+
+attach_pop(1.1)
+X <- sumby(endpoint, rx, data=data )
+write_table(1.1,X)#, directory="tests/testthat/Output/Core/")
+
+attach_pop("1.1.1")
+X <- sumby(endpoint, rx, data=data )
+write_table("1.1.1",X)#, directory="tests/testthat/Output/Core/")
+
+
+
+attach_pop("1.10")
+sumby(response, rx, data=data )
+#could actually just call the write_ggplot() now, but the line below is clearer
+fig <- sumby(response, rx, data=data ) %>% attr("fig")
+write_ggplot("1.10", #directory="tests/testthat/Output/Figures/",
+             meta_table_string="meta_subset", format="png")
+
+
+
+
+
+
+#source("analysis.R", local=TRUE)
 
 #print(code_tree)
 
@@ -54,38 +82,38 @@ create_word_xml("Test <Report>",
                 "Simon & Bond's",
                 meta_table,
                 datestamp="Test Date",
-                popn_labels = popn_labels,
-                filename="tests/testthat/Output/Reports/Report.doc",
-                table_path = "tests/testthat/Output/Core/",
-                figure_path="tests/testthat/Output/Figures/"
+                popn_labels = popn_labels#,
+                #filename="tests/testthat/Output/Reports/Report.doc",
+                #table_path = "tests/testthat/Output/Core/",
+                #figure_path="tests/testthat/Output/Figures/"
 )
 
-setwd("tests/testthat")
-create_word_xml("Test <Report>",
-                "Simon & Bond's",
-                meta_table,
-                datestamp="Test Date",
-                popn_labels = popn_labels
-                )
-
-
-create_word_xml("Test Report Jpeg",
-                "Simon Bond",
-                meta_subset,
-                datestamp="Test Date",
-                filename="Output\\Reports\\ReportJpg.doc",
-                figure_format="jpeg",
-                popn_labels = popn_labels)
+#setwd("tests/testthat")
+#create_word_xml("Test <Report>",
+#                 "Simon & Bond's",
+#                 meta_table,
+#                 datestamp="Test Date",
+#                 popn_labels = popn_labels
+#                 )
+#
+#
+# create_word_xml("Test Report Jpeg",
+#                 "Simon Bond",
+#                 meta_subset,
+#                 datestamp="Test Date",
+#                 filename="Output\\Reports\\ReportJpg.doc",
+#                 figure_format="jpeg",
+#                 popn_labels = popn_labels)
 
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
   expect_true(file.exists("Output/Reports/Report.doc"))
-  expect_true(file.exists("Output/Reports/ReportJpg.doc"))
+ # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
+  expect_true(file.exists("Output/Core/table_1.1.1.xml"))
   expect_true(file.exists("Output/Core/table_1.1.xml"))
-  expect_true(file.exists("Output/Core/table_1.2.xml"))
-  expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists("Output/Figures/fig_1.3.jpeg"))
+  #expect_true(file.exists("Output/Figures/fig_1.3.png"))
+  expect_true(file.exists("Output/Figures/fig_1.10.jpeg"))
 })
 
 
@@ -108,7 +136,7 @@ test_that("Comparison to saved output",{
 
 
 #clean names
-#rbind space
+# source
 #remove blank rows cols
 #rm_envir
 #code_tree tests and make the pdf file

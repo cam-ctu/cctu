@@ -5,12 +5,12 @@
 \alias{get_parent}
 \title{Function to get the filename and path of the most deeply nested call to source(), or whatever function in pattern}
 \usage{
-get_file_name(pattern = "source", ...)
+get_file_name(pattern = "source[^_]", ...)
 
 get_parent(pattern = "source", root = "Main.R", ...)
 }
 \arguments{
-\item{pattern}{the name of a function to search for}
+\item{pattern}{the name of a function to search for. The default is "source[^_]", which picks up the 'base_source' defined in \code{\link{source}} but avoids the 'source_file' etc in testthat package.}
 
 \item{...}{arguments to supply to \code{\link{normalizePath}}}
 

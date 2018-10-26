@@ -1,6 +1,6 @@
 #' Function to get the filename and path of the most deeply nested call to source(), or whatever function in pattern
 #'
-#' @param pattern the name of a function to search for
+#' @param pattern the name of a function to search for. The default is "source[^_]", which picks up the 'base_source' defined in \code{\link{source}} but avoids the 'source_file' etc in testthat package.
 #' @param ... arguments to supply to \code{\link{normalizePath}}
 #'
 #' @return a character string that is the value of \code{\link{normalizePath}} applied to the first
@@ -10,7 +10,7 @@
 #' @export
 #' @seealso \code{\link{write_ggplot}} \code{\link{write_table}}
 
-get_file_name <- function(pattern="source",...){
+get_file_name <- function(pattern="source[^_]",...){
   calls <- sys.calls()
   if(!is.null(calls)){
     commands <- sapply(calls,function(x){as.character(x)[1]})

@@ -37,8 +37,8 @@ detach_pop <- function(number,
 
 .eval_pop <- function(function_name,number, frame, meta_table_string){
   meta_table <- get_obj(meta_table_string, frame=frame)
-  index <- match(number, meta_table$Number)
-  popn_name <- meta_table[index, "Population"] %>% as.character
+  index <- match(number, meta_table$number)
+  popn_name <- meta_table[index, "population"] %>% as.character
   eval(call(function_name, as.name(popn_name)), envir=frame)
 }
 

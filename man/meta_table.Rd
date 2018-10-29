@@ -17,7 +17,7 @@
  \item{footnote2}{optional footnote. Use the empty string if no subtitle wanted.}
 
 
-This is an example of the structure of a meta_table that must exist to use \code{\link{attach_pop, write_table, write_ggplot,create_word_xml}}.
+This is an example of the structure of a meta_table that must exist to use \code{\link{attach_pop},\link{write_table}, \link{write_ggplot},\link{create_word_xml}}.
 All variables are characters, including 'number'. The variables 'orientation' and 'item' can only take specific values.
 
 Typically one would create raw data using a spreadshee editor and read it into R. You may add additional columns to help plan and understand what each table or figure will be, and track progress.

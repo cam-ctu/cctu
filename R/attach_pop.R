@@ -36,10 +36,23 @@ detach_pop <- function(number,
 
 
 .eval_pop <- function(function_name,number, frame, meta_table_string){
-  meta_table <- get_obj(meta_table_string, frame=frame)
-  index <- match(number, meta_table$number)
-  popn_name <- meta_table[index, "population"] %>% as.character
-  eval(call(function_name, as.name(popn_name)), envir=frame)
+  if( exists(meta_table_string, where=frame)){
+    meta_table <- get(meta_table_string, pos=frame)
+    if( !("number" %in% names(meta_table))){warning(paste("Need to have 'number' column in", meta_table_string))}
+    if( !("program" %in% names(meta_table))){warning(paste("Need to have 'program' column in", meta_table_string))}
+    index <- match(number, meta_table$number)
+    popn_name <- meta_table[index, "population"] %>% as.character
+    if(popn_name %in% search() & function_name=="detach"){
+      eval(call(function_name, as.name(popn_name)), envir=frame)
+    }
+    if( exists(popn_name, envir=frame) & function_name=="attach"){
+      eval(call(function_name, as.name(popn_name)), envir=frame)
+    }
+  } else{
+    warning(paste("''",meta_table_string,"'' was not defined in the parent frame"))
+  }
+
+
 }
 
 

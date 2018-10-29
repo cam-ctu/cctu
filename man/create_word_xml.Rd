@@ -22,7 +22,7 @@ create_word_xml(report_title, author, meta_table,
 
 \item{filename}{text string giving the filename/path to output the word document to}
 
-\item{path}{character string of the project filepath to save the table in. Default is NULL which implies the current working directory.}
+\item{path}{text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.}
 
 \item{table_path}{text string giving the filepath to the tables}
 
@@ -30,7 +30,7 @@ create_word_xml(report_title, author, meta_table,
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 
-\item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$Population)}
+\item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population)}
 }
 \description{
 Produces the final xml file

@@ -17,43 +17,51 @@
 #'@export
 attach_pop <- function(number,
                        frame=parent.frame(),
-                       meta_table_string="meta_table",...
-                       ){
-  .eval_pop("attach", number, frame, meta_table_string)
+                       meta_table_string="meta_table"){
+  popn_name <- match_population(number, frame, meta_table_string)
+  if(!is.null(popn_name) && popn_name !="" && exists(popn_name, where=frame)){
+    #attach is fussy about its argument needing to be an object, not a character
+    eval(call("attach", as.name(popn_name)), envir=frame)
+  } else{
+    warning("No population was attached")
+  }
 }
+
 
 #' @describeIn attach_pop detaches a populations
 #' @export
 
 detach_pop <- function(number,
                        frame=parent.frame(),
-                       meta_table_string="meta_table",...
+                       meta_table_string="meta_table"
                        ){
-  .eval_pop("detach",number, frame, meta_table_string)
+  popn_name <- match_population(number, frame, meta_table_string )
+  if( !is.null(popn_name) && popn_name %in% search()){
+    detach(popn_name, character.only = TRUE)
+  } else{
+    warning("No population was detached")
+  }
 }
+
 
 #' @keywords internal
 
 
-.eval_pop <- function(function_name,number, frame, meta_table_string){
+match_population <- function(number, frame, meta_table_string){
   if( exists(meta_table_string, where=frame)){
     meta_table <- get(meta_table_string, pos=frame)
     if( !("number" %in% names(meta_table))){warning(paste("Need to have 'number' column in", meta_table_string))}
-    if( !("program" %in% names(meta_table))){warning(paste("Need to have 'program' column in", meta_table_string))}
+    if( !("population" %in% names(meta_table))){warning(paste("Need to have 'population' column in", meta_table_string))}
     index <- match(number, meta_table$number)
     popn_name <- meta_table[index, "population"] %>% as.character
-    if(popn_name %in% search() & function_name=="detach"){
-      eval(call(function_name, as.name(popn_name)), envir=frame)
-    }
-    if( exists(popn_name, envir=frame) & function_name=="attach"){
-      eval(call(function_name, as.name(popn_name)), envir=frame)
-    }
+    return(popn_name)
+
   } else{
     warning(paste("''",meta_table_string,"'' was not defined in the parent frame"))
+    return(NULL)
   }
-
-
 }
+
 
 
 

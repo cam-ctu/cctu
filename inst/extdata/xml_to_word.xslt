@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
-xmlns:v="urn:schemas-microsoft-com:vml"				
+xmlns:v="urn:schemas-microsoft-com:vml"
 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 >
 <xsl:output method="xml" indent="no"/>
@@ -67,7 +67,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 
 
-</w:body>	
+</w:body>
 
 
 
@@ -79,7 +79,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 <xsl:template match="MetaText" name="MetaText">
     <xsl:apply-templates select="heading"/>
-     <xsl:apply-templates select="Program"/>   
+     <xsl:apply-templates select="Program"/>
     <w:p>
     <w:pPr>
           <w:jc w:val="center"/>
@@ -158,19 +158,19 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </xsl:template>
 
 <xsl:template match="heading" name="heading">
-	<xsl:variable name="previous_section" select="../preceding-sibling::*[1]/heading/section"/> 
-	<xsl:variable name="current_section"  select="section"/> 
-	<xsl:if test = "not( $previous_section = $current_section)">	
+	<xsl:variable name="previous_section" select="../preceding-sibling::*[1]/heading/section"/>
+	<xsl:variable name="current_section"  select="section"/>
+	<xsl:if test = "not( $previous_section = $current_section)">
 	<w:p>
 		<w:pPr>
 			<w:jc w:val="center"/>
-			<w:outlineLvl w:val="1" /> 
+			<w:outlineLvl w:val="1" />
 		</w:pPr>
 
 		<w:r>
 		<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 			<w:t>
-				Section: <xsl:value-of select="section"/> 
+				Section: <xsl:value-of select="section"/>
 			</w:t>
 		</w:r>
 	</w:p>
@@ -178,14 +178,14 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 	<w:p>
 		<w:pPr>
 			<w:jc w:val="center"/>
-			<w:outlineLvl w:val="2" /> 
+			<w:outlineLvl w:val="2" />
 		</w:pPr>
 
 		<w:r>
 		<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 			<w:t>
-				Title: <xsl:value-of select="title"/><w:br/>
-				Population: <xsl:value-of select="population"/>
+				Title: <xsl:value-of select="title"/>
+				<xsl:apply-templates select="population"/>
 				</w:t>
 		</w:r>
 	</w:p>
@@ -199,28 +199,32 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			<w:t>
 				<xsl:apply-templates select="subtitle"/>
 				Number: <xsl:value-of select="number"/><w:br/>
-				
-				
 			</w:t>
 		</w:r>
 	</w:p>
 	</xsl:template>
-	
-	
-	
-	
+
+
+	<xsl:template match="population" name="population">
+	<xsl:if test = ". != '' ">
+		<w:br/>Population: <xsl:value-of select ="."/>
+	</xsl:if>
+	</xsl:template>
+
+
+
 	<xsl:template match="subtitle" name="subtitle">
-	<xsl:if test = ". != '' ">	
+	<xsl:if test = ". != '' ">
 		Subtitle: <xsl:value-of select ="."/><w:br/>
 	</xsl:if>
 	</xsl:template>
-	
+
 
 <xsl:template match="table/tr" name="tr">
 		<w:tr>
-		
-		
-	
+
+
+
 		<xsl:choose>
 		<xsl:when test="position()=1">
 			<w:tblPrEx>
@@ -232,20 +236,20 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			<w:trPr>
 				<w:tblHeader/>.
 			</w:trPr>
-			 
-			
-		</xsl:when>	
+
+
+		</xsl:when>
 		<xsl:otherwise>
-			
+
 		</xsl:otherwise>
 		</xsl:choose>
 
-	
+
 <xsl:apply-templates select="td">
 	<xsl:with-param name="RowPosition" select="position()"/>
 </xsl:apply-templates>
-		 	
-	
+
+
 		</w:tr>
 </xsl:template>
 
@@ -285,9 +289,9 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 			</xsl:choose>
 			</w:pPr>
-					
+
 					<w:r>
-					<w:rPr>	
+					<w:rPr>
 				    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
 					<xsl:choose>
 					<xsl:when test="$RowPosition=1">
@@ -297,12 +301,12 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 					<w:b w:val="false"/>
 				</xsl:otherwise>
 				</xsl:choose>
-					</w:rPr>	
+					</w:rPr>
 					<w:t>
 					<xsl:call-template name="insertBreaks"/>
 					</w:t></w:r></w:p></w:tc>
-				
-</xsl:template>	
+
+</xsl:template>
 
 
 <xsl:template match="footnote" name="footnote">
@@ -326,7 +330,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			Cambridge CTU,<xsl:value-of select="/Report/author"/>-<xsl:value-of select="/Report/datestamp"/>- Page&#160;<w:fldSimple w:instr="PAGE"/>
 		 </w:t>
         <w:t>
-          <w:br/>Program:<xsl:value-of select="."/> 
+          <w:br/>Program:<xsl:value-of select="."/>
         </w:t>
       </w:r>
     </w:p>
@@ -375,15 +379,15 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:pPr>
 <xsl:apply-templates select="footnote"/>
 </w:p>
-  
-</xsl:template>	
+
+</xsl:template>
 
  <xsl:template name="PageOrientation">
 			<xsl:param name="orientation"/>
 			<xsl:variable name="lower_case_orientation">
 				<xsl:value-of select="translate($orientation,'ABCDEFGHIJKLYMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
 			</xsl:variable>
-        
+
               <w:sectPr>
               <xsl:choose>
               <xsl:when test="$lower_case_orientation='portrait'">
@@ -397,7 +401,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
   </xsl:template>
 
 
-              
+
 </xsl:stylesheet>
 
 

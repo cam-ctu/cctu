@@ -10,7 +10,7 @@
 #' @inheritParams attach_pop
 #' @param table_path text string giving the filepath to the tables
 #' @param figure_path text string giving the filepath to the figures
-#' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population)
+#' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
 #'
 #' @export
 #' @importFrom magrittr %>% %<>%
@@ -26,7 +26,7 @@ create_word_xml <- function(
   meta_table,
   datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
   filename="Output\\Reports\\Report.doc",
-  path=paste0(getwd(),"/"),
+  path=getwd(),
   table_path="Output\\Core\\",
   figure_format=c("png","jpeg","ps"),
   figure_path="Output\\Figures\\",
@@ -35,8 +35,13 @@ create_word_xml <- function(
 ){
   #PATH <- get_obj(path_string,frame=frame, alt="Missing Frame")
   #check you are in the right working directory
-  if(getwd()!=sub("/$","",path)){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
 
+  if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
+  #manage paths to deal with trailing slashes or not...
+
+  path %<>% normalizePath %>% final_slash
+  figure_path %<>% normalizePath %>% final_slash
+  table_path %<>% normalizePath %>% final_slash
 
   ## CHekcs don't like this, but are OK using with(.)
     #meta_table = meta_table[!is.na(meta_table$Number), ]
@@ -87,7 +92,7 @@ create_word_xml <- function(
                  paste0("<heading><section>", section %>% as.character %>% remove_xml_specials,
                         "</section><title>", title %>% as.character %>% remove_xml_specials,
                         "</title><population>",
-                        ifelse(population=="","", remove_xml_specials(as.character(population))),
+                        ifelse(is.na(population),"", remove_xml_specials(as.character(population))),
                         "</population><subtitle>",
                         ifelse(is.na(subtitle), "", remove_xml_specials(as.character(subtitle))),
                         "</subtitle><number>", number,
@@ -109,20 +114,20 @@ create_word_xml <- function(
 
     if(meta_table[i, "item"] == "table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      call = paste0('type "',normalizePath(table_path),'table_', meta_table[i, "number"], '.xml" >> "',
+      call = paste0('type "',table_path,'table_', meta_table[i, "number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "figure"){
       cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
-      cat("<src>", path, figure_path,"fig_", meta_table[i, "number"],
+      cat("<src>", figure_path,"fig_", meta_table[i, "number"],
           ".",figure_format,"</src>", sep = "", file = filename, append = TRUE)
       cat(footers[i], program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      call = paste0('type "',normalizePath(table_path),'text_', meta_table[i, "number"], '.xml" >> "',
+      call = paste0('type "',table_path,'text_', meta_table[i, "number"], '.xml" >> "',
                     filename, '"')
       shell(call)
       cat(footers[i], Program[i], "\n </MetaText> \n", file = filename, append = TRUE)
@@ -133,6 +138,14 @@ create_word_xml <- function(
   cat("\n </Report>", file = filename, append = TRUE)
 
 }
+
+#' @keywords internal
+#'
+#'
+final_slash <- function(x){
+  paste0(gsub("\\\\$","",x),"\\")
+}
+
 
 
 #' @keywords internal
@@ -194,4 +207,3 @@ clean_meta_table <- function(meta_table){
 }
 
 
-pmatch(c("table","table", "landscape"),c("table","landscape"))

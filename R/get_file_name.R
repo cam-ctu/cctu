@@ -1,6 +1,6 @@
 #' Function to get the filename and path of the most deeply nested call to source(), or whatever function in pattern
 #'
-#' @param pattern the name of a function to search for. The default is "source[^_]", which picks up the 'base_source' defined in \code{\link{source}} but avoids the 'source_file' etc in testthat package.
+#' @param pattern the name of a function to search for. The default is "source(?!_)", which picks up the 'base_source' defined in \code{\link{source}} but avoids the 'source_file' etc in testthat package.
 #' @param ... arguments to supply to \code{\link{normalizePath}}
 #'
 #' @return a character string that is the value of \code{\link{normalizePath}} applied to the first
@@ -10,13 +10,13 @@
 #' @export
 #' @seealso \code{\link{write_ggplot}} \code{\link{write_table}}
 
-get_file_name <- function(pattern="source[^_]",...){
+get_file_name <- function(pattern="source(?!_)"){
   calls <- sys.calls()
   if(!is.null(calls)){
     commands <- sapply(calls,function(x){as.character(x)[1]})
-    index <- grep(pattern,commands)
+    index <- grep(pattern,commands, perl=TRUE)
     if(length(index)){
-      normalizePath(as.character(calls[[max(index)]])[2], ...)
+      normalizePath(as.character(calls[[max(index)]])[2])
     } else{
       NULL
     }
@@ -36,24 +36,24 @@ get_file_name <- function(pattern="source[^_]",...){
 #'@seealso \code{\link[cctu]{source}}
 #'@export
 
-get_parent <- function(pattern="source",root="Main.R", ...){
+get_parent <- function(pattern="source(?!_)",root="main.R", ...){
   calls <- sys.calls()
   if (!is.null(calls)) {
     commands <- sapply(calls, function(x) {
       as.character(x)[1]
     })
-    index <- grep(pattern, commands)
+    index <- grep(pattern, commands, perl=TRUE)
     if (length(index)>1) {
       index <- sort(index, decreasing = TRUE)
       normalizePath(as.character(calls[[index[2]]])[2],
                     ...)
     }
     else {
-      normalizePath(root)
+      normalizePath(root, mustWork = FALSE)
     }
   }
   else {
-    normalizePath("Main.R")
+    normalizePath("Main.R", mustWork = FALSE)
   }
 
 }

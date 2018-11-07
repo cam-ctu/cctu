@@ -36,10 +36,10 @@ popn <- data.frame(subjid=data$subjid,
 create_popn_envir(c("data"), popn)
 
 #Don;t actually need PATH defined or included in RESERVED as the current code stands!
-RESERVED <- c("meta_table","meta_subset","popn","safety","full")
+RESERVED <- c("meta_table","meta_subset","popn","safety","full","code_tree")
 
 
-attach_pop(1.1)
+if(FALSE){attach_pop(1.1)
 X <- sumby(endpoint, rx, data=data )
 write_table(1.1,X)#, directory="tests/testthat/Output/Core/")
 
@@ -61,15 +61,18 @@ sumby(response, rx, data=data )
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
 write_ggplot("1.10", #directory="tests/testthat/Output/Figures/",
              meta_table_string="meta_subset", format="png")
+}
 
 
+#source("tests/testthat/analysis_interactive.R")
+# code_tree
+# meta_table
+# meta_subset
 
 
-
-
-#source("analysis.R", local=TRUE)
-
-#print(code_tree)
+# need the local =TRUE to call this from the testthat(). but not in general.
+source("analysis.R", local=TRUE)
+code_tree
 
 test_that("exist",
           {

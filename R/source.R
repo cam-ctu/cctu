@@ -13,6 +13,7 @@
 #' @export
 
 source <- function(file, code_tree_string="code_tree", frame=parent.frame(), local=FALSE){
+  parent_frame <- parent.frame()
   if(exists(code_tree_string, envir=frame)){
     code_tree <- get_obj(code_tree_string,frame=frame)
     envir <- where(code_tree_string, env=frame)
@@ -31,8 +32,11 @@ source <- function(file, code_tree_string="code_tree", frame=parent.frame(), loc
   assign(code_tree_string, code_tree, envir= envir)
   base_source <- base::source
   #this function name will still match "source" in a regular expression used in get_file_name
-  eval( call( "base_source", file, echo=TRUE, max.deparse.length=Inf,local=local))
+ #eval( call( "base_source", file, echo=TRUE, max.deparse.length=Inf,local=local), envir=parent_frame)
+  # Black magic why this works in testthat, but eval does not??
+do.call(base_source, list( file=file, echo=TRUE, max.deparse.length=Inf, local=local), envir=parent_frame)
 
 }
+
 
 

@@ -1,0 +1,163 @@
+---
+title: "Analysis Template"
+author: "Simon Bond"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Introduction and prerequisites
+
+This document is used to illustrate how to set up a standard set of analysis using the library cctu. It assumes that you have copied across a template blank folder structure, created a library within the main folder with all the extra pacakges you may need, and set up a git versioning instance and rstudio project. A future project will be to document this step.
+
+In the the top level this is a file called "main.R"
+
+# Initial lines
+
+```{r initial}
+rm(list=ls())
+#set to the library folder
+.libPaths()
+library(cctu)
+#run_batch("main.R")
+DATA <- "PATH_TO_DATA"
+```
+
+If you run just these initial lines, the last command will evoke R CMD BATCH to run the entire set of code and produce a log file "main.Rout", which should be the final step, using the validated server. The final line  is commented out as the vignette will not work with this though..
+
+# Tracking of code
+
+The library cctu modifies the source() function. This creates a data.frame called "code_tree" by default, which records parent and child paths when code is sourced. This can be converted into a figure with subsequent code.
+
+
+```{r nested_calls}
+source("test.r")
+code_tree
+```
+
+# Configuration
+
+It is recommended to set up a config.R file that 
+
+* reads in all your libraries
+* sets up graphical settings
+* maybe reads in some bespoke functions you want to define
+
+```{r, echo=FALSE}
+sourceKnit <- function(path, label){
+  cmd <- knitr::knit_expand("templ.Rmd")
+  knitr::knit_child(text=unlist(cmd))
+}
+```
+
+`r sourceKnit("Progs/config.R","config")`
+
+
+```{r codetree}
+code_tree
+```
+
+
+
+# Data Import
+
+Next step is to import data and apply manipulations. 
+
+* Grab data from the "DATA" folder. Always use relative paths, or build absolute paths up from MACRO variables defined once neear the start 'paste0(DATA, "/myfile.csv")'
+* convert the variable names into standard 'lower_case' so you have to remember less
+* remove blank rows and columns
+* give factor variables their levels
+* make dates into dates if needed, whilst being careful of partial dates...
+
+Here we grab a ready prepare 'dirty' raw data typical of MACRO DB and apply some of these concepts.
+
+## Meta_table
+
+A key idea is that each table of figure is forced to use a specific population and the code is semi-automatic in achieving this.  A file is read in, idealy to the default name of 'meta_table'. This contains lots of meta-information about each table
+
+* Number
+* Section
+* Title
+* Subtitle
+* Population
+* captures which code file created the table/figure
+* footnotes
+* orientation for printing
+* item - identification as either a table or figure.
+
+The typical workflow will look like
+
+<pre><code>attach_pop('1.2.10')
+X <- some_code_to_create_a_table(...)
+write_table('1.2.10', X)
+</code></pre>
+
+Thus behind the scene the attach_pop will look up in meta_table which is the correct population for table '1.2.10' and write_table will over-write into meta_table the details of code_paths, as well as creating an XML version of the output. 
+
+In the data manipulation step, we need to 
+
+* create a set of data.frames that will be used throughout the code, and need to be filtered to retain the subjects belonging to the population desired for each table
+* create a data frame that has a column for each population and a row for each subject. The elements are logical values saying if a subject belongs to a population.
+* use create_popn_envir, which does the filtering over the set of data.frames, and creates an R environment that contains all the filtered data.frames, plus removes them from the global environment.
+* define labels for each population to be used in a report. These typical look like "Safety (N=123)", so you have to work out the population size. 
+
+By default the write_table() and write_figure() commands will rm() all objects and detach the population-environment. It will ignore any objects named in the vector 'RESERVED', so defining this at the end of the data-import step is a good place. 
+
+# Vignette template
+
+Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+
+- Never uses retina figures
+- Has a smaller default figure size
+- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+
+## Vignette Info
+
+Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))

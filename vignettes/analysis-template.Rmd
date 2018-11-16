@@ -39,10 +39,7 @@ If you run just these initial lines, the last command will evoke R CMD BATCH to 
 The library cctu modifies the source() function. This creates a data.frame called "code_tree" by default, which records parent and child paths when code is sourced. This can be converted into a figure with subsequent code.
 
 
-```{r nested_calls}
-source("test.r")
-code_tree
-```
+
 
 # Configuration
 
@@ -60,11 +57,6 @@ sourceKnit <- function(path, label){
 ```
 
 `r sourceKnit("Progs/config.R","config")`
-
-
-```{r codetree}
-code_tree
-```
 
 
 
@@ -111,6 +103,15 @@ In the data manipulation step, we need to
 * define labels for each population to be used in a report. These typical look like "Safety (N=123)", so you have to work out the population size. 
 
 By default the write_table() and write_figure() commands will rm() all objects and detach the population-environment. It will ignore any objects named in the vector 'RESERVED', so defining this at the end of the data-import step is a good place. 
+
+
+`r sourceKnit("Progs/data_import.R","data")`
+
+
+```{r show_data}
+data
+code_tree
+```
 
 # Vignette template
 

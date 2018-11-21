@@ -11,13 +11,13 @@
 
 
 
-
-
 #'@describeIn attach_pop attaches a population
 #'@export
 attach_pop <- function(number,
                        frame=parent.frame(),
                        meta_table_string="meta_table"){
+  cctu_env$number <- as.character(number)
+  cctu_env$sumby_count <- 0
   popn_name <- match_population(number, frame, meta_table_string)
   if(!is.null(popn_name) && popn_name !="" && exists(popn_name, where=frame)){
     #attach is fussy about its argument needing to be an object, not a character

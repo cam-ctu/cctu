@@ -6,9 +6,9 @@
 \usage{
 create_word_xml(report_title, author, meta_table,
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
-  filename = "Output\\\\Reports\\\\Report.doc", path = paste0(getwd(), "/"),
-  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
-  figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
+  filename = "Output\\\\Reports\\\\Report.doc", path = getwd(),
+  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg",
+  "ps"), figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
   popn_labels = NULL)
 }
 \arguments{
@@ -30,7 +30,7 @@ create_word_xml(report_title, author, meta_table,
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 
-\item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population)}
+\item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given}
 }
 \description{
 Produces the final xml file

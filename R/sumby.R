@@ -19,7 +19,9 @@ sumby <- function(variable,
                   label = NULL,
                   data  = parent.frame(),
                   total = TRUE,
-                  fig   = TRUE){
+                  fig   = TRUE,
+                  directory="Output/Figures/"
+                  ){
 
   variable_name <- deparse(substitute(variable))
 
@@ -30,7 +32,11 @@ sumby <- function(variable,
   fig_object <- sumfig(variable = variable, arm = arm, label = label)
 
   if(fig){
-    print(fig_object)
+    if( interactive()){ print(fig_object) }
+    cctu_env$sumby_count <- cctu_env$sumby_count + 1
+    directory %<>% normalizePath %>% final_slash
+    file_name <- paste0(directory,"sumby_fig_",cctu_env$number,"_", cctu_env$sumby_count,".png")
+    ggsave(file_name, fig_object)
   }
 
 

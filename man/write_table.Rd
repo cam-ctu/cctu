@@ -4,14 +4,15 @@
 \alias{write_table}
 \title{Function to write a table into xml format in the correct directory, and edit TableofTables}
 \usage{
-write_table(number, X, heading = colnames(X), na_to_empty = FALSE,
-  clean_up = TRUE, directory = "Output/Core/", path = NULL,
+write_table(X, number = cctu_env$number, heading = colnames(X),
+  na_to_empty = FALSE, clean_up = TRUE,
+  directory = "Output\\\\Core\\\\", path = NULL,
   frame = parent.frame(), ...)
 }
 \arguments{
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
-
 \item{X}{the data.frame or table to be saved in xml format}
+
+\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
 
 \item{heading}{character vector of column titles. Defaults to the colnames of X}
 
@@ -20,8 +21,6 @@ write_table(number, X, heading = colnames(X), na_to_empty = FALSE,
 \item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
 
 \item{directory}{where to save the figures within path or current working directory}
-
-\item{path}{character string of the project filepath to save the table in. Default is NULL which implies the current working directory.}
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 

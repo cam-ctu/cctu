@@ -20,4 +20,6 @@ clean_up <- function(number,
   obj_list <- obj_list[-keep]
   rm(list = obj_list, envir = frame)
   detach_pop(number, frame=frame, ...)
+  cctu_env$number <- "0"
+  cctu_env$sumby_count <- 0
 }

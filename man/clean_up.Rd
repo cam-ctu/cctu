@@ -4,7 +4,8 @@
 \alias{clean_up}
 \title{removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number}
 \usage{
-clean_up(number, frame = parent.frame(), reserved_string = "RESERVED", ...)
+clean_up(number, frame = parent.frame(), reserved_string = "RESERVED",
+  ...)
 }
 \arguments{
 \item{number}{a number associated with a table of figure}

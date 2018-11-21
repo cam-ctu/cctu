@@ -1,6 +1,6 @@
 #' Function to save ggplot figures.
 #'
-#' @param number the number used to as a suffix in the output filename, and to link to TableofTables.
+#' @param number the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.
 #' @param plot the plot object to save. defaults to \code{last_plot}
 #' @param width the width to save as
 #' @param height the height to save as
@@ -8,7 +8,6 @@
 #' @param units either "cm" (the default) or "inches"
 #' @param clean_up logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE
 #' @param directory where to save the figures within path or current working directory
-#' @param path character string of the project filepath to save the table in. Default is NULL which implies the current working directory.
 #' @inheritParams clean_up
 #' @inheritParams add_program
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
@@ -18,18 +17,19 @@
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso \code{\link{get_file_name}} \code{\link{write_table}}
 #' @export
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 
 
 
-write_ggplot = function(number,
+write_ggplot = function(
                        plot     = last_plot(),
+                       number = cctu_env$number,
                        width    = 29.7 * 0.6,
                        height   = 21 * 0.6,
                        dpi      = 300,
                        units    = "cm",
                        clean_up = TRUE,
-                       directory="Output/Figures/",
+                       directory="Output\\Figures\\",
                        path=NULL,
                        ...,
                        format=c("png","postscript","jpeg"),
@@ -60,7 +60,8 @@ write_ggplot = function(number,
   # deals with non-ggplot objects as well now
 
   format <- match.arg(format)
-  file_name <- paste0(path, directory,"fig_",number)
+  directory %<>% normalizePath %>% final_slash
+  file_name <- paste0(directory,"fig_",number)
 
 
   args_list <- c( list( file = paste0(file_name, ".", format %>% ifelse(.=="postcript","ps",.)),

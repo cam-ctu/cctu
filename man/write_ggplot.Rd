@@ -4,15 +4,16 @@
 \alias{write_ggplot}
 \title{Function to save ggplot figures.}
 \usage{
-write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
-  0.6, dpi = 300, units = "cm", clean_up = TRUE,
-  directory = "Output/Figures/", path = NULL, ..., format = c("png",
-  "postscript", "jpeg"), graphics_args = NULL, frame = parent.frame())
+write_ggplot(plot = last_plot(), number = cctu_env$number,
+  width = 29.7 * 0.6, height = 21 * 0.6, dpi = 300, units = "cm",
+  clean_up = TRUE, directory = "Output\\\\Figures\\\\", path = NULL,
+  ..., format = c("png", "postscript", "jpeg"), graphics_args = NULL,
+  frame = parent.frame())
 }
 \arguments{
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables.}
-
 \item{plot}{the plot object to save. defaults to \code{last_plot}}
+
+\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
 
 \item{width}{the width to save as}
 
@@ -25,8 +26,6 @@ write_ggplot(number, plot = last_plot(), width = 29.7 * 0.6, height = 21 *
 \item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
 
 \item{directory}{where to save the figures within path or current working directory}
-
-\item{path}{character string of the project filepath to save the table in. Default is NULL which implies the current working directory.}
 
 \item{...}{modifications to the default values \code{\link{detach_pop}}}
 

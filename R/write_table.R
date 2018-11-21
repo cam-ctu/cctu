@@ -8,15 +8,14 @@
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
 #' @seealso \code{\link{get_file_name}} \code{\link{write_ggplot}}
+#' @importFrom magrittr %>% %<>%
 
-
-write_table = function(
-                      number,
-                      X,
+write_table = function(X,
+                      number=cctu_env$number,
                       heading  = colnames(X),
                       na_to_empty=FALSE,
                       clean_up = TRUE,
-                      directory="Output/Core/",
+                      directory="Output\\Core\\",
                       path=NULL,
                       frame=parent.frame(),
                       ...
@@ -60,7 +59,9 @@ write_table = function(
   }
   paste_plus("</table>\n")
 
-  file_name <- paste0(path, directory,"table_",number,".xml")
+
+  directory %<>% normalizePath %>% final_slash
+  file_name <- paste0(directory,"table_",number,".xml")
 
   cat(output_string, file = file_name, append = FALSE)
 

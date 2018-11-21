@@ -19,4 +19,4 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --library="V:/STATISTICS/STUDY PLANNING/R_libraryV3.5"
 PackageCheckArgs: --no-tests
-PackageRoxygenize: rd,collate,namespace
+PackageRoxygenize: rd,collate,namespace,vignette

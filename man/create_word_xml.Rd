@@ -7,8 +7,8 @@
 create_word_xml(report_title, author, meta_table,
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = "Output\\\\Reports\\\\Report.doc", path = getwd(),
-  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
-  figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
+  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg",
+  "ps"), figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
   popn_labels = NULL)
 }
 \arguments{

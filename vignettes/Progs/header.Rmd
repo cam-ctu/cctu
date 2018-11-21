@@ -1,0 +1,19 @@
+---
+---
+
+
+
+---
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{trees,arrows}
+output: pdf_document
+classoption: landscape
+params:
+  my_title: "You only live twice"
+  my_author: "Ian Flemming"
+title: "`r params$my_title`"  
+author: "`r params$my_author`"
+---
+rmarkdown::html_vignette

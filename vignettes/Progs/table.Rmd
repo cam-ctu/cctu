@@ -1,0 +1,13 @@
+```{r, echo=FALSE, results='asis', message=FALSE}
+tab <- read_html("{{file_name}}") %>%
+#tab <- read_html(paste0(PATH_table,"table_",2.1,".xml")) %>%
+  html_nodes("table") %>% 
+  html_table(header=TRUE, fill=TRUE)
+#Remove blank rows -Pandoc can't deal with them
+tab <- tab[[1]]
+blank <- apply(tab,1, function(x){ all(is.na(x)|trimws(x)=="")})
+#kable(tab[!blank,], format="html", row.names=FALSE) %>%
+#  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+datatable(tab[!blank, ,drop=FALSE], filter="top", rownames=FALSE)
+```
+

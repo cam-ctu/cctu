@@ -1,0 +1,61 @@
+---
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+params:
+  my_title: "You only live twice"
+  my_author: "Ian Flemming"
+title: "`r params$my_title`"  
+author: "`r params$my_author`"
+---
+
+
+
+```{r setup, include=FALSE, message=FALSE}
+#rm(list=ls())
+#PATH="V:/STATISTICS/STUDY FOLDER/Cardiovascular/LILACS/Analysis/Cohort5"
+setwd(PATH)
+#.libPaths("R_library")
+PATH_table <- paste0(PATH,"/Output/Core/")
+PATH_figure <- paste0(PATH,"/Output/Figures/")
+meta_table <- read.csv(file="Data/TableOfTablesPostCode.csv", stringsAsFactors = FALSE)
+index <- order_dewey(meta_table$Number)
+meta_table <- meta_table[index,]
+rm(index)
+
+sections <- unique(meta_table$Section)
+src <- as.character(NULL)
+for(sect in sections){
+  src <- c(src, paste("\n#", sect)) 
+  subtab <- subset(meta_table, Section==sect)
+  for(row in 1:nrow(subtab)){
+    src <- c(src, paste("\n##", subtab[row,"Number"], subtab[row,"Title"], "\nPopulation:", subtab[row,"Population"]))
+    if( !is.na(subtab[row,"Subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"Subtitle"]))}
+             
+    if( subtab[row,"Item"] %>% tolower=="table"){
+      src <- c(src,
+               knit_expand("Progs/Markdown/table.Rmd", 
+                           file_name=paste0(PATH_table,"table_",subtab[row,"Number"],".xml")
+                           )
+               )
+      
+      
+     
+    }
+    if(subtab[row,"Item"] %>% tolower=="figure" ){
+      src <- c(src, paste0("![](",PATH_figure,"fig_",subtab[row,"Number"],".png) \n" ))
+    }
+    if( !is.na(subtab[row,"Footnote1"])){ src <- c(src, paste("\n",subtab[row,"Footnote1"]))}
+    if( !is.na(subtab[row,"Footnote1"])){ src <- c(src, paste("\n",subtab[row,"Footnote2"]))}
+  }
+}
+
+
+
+```
+
+
+`r knit_child(text=src)`

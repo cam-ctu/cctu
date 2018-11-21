@@ -1,12 +1,12 @@
 
 #### Preliminary configuration file: libraries, functions, R options
-PROGNAME <- "config.R"
 #### Author: Simon Bond
 #### Study: RIVAS
 #### DMC report Sep 2017
 #### Date created: 26JUL2017
 #### Notes:
 
+cctu_initialise()
 
 options(verbose = TRUE)
 

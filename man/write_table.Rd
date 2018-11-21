@@ -5,8 +5,8 @@
 \title{Function to write a table into xml format in the correct directory, and edit TableofTables}
 \usage{
 write_table(X, number = cctu_env$number, heading = colnames(X),
-  na_to_empty = FALSE, clean_up = TRUE, directory = "Output\\\\Core\\\\",
-  frame = parent.frame(), ...)
+  na_to_empty = FALSE, clean_up = TRUE,
+  directory = "Output\\\\Core\\\\", frame = parent.frame(), ...)
 }
 \arguments{
 \item{X}{the data.frame or table to be saved in xml format}

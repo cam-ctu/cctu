@@ -5,9 +5,11 @@
 \alias{detach_pop}
 \title{Functions that attach and detach environments based on which populations are used for a given table number}
 \usage{
-attach_pop(number, frame = parent.frame(), meta_table_string = "meta_table")
+attach_pop(number, frame = parent.frame(),
+  meta_table_string = "meta_table")
 
-detach_pop(number, frame = parent.frame(), meta_table_string = "meta_table")
+detach_pop(number, frame = parent.frame(),
+  meta_table_string = "meta_table")
 }
 \arguments{
 \item{number}{the number of a table or figure}

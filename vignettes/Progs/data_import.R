@@ -13,3 +13,21 @@ for( x in unique(codes$var)){
 }
 
 data$start_date <- as.POSIXct( data$start_date , format="%d/%m/%Y")
+data_name <- names(data)
+names(data)[match("subject_id", data_name)] <- "subjid"
+
+meta_table <- cctu::meta_table
+
+#Create the population table
+
+popn <- data[,"subjid", drop=FALSE]
+popn$safety <- TRUE
+popn$full <- popn$subjid<5
+
+create_popn_envir("data",popn)
+
+#tidy up
+
+rm(code_df, codes, data_name, x)
+RESERVED <- c("RESERVED",ls())
+RESERVED

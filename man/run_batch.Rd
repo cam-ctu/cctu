@@ -25,7 +25,7 @@ The command will not run in environments where \code{\link{interactive}} is fals
 infinite loops. Only expected to work in Windows.
 }
 \seealso{
-\code{\link{BATCH}} and \code{\link[devtools]{RCMD}}, which might already do this....
+\code{\link{BATCH}} and \code{\link[callr]{rcmd}}, which might already do this....
 
 \code{\link[devtools]{check_failures}} for future ideas for a function to check the log file
 for errors or warnings.

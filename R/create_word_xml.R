@@ -11,7 +11,7 @@
 #' @param table_path text string giving the filepath to the tables
 #' @param figure_path text string giving the filepath to the figures
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
-#'
+#' @param  figure_format the format to look for figure files when building the report ("png", "jpeg","ps")
 #' @export
 #' @importFrom magrittr %>% %<>%
 #'
@@ -106,7 +106,7 @@ create_word_xml <- function(
                        ifelse(is.na(footnote2), "", remove_xml_specials(as.character(footnote2))),
                        "</footnote>"))
 
-  program = with(meta_table, paste("<Program>", program, "</Program>"))
+  program =  paste("<Program>", meta_table$program, "</Program>")
   figure_format <- match.arg(figure_format)
 
     for(i in 1:length(headers)){
@@ -130,7 +130,7 @@ create_word_xml <- function(
       call = paste0('type "',table_path,'text_', meta_table[i, "number"], '.xml" >> "',
                     filename, '"')
       shell(call)
-      cat(footers[i], Program[i], "\n </MetaText> \n", file = filename, append = TRUE)
+      cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
     }
   }
 
@@ -164,7 +164,7 @@ clean_meta_table <- function(meta_table){
 
   meta_table$number <- gsub("\\s","", meta_table$number)
   pmat <- pmatch(names(meta_table), columns_needed)
-  meta_table <- subset( meta_table, !is.na(number) & number!="", select=!is.na(pmat))
+  meta_table <- subset( meta_table, !is.na(meta_table$number) & meta_table$number!="", select=!is.na(pmat))
   pmat <- pmatch(names(meta_table), columns_needed)
   names(meta_table) <- columns_needed[pmat]
   index <- meta_table$number %>% as.character %>% order_dewey

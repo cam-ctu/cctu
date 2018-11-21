@@ -12,6 +12,8 @@ srce(file, backup = FALSE, path_string = "PATH",
 
 \item{backup}{a logical to indicate if you want to save an image prior to sourcing the course}
 
+\item{path_string}{text string giving the name of a variable that holds the path as a character string.}
+
 \item{backup_filepath}{a filepath to where to save the image}
 }
 \description{

@@ -9,6 +9,7 @@
 #'
 #' @keywords internal
 #' @examples
+#' library(cctu)
 #' rm(PATH)
 #' get_obj("PATH")
 #' get_obj("PATH", alt=getwd())

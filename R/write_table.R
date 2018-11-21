@@ -16,7 +16,6 @@ write_table = function(X,
                       na_to_empty=FALSE,
                       clean_up = TRUE,
                       directory="Output\\Core\\",
-                      path=NULL,
                       frame=parent.frame(),
                       ...
                       ){

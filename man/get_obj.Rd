@@ -22,6 +22,7 @@ this is designed to use within functions in the library to access global objects
 but provide a route to avoid hard-coding specific variable names in
 }
 \examples{
+library(cctu)
 rm(PATH)
 get_obj("PATH")
 get_obj("PATH", alt=getwd())

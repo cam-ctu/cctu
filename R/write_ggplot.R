@@ -30,7 +30,6 @@ write_ggplot = function(
                        units    = "cm",
                        clean_up = TRUE,
                        directory="Output\\Figures\\",
-                       path=NULL,
                        ...,
                        format=c("png","postscript","jpeg"),
                        graphics_args=NULL,

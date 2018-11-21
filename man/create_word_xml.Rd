@@ -7,8 +7,8 @@
 create_word_xml(report_title, author, meta_table,
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = "Output\\\\Reports\\\\Report.doc", path = getwd(),
-  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg",
-  "ps"), figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
+  table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg", "ps"),
+  figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
   popn_labels = NULL)
 }
 \arguments{
@@ -25,6 +25,8 @@ create_word_xml(report_title, author, meta_table,
 \item{path}{text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.}
 
 \item{table_path}{text string giving the filepath to the tables}
+
+\item{figure_format}{the format to look for figure files when building the report ("png", "jpeg","ps")}
 
 \item{figure_path}{text string giving the filepath to the figures}
 

@@ -5,17 +5,17 @@
 #'
 #' @return either a copy of the object \code{name} or an alternative if it does not exist
 #' @details this is designed to use within functions in the library to access global objects,
-#' but provide a route to avoid hard-coding specific variable names in
+#' but provide a route to avoid hard-coding specific variable names in. It is not exported.
 #'
 #' @keywords internal
 #' @examples
 #' library(cctu)
 #' rm(PATH)
-#' get_obj("PATH")
-#' get_obj("PATH", alt=getwd())
+#' cctu:::get_obj("PATH")
+#' cctu:::get_obj("PATH", alt=getwd())
 #' PATH <- "C:/MyFile"
-#' get_obj("PATH")
-#' get_obj("PATH", alt=getwd())
+#' cctu:::get_obj("PATH")
+#' cctu:::get_obj("PATH", alt=getwd())
 
 
 

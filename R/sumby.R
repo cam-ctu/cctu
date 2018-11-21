@@ -2,7 +2,8 @@
 #'
 #'@inheritParams sumfig
 #'@param total logical value to include an extra overall columns. Defaults to true
-#'@param fig logical value on whether to print the figure. Defaults to true
+#'@param fig logical value on whether to print (if interactive) and save a copy of the figure. Defaults to true
+#'@param directory the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.
 #'
 #'@return a data.frame containing summary statistics in character format,
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object

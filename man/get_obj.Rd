@@ -19,15 +19,15 @@ Gets copies of objects from parent environments, or returns alternative if not f
 }
 \details{
 this is designed to use within functions in the library to access global objects,
-but provide a route to avoid hard-coding specific variable names in
+but provide a route to avoid hard-coding specific variable names in. It is not exported.
 }
 \examples{
 library(cctu)
 rm(PATH)
-get_obj("PATH")
-get_obj("PATH", alt=getwd())
+cctu:::get_obj("PATH")
+cctu:::get_obj("PATH", alt=getwd())
 PATH <- "C:/MyFile"
-get_obj("PATH")
-get_obj("PATH", alt=getwd())
+cctu:::get_obj("PATH")
+cctu:::get_obj("PATH", alt=getwd())
 }
 \keyword{internal}

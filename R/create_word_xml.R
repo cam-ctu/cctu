@@ -36,107 +36,111 @@ create_word_xml <- function(
   #PATH <- get_obj(path_string,frame=frame, alt="Missing Frame")
   #check you are in the right working directory
 
-  if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
-  #manage paths to deal with trailing slashes or not...
+  if( Sys.info()['sysname'] != "Windows"){
+    warning( "create_word_xml is only configured to function on Windows OS")
+  } else{
 
-  path %<>% normalizePath %>% final_slash
-  figure_path %<>% normalizePath %>% final_slash
-  table_path %<>% normalizePath %>% final_slash
+    if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
+    #manage paths to deal with trailing slashes or not...
 
-  ## CHekcs don't like this, but are OK using with(.)
+    path %<>% normalizePath %>% final_slash
+    figure_path %<>% normalizePath %>% final_slash
+    table_path %<>% normalizePath %>% final_slash
+
+    ## CHekcs don't like this, but are OK using with(.)
     #meta_table = meta_table[!is.na(meta_table$Number), ]
 
-  meta_table <- clean_meta_table(meta_table)
+    meta_table <- clean_meta_table(meta_table)
 
-  if(!is.null(popn_labels)){
-    #preserve any non-population based tables.
-    index <- match(meta_table$population, unique(c("",meta_table$population)))
-    meta_table$population <- c("", popn_labels)[index]
-  }
+    if(!is.null(popn_labels)){
+      #preserve any non-population based tables.
+      index <- match(meta_table$population, unique(c("",meta_table$population)))
+      meta_table$population <- c("", popn_labels)[index]
+    }
 
 
 
-  ### NEED to put the header into the package data somehow and call it
+    ### NEED to put the header into the package data somehow and call it
 
-  # put the file in /inst/extdata
-  # use system.file("extdata", "header.txt", package="cctu")
+    # put the file in /inst/extdata
+    # use system.file("extdata", "header.txt", package="cctu")
 
-  call     = paste0('copy "',
-                    system.file("extdata", "header.txt", package="cctu") %>% gsub("/","\\\\",.),
-                    #Output\\Reports\\header.txt"
-                    '" "' ,
-                    filename, '" /Y')
-  shell(call)
+    call     = paste0('copy "',
+                      system.file("extdata", "header.txt", package="cctu") %>% gsub("/","\\\\",.),
+                      #Output\\Reports\\header.txt"
+                      '" "' ,
+                      filename, '" /Y')
+    shell(call)
 
-  #put a copy of the xslt file into the report path
-  report_folder <- normalizePath(paste0(path,filename,"/.."))
-  call = paste0('copy "',
-                system.file("extdata", "xml_to_word.xslt", package="cctu") %>% gsub("/","\\\\",.),
-                '"  "',report_folder, '" /Y'
-                )
-  shell(call)
+    #put a copy of the xslt file into the report path
+    report_folder <- normalizePath(paste0(path,filename,"/.."))
+    call = paste0('copy "',
+                  system.file("extdata", "xml_to_word.xslt", package="cctu") %>% gsub("/","\\\\",.),
+                  '"  "',report_folder, '" /Y'
+    )
+    shell(call)
 
-  cat(
-    "\n <Report>
+    cat(
+      "\n <Report>
   <study>",  remove_xml_specials(report_title),"</study>
   <author>",remove_xml_specials(author),"</author><datestamp>",
-    datestamp, "</datestamp>", file = filename, append = TRUE)
+      datestamp, "</datestamp>", file = filename, append = TRUE)
 
-  #need to write a function that cheks if meta_table has the right set of varaible/names
+    #need to write a function that cheks if meta_table has the right set of varaible/names
 
-  #this makes the variable names in meta_table case insensitive
+    #this makes the variable names in meta_table case insensitive
 
 
 
-  headers = with(meta_table,
-                 paste0("<heading><section>", section %>% as.character %>% remove_xml_specials,
-                        "</section><title>", title %>% as.character %>% remove_xml_specials,
-                        "</title><population>",
-                        ifelse(is.na(population),"", remove_xml_specials(as.character(population))),
-                        "</population><subtitle>",
-                        ifelse(is.na(subtitle), "", remove_xml_specials(as.character(subtitle))),
-                        "</subtitle><number>", number,
-                        "</number><orientation>", orientation,
-                        "</orientation></heading>"))
+    headers = with(meta_table,
+                   paste0("<heading><section>", section %>% as.character %>% remove_xml_specials,
+                          "</section><title>", title %>% as.character %>% remove_xml_specials,
+                          "</title><population>",
+                          ifelse(is.na(population),"", remove_xml_specials(as.character(population))),
+                          "</population><subtitle>",
+                          ifelse(is.na(subtitle), "", remove_xml_specials(as.character(subtitle))),
+                          "</subtitle><number>", number,
+                          "</number><orientation>", orientation,
+                          "</orientation></heading>"))
 
-  footers = with(meta_table,
-                 paste("<footnote>",
-                       ifelse(is.na(footnote1), "", remove_xml_specials(as.character(footnote1))),
-                       "</footnote><footnote>",
-                       ifelse(is.na(footnote2), "", remove_xml_specials(as.character(footnote2))),
-                       "</footnote>"))
+    footers = with(meta_table,
+                   paste("<footnote>",
+                         ifelse(is.na(footnote1), "", remove_xml_specials(as.character(footnote1))),
+                         "</footnote><footnote>",
+                         ifelse(is.na(footnote2), "", remove_xml_specials(as.character(footnote2))),
+                         "</footnote>"))
 
-  program =  paste("<Program>", meta_table$program, "</Program>")
-  figure_format <- match.arg(figure_format)
+    program =  paste("<Program>", meta_table$program, "</Program>")
+    figure_format <- match.arg(figure_format)
 
     for(i in 1:length(headers)){
-    cat("\n", file = filename, append = TRUE)
+      cat("\n", file = filename, append = TRUE)
 
-    if(meta_table[i, "item"] == "table"){
-      cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      call = paste0('type "',table_path,'table_', meta_table[i, "number"], '.xml" >> "',
-                    filename, '"')
-      shell(call)
-      cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
+      if(meta_table[i, "item"] == "table"){
+        cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
+        call = paste0('type "',table_path,'table_', meta_table[i, "number"], '.xml" >> "',
+                      filename, '"')
+        shell(call)
+        cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
+      }
+      if(meta_table[i, "item"] == "figure"){
+        cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
+        cat("<src>", figure_path,"fig_", meta_table[i, "number"],
+            ".",figure_format,"</src>", sep = "", file = filename, append = TRUE)
+        cat(footers[i], program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
+      }
+      if(meta_table[i, "item"] == "text"){
+        cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
+        call = paste0('type "',table_path,'text_', meta_table[i, "number"], '.xml" >> "',
+                      filename, '"')
+        shell(call)
+        cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
+      }
     }
-    if(meta_table[i, "item"] == "figure"){
-      cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
-      cat("<src>", figure_path,"fig_", meta_table[i, "number"],
-          ".",figure_format,"</src>", sep = "", file = filename, append = TRUE)
-      cat(footers[i], program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
-    }
-    if(meta_table[i, "item"] == "text"){
-      cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      call = paste0('type "',table_path,'text_', meta_table[i, "number"], '.xml" >> "',
-                    filename, '"')
-      shell(call)
-      cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
-    }
+
+
+    cat("\n </Report>", file = filename, append = TRUE)
   }
-
-
-  cat("\n </Report>", file = filename, append = TRUE)
-
 }
 
 #' @keywords internal

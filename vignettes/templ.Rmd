@@ -1,3 +1,8 @@
+---
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
 
 ```{r, echo=TRUE, results=FALSE, warning=FALSE, message=FALSE}

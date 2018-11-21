@@ -14,9 +14,9 @@
 #'
 #' @return  see \code{\link{shell}} which is called.
 #'
-#' @seealso \code{\link{BATCH}} and \code{\link[callr]{rcmd}}, which might already do this....
+#' @seealso \code{\link{BATCH}} and \code{rcmd} from the callr package, which might already do this....
 #'
-#' @seealso \code{\link[devtools]{check_failures}} for future ideas for a function to check the log file
+#' @seealso \code{check_failures} from the devtools package for future ideas for a function to check the log file
 #' for errors or warnings.
 #' @export
 

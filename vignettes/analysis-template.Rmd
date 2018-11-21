@@ -51,7 +51,7 @@ It is recommended to set up a config.R file that
 
 ```{r, echo=FALSE}
 sourceKnit <- function(path, label){
-  cmd <- knitr::knit_expand("templ.Rmd")
+  cmd <- knitr::knit_expand("Progs/templ.Rmd")
   knitr::knit_child(text=unlist(cmd))
 }
 ```

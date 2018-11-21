@@ -2,5 +2,5 @@
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^Bugs\.xls$
+^Bugs\.xlsx$
 ^appveyor\.yml$

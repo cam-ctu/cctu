@@ -90,7 +90,7 @@ The typical workflow will look like
 
 <pre><code>attach_pop('1.2.10')
 X <- some_code_to_create_a_table(...)
-write_table('1.2.10', X)
+write_table(X)
 </code></pre>
 
 Thus behind the scene the attach_pop will look up in meta_table which is the correct population for table '1.2.10' and write_table will over-write into meta_table the details of code_paths, as well as creating an XML version of the output. 

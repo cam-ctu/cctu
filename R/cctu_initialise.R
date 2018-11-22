@@ -10,14 +10,27 @@
 #' @importFrom magrittr %>% %<>%
 
 
-
-
-
 cctu_initialise <- function(root=getwd()){
   root %<>% normalizePath %>% final_slash
+  if( !check(root=root)){
   dir.create(paste0(root, "Output")) &
     dir.create( paste0(root,"Output\\Core")) &
     dir.create( paste0(root, "Output\\Figures")) &
     dir.create( paste0(root, "Output\\Reports"))
+  } else{ invisible(TRUE) }
+}
 
+#' @describeIn cctu_initialise Check if the directories exist for cctu
+#' @param warnings logical indicator to issue warning if the directories do not exist. Default FALSE.
+#' @return a logical indicating if the directories exist,
+#' @export
+
+cctu_check_dir <- function(root=getwd(), warnings=FALSE){
+  root %<>% normalizePath %>% final_slash
+  check <- dir.exists(paste0(root, "Output")) &
+    dir.exists( paste0(root,"Output\\Core")) &
+    dir.exists( paste0(root, "Output\\Figures")) &
+    dir.exists( paste0(root, "Output\\Reports"))
+  if(warnings && !check){ warning("Default directories needed by cctu do not exist")}
+  check
 }

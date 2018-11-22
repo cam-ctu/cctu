@@ -2,19 +2,31 @@
 % Please edit documentation in R/cctu_initialise.R
 \name{cctu_initialise}
 \alias{cctu_initialise}
+\alias{cctu_check_dir}
 \title{initialise the directories for using cctu package}
 \usage{
 cctu_initialise(root = getwd())
+
+cctu_check_dir(root = getwd(), warnings = FALSE)
 }
 \arguments{
 \item{root}{the root directory to start in}
+
+\item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
 }
 \value{
 invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
+
+a logical indicating if the directories exist,
 }
 \description{
 initialise the directories for using cctu package
 }
+\section{Functions}{
+\itemize{
+\item \code{cctu_check_dir}: Check if the directories exist for cctu
+}}
+
 \seealso{
 \code{\link{dir.create}}
 }

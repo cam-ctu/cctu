@@ -25,7 +25,7 @@ sumby <- function(variable,
                   ){
 
   variable_name <- deparse(substitute(variable))
-
+  if(is.null(label)){label <- variable_name}
   mf       <- match.call()
   variable <- eval(mf$variable, envir = data)
   arm      <- eval(mf$arm, envir = data)
@@ -35,7 +35,7 @@ sumby <- function(variable,
   if(fig){
     if( interactive()){ print(fig_object) }
     cctu_env$sumby_count <- cctu_env$sumby_count + 1
-    if( directory!="Output/Figures" | cctu_check_dir()){
+    if( directory!=formals()$directory | cctu_check_dir()){
       directory %<>% normalizePath %>% final_slash
       file_name <- paste0(directory,"sumby_fig_",cctu_env$number,"_", cctu_env$sumby_count,".png")
       ggsave(file_name, fig_object)

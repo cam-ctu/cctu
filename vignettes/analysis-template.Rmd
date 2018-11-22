@@ -143,6 +143,7 @@ The output is [here](../Vignettes/Output/Reports/Vignette_Report.doc).  It is op
 
 ```{r code_tree}
 code_tree
+meta_table
 ```
 
 

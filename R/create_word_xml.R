@@ -33,20 +33,13 @@ create_word_xml <- function(
   frame=parent.frame(),
   popn_labels=NULL
 ){
-  #PATH <- get_obj(path_string,frame=frame, alt="Missing Frame")
   #check you are in the right working directory
-
-
-
   if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
   #manage paths to deal with trailing slashes or not...
-
   path %<>% normalizePath %>% final_slash
   figure_path %<>% normalizePath %>% final_slash
   table_path %<>% normalizePath %>% final_slash
 
-  ## CHekcs don't like this, but are OK using with(.)
-  #meta_table = meta_table[!is.na(meta_table$Number), ]
 
   meta_table <- clean_meta_table(meta_table)
 
@@ -76,12 +69,6 @@ create_word_xml <- function(
   <author>",remove_xml_specials(author),"</author><datestamp>",
     datestamp, "</datestamp>", file = filename, append = TRUE)
 
-  #need to write a function that cheks if meta_table has the right set of varaible/names
-
-  #this makes the variable names in meta_table case insensitive
-
-
-
   headers = with(meta_table,
                  paste0("<heading><section>", section %>% as.character %>% remove_xml_specials,
                         "</section><title>", title %>% as.character %>% remove_xml_specials,
@@ -108,9 +95,7 @@ create_word_xml <- function(
 
     if(meta_table[i, "item"] == "table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      call = paste0('type "',table_path,'table_', meta_table[i, "number"], '.xml" >> "',
-                    filename, '"')
-      shell(call)
+      file.append(filename, paste0( table_path,'table_', meta_table[i, "number"], '.xml'))
       cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "figure"){
@@ -121,9 +106,7 @@ create_word_xml <- function(
     }
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      call = paste0('type "',table_path,'text_', meta_table[i, "number"], '.xml" >> "',
-                    filename, '"')
-      shell(call)
+      file.append(filename, paste0( table_path,'table_', meta_table[i, "number"], '.xml'))
       cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
     }
   }

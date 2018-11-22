@@ -111,6 +111,7 @@ By default the write_table() and write_figure() commands will rm() all objects a
 
 ```{r reserved}
 RESERVED
+meta_table
 ```
 
 `r sourceKnit("Progs/analysis.R","analysis")`
@@ -134,7 +135,7 @@ create_word_xml(report_title="Vignette Report",
 
 ```
 
-The output is [here](./Output/Reports/Vignette_Report.doc).  It is opened in a file browser, which should use MS Word to  open it. Then you would see on the right hand side the "XML Document" pane: choose the "xml_to_word.xslt" data viewer. To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
+The output is [here](../Vignettes/Output/Reports/Vignette_Report.doc).  It is opened in a file browser, which should use MS Word to  open it. Then you would see on the right hand side the "XML Document" pane: choose the "xml_to_word.xslt" data viewer. To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
 
 
 ```{r code_tree}

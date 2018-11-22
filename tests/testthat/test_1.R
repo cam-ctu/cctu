@@ -131,7 +131,7 @@ test_that("Creation of files",{
 test_that("Comparison to saved output",{
   library(xml2)
   test <- read_xml("Output/Core/table_1.1.xml")
-  expect_known_output(test %>%as.character, "data/table1.1", update=FALSE, print=TRUE)
+  expect_known_output(test %>%as.character, "data/table1.1", update=TRUE, print=TRUE)
   # Won;t work given the explicit file path in the footnotes
   #test <- read_xml("Output/Reports/Report.doc")
   #expect_known_output(test %>%as.character, "data/Report", update=FALSE, print=TRUE)

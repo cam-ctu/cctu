@@ -59,7 +59,7 @@ sourceKnit <- function(path, label){
 <!-- `r sourceKnit("Progs/config.R","config")` -->
 
 
-`r source("Progs/config.R")`
+`r sourceKnit("Progs/config.R", "config")`
 
 
 

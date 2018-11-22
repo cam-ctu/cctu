@@ -21,7 +21,7 @@ sumby <- function(variable,
                   data  = parent.frame(),
                   total = TRUE,
                   fig   = TRUE,
-                  directory="Output/Figures/"
+                  directory="Output\\Figures\\"
                   ){
 
   variable_name <- deparse(substitute(variable))

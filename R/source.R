@@ -1,8 +1,6 @@
 #' A modified version of the source() function to capture in a data.frame what file was called and from which file
 #'
 #'
-#' @param code_tree_string character string giving the name of a data.frame to augment, or create if this is the first use
-#' @param frame frame or environment in which to find data.frame named code_tree_string
 #' @inheritParams base::source
 #' @details evaluates code in the file argument, and also augments or creates a dataframe with two variables (parent, child).
 #' The intention is to record the architecture of a sequenece of code files run using nested source() statements. To override this function use

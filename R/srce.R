@@ -20,5 +20,5 @@ srce <- function(file, backup = FALSE, path_string="PATH", backup_filepath= "Out
   if(backup){save.image(file = paste0(PATH, backup_filepath))}
   # use load(file = paste0(PATH, "/Output/R_images/backup.Rdata"))
   # before re-running if needed.
-  source(paste0("Progs\\Analysis\\", file), code_tree_string="code_tree", frame=parent.frame(n=2), local=FALSE)
+  source(paste0("Progs\\Analysis\\", file),  local=FALSE)
 }

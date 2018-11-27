@@ -35,3 +35,16 @@ cctu_check_dir <- function(root=getwd(), warnings=FALSE){
   if(warnings && !check){ warning("Default directories needed by cctu do not exist")}
   check
 }
+
+
+#' @describeIn cctu_initiliase reset the internal code_tree object to have no entries
+#' @param root the name of the code file you want to use as the initial root for code tree
+#' @export
+reset_code_tree <- function(root="main.R"){
+  cctu_env$code_tree <- data.frame(parent = as.character(NULL),
+                                   child = as.character(NULL),
+                                   stringsAsFactors = FALSE)
+  cctu_env$parent <- root
+}
+
+

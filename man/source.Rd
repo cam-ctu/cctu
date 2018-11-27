@@ -16,10 +16,6 @@ source(file, local = FALSE)
     default) corresponds to the user's workspace (the global
     environment) and \code{TRUE} to the environment from which
     \code{source} is called.}
-
-\item{code_tree_string}{character string giving the name of a data.frame to augment, or create if this is the first use}
-
-\item{frame}{frame or environment in which to find data.frame named code_tree_string}
 }
 \value{
 no return value

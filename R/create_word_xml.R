@@ -121,7 +121,7 @@ create_word_xml <- function(
   output <- xslt::xml_xslt(doc, transform)
   xml2::write_xml(output, file=long_filename)
 
-
+  warning("All figures in the word document are links to local files.\nYou must manually include them with word if you want to move the word document.")
 }
 
 #' @keywords internal

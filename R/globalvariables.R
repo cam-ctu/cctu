@@ -6,10 +6,3 @@ cctu_env$number <- "0"
 cctu_env$sumby_count <- 0
 
 
-#' @export
-reset_code_tree <- function(root="main.R"){
-  cctu_env$code_tree <- data.frame(parent = as.character(NULL),
-                                   child = as.character(NULL),
-                                   stringsAsFactors = FALSE)
-  cctu_env$parent <- root
-}

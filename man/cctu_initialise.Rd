@@ -3,28 +3,37 @@
 \name{cctu_initialise}
 \alias{cctu_initialise}
 \alias{cctu_check_dir}
-\title{initialise the directories for using cctu package}
+\alias{reset_code_tree}
+\title{initialise  objects for using cctu package}
 \usage{
 cctu_initialise(root = getwd())
 
 cctu_check_dir(root = getwd(), warnings = FALSE)
+
+reset_code_tree(root_file = "main.R")
 }
 \arguments{
 \item{root}{the root directory to start in}
 
 \item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
+
+\item{root_file}{the name of the code file you want to use as the initial root for code tree}
 }
 \value{
-invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
+cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
 
-a logical indicating if the directories exist,
+cctu_check_dir gives a logical indicating if the directories exist,
 }
 \description{
-initialise the directories for using cctu package
+initialise  objects for using cctu package
 }
 \section{Functions}{
 \itemize{
+\item \code{cctu_initialise}: create the standard directories for outputs if needed.
+
 \item \code{cctu_check_dir}: Check if the directories exist for cctu
+
+\item \code{reset_code_tree}: reset the internal code_tree object to have no entries
 }}
 
 \seealso{

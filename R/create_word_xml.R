@@ -39,7 +39,8 @@ create_word_xml <- function(
   path %<>% normalizePath %>% final_slash
   figure_path %<>% normalizePath %>% final_slash
   table_path %<>% normalizePath %>% final_slash
-
+  long_filename <- normalizePath(filename)
+  filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
 
@@ -58,10 +59,10 @@ create_word_xml <- function(
 
 
   #put a copy of the xslt file into the report path
-  report_folder <- normalizePath(paste0(path,filename,"/.."))
-  file.copy(system.file("extdata", "xml_to_word.xslt", package="cctu"),
-            report_folder, overwrite=TRUE
-  )
+  # report_folder <- normalizePath(paste0(path,filename,"/.."))
+  # file.copy(system.file("extdata", "xml_to_word.xslt", package="cctu"),
+  #           report_folder, overwrite=TRUE
+  # )
 
   cat(
     "\n <Report>
@@ -113,6 +114,13 @@ create_word_xml <- function(
 
 
   cat("\n </Report>", file = filename, append = TRUE)
+
+  #now apply the transform explicitly.
+  doc <- xml2::read_xml(filename)
+  transform <- xml2::read_xml(system.file("extdata", "xml_to_word.xslt", package="cctu"))
+  output <- xslt::xml_xslt(doc, transform)
+  xml2::write_xml(output, file=long_filename)
+
 
 }
 

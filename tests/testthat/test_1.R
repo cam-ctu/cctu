@@ -71,8 +71,9 @@ write_ggplot(
 
 
 # need the local =TRUE to call this from the testthat(). but not in general.
+reset_code_tree()
 source("analysis.R", local=TRUE)
-code_tree
+cctu_env$code_tree
 
 test_that("exist",
           {
@@ -139,6 +140,7 @@ test_that("Comparison to saved output",{
   #expect_known_output(test %>%as.character, "data/ReportJpg", update=FALSE, print=TRUE)
 })
 
+print(cctu_env$code_tree)
 
 #put this into a vignette
 

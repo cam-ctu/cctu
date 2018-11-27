@@ -4,23 +4,22 @@
 \alias{source}
 \title{A modified version of the source() function to capture in a data.frame what file was called and from which file}
 \usage{
-source(file, code_tree_string = "code_tree", frame = parent.frame(),
-  local = FALSE)
+source(file, local = FALSE)
 }
 \arguments{
 \item{file}{a \link{connection} or a character string giving the
     pathname of the file or URL to read from.  \code{""} indicates the
     connection \code{\link{stdin}()}.}
 
-\item{code_tree_string}{character string giving the name of a data.frame to augment, or create if this is the first use}
-
-\item{frame}{frame or environment in which to find data.frame named code_tree_string}
-
 \item{local}{\code{TRUE}, \code{FALSE} or an environment, determining
     where the parsed expressions are evaluated.  \code{FALSE} (the
     default) corresponds to the user's workspace (the global
     environment) and \code{TRUE} to the environment from which
     \code{source} is called.}
+
+\item{code_tree_string}{character string giving the name of a data.frame to augment, or create if this is the first use}
+
+\item{frame}{frame or environment in which to find data.frame named code_tree_string}
 }
 \value{
 no return value

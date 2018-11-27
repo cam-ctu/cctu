@@ -8,10 +8,14 @@ header-includes:
 
 ```{r code_tree_code}
 PATH <- getwd()
+PATH <- normalizePath(paste0(PATH,"/.."))
+PATH
+code_tree <- cctu:::cctu_env$code_tree
+
 
 code_tree %<>% within({
-  parent %<>% gsub(PATH,"",  . ,fixed=TRUE)
-  child %<>% gsub(PATH,"",  . ,fixed=TRUE)
+  parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
+  child %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
 })
 
 print(code_tree)
@@ -35,14 +39,14 @@ graphcode <- function( edges, node, rootnode=TRUE){
 }
 
 
-# graph <- graphcode(code_tree, code_tree[1,1])
-# graph <- gsub("\\\\","/", graph)
-# graph <- gsub(PATH,"", graph)
-# graph <- gsub("_"," ", graph)
-# graph <- paste(c('\\',graph, ";"), collapse = "")
-# graph
+graph <- graphcode(code_tree, code_tree[1,1])
+graph <- gsub("\\\\","/", graph)
+graph <- gsub(PATH,"", graph)
+graph <- gsub("_"," ", graph)
+graph <- paste(c('\\',graph, ";"), collapse = "")
 
-graph <- c("\\node{hello world};")
+#graph
+#graph <- c("\\node{hello world};")
 
 
 #sibling distance=20em,

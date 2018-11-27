@@ -12,6 +12,7 @@
 
 cctu_initialise <- function(root=getwd()){
   root %<>% normalizePath %>% final_slash
+  reset_code_tree(root=paste0(root,"ROOT"))
   if( !cctu_check_dir(root=root)){
   dir.create(paste0(root, "Output")) &
     dir.create( paste0(root,"Output\\Core")) &

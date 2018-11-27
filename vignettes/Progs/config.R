@@ -6,7 +6,7 @@
 #### Date created: 26JUL2017
 #### Notes:
 
-cctu_initialise()
+#cctu_initialise()
 
 options(verbose = TRUE)
 

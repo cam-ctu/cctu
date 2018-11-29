@@ -21,8 +21,8 @@ source <- function(file, local=FALSE
   cctu_env$parent <- c(child, cctu_env$parent)
   base_source <- base::source
   #this function name will still match "source" in a regular expression used in get_file_name
-  #eval( call( "base_source", file, echo=TRUE, max.deparse.length=Inf,local=local), envir=parent_frame)
-  # Black magic why this works in testthat, but eval does not??
+  #evalq( call( "base_source", file=file, echo=TRUE, max.deparse.length=Inf,local=local), envir=parent_frame)
+  # evalq works but eval does not...
   do.call(base_source, list( file=file, echo=TRUE, max.deparse.length=Inf, local=local), envir=parent_frame)
   cctu_env$parent <- cctu_env$parent[-1]
 }

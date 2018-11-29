@@ -21,6 +21,7 @@ meta_table %<>% within(
 meta_subset <- meta_table[3,]
 #devtools::use_data(meta_table, overwrite = TRUE)
 
+set_meta_table(meta_table)
 
 set.seed(1649)
 data <- data.frame( subjid=1:100,
@@ -59,8 +60,7 @@ attach_pop("1.10")
 sumby(response, rx, data=data )
 #could actually just call the write_ggplot() now, but the line below is clearer
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
-write_ggplot(
-             meta_table_string="meta_subset", format="png")
+write_ggplot( format="png")
 }
 
 
@@ -91,7 +91,7 @@ popn_labels <- paste0(c("Safety (N = ","Full Analysis (N = "), popn_size,c(")", 
 #setwd(PATH)
 create_word_xml("Test <Report>",
                 "Simon & Bond's",
-                meta_table,
+                get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
                 filename="Output/Reports/Report2.doc",

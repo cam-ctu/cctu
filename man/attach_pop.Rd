@@ -5,16 +5,14 @@
 \alias{detach_pop}
 \title{Functions that attach and detach environments based on which populations are used for a given table number}
 \usage{
-attach_pop(number, frame = parent.frame(), meta_table_string = "meta_table")
+attach_pop(number, frame = parent.frame())
 
-detach_pop(number, frame = parent.frame(), meta_table_string = "meta_table")
+detach_pop(number, frame = parent.frame())
 }
 \arguments{
 \item{number}{the number of a table or figure}
 
 \item{frame}{the environment or frame in which to attach or detach the desired target environment}
-
-\item{meta_table_string}{character string of the name of a global table that contains meta information on tables (title, population, number)}
 }
 \value{
 invisibly returns an environment for attaching, or NULL for detaching.

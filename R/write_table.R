@@ -29,7 +29,7 @@ write_table = function(X,
     warning(paste("Unable to identify the code file that created table", number))
     CallingProg <- "Missing"
     }
-  add_program(number, CallingProg,frame=frame,  ... )
+  add_program(number, CallingProg)
 
 
   output_string <- NULL

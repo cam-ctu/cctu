@@ -11,12 +11,12 @@
 
 clean_up <- function(number,
                      frame = parent.frame(),
-                     reserved_string="RESERVED",
+                     reserved_string=".reserved",
                      ...
                      ){
-  obj_list <- ls(frame)
+  obj_list <- ls(frame, all.names = FALSE)
   RESERVED <- get_obj(reserved_string, frame=frame)
-  keep     <- match(c(reserved_string, RESERVED), obj_list, nomatch=0)
+  keep     <- match(RESERVED, obj_list, nomatch=0)
   obj_list <- obj_list[-keep]
   rm(list = obj_list, envir = frame)
   detach_pop(number, frame=frame, ...)

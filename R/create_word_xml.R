@@ -23,7 +23,7 @@
 create_word_xml <- function(
   report_title,
   author,
-  meta_table,
+  meta_table=get_meta_table(),
   datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
   filename="Output\\Reports\\Report.doc",
   path=getwd(),
@@ -121,7 +121,7 @@ create_word_xml <- function(
   output <- xslt::xml_xslt(doc, transform)
   xml2::write_xml(output, file=long_filename)
 
-  warning("All figures in the word document are links to local files.\nYou must manually include them with word if you want to move the word document.")
+  print("All figures in the word document are links to local files.\nYou must manually include them with word if you want to move the word document.")
 }
 
 #' @keywords internal
@@ -131,64 +131,5 @@ final_slash <- function(x){
   paste0(gsub("\\\\$","",x),"\\")
 }
 
-
-
-#' @keywords internal
-#'
-
-clean_meta_table <- function(meta_table){
-  op <- options()
-  options(stringsAsFactors = FALSE)
-  columns_needed <- c("section","title","subtitle","number","population",
-                      "orientation", "program", "item", "footnote1","footnote2")
-
-
-
-  if( !("number" %in% names(meta_table))){warning("Need to have 'number' column in meta_table")}
-  if( !("item" %in% names(meta_table))){warning("Need to have 'item' column meta_table")}
-
-  meta_table$number <- gsub("\\s","", meta_table$number)
-  pmat <- pmatch(names(meta_table), columns_needed)
-  meta_table <- subset( meta_table, !is.na(meta_table$number) & meta_table$number!="", select=!is.na(pmat))
-  pmat <- pmatch(names(meta_table), columns_needed)
-  names(meta_table) <- columns_needed[pmat]
-  index <- meta_table$number %>% as.character %>% order_dewey
-  meta_table <- meta_table[index,]
-  n <- nrow(meta_table)
-
-  extra_cols <- columns_needed[-pmat]
-  if(length(extra_cols)){
-    X <- matrix(" ", nrow=n, ncol=length(extra_cols))
-    X <- as.data.frame(X)
-    names(X) <- extra_cols
-    meta_table <- cbind(meta_table, X)
-  }
-
-  meta_table$population <- gsub("\\s","", meta_table$population)
-
-  if( "orientation" %in% extra_cols){
-    meta_table$orientation <- "portrait"
-  }
-
-  item_index <- pmatch(meta_table$item %>% tolower,
-                       c("table","figure","text"),
-                       duplicates.ok = TRUE)
-  if(any(is.na(item_index))){
-    warning("invalid values for 'item' converted to 'table'")
-    item_index <- ifelse(is.na(item_index),1, item_index)
-    }
-  meta_table$item <- c("table","figure","text")[item_index]
-
-  orient_index <- pmatch(meta_table$orientation %>% tolower,
-                         c("portrait", "landscape"),
-                         duplicates.ok=TRUE)
-  if(any(is.na(orient_index))){
-    warning("invalid values for 'orientation' converted to 'portrait'")
-    orient_index <- ifelse(is.na(orient_index), 1, orient_index)
-    }
-  meta_table$orientation <- c("portrait", "landscape")[orient_index]
-  options(op)
-  meta_table
-}
 
 

@@ -121,8 +121,8 @@ By default the write_table() and write_figure() commands will rm() all objects a
 # Analysis
 
 ```{r reserved}
-RESERVED
-meta_table
+.reserved
+get_meta_table()
 ```
 
 `r sourceKnit("Progs/analysis.R","analysis")`
@@ -141,7 +141,7 @@ popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
 create_word_xml(report_title="Vignette Report",
             author="Bond", filename="Output/Reports/Vignette_Report.doc",
-            meta_table, popn_labels=popn_labels
+            popn_labels=popn_labels
             )
 cctu:::cctu_env$code_tree
 

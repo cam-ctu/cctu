@@ -54,7 +54,7 @@ write_ggplot = function(
     warning(paste("Unable to identify the code file that created figure", number))
     CallingProg <- "Missing"
   }
-  add_program(number, CallingProg, frame=frame, ... )
+  add_program(number, CallingProg )
 
   # deals with non-ggplot objects as well now
 

@@ -23,10 +23,8 @@ set_meta_table <- function(meta_table){
 #' @param calling_prog the file path
 #' @inheritParams clean_up
 #' @inheritParams attach_pop
-#'
+#' @describeIn get_meta_table edits the internal meta_table to gve the filepath to code that created a table/figure
 #' @keywords internal
-
-
 add_program <- function(number, calling_prog){
 
   meta_table <- get_meta_table()

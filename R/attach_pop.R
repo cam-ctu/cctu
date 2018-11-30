@@ -2,7 +2,7 @@
 #'
 #' @param number the number of a table or figure
 #' @param frame the environment or frame in which to attach or detach the desired target environment
-#'
+#' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'
 #' @return invisibly returns an environment for attaching, or NULL for detaching.
 #' @seealso \code{\link{attach}} \code{\link{detach}}
@@ -13,13 +13,16 @@
 #'@describeIn attach_pop attaches a population
 #'@export
 attach_pop <- function(number,
-                       frame=parent.frame()){
+                       frame=parent.frame(),
+                       verbose=options()$verbose
+                       ){
   cctu_env$number <- as.character(number)
   cctu_env$sumby_count <- 0
   popn_name <- match_population(number)
   if(!is.null(popn_name) && popn_name !="" && exists(popn_name, where=frame)){
     #attach is fussy about its argument needing to be an object, not a character
     eval(call("attach", as.name(popn_name)), envir=frame)
+    if(verbose){cat(popn_name,"attached containing:", ls(popn_name), "\n")}
   } else{
     warning("No population was attached")
   }
@@ -30,11 +33,14 @@ attach_pop <- function(number,
 #' @export
 
 detach_pop <- function(number,
-                       frame=parent.frame()
+                       frame=parent.frame(),
+                       verbose=options()$verbose
                        ){
   popn_name <- match_population(number)
   if( !is.null(popn_name) && popn_name %in% search()){
+    popn_list <- ls(popn_name)
     detach(popn_name, character.only = TRUE)
+    if(verbose){cat(popn_name,"detached containing:", popn_list, "\n")}
   } else{
     warning("No population was detached")
   }

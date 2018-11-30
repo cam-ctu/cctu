@@ -19,6 +19,8 @@ cctu_initialise <- function(root=getwd()){
     dir.create( paste0(root, "Output\\Figures")) &
     dir.create( paste0(root, "Output\\Reports"))
   } else{ invisible(TRUE) }
+
+  # Copy across the default set of scripts?
 }
 
 #' @describeIn cctu_initialise Check if the directories exist for cctu

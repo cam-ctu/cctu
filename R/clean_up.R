@@ -12,14 +12,16 @@
 clean_up <- function(number,
                      frame = parent.frame(),
                      reserved_string=".reserved",
+                     verbose=options()$verbose,
                      ...
                      ){
-  obj_list <- ls(frame, all.names = FALSE)
   RESERVED <- get_obj(reserved_string, frame=frame)
+  obj_list <- ls(frame, all.names = FALSE)
   keep     <- match(RESERVED, obj_list, nomatch=0)
-  obj_list <- obj_list[-keep]
+  if(length(keep) && keep!=0 ){obj_list <- obj_list[-keep]}
   rm(list = obj_list, envir = frame)
-  detach_pop(number, frame=frame, ...)
+  if(verbose){cat("\nObjects removed:", obj_list,"\n")}
+  detach_pop(number, frame=frame, verbose=verbose, ...)
   cctu_env$number <- "0"
   cctu_env$sumby_count <- 0
 }

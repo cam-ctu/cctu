@@ -9,7 +9,7 @@
 #' @param clean_up logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE
 #' @param directory where to save the figures within path or current working directory
 #' @inheritParams clean_up
-#' @inheritParams add_program
+#'
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
 #' @param graphics_args a list of named arguments to supply to graphics function (png, postscript, jpeg)
 #' @param frame the frame or environment in which lives the meta_table to be edited with teh path to the containing code file
@@ -33,7 +33,8 @@ write_ggplot = function(
                        ...,
                        format=c("png","postscript","jpeg"),
                        graphics_args=NULL,
-                       frame=parent.frame()
+                       frame=parent.frame(),
+                       verbose=options()$verbose
                        ){
 
 
@@ -71,13 +72,16 @@ write_ggplot = function(
   }
   plotting_function <- getExportedValue("grDevices", format)
   do.call(plotting_function, c(args_list, extra_args))
-  on.exit(utils::capture.output(grDevices::dev.off()))
+  on.exit({
+    utils::capture.output(grDevices::dev.off())
+    if(verbose){cat("\n", args_list$file, "created.\n")}
+    })
   plot(plot)
   invisible()
 
   # this links in with using environments to define the correct population
   # detach_pop(number)
   if(clean_up){
-    clean_up(number, frame = frame, ...)
+    clean_up(number, frame = frame, verbose=verbose, ...)
   }
 }

@@ -31,7 +31,8 @@ create_word_xml <- function(
   figure_format=c("png","jpeg","ps"),
   figure_path="Output\\Figures\\",
   frame=parent.frame(),
-  popn_labels=NULL
+  popn_labels=NULL,
+  verbose=options()$verbose
 ){
   #check you are in the right working directory
   if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
@@ -121,7 +122,11 @@ create_word_xml <- function(
   output <- xslt::xml_xslt(doc, transform)
   xml2::write_xml(output, file=long_filename)
 
-  print("All figures in the word document are links to local files.\nYou must manually include them with word if you want to move the word document.")
+  if(verbose){
+    cat( long_filename, "created.",
+      "\nAll figures in the word document are links to local files",
+      "\nYou must manually include them with word if you want to move the word document.\n")
+  }
 }
 
 #' @keywords internal

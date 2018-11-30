@@ -5,7 +5,7 @@
 \title{removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number}
 \usage{
 clean_up(number, frame = parent.frame(), reserved_string = ".reserved",
-  ...)
+  verbose = options()$verbose, ...)
 }
 \arguments{
 \item{number}{a number associated with a table of figure}
@@ -13,6 +13,8 @@ clean_up(number, frame = parent.frame(), reserved_string = ".reserved",
 \item{frame}{an environment win which to clean up}
 
 \item{reserved_string}{a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
 \item{...}{modifications to the default values \code{\link{detach_pop}}}
 }

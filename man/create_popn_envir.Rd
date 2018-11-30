@@ -5,7 +5,8 @@
 \title{create environments contain a set of data frames filtered for each population}
 \usage{
 create_popn_envir(data_names, popn, subjid_string = "subjid",
-  rm_from_frame = TRUE, frame = parent.frame())
+  rm_from_frame = TRUE, frame = parent.frame(),
+  verbose = options()$verbose)
 }
 \arguments{
 \item{data_names}{a character vector of the key data frames to be filtered}
@@ -17,6 +18,8 @@ create_popn_envir(data_names, popn, subjid_string = "subjid",
 \item{rm_from_frame}{a logical indicating if the data sets shoudl be removed from the frame environment}
 
 \item{frame}{the frame in which the original list of data sets are found, and  in which the new environments will be contianed.}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 }
 \description{
 create environments contain a set of data frames filtered for each population

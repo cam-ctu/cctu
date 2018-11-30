@@ -4,6 +4,7 @@
 #'@param total logical value to include an extra overall columns. Defaults to true
 #'@param fig logical value on whether to print (if interactive) and save a copy of the figure. Defaults to true
 #'@param directory the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.
+#' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'
 #'@return a data.frame containing summary statistics in character format,
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object
@@ -21,7 +22,8 @@ sumby <- function(variable,
                   data  = parent.frame(),
                   total = TRUE,
                   fig   = TRUE,
-                  directory="Output\\Figures\\"
+                  directory="Output\\Figures\\",
+                  verbose=options()$verbose
                   ){
 
   variable_name <- deparse(substitute(variable))
@@ -39,6 +41,7 @@ sumby <- function(variable,
       directory %<>% normalizePath %>% final_slash
       file_name <- paste0(directory,"sumby_fig_",cctu_env$number,"_", cctu_env$sumby_count,".png")
       ggsave(file_name, fig_object)
+      if(verbose){cat(file_name, "created.\n")}
    }
   }
 

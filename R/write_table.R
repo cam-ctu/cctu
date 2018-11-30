@@ -17,12 +17,15 @@ write_table = function(X,
                       clean_up = TRUE,
                       directory="Output\\Core\\",
                       frame=parent.frame(),
+                      verbose=options()$verbose,
                       ...
                       ){
 
   # don't need this unless want to override
   #PATH <- get_obj(path_string, frame=frame, alt=getwd())
   #
+  #frame <- parent.frame()
+
 
   CallingProg <- get_file_name()
   if(is.null(CallingProg)){
@@ -63,13 +66,13 @@ write_table = function(X,
   file_name <- paste0(directory,"table_",number,".xml")
 
   cat(output_string, file = file_name, append = FALSE)
-
+  if(verbose){cat("\n", file_name, "created.\n")}
 
 
 
 
   if(clean_up){
-     clean_up(number, frame = frame,...)
+     clean_up(number, frame = frame, verbose=verbose,...)
   }
 }
 

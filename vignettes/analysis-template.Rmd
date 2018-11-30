@@ -36,6 +36,7 @@ rm(list=ls())
 library(cctu)
 #run_batch("main.R")
 DATA <- "PATH_TO_DATA"
+options(verbose=TRUE)
 ```
 
 If you run just these initial lines, the last command will evoke R CMD BATCH to run the entire set of code and produce a log file "main.Rout", which should be the final step, using the validated server. The final line  is commented out as the vignette will not work with this though..
@@ -64,9 +65,9 @@ cctu_initialise()
 ```
 
 
+
+
 `r sourceKnit("Progs/config.R", "config")`
-
-
 
 # Data Import
 
@@ -113,8 +114,11 @@ In the data manipulation step, we need to
 By default the write_table() and write_figure() commands will rm() all objects and detach the population-environment. It will ignore any objects named in the vector 'RESERVED', so defining this at the end of the data-import step is a good place. 
 
 
+```{r import}
+source("Progs/data_import.R")
+```
 
-`r sourceKnit("Progs/data_import.R","data")`
+
 
 
 
@@ -123,9 +127,11 @@ By default the write_table() and write_figure() commands will rm() all objects a
 ```{r reserved}
 .reserved
 get_meta_table()
+
+source("Progs/analysis.R")
 ```
 
-`r sourceKnit("Progs/analysis.R","analysis")`
+
 
 # Creating the Report
 

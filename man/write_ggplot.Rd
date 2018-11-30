@@ -8,7 +8,7 @@ write_ggplot(plot = last_plot(), number = cctu_env$number,
   width = 29.7 * 0.6, height = 21 * 0.6, dpi = 300, units = "cm",
   clean_up = TRUE, directory = "Output\\\\Figures\\\\", ...,
   format = c("png", "postscript", "jpeg"), graphics_args = NULL,
-  frame = parent.frame())
+  frame = parent.frame(), verbose = options()$verbose)
 }
 \arguments{
 \item{plot}{the plot object to save. defaults to \code{last_plot}}
@@ -34,6 +34,8 @@ write_ggplot(plot = last_plot(), number = cctu_env$number,
 \item{graphics_args}{a list of named arguments to supply to graphics function (png, postscript, jpeg)}
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 }
 \value{
 writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.

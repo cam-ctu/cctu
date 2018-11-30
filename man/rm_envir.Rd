@@ -4,10 +4,13 @@
 \alias{rm_envir}
 \title{A function to remove all attached objects from the search path with any exceptions specified}
 \usage{
-rm_envir(ignore = c(".GlobalEnv", "package:", "tools:", "Autoloads"))
+rm_envir(ignore = c(".GlobalEnv", "package:", "tools:", "Autoloads"),
+  verbose = options()$verbose)
 }
 \arguments{
 \item{ignore}{a character vector of regular expression search terms  within the output from \code{search()} as to which should be retained.}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 }
 \description{
 A function to remove all attached objects from the search path with any exceptions specified

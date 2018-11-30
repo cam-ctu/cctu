@@ -6,7 +6,8 @@
 \usage{
 write_table(X, number = cctu_env$number, heading = colnames(X),
   na_to_empty = FALSE, clean_up = TRUE,
-  directory = "Output\\\\Core\\\\", frame = parent.frame(), ...)
+  directory = "Output\\\\Core\\\\", frame = parent.frame(),
+  verbose = options()$verbose, ...)
 }
 \arguments{
 \item{X}{the data.frame or table to be saved in xml format}
@@ -22,6 +23,8 @@ write_table(X, number = cctu_env$number, heading = colnames(X),
 \item{directory}{where to save the figures within path or current working directory}
 
 \item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
 \item{...}{modifications to the default values \code{\link{detach_pop}}}
 }

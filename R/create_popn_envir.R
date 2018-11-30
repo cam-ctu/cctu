@@ -5,6 +5,7 @@
 #'@param subjid_string the character naming the column used in each data frame from data_names and popn, to identify the subjid.
 #'@param rm_from_frame a logical indicating if the data sets shoudl be removed from the frame environment
 #'@param frame the frame in which the original list of data sets are found, and  in which the new environments will be contianed.
+#' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'
 #'@details  Now to use the data frames defined above in data_names you have to either directly
 #'call attach(safety), for example orr lookup with attach_pop(1.01) for a table number.
@@ -18,7 +19,8 @@
                               popn,
                               subjid_string="subjid",
                               rm_from_frame=TRUE,
-                              frame=parent.frame()
+                              frame=parent.frame(),
+                              verbose=options()$verbose
   ){
 
 
@@ -41,11 +43,17 @@ for(pop_name in popn_names){
   }
   # keep an environment of the different population-based version of the data sets
   assign(pop_name, env_temp, envir=frame)
+  if(verbose){cat(pop_name, "environment created in", environmentName(frame),"\n")}
  #rm(env_temp, data_temp, population_temp)
 }
 
 # remove the original data frames from the search path - else you will get duplications
-if(rm_from_frame){rm(list = data_names, envir=frame)}
+
+
+if(rm_from_frame){
+  if(verbose){cat("data frames removed from",environmentName(frame),":", data_names,"\n" )}
+  rm(list = data_names, envir=frame)
+  }
 #rm(data_names, row, df)
 
 }

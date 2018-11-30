@@ -3,6 +3,7 @@
 #' @param df a data frame
 #' @param convert a logical to indicate if you want to modify \code{df} in the parent environment,
 #' or if not simply return a character vector of the revised variable names.
+#' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'
 #' @return \code{df} is modified to have variable names that are
 #' \itemize{
@@ -13,14 +14,14 @@
 #' so a variable called "Nasty/Var+Name " gets turned into "nasty_var_name" .
 #'
 #' Either a vector of cleaned names is return directly,
-#' or the input object is modified in the parent envirnoment (the default)
+#' or the input object is modified in the parent envirnoment (the default) and an invisible copy of the modified input returned
 #'
 #'
 #' @export
 #' @importFrom  magrittr %>%
 
 
-clean_names <- function(df, convert = TRUE){
+clean_names <- function(df, convert = TRUE, verbose=options()$verbose){
   arg_name_df <- deparse(substitute(df))
   df_names    <- names(df)           %>%
                  tolower(.)          %>%
@@ -34,6 +35,8 @@ clean_names <- function(df, convert = TRUE){
   if(convert){
     names(df) <- df_names
     assign(arg_name_df, df, envir = parent.frame())
+    if(verbose){cat(arg_name_df, "given clean names")}
+    invisible(df)
   } else{
     df_names
   }

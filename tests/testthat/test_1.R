@@ -1,13 +1,15 @@
 #.libPaths(c(.libPaths(), "V:/STATISTICS/STUDY PLANNING/R_library"))
 #.libPaths("V:/STATISTICS/STUDY PLANNING/R_library")
-# Sys.setenv(R_LIBS_USER="V:/STATISTICS/STUDY PLANNING/R_library")
+# Sys.setenv(R_LIBS_USER="V:/STATISTICS/STUDY PLANNING/R_libraryV3.5")
 
 rm(list=ls())
 context("Test the testing")
-library(cctu)
+#library(cctu)
 library(testthat)
 library(readxl)
 library(magrittr)
+
+options(verbose=TRUE)
 
 #PATH <- paste0(getwd(),"/tests/testthat/")
 #PATH <- paste0(getwd(),"/")
@@ -37,7 +39,7 @@ popn <- data.frame(subjid=data$subjid,
 create_popn_envir(c("data"), popn)
 
 #Don;t actually need PATH defined or included in RESERVED as the current code stands!
-RESERVED <- c("meta_table","meta_subset","popn","safety","full","code_tree")
+.reserved<- c("meta_table","meta_subset","popn","safety","full","code_tree")
 
 
 if(FALSE){attach_pop(1.1)

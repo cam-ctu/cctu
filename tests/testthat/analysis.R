@@ -8,7 +8,7 @@ write_table(X)#, directory="tests/testthat/Output/Core/")
 
 
 
-attach_pop("1.1.1")
+attach_pop("1.1.1",verbose=TRUE)
 X <- sumby(endpoint, rx, data=data )
 write_table(X, clean_up = FALSE)#, directory="tests/testthat/Output/Core/")
 

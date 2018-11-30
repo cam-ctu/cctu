@@ -5,7 +5,8 @@
 \title{Produces summary statistics on a variable broken down by arm, display a graphical equivalent.}
 \usage{
 sumby(variable, arm, label = NULL, data = parent.frame(),
-  total = TRUE, fig = TRUE, directory = "Output\\\\Figures\\\\")
+  total = TRUE, fig = TRUE, directory = "Output\\\\Figures\\\\",
+  verbose = options()$verbose)
 }
 \arguments{
 \item{variable}{A variable of interest to be summarised. Works for several classes: numeric, integer, factor, character.}
@@ -21,6 +22,8 @@ sumby(variable, arm, label = NULL, data = parent.frame(),
 \item{fig}{logical value on whether to print (if interactive) and save a copy of the figure. Defaults to true}
 
 \item{directory}{the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 }
 \value{
 a data.frame containing summary statistics in character format,

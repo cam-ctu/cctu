@@ -1,12 +1,4 @@
 
-#### Preliminary configuration file: libraries, functions, R options
-#### Author: Simon Bond
-#### Study: RIVAS
-#### DMC report Sep 2017
-#### Date created: 26JUL2017
-#### Notes:
-
-#cctu_initialise()
 
 options(verbose = TRUE)
 
@@ -15,9 +7,6 @@ mylibs <- c("readxl", "dplyr", "ggplot2", "magrittr","tidyr","rmarkdown","knitr"
 for(package in mylibs){
   library(package, character.only = TRUE)
 }
-# Note, we could modify library(lib.loc = ), but if there is hardcoded
-# pckg::function then it won't find it (occurs with ggplot). So we need to change
-# the search path for the session - hence the .libPaths() line
 
 # read in all function files
 my_functions <- list.files("Progs\\functions")

@@ -1,18 +1,34 @@
+---
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{trees,arrows}
+output: pdf_document
+classoption: landscape
+params:
+  my_title: "You only live twice"
+  my_author: "Ian Flemming"
+title: "`r params$my_title`"  
+author: "`r params$my_author`"
+---
 
 
 
-```{r code_tree_code}
+
+
+```{r include=FALSE}
+#rm(list=ls())
+#PATH="V:/STATISTICS/STUDY FOLDER/Cardiovascular/LILACS/Analysis/Cohort5"
 PATH <- getwd()
 PATH <- normalizePath(paste0(PATH,"/.."))
 
 code_tree <- cctu:::cctu_env$code_tree
 
+
 code_tree %<>% within({
   parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
   child %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
 })
-
-print(code_tree)
 
 graphcode <- function( edges, node, rootnode=TRUE){
   #edges is a data.frame with two columns: parent, child
@@ -33,15 +49,16 @@ graphcode <- function( edges, node, rootnode=TRUE){
 }
 
 
+
 graph <- graphcode(code_tree, code_tree[1,1])
 graph <- gsub("\\\\","/", graph)
 graph <- gsub(PATH,"", graph)
 graph <- gsub("_"," ", graph)
 graph <- paste(c('\\',graph, ";"), collapse = "")
+graph
 
+#sibling distance=20em,
 ```
-
-
 
 \begin{tikzpicture}[edge from parent fork right, level distance=20em, grow'=right,
   every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}] 

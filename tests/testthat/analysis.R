@@ -1,16 +1,13 @@
 
 attach_pop(1.1)
-ls()
-print("hello")
-summary(data)
 X <- sumby(endpoint, rx, data=data )
-write_table(X)#, directory="tests/testthat/Output/Core/")
+write_table(X)
 
 
 
 attach_pop("1.1.1",verbose=TRUE)
 X <- sumby(endpoint, rx, data=data )
-write_table(X, clean_up = FALSE)#, directory="tests/testthat/Output/Core/")
+write_table(X, clean_up = FALSE)
 
 meta_table <- get_meta_table()
 
@@ -28,8 +25,7 @@ attach_pop("1.10")
 sumby(response, rx, data=data )
 #could actually just call the write_ggplot() now, but the line below is clearer
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
-write_ggplot( #directory="tests/testthat/Output/Figures/",
-              format="png")
+write_ggplot( fig, format="png")
 
-#source("analysisB.R", local=TRUE)
+
 

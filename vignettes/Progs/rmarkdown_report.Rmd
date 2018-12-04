@@ -14,42 +14,41 @@ author: "`r params$my_author`"
 
 
 
-```{r setup, include=FALSE, message=FALSE}
-#rm(list=ls())
-#PATH="V:/STATISTICS/STUDY FOLDER/Cardiovascular/LILACS/Analysis/Cohort5"
-setwd(PATH)
-#.libPaths("R_library")
-PATH_table <- paste0(PATH,"/Output/Core/")
-PATH_figure <- paste0(PATH,"/Output/Figures/")
-meta_table <- read.csv(file="Data/TableOfTablesPostCode.csv", stringsAsFactors = FALSE)
-index <- order_dewey(meta_table$Number)
+```{r  html_report , include=FALSE, message=TRUE, warning=FALSE}
+
+
+
+PATH_figure <- paste0(getwd(),"/Output/Figures/")
+meta_table <- get_meta_table()#read.csv(file="Data/TableOfTablesPostCode.csv", stringsAsFactors = FALSE)
+index <- order_dewey(meta_table$number)
 meta_table <- meta_table[index,]
 rm(index)
 
-sections <- unique(meta_table$Section)
+sections <- unique(meta_table$section)
 src <- as.character(NULL)
 for(sect in sections){
   src <- c(src, paste("\n#", sect)) 
-  subtab <- subset(meta_table, Section==sect)
+  subtab <- subset(meta_table, section==sect)
   for(row in 1:nrow(subtab)){
-    src <- c(src, paste("\n##", subtab[row,"Number"], subtab[row,"Title"], "\nPopulation:", subtab[row,"Population"]))
-    if( !is.na(subtab[row,"Subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"Subtitle"]))}
+    src <- c(src, paste("\n##", subtab[row,"number"], subtab[row,"title"], "\nPopulation:", subtab[row,"population"]))
+    if( !is.na(subtab[row,"subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"subtitle"]))}
              
-    if( subtab[row,"Item"] %>% tolower=="table"){
-      src <- c(src,
-               knit_expand("Progs/Markdown/table.Rmd", 
-                           file_name=paste0(PATH_table,"table_",subtab[row,"Number"],".xml")
+    if( subtab[row,"item"] %>% tolower=="table"){
+          src <- c(src, # knit exapnd really doesn't like absolute paths or \ or \\
+               knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
+                           chunk_name=paste0("table",subtab[row,"number"]),
+                           file_name=paste0("Output/Core/table_",subtab[row,"number"],".xml") 
                            )
-               )
-      
+              )
+
       
      
     }
-    if(subtab[row,"Item"] %>% tolower=="figure" ){
-      src <- c(src, paste0("![](",PATH_figure,"fig_",subtab[row,"Number"],".png) \n" ))
+    if(subtab[row,"item"] %>% tolower=="figure" ){
+      src <- c(src, paste0("![](",PATH_figure,"fig_",subtab[row,"number"],".png) \n" ))
     }
-    if( !is.na(subtab[row,"Footnote1"])){ src <- c(src, paste("\n",subtab[row,"Footnote1"]))}
-    if( !is.na(subtab[row,"Footnote1"])){ src <- c(src, paste("\n",subtab[row,"Footnote2"]))}
+    if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote1"]))}
+    if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote2"]))}
   }
 }
 

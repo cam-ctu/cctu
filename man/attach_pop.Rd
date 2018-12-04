@@ -10,7 +10,7 @@ attach_pop(number, frame = parent.frame(), verbose = options()$verbose)
 detach_pop(number, frame = parent.frame(), verbose = options()$verbose)
 }
 \arguments{
-\item{number}{the number of a table or figure}
+\item{number}{a character string, or number, giving the number of a table or figure. Be careful if you want '2.10' rather than 2.1, say .}
 
 \item{frame}{the environment or frame in which to attach or detach the desired target environment}
 

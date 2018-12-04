@@ -9,14 +9,16 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
   filename = "Output\\\\Reports\\\\Report.doc", path = getwd(),
   table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg",
   "ps"), figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
-  popn_labels = NULL, verbose = options()$verbose)
+  popn_labels = NULL, verbose = options()$verbose,
+  xslt_file = system.file("extdata", "xml_to_word.xslt", package =
+  "cctu"))
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}
 
 \item{author}{text string naming the author}
 
-\item{meta_table}{a data frame  that contains meta information on tables (title, population, number)}
+\item{meta_table}{a data frame  that contains meta information on tables (title, population, number). Defaults is get_meta_table()}
 
 \item{datestamp}{text used to give the date-time stampe, defaults to the system date/time at the time of running the function}
 
@@ -35,6 +37,11 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
 \item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{xslt_file}{a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").}
+}
+\value{
+This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.
 }
 \description{
 Produces the final xml file

@@ -2,7 +2,7 @@
 #'
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
-#' @param meta_table a data frame  that contains meta information on tables (title, population, number)
+#' @param meta_table a data frame  that contains meta information on tables (title, population, number). Defaults is get_meta_table()
 #' @param datestamp text used to give the date-time stampe, defaults to the system date/time at the time of running the function
 #' @param filename text string giving the filename/path to output the word document to
 #' @param path text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.
@@ -12,8 +12,11 @@
 #' @param figure_path text string giving the filepath to the figures
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
 #' @param  figure_format the format to look for figure files when building the report ("png", "jpeg","ps")
+#' @param xslt_file a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").
 #' @export
 #' @importFrom magrittr %>% %<>%
+#'
+#' @return This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.
 #'
 #' @details  all file paths need to use "\\" as "/" will not work in windows dos
 
@@ -32,7 +35,8 @@ create_word_xml <- function(
   figure_path="Output\\Figures\\",
   frame=parent.frame(),
   popn_labels=NULL,
-  verbose=options()$verbose
+  verbose=options()$verbose,
+  xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
 ){
   #check you are in the right working directory
   if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
@@ -118,7 +122,7 @@ create_word_xml <- function(
 
   #now apply the transform explicitly.
   doc <- xml2::read_xml(filename)
-  transform <- xml2::read_xml(system.file("extdata", "xml_to_word.xslt", package="cctu"))
+  transform <- xml2::read_xml(xslt_file)
   output <- xslt::xml_xslt(doc, transform)
   xml2::write_xml(output, file=long_filename)
 

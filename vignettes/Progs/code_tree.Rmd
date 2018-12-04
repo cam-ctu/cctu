@@ -6,13 +6,13 @@ PATH <- getwd()
 PATH <- normalizePath(paste0(PATH,"/.."))
 
 code_tree <- cctu:::cctu_env$code_tree
+write.csv(code_tree, file=paste0(PATH,"/Output/codetree.csv"), row.names = FALSE  )
 
 code_tree %<>% within({
   parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
   child %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
 })
 
-print(code_tree)
 
 graphcode <- function( edges, node, rootnode=TRUE){
   #edges is a data.frame with two columns: parent, child

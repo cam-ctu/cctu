@@ -1,0 +1,106 @@
+---
+title: "Code Tree Document"
+author: "Simon Bond"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_vignette:
+    keep_md: no
+classoption: landscape
+header-includes:
+- \usepackage{tikz}
+- \usetikzlibrary{trees,arrows}
+vignette: |
+  %\VignetteIndexEntry{Code Tree Document} 
+  %\VignetteEncoding{UTF-8} 
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+
+
+
+
+```{r include=FALSE}
+library(magrittr)
+library(knitr)
+PATH <- getwd()
+#PATH <- normalizePath(paste0(PATH,"/.."))
+print(getwd())
+
+code_tree <-read.csv("Output/codetree.csv")
+print(code_tree)
+
+
+code_tree %<>% within({
+  parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
+  child %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
+})
+
+graphcode <- function( edges, node, rootnode=TRUE){
+  #edges is a data.frame with two columns: parent, child
+  if(length(node)){
+    children <-  subset(edges, parent==node)$child
+    if(!rootnode){ output <- " child{ "}
+    if(rootnode){ output <- "" }
+    output <- c(output,  "node{ ", node,"} ")
+    #if(rootnode){ output <- c(output, "[grow=right] ")}
+    for( child in children){ 
+      output <- c(output, Recall(edges, child, rootnode=FALSE))
+    }
+    if(!rootnode){ output <- c( output, " }")}
+  } else{ 
+    output <- ""
+  }
+  output
+}
+
+
+
+graph <- graphcode(code_tree, code_tree[1,1])
+graph <- gsub("\\\\","/", graph)
+graph <- gsub(PATH,"", graph)
+graph <- gsub("_"," ", graph)
+graph <- paste(c('\\',graph, ";"), collapse = "")
+graph
+
+#sibling distance=20em,
+```
+
+\begin{tikzpicture}[edge from parent fork right, level distance=20em, grow'=right,
+  every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}] 
+     `r knit_child(text=graph)`
+\end{tikzpicture}
+
+# Real Usage
+
+This is generated a stand alone vignette, but really it would be used in a modified form with the following YAML in the .Rmd file
+
+
+```
+---
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+header-includes:
+  - \usepackage{tikz}
+  - \usetikzlibrary{trees,arrows}
+output: pdf_document
+classoption: landscape
+params:
+  my_title: "You only live twice"
+  my_author: "Ian Flemming"
+title: "`` `r
+params$my_title` ``"  
+author: "`` `r
+params$my_author` ``"
+---
+```
+
+and rendered from the `main.R` with something like
+
+```{r, eval=FALSE}
+render("Progs/rmarkdown_report.Rmd", 
+       output_file ="Vignette Report.html",output_dir = "Output/Reports",
+       params=list(my_author="Simon Bond", 
+                   my_title= "Vignette Report"),
+       knit_root_dir=".."
+)
+```

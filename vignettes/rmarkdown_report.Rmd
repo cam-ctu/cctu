@@ -1,0 +1,79 @@
+---
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
+author: Simon Bond
+title: "Vignette Report HTML"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+vignette: |
+  %\VignetteIndexEntry{Analysis Template} 
+  %\VignetteEncoding{UTF-8} 
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+
+
+```{r  html_report , include=FALSE, message=TRUE, warning=FALSE}
+library(cctu)
+library(magrittr)
+
+PATH_figure <- paste0(getwd(),"/Output/Figures/")
+
+meta_table <- read.csv(file="Output/meta_table.csv", stringsAsFactors = FALSE)
+index <- order_dewey(meta_table$number)
+meta_table <- meta_table[index,]
+rm(index)
+
+sections <- unique(meta_table$section)
+src <- as.character(NULL)
+for(sect in sections){
+  src <- c(src, paste("\n#", sect)) 
+  subtab <- subset(meta_table, section==sect)
+  for(row in 1:nrow(subtab)){
+    src <- c(src, paste("\n##", subtab[row,"number"], subtab[row,"title"], "\nPopulation:", subtab[row,"population"]))
+    if( !is.na(subtab[row,"subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"subtitle"]))}
+             
+    if( subtab[row,"item"] %>% tolower=="table"){
+          src <- c(src, # knit exapnd really doesn't like absolute paths or \ or \\
+               knitr::knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
+                           chunk_name=paste0("table",subtab[row,"number"]),
+                           file_name=paste0("Output/Core/table_",subtab[row,"number"],".xml") 
+                           )
+              )
+
+      
+     
+    }
+    if(subtab[row,"item"] %>% tolower=="figure" ){
+      src <- c(src, paste0("![](",PATH_figure,"fig_",subtab[row,"number"],".png) \n" ))
+    }
+    if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote1"]))}
+    if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote2"]))}
+  }
+}
+
+
+
+```
+
+
+`r knitr::knit_child(text=src)`
+
+
+# Actual implimentation
+
+This would typically be called from `main.R` like, to achieve a html version of the main report. 
+
+```{r, eval=FALSE}
+
+render("Progs/rmarkdown_report.Rmd",
+       output_file ="Vignette Report.html",output_dir = "Output/Reports",
+       params=list(my_author="Simon Bond",
+                   my_title= "Vignette Report")
+)
+```
+
+NB use the file `/doc/Progs/rmarkdown_report.Rmd` and not the similarly named one within `/doc` . Building vignettes requires these two slighlty different versions. 
+

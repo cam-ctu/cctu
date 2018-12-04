@@ -173,7 +173,7 @@ pop_name <- unique(meta_table$population)
 index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
-
+write.csv(get_meta_table(), file="Output/meta_table.csv")
 create_word_xml(report_title="Vignette Report",
             author="Simon Bond", filename="Output/Reports/Vignette_Report.doc",
             popn_labels=popn_labels
@@ -189,7 +189,7 @@ The output is [here](Output/Reports/Vignette_Report.doc).  To permanently save, 
 ## Other Outputs
 
 ### Code Tree
-The audit trail of code architecture is turned into a visual tree below. In real life you would want to use `render` to create a seperate pdf file (note this only works via latex->pdf and can't do word or html currently). You _may_ need to use
+The audit trail of code architecture is turned into a visual tree below. In real life you would want to use `render` to create a seperate pdf file (note this only works via latex->pdf and can't do word or html currently). See the vignette `code_tree_doc` for an example. You _may_ need to use
 `Sys.setenv(RSTUDIO_PANDOC="C:/Program Files/RStudio/bin/pandoc")` before calling `render`, but this is not understood by the author at present as to why.
 
 

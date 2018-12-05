@@ -4,10 +4,6 @@ language: R
 sudo: required
 cache: packages
 
-before_install:
-  - chmod 777 ./travis-tool.sh
-
-
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE

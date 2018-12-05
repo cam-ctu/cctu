@@ -45,6 +45,8 @@ r_binary_packages:
   - remotes
   - sessioninfo
   - usethis
+  - devtools
+  - rcpp
 
 r_packages:
 

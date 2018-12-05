@@ -11,7 +11,6 @@ env:
 r_binary_packages:
  - ggplot2
  - magrittr
- - grDevices
  - xml2
  - xslt
  - testthat
@@ -21,10 +20,11 @@ r_binary_packages:
  - tidyr
  - rvest
  - rmarkdown
- - kableExtra
 
 r_packages:
   - covr
+  - kableExtra
+  - grDevices
 
 notifications:
   email:

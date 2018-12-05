@@ -4,25 +4,29 @@ language: R
 sudo: required
 cache: packages
 
+before_install:
+  - chmod +777 ./travis-tool.sh
+
+
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 r_binary_packages:
- - ggplot2
- - magrittr
- - xml2
- - xslt
- - testthat
- - readxl
- - dplyr
- - knitr
- - tidyr
- - rvest
- - rmarkdown
+  - ggplot2
+  - magrittr
+  - xml2
+  - xslt
+  - testthat
+  - readxl
+  - dplyr
+  - knitr
+  - tidyr
+  - rvest
+  - rmarkdown
+  - covr
 
 r_packages:
-  - covr
   - kableExtra
   - grDevices
 

@@ -21,9 +21,13 @@ r_binary_packages:
   - rvest
   - rmarkdown
   - covr
+  - hms
+  - clipr
+  - readr
+  - rstudioapi
+  - kableextra
 
 r_packages:
-  - kableExtra
   - grDevices
 
 notifications:

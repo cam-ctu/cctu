@@ -173,7 +173,8 @@ pop_name <- unique(meta_table$population)
 index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
-write.csv(get_meta_table(), file="Output/meta_table.csv")
+write.csv(get_meta_table(), file="Output/meta_table.csv", row.names = FALSE)
+write.csv(cctu:::cctu_env$code_tree, file="Output/codetree.csv", row.names = FALSE)
 create_word_xml(report_title="Vignette Report",
             author="Simon Bond", filename="Output/Reports/Vignette_Report.doc",
             popn_labels=popn_labels

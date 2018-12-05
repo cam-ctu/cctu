@@ -1,7 +1,7 @@
 #' initialise  objects for using cctu package
 #'
 #' @param root the root directory to start in
-#'
+#' @param scripts logical create the standard set of scripts
 #' @return cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
 #'
 #' @seealso \code{\link{dir.create}}
@@ -10,15 +10,20 @@
 #' @importFrom magrittr %>% %<>%
 
 #' @describeIn cctu_initialise create the standard directories for outputs if needed.
-cctu_initialise <- function(root=getwd()){
+cctu_initialise <- function(root=getwd(), scripts=FALSE){
   root %<>% normalizePath %>% final_slash
   reset_code_tree(root_file=paste0(root,"ROOT"))
   if( !cctu_check_dir(root=root)){
-  dir.create(paste0(root, "Output")) &
-    dir.create( paste0(root,"Output\\Core")) &
-    dir.create( paste0(root, "Output\\Figures")) &
-    dir.create( paste0(root, "Output\\Reports"))
-  } else{ invisible(TRUE) }
+    dir.create(paste0(root, "Output")) &
+      dir.create( paste0(root,"Output\\Core")) &
+      dir.create( paste0(root, "Output\\Figures")) &
+      dir.create( paste0(root, "Output\\Reports"))
+  }
+  if(scripts) {
+    file.copy( system.file("doc/main.R",package="cctu"), root)
+    file.copy( system.file("doc/Progs",package="cctu"), root, recursive=FALSE)
+    print("Maybe set up a Project in Rstudio and a git repository?")
+  } else { invisible(TRUE) }
 
   # Copy across the default set of scripts?
 }

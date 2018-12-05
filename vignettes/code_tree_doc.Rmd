@@ -23,13 +23,13 @@ vignette: |
 ```{r include=FALSE}
 library(magrittr)
 library(knitr)
-PATH <- getwd()
-#PATH <- normalizePath(paste0(PATH,"/.."))
-print(getwd())
 
-code_tree <-read.csv("Output/codetree.csv")
-print(code_tree)
+code_tree <- read.csv("Output/codetree.csv", stringsAsFactors = FALSE)
 
+
+root <- code_tree[1,1]
+
+PATH <- gsub("\\\\ROOT$", "", root,perl=TRUE) 
 
 code_tree %<>% within({
   parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)

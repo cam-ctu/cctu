@@ -183,7 +183,7 @@ sessionInfo()
 date()
 ```
 
-The output is [here](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
+The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
 
 
 ## Other Outputs

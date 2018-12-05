@@ -23,6 +23,10 @@ create_word_xml(report_title="Vignette Report",
                 popn_labels=popn_labels
 )
 
+write.csv(get_meta_table(), "Output/meta_table.csv", row.names = FALSE)
+write.csv(cctu:::cctu_env$code_tree, "Output/codetree.csv", row.names = FALSE)
+
+
 Sys.setenv(RSTUDIO_PANDOC="C:/Program Files/RStudio/bin/pandoc")
 render("Progs/code_tree_doc.Rmd", output_file ="Code Tree.pdf", output_dir = "Output/Reports",
        params=list(my_author="Simon Bond",

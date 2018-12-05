@@ -15,12 +15,13 @@ author: "`r params$my_author`"
 ```{r code_tree_chunk, include=FALSE}
 library(magrittr)
 library(knitr)
-PATH <- getwd()
-PATH <- normalizePath(paste0(PATH,"/.."))
+
 
 
 code_tree <- cctu:::cctu_env$code_tree
+root <- code_tree[1,1]
 
+PATH <- gsub("\\\\ROOT$", "", root,perl=TRUE) 
 
 
 code_tree %<>% within({

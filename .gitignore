@@ -6,4 +6,4 @@ doc
 .Ruserdata
 inst/doc
 ^Output
-^tests/testthat/Output
+

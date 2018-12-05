@@ -1,12 +1,27 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-sudo: false
+sudo: required
 cache: packages
 
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
+r_binary_packages:
+ - ggplot2
+ - magrittr
+ - grDevices
+ - xml2
+ - xslt
+ - testthat
+ - readxl
+ - dplyr
+ - knitr
+ - tidyr
+ - rvest
+ - rmarkdown
+ - kableExtra
 
 r_packages:
   - covr

@@ -26,9 +26,28 @@ r_binary_packages:
   - readr
   - rstudioapi
   - kableextra
+  - ps
+  - ini
+  - processx
+  - desc
+  - prettyunits
+  - xopen
+  - clisymbols
+  - fs
+  - gh
+  - whisker
+  - callr
+  - git2r
+  - memoise
+  - pkgbuild
+  - pkgload
+  - rcmdcheck
+  - remotes
+  - sessioninfo
+  - usethis
 
 r_packages:
-  - grDevices
+
 
 notifications:
   email:

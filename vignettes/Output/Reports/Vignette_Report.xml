@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="xml_to_word.xslt"
+xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
+?>
+ <Report>
+  <study> Vignette Report </study>
+  <author> Simon Bond </author><datestamp> 12:22 05 Dec 2018 </datestamp>
+
+ <MetaTable> 
+ <heading><section>Baseline</section><title>Summary Table</title><population>Safety (n = 6)</population><subtitle>Note A</subtitle><number>1.1.1</number><orientation>portrait</orientation></heading> <table>
+<tr> <td> Variable </td> <td> Statistics </td> <td> Control </td> <td> Drug </td> <td> Total </td> </tr>
+ <tr> <td> Age (years) </td> <td> n </td> <td> 3 </td> <td> 1 </td> <td> 4 </td> </tr>
+ <tr> <td>  </td> <td> Mean (SD) </td> <td> 33.3 (11.7) </td> <td> 56.0 (  NA) </td> <td> 39.0 (14.8) </td> </tr>
+ <tr> <td>  </td> <td> Median </td> <td> 38 </td> <td> 56 </td> <td> 40 </td> </tr>
+ <tr> <td>  </td> <td> Min, Max </td> <td> 20, 42 </td> <td> 56, 56 </td> <td> 20, 56 </td> </tr>
+ <tr> <td>  </td> <td>  </td> <td>  </td> <td>  </td> <td>  </td> </tr>
+ <tr> <td> gender </td> <td> Male </td> <td> 33.3% (1/3) </td> <td> 100% (1/1) </td> <td> 50% (2/4) </td> </tr>
+ <tr> <td>  </td> <td> Female </td> <td> 66.7% (2/3) </td> <td> (0/1) </td> <td> 50% (2/4) </td> </tr>
+ </table>
+<footnote> fictitious data </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\analysis.R </Program> 
+ </MetaTable> 
+
+
+ <MetaTable> 
+ <heading><section>Baseline</section><title>Summary Table</title><population>Full (n = 4)</population><subtitle>Note A</subtitle><number>1.1</number><orientation>portrait</orientation></heading> <table>
+<tr> <td> Variable </td> <td> Statistics </td> <td> Control </td> <td> Drug </td> <td> Total </td> </tr>
+ <tr> <td> age </td> <td> n </td> <td> 3 </td> <td> 3 </td> <td> 6 </td> </tr>
+ <tr> <td>  </td> <td> Mean (SD) </td> <td> 33.3 (11.7) </td> <td> 43.3 (21.1) </td> <td> 38.3 (16.2) </td> </tr>
+ <tr> <td>  </td> <td> Median </td> <td> 38 </td> <td> 55 </td> <td> 40 </td> </tr>
+ <tr> <td>  </td> <td> Min, Max </td> <td> 20, 42 </td> <td> 19, 56 </td> <td> 19, 56 </td> </tr>
+ <tr> <td>  </td> <td>  </td> <td>  </td> <td>  </td> <td>  </td> </tr>
+ <tr> <td> gender </td> <td> Male </td> <td> 33.3% (1/3) </td> <td> 66.7% (2/3) </td> <td> 50% (3/6) </td> </tr>
+ <tr> <td>  </td> <td> Female </td> <td> 66.7% (2/3) </td> <td> 33.3% (1/3) </td> <td> 50% (3/6) </td> </tr>
+ </table>
+<footnote> fictitious data </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\analysis.R </Program> 
+ </MetaTable> 
+
+
+ <MetaFigure> 
+ <heading><section>Baseline</section><title>Summary Figure</title><population>Full (n = 4)</population><subtitle>Note B</subtitle><number>1.10</number><orientation>landscape</orientation></heading><src>V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Output\Figures\fig_1.10.png</src><footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\analysis.R </Program> 
+ </MetaFigure> 
+
+ </Report>

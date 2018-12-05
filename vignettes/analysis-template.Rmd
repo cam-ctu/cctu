@@ -188,11 +188,15 @@ The output is [here](Output/Reports/Vignette_Report.doc).  To permanently save, 
 
 ## Other Outputs
 
-### Code Tree
-The audit trail of code architecture is turned into a visual tree below. In real life you would want to use `render` to create a seperate pdf file (note this only works via latex->pdf and can't do word or html currently). See the vignette `code_tree_doc` for an example. You _may_ need to use
+We can use rmarkdown to create other versions of the main report or a graphical representation of the code architecture. You _may_ need to use
 `Sys.setenv(RSTUDIO_PANDOC="C:/Program Files/RStudio/bin/pandoc")` before calling `render`, but this is not understood by the author at present as to why.
 
+Numerous other outputs can be obtained from rmarkdown: slide show of the figures, reformatting of output as desired...
 
-```{r code_tree, child="Progs/code_tree.Rmd"}
-```
+### Code Tree
+ See the vignette `Code Tree Document` for an example that produces a seperate pdf document. 
+
+### HTML version of the report
+
+Your readers may prefer to get the report in a HTML document to view on-screen. This provides easier navigation with a floating toolbar. See the vignette `Vignette Report HTML`
 

@@ -8,7 +8,7 @@ output:
     toc_float: true
     number_sections: false
 vignette: |
-  %\VignetteIndexEntry{Analysis Template} 
+  %\VignetteIndexEntry{Vignette Report HTML} 
   %\VignetteEncoding{UTF-8} 
   %\VignetteEngine{knitr::rmarkdown}
 ---

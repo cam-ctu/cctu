@@ -4,13 +4,20 @@
 \alias{remove_blank_rows_cols}
 \title{Function to remove blank rows/columns from a df}
 \usage{
-remove_blank_rows_cols(df, convert = TRUE)
+remove_blank_rows_cols(df, convert = TRUE, verbose = options()$verbose,
+  rows = TRUE, cols = TRUE)
 }
 \arguments{
 \item{df}{a data.frame}
 
 \item{convert}{a logical to indicate if you want to modify \code{df} in the parent environment,
 or if not simply return a modified version of \code{df}}
+
+\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{rows}{logical whether to drop blank rows. Default TRUE.}
+
+\item{cols}{logical whether to drop blank columns. Default TRUE.}
 }
 \value{
 this removes columns and rows that are totally empty (either "" or NA).

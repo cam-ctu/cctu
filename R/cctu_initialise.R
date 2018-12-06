@@ -1,7 +1,7 @@
 #' initialise  objects for using cctu package
 #'
 #' @param root the root directory to start in
-#' @param scripts logical create the standard set of scripts
+#' @param scripts logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.
 #' @return cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
 #'
 #' @seealso \code{\link{dir.create}}
@@ -22,7 +22,8 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE){
   if(scripts) {
     file.copy( system.file("doc/main.R",package="cctu"), root)
     file.copy( system.file("doc/Progs",package="cctu"), root, recursive=FALSE)
-    print("Maybe set up a Project in Rstudio and a git repository?")
+    dir.create(paste0(root, "library"))
+    print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
   } else { invisible(TRUE) }
 
   # Copy across the default set of scripts?

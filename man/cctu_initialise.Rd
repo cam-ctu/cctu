@@ -6,7 +6,7 @@
 \alias{reset_code_tree}
 \title{initialise  objects for using cctu package}
 \usage{
-cctu_initialise(root = getwd())
+cctu_initialise(root = getwd(), scripts = FALSE)
 
 cctu_check_dir(root = getwd(), warnings = FALSE)
 
@@ -14,6 +14,8 @@ reset_code_tree(root_file = "main.R")
 }
 \arguments{
 \item{root}{the root directory to start in}
+
+\item{scripts}{logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.}
 
 \item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
 

@@ -6,7 +6,7 @@
 \usage{
 sumby(variable, arm, label = NULL, data = parent.frame(),
   total = TRUE, fig = TRUE, directory = "Output\\\\Figures\\\\",
-  verbose = options()$verbose)
+  verbose = options()$verbose, text_clean = propercase)
 }
 \arguments{
 \item{variable}{A variable of interest to be summarised. Works for several classes: numeric, integer, factor, character.}
@@ -24,6 +24,8 @@ sumby(variable, arm, label = NULL, data = parent.frame(),
 \item{directory}{the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{text_clean}{a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.}
 }
 \value{
 a data.frame containing summary statistics in character format,
@@ -33,5 +35,5 @@ ready to use with write_table(). Plus an attribute "fig" that contains a ggplot 
 Produces summary statistics on a variable broken down by arm, display a graphical equivalent.
 }
 \seealso{
-\code{\link{sumfig}} , \code{\link{write_table}}
+\code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}}
 }

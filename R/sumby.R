@@ -5,12 +5,13 @@
 #'@param fig logical value on whether to print (if interactive) and save a copy of the figure. Defaults to true
 #'@param directory the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.
 #' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
+#'@param text_clean a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.
 #'
 #'@return a data.frame containing summary statistics in character format,
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object
 #'
 #'
-#'@seealso \code{\link{sumfig}} , \code{\link{write_table}}
+#'@seealso \code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}}
 #'
 #'@importFrom magrittr %<>% %>%
 #'@export
@@ -23,7 +24,8 @@ sumby <- function(variable,
                   total = TRUE,
                   fig   = TRUE,
                   directory="Output\\Figures\\",
-                  verbose=options()$verbose
+                  verbose=options()$verbose,
+                  text_clean=propercase
                   ){
 
   variable_name <- deparse(substitute(variable))
@@ -57,6 +59,8 @@ sumby <- function(variable,
     }
   }
 
+  if(is.null(text_clean)){text_clean <- function(x){x}}
+
   variable.class = class(variable)
   # continuous variable summary statistics by arm
   if(variable.class == "numeric" || variable.class == "integer"){
@@ -67,7 +71,7 @@ sumby <- function(variable,
     mins = tapply(variable, arm, min, na.rm = T)
     maxs = tapply(variable, arm, max, na.rm = T)
     if(is.null(label)){
-      variable = c(propercase(variable_name), "", "", "")
+      variable = c(text_clean(variable_name), "", "", "")
     } else{
       variable = c(label, "", "", "")
     }
@@ -84,11 +88,11 @@ sumby <- function(variable,
     total = matrix(rep(with(tab, tapply(Freq, arm, sum)), dims[1]), nrow = dims[1], byrow = T)
     tab   = stats::reshape(tab, direction = "wide", v.names = "Freq", timevar = "arm", idvar = "variable")
     if(is.null(label)){
-      variable = c(propercase(variable_name), rep("", dims[1]-1))
+      variable = c(text_clean(variable_name), rep("", dims[1]-1))
     } else{
       variable = c(label, rep("", dims[1]-1))
     }
-    stats = propercase(tab[, 1])
+    stats = text_clean(tab[, 1])
     tab   = tab[, -1]
     perc  = round(100 * tab / total, 1)
 

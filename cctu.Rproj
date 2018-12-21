@@ -18,5 +18,6 @@ StripTrailingWhitespace: Yes
 BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --library="V:/STATISTICS/STUDY PLANNING/R_libraryV3.5"
+PackageBuildBinaryArgs: cctu_0.4.0.tar.gz
 PackageCheckArgs: --no-tests
 PackageRoxygenize: rd,collate,namespace

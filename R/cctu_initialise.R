@@ -2,6 +2,7 @@
 #'
 #' @param root the root directory to start in
 #' @param scripts logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.
+#' @param rm logical whether to also run \code{\link{rm_ouput}} with its default values, to delete all the files in teh output directory.
 #' @return cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
 #'
 #' @seealso \code{\link{dir.create}}
@@ -10,7 +11,7 @@
 #' @importFrom magrittr %>% %<>%
 
 #' @describeIn cctu_initialise create the standard directories for outputs if needed.
-cctu_initialise <- function(root=getwd(), scripts=FALSE){
+cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
   root %<>% normalizePath %>% final_slash
   reset_code_tree(root_file=paste0(root,"ROOT"))
   if( !cctu_check_dir(root=root)){
@@ -21,12 +22,12 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE){
   }
   if(scripts) {
     file.copy( system.file("doc/main.R",package="cctu"), root)
-    file.copy( system.file("doc/Progs",package="cctu"), root, recursive=FALSE)
+    file.copy( system.file("doc/Progs",package="cctu"), root, recursive=TRUE)
     dir.create(paste0(root, "library"))
     print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
-  } else { invisible(TRUE) }
+  }
+  if(rm){ rm_output()}
 
-  # Copy across the default set of scripts?
 }
 
 #' @describeIn cctu_initialise Check if the directories exist for cctu
@@ -57,4 +58,39 @@ reset_code_tree <- function(root_file="main.R"){
 
 }
 
+#' @describeIn cctu_initialise function to clear previous output files
+#'
+#' @param root_output character giving the output directory path
+#' @param core logical delete the files in /Core
+#' @param figures logical delete the files /Figures
+#' @param reports logical delete the files in /Reports
+#' @param output logical delete top level files in
+#' @export
+
+
+
+rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRUE, output=TRUE){
+  if(output){
+    files <- list.files(root_output)
+    for(file in files){
+      if( !(file %in% c("Core","Figures","Reports"))){
+        file.remove(paste0(root_output,"\\",file))
+      }
+    }
+  }
+
+  if( core){
+    files <- list.files(paste0(root_output,"\\Core"), full.names = TRUE)
+    for( file in files){ file.remove(file)}
+  }
+  if( figures){
+    files <- list.files(paste0(root_output,"\\Figures"), full.names = TRUE)
+    for( file in files){ file.remove(file)}
+  }
+  if( reports){
+    files <- list.files(paste0(root_output,"\\Reports"), full.names = TRUE)
+    for( file in files){ file.remove(file)}
+  }
+
+}
 

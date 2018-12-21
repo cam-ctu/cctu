@@ -9,5 +9,5 @@
 
 
 propercase = function(text){
-  gsub("(\\w)(\\w*)", "\\U\\1\\L\\2", text, perl = TRUE)
+  gsub("(\\w)([\\w|']*)", "\\U\\1\\L\\2", text, perl = TRUE)
 }

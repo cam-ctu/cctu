@@ -34,18 +34,22 @@ for(sect in sections){
     if( !is.na(subtab[row,"subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"subtitle"]))}
              
     if( subtab[row,"item"] %>% tolower=="table"){
-          src <- c(src, # knit exapnd really doesn't like absolute paths or \ or \\
+          file_name <- paste0("Output/Core/table_",subtab[row,"number"],".xml") 
+        # knit exapnd really doesn't like absolute paths or \ or \\
+        if( file.exists(file_name)){
+          src <- c(src, 
                knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
                            chunk_name=paste0("table",subtab[row,"number"]),
-                           file_name=paste0("Output/Core/table_",subtab[row,"number"],".xml") 
+                           file_name=file_name 
                            )
-              )
+          )}
 
       
      
     }
     if(subtab[row,"item"] %>% tolower=="figure" ){
-      src <- c(src, paste0("![](",PATH_figure,"fig_",subtab[row,"number"],".png) \n" ))
+      file_name <- paste0(PATH_figure,"fig_",subtab[row,"number"],".png")
+      if( file.exists(file_name)) src <- c(src, paste0("![](",file_name,") \n" ))
     }
     if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote1"]))}
     if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote2"]))}

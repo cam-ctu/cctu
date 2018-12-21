@@ -21,7 +21,7 @@ rm_output(root_output = "Output", core = TRUE, figures = TRUE,
 
 \item{scripts}{logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.}
 
-\item{rm}{logical whether to also run \code{\link{rm_ouput}} with its default values, to delete all the files in teh output directory.}
+\item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in teh output directory.}
 
 \item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
 

@@ -26,6 +26,7 @@ clean_names <- function(df, convert = TRUE, verbose=options()$verbose){
   df_names    <- names(df)           %>%
                  tolower(.)          %>%
                  gsub("\\s+","_",.)  %>%
+                 gsub("-","_",.)     %>%
                  gsub("/","_",.)     %>%
                  gsub("\\.", "_", .) %>%
                  gsub("_+", "_", .)  %>%

@@ -72,9 +72,11 @@ reset_code_tree <- function(root_file="main.R"){
 rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRUE, output=TRUE){
   if(output){
     files <- list.files(root_output)
+    dirs <- list.dirs(root)[-1]
+    dirs <- gsub(paste0(root,"/"),"", dirs)
     for(file in files){
-      if( !(file %in% c("Core","Figures","Reports"))){
-        file.remove(paste0(root_output,"\\",file))
+      if( !(file %in% c("Core","Figures","Reports",dirs))){
+        file.remove(paste0(root,"\\",file))
       }
     }
   }

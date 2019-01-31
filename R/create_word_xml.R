@@ -38,10 +38,12 @@ create_word_xml <- function(
   xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
 ){
   #check you are in the right working directory
-  if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
+  if(getwd()!=path){
+    warning(paste("you are calling create_word_xml with the working directory not equal to", path))
+    setwd(path)
+    }
   #manage paths to deal with trailing slashes or not...
   path %<>% normalizePath %>% final_slash
-  setwd(path)
   figure_path %<>% normalizePath %>% final_slash
   table_path %<>% normalizePath %>% final_slash
   long_filename <-  filename %>% normalizePath

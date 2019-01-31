@@ -37,7 +37,7 @@ sumfig <- function(variable,
   }
 
   # produce bar chart by arm for categorical variables
-  if(variable.class == "factor" || variable.class == "character"){
+  if(inherits(variable, "factor") || variable.class == "character"){
      fig <- ggplot(data = data, aes(x = arm, fill = variable), ... = ...) +
             geom_bar() +
             theme(axis.title.x = element_blank()) +

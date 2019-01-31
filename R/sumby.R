@@ -34,9 +34,10 @@ sumby <- function(variable,
   variable <- eval(mf$variable, envir = data)
   arm      <- eval(mf$arm, envir = data)
 
-  fig_object <- sumfig(variable = variable, arm = arm, label = label)
+
 
   if(fig){
+    fig_object <- sumfig(variable = variable, arm = arm, label = label)
     if( interactive()){ print(fig_object) }
     cctu_env$sumby_count <- cctu_env$sumby_count + 1
     if( directory!=formals()$directory | cctu_check_dir()){
@@ -116,6 +117,6 @@ sumby <- function(variable,
     gsub("^0% ", "", .)       %>%
     gsub("^NaN% ", "", .)
 
-  attr(ans, "fig") <- fig_object
+  if(fig) attr(ans, "fig") <- fig_object
   ans
 }

@@ -41,10 +41,11 @@ create_word_xml <- function(
   if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
   #manage paths to deal with trailing slashes or not...
   path %<>% normalizePath %>% final_slash
-  figure_path %<>% paste0(path, .) %>% normalizePath %>% final_slash
-  table_path %<>% paste0(path, .) %>%normalizePath %>% final_slash
-  long_filename <- paste0(path, filename) %>% normalizePath
-  filename %<>% paste0(path, .) %>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
+  setwd(path)
+  figure_path %<>% normalizePath %>% final_slash
+  table_path %<>% normalizePath %>% final_slash
+  long_filename <-  filename %>% normalizePath
+  filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
 

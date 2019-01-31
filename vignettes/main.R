@@ -13,7 +13,7 @@ source("Progs/analysis.R")
 
 
 pop_size <- sapply( popn[,names(popn)!="subjid"], sum)
-pop_name <- unique(meta_table$population)
+pop_name <- unique(get_meta_table()$population)
 index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 

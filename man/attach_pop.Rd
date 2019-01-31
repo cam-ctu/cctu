@@ -5,7 +5,8 @@
 \alias{detach_pop}
 \title{Functions that attach and detach environments based on which populations are used for a given table number}
 \usage{
-attach_pop(number, frame = parent.frame(), verbose = options()$verbose)
+attach_pop(number, frame = parent.frame(), verbose = options()$verbose,
+  rm_envir = TRUE)
 
 detach_pop(number, frame = parent.frame(), verbose = options()$verbose)
 }
@@ -15,6 +16,8 @@ detach_pop(number, frame = parent.frame(), verbose = options()$verbose)
 \item{frame}{the environment or frame in which to attach or detach the desired target environment}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{rm_envir}{logical, default=TRUE. Whether to run \code{\link{rm_envir}} first before attaching a population.}
 }
 \value{
 invisibly returns an environment for attaching, or NULL for detaching.

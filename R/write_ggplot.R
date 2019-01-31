@@ -76,7 +76,7 @@ write_ggplot = function(
     utils::capture.output(grDevices::dev.off())
     if(verbose){cat("\n", args_list$file, "created.\n")}
     })
-  plot(plot)
+  grid::grid.draw(plot)
   invisible()
 
   # this links in with using environments to define the correct population

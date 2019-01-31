@@ -59,7 +59,7 @@ sumby <- function(variable,
     }
   }
 
-  if(is.null(text_clean)){text_clean <- function(x){x}}
+  if(is.null(text_clean)){text_clean <- function(x){ as.character(x) }}
 
   variable.class = class(variable)
   # continuous variable summary statistics by arm
@@ -73,7 +73,7 @@ sumby <- function(variable,
     if(is.null(label)){
       variable = c(text_clean(variable_name), "", "", "")
     } else{
-      variable = c(label, "", "", "")
+      variable = c(text_clean(label), "", "", "")
     }
     stats = c("n", "Mean (SD)", "Median", "Min, Max")
     value = rbind(n, paste0(mu," (", sd, ")"), meds, paste0(mins, ", ", maxs))
@@ -90,7 +90,7 @@ sumby <- function(variable,
     if(is.null(label)){
       variable = c(text_clean(variable_name), rep("", dims[1]-1))
     } else{
-      variable = c(label, rep("", dims[1]-1))
+      variable = c(text_clean(label), rep("", dims[1]-1))
     }
     stats = text_clean(tab[, 1])
     tab   = tab[, -1]

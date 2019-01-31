@@ -3,6 +3,7 @@
 #' @param number a character string, or number, giving the number of a table or figure. Be careful if you want '2.10' rather than 2.1, say .
 #' @param frame the environment or frame in which to attach or detach the desired target environment
 #' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
+#' @param rm_envir logical, default=TRUE. Whether to run \code{\link{rm_envir}} first before attaching a population.
 #'
 #' @return invisibly returns an environment for attaching, or NULL for detaching.
 #' @seealso \code{\link{attach}} \code{\link{detach}}
@@ -14,12 +15,14 @@
 #'@export
 attach_pop <- function(number,
                        frame=parent.frame(),
-                       verbose=options()$verbose
+                       verbose=options()$verbose,
+                       rm_envir=TRUE
                        ){
   cctu_env$number <- as.character(number)
   cctu_env$sumby_count <- 0
   popn_name <- match_population(number)
   if(!is.null(popn_name) && popn_name !="" && exists(popn_name, where=frame)){
+    if(rm_envir){ rm_envir(verbose=verbose)}
     #attach is fussy about its argument needing to be an object, not a character
     eval(call("attach", as.name(popn_name)), envir=frame)
     if(verbose){cat(popn_name,"attached containing:", ls(popn_name), "\n")}

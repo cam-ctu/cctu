@@ -8,10 +8,9 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = "Output\\\\Reports\\\\Report.doc", path = getwd(),
   table_path = "Output\\\\Core\\\\", figure_format = c("png", "jpeg",
-  "ps"), figure_path = "Output\\\\Figures\\\\", frame = parent.frame(),
-  popn_labels = NULL, verbose = options()$verbose,
-  xslt_file = system.file("extdata", "xml_to_word.xslt", package =
-  "cctu"))
+  "ps"), figure_path = "Output\\\\Figures\\\\", popn_labels = NULL,
+  verbose = options()$verbose, xslt_file = system.file("extdata",
+  "xml_to_word.xslt", package = "cctu"))
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}
@@ -31,8 +30,6 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
 \item{figure_format}{the format to look for figure files when building the report ("png", "jpeg","ps")}
 
 \item{figure_path}{text string giving the filepath to the figures}
-
-\item{frame}{the frame or environment in which lives the meta_table to be edited with teh path to the containing code file}
 
 \item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given}
 

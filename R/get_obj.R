@@ -22,6 +22,7 @@
 get_obj <- function(name, frame=parent.frame(), alt=NULL){
 
   if(exists(name,where=frame)){
+    #this searches upwards into enclosing frames
     get(name, pos=frame)
   } else{
     warning(paste(name, "not found"))

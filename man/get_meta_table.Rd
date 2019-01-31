@@ -3,21 +3,14 @@
 \name{get_meta_table}
 \alias{get_meta_table}
 \alias{set_meta_table}
-\alias{add_program}
 \title{Functions to handle meta_table}
 \usage{
 get_meta_table()
 
 set_meta_table(meta_table)
-
-add_program(number, calling_prog)
 }
 \arguments{
 \item{meta_table}{a data.frame to be  set as the meta_table internal object}
-
-\item{number}{the number of the table or figure}
-
-\item{calling_prog}{the file path}
 }
 \value{
 get_table returns the global object, set_table invisibly returns the previous version
@@ -30,8 +23,5 @@ Functions to handle meta_table
 \item \code{get_meta_table}: gets a copy of the internal object
 
 \item \code{set_meta_table}: sets the internal object to the argument provided, whilst carrying out some cleaning
-
-\item \code{add_program}: edits the internal meta_table to gve the filepath to code that created a table/figure
 }}
 
-\keyword{internal}

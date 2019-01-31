@@ -33,7 +33,6 @@ create_word_xml <- function(
   table_path="Output\\Core\\",
   figure_format=c("png","jpeg","ps"),
   figure_path="Output\\Figures\\",
-  frame=parent.frame(),
   popn_labels=NULL,
   verbose=options()$verbose,
   xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
@@ -42,10 +41,10 @@ create_word_xml <- function(
   if(getwd()!=path){warning(paste("you are calling create_word_xml with the working directory not equal to", path))}
   #manage paths to deal with trailing slashes or not...
   path %<>% normalizePath %>% final_slash
-  figure_path %<>% normalizePath %>% final_slash
-  table_path %<>% normalizePath %>% final_slash
-  long_filename <- normalizePath(filename)
-  filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
+  figure_path %<>% paste0(path, .) %>% normalizePath %>% final_slash
+  table_path %<>% paste0(path, .) %>%normalizePath %>% final_slash
+  long_filename <- paste0(path, filename) %>% normalizePath
+  filename %<>% paste0(path, .) %>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
 

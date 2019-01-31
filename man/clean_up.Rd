@@ -5,12 +5,12 @@
 \title{removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number}
 \usage{
 clean_up(number, frame = parent.frame(), reserved_string = ".reserved",
-  verbose = options()$verbose, ...)
+  verbose = options()$verbose)
 }
 \arguments{
 \item{number}{a number associated with a table of figure}
 
-\item{frame}{an environment win which to clean up}
+\item{frame}{an environment in which to clean up}
 
 \item{reserved_string}{a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.}
 

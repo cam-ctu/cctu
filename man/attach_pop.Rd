@@ -5,15 +5,12 @@
 \alias{detach_pop}
 \title{Functions that attach and detach environments based on which populations are used for a given table number}
 \usage{
-attach_pop(number, frame = parent.frame(), verbose = options()$verbose,
-  rm_envir = TRUE)
+attach_pop(number, verbose = options()$verbose, rm_envir = TRUE)
 
-detach_pop(number, frame = parent.frame(), verbose = options()$verbose)
+detach_pop(number, verbose = options()$verbose)
 }
 \arguments{
 \item{number}{a character string, or number, giving the number of a table or figure. Be careful if you want '2.10' rather than 2.1, say .}
-
-\item{frame}{the environment or frame in which to attach or detach the desired target environment}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 

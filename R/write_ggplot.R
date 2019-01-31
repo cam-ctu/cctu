@@ -12,10 +12,9 @@
 #'
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
 #' @param graphics_args a list of named arguments to supply to graphics function (png, postscript, jpeg)
-#' @param frame the frame or environment in which lives the meta_table to be edited with teh path to the containing code file
 #'
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
-#' @seealso \code{\link{get_file_name}} \code{\link{write_table}}
+#' @seealso  \code{\link{write_table}}
 #' @export
 #' @importFrom magrittr %>% %<>%
 
@@ -30,10 +29,8 @@ write_ggplot = function(
                        units    = "cm",
                        clean_up = TRUE,
                        directory="Output\\Figures\\",
-                       ...,
                        format=c("png","postscript","jpeg"),
                        graphics_args=NULL,
-                       frame=parent.frame(),
                        verbose=options()$verbose
                        ){
 
@@ -50,7 +47,7 @@ write_ggplot = function(
 
 
 
-  CallingProg <- get_file_name()
+  CallingProg <- cctu_env$parent[1]#get_file_name()
   if(is.null(CallingProg)){
     warning(paste("Unable to identify the code file that created figure", number))
     CallingProg <- "Missing"
@@ -82,6 +79,6 @@ write_ggplot = function(
   # this links in with using environments to define the correct population
   # detach_pop(number)
   if(clean_up){
-    clean_up(number, frame = frame, verbose=verbose, ...)
+    clean_up(number, frame = parent.frame(), verbose=verbose)
   }
 }

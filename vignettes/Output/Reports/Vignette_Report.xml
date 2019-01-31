@@ -4,7 +4,7 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
 ?>
  <Report>
   <study> Vignette Report </study>
-  <author> Simon Bond </author><datestamp> 09:38 31 Jan 2019 </datestamp>
+  <author> Simon Bond </author><datestamp> 13:24 31 Jan 2019 </datestamp>
 
  <MetaTable> 
  <heading><section>Baseline</section><title>Summary Table</title><population>Full (n = 4)</population><subtitle>Note A</subtitle><number>1.1.1</number><orientation>portrait</orientation></heading> <table>
@@ -14,8 +14,8 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
  <tr> <td>  </td> <td> Median </td> <td> 38 </td> <td> 56 </td> <td> 40 </td> </tr>
  <tr> <td>  </td> <td> Min, Max </td> <td> 20, 42 </td> <td> 56, 56 </td> <td> 20, 56 </td> </tr>
  <tr> <td>  </td> <td>  </td> <td>  </td> <td>  </td> <td>  </td> </tr>
- <tr> <td> gender </td> <td> 1 </td> <td> 33.3% (1/3) </td> <td> 100% (1/1) </td> <td> 50% (2/4) </td> </tr>
- <tr> <td>  </td> <td> 2 </td> <td> 66.7% (2/3) </td> <td> (0/1) </td> <td> 50% (2/4) </td> </tr>
+ <tr> <td> gender </td> <td> Male </td> <td> 33.3% (1/3) </td> <td> 100% (1/1) </td> <td> 50% (2/4) </td> </tr>
+ <tr> <td>  </td> <td> Female </td> <td> 66.7% (2/3) </td> <td> (0/1) </td> <td> 50% (2/4) </td> </tr>
  </table>
 <footnote> fictitious data </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\analysis.R </Program> 
  </MetaTable> 

@@ -1,7 +1,7 @@
 #' removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number
 #'
 #' @param number a number associated with a table of figure
-#' @param frame an environment win which to clean up
+#' @param frame an environment in which to clean up
 #' @param reserved_string a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.
 #' @inheritParams detach_pop
 #' @param ... modifications to the default values \code{\link{detach_pop}}
@@ -12,8 +12,7 @@
 clean_up <- function(number,
                      frame = parent.frame(),
                      reserved_string=".reserved",
-                     verbose=options()$verbose,
-                     ...
+                     verbose=options()$verbose
                      ){
   RESERVED <- get_obj(reserved_string, frame=frame)
   obj_list <- ls(frame, all.names = FALSE)
@@ -21,7 +20,7 @@ clean_up <- function(number,
   if(length(keep) && keep!=0 ){obj_list <- obj_list[-keep]}
   rm(list = obj_list, envir = frame)
   if(verbose){cat("\nObjects removed:", obj_list,"\n")}
-  detach_pop(number, frame=frame, verbose=verbose, ...)
+  detach_pop(number,verbose=verbose)
   cctu_env$number <- "0"
   cctu_env$sumby_count <- 0
 }

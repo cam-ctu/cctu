@@ -7,7 +7,7 @@
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
-#' @seealso \code{\link{get_file_name}} \code{\link{write_ggplot}}
+#' @seealso \code{\link{write_ggplot}}
 #' @importFrom magrittr %>% %<>%
 
 write_table = function(X,
@@ -16,18 +16,12 @@ write_table = function(X,
                       na_to_empty=FALSE,
                       clean_up = TRUE,
                       directory="Output\\Core\\",
-                      frame=parent.frame(),
-                      verbose=options()$verbose,
-                      ...
+                      verbose=options()$verbose
                       ){
 
-  # don't need this unless want to override
-  #PATH <- get_obj(path_string, frame=frame, alt=getwd())
-  #
-  #frame <- parent.frame()
 
 
-  CallingProg <- get_file_name()
+  CallingProg <- cctu_env$parent[1]  #get_file_name()
   if(is.null(CallingProg)){
     warning(paste("Unable to identify the code file that created table", number))
     CallingProg <- "Missing"
@@ -72,7 +66,7 @@ write_table = function(X,
 
 
   if(clean_up){
-     clean_up(number, frame = frame, verbose=verbose,...)
+     clean_up(number, frame = parent.frame(), verbose=verbose)
   }
 }
 

@@ -7,4 +7,4 @@
 ^appveyor\.yml$
 ^vignettes/archive$
 ^doc$
-^data$
+

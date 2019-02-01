@@ -1,8 +1,10 @@
 ^Meta$
-^doc$
 ^\.travis\.yml$
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^Bugs\.xlsx$
 ^appveyor\.yml$
+^vignettes/archive$
+^doc$
+^data$

@@ -81,7 +81,7 @@ sumby <- function(variable,
     ans   = data.frame(cbind(variable, stats, value), row.names = 1:4)
   }
   # categorical variable summary statistics by arm
-  if(variable.class == "factor" || variable.class == "character"){
+  if(inherits(variable, "factor") || variable.class == "character"){
     tab   = table(variable, arm)
     dims  = dim(tab)
     nams  = dimnames(tab)

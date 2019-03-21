@@ -27,7 +27,7 @@ remove_blank_rows_cols <- function(df, convert = TRUE, verbose=options()$verbose
   }
   if(convert){
     assign(arg_name_df, df, envir = parent.frame())
-    if(verbose){cat(arg_name_df, "modified with blanks removed.")}
+    if(verbose){message(arg_name_df, " modified with blanks removed.")}
     invisible(df)
   } else {
     df

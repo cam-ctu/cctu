@@ -1,5 +1,5 @@
 var,code,label
-gender,1,Male
-gender,2,Female
+gender,male,Male
+gender,female,Female
 treatment,1,Control
 treatment,2,Drug

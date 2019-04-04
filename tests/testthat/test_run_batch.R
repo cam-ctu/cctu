@@ -20,8 +20,12 @@ test_that("basic Windows",
 
 test_that("non windows",
           {
-          skip_if(Sys.info()["sysname"] == "Windows", "Only run for non-windows OS")
-          expect_error(system("R --interactive < container.R", wait=TRUE) )
+            skip_if(Sys.info()["sysname"] == "Windows", "Only run for non-windows OS")
+            expect_warning(run_batch("script_to_test_run_batch.R"),
+                           "run_batch\\(\\) only works in interactive mode")
+            expect_warning(system("R --interactive < container.R", wait=TRUE),
+                           "run_batch\\(\\) only works in Windows"
+                           )
           }
           )
 

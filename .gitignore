@@ -6,4 +6,4 @@ doc
 .Ruserdata
 inst/doc
 ^Output
-
+script_to_test_run_batch.Rout

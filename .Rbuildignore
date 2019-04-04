@@ -7,4 +7,4 @@
 ^appveyor\.yml$
 ^vignettes/archive$
 ^doc$
-
+^tests/testthat/script_to_test_run_batch.Rout$

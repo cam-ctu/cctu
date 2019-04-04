@@ -27,17 +27,18 @@
 run_batch <- function(filename, ...){
   if( !interactive()){
     warning("run_batch() only works in interactive mode")
-  } else if(Sys.info()["sysname"] != "Windows"){
-    warning("run_batch() only works in Windows")
+  #} else if(Sys.info()["sysname"] != "Windows"){
+  #  warning("run_batch() only works in Windows")
   } else {
 
     # belt and braces approach to use full filepaths with quotes.
     # It did work  with just "R CMD BATCH --vanilla filename", in a simple example.
     command <- paste0( R.home("bin"),
-                       '/R.exe CMD BATCH --vanilla "',
+                       '/R CMD BATCH --vanilla "',
                        normalizePath(filename),
                        '"')
     # only works for windows...
-    shell(command, ...=...)
+    #shell(command, ...=...)
+    system(command,...)
   }
 }

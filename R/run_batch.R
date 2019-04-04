@@ -6,13 +6,13 @@
 #' Plus a log file will be created in the working directory with the same name as the script but with the suffix changed to '.Rout'.
 #'
 #' The command will not run in environments where \code{\link{interactive}} is false, so as to prevent
-#' infinite loops. Only expected to work in Windows.
+#' infinite loops.
 #'
 #'
 #' @param filename character string of the name or path of the script (relative to the working directory).
-#' @param ... other arguments to pass to \code{\link{shell}}
+#' @param ... other arguments to pass to \code{\link{system}}
 #'
-#' @return  see \code{\link{shell}} which is called.
+#' @return  see \code{\link{system}} which is called.
 #'
 #' @seealso \code{\link{BATCH}} and \code{rcmd} from the callr package, which might already do this....
 #'
@@ -27,8 +27,6 @@
 run_batch <- function(filename, ...){
   if( !interactive()){
     warning("run_batch() only works in interactive mode")
-  #} else if(Sys.info()["sysname"] != "Windows"){
-  #  warning("run_batch() only works in Windows")
   } else {
 
     # belt and braces approach to use full filepaths with quotes.
@@ -37,8 +35,6 @@ run_batch <- function(filename, ...){
                        '/R CMD BATCH --vanilla "',
                        normalizePath(filename),
                        '"')
-    # only works for windows...
-    #shell(command, ...=...)
     system(command,...)
   }
 }

@@ -9,10 +9,10 @@ run_batch(filename, ...)
 \arguments{
 \item{filename}{character string of the name or path of the script (relative to the working directory).}
 
-\item{...}{other arguments to pass to \code{\link{shell}}}
+\item{...}{other arguments to pass to \code{\link{system}}}
 }
 \value{
-see \code{\link{shell}} which is called.
+see \code{\link{system}} which is called.
 }
 \description{
 This function is to allow R CMD BATCH to be called interactively, without needing to start
@@ -22,7 +22,7 @@ Plus a log file will be created in the working directory with the same name as t
 }
 \details{
 The command will not run in environments where \code{\link{interactive}} is false, so as to prevent
-infinite loops. Only expected to work in Windows.
+infinite loops.
 }
 \seealso{
 \code{\link{BATCH}} and \code{rcmd} from the callr package, which might already do this....

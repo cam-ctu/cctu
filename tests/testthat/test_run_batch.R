@@ -4,9 +4,8 @@ library(cctu)
 library(testthat)
 
 
-test_that("basic Windows",
+test_that("basic test",
           {
-            #skip_if(Sys.info()["sysname"] != "Windows", "run_batch only works on Windows")
             expect_warning(run_batch("script_to_test_run_batch.R"),
                            "run_batch\\(\\) only works in interactive mode")
             file.remove("batch_test.csv")
@@ -20,22 +19,5 @@ test_that("basic Windows",
             system(cmd, input=readLines("container.R"))
             #shell("R --ess --vanilla < container.R ")
             expect_equal(file.exists("batch_test.csv"), TRUE)
-
           }
 )
-
-# test_that("non windows",
-#           {
-#             skip_if(Sys.info()["sysname"] == "Windows", "Only run for non-windows OS")
-#             expect_warning(run_batch("script_to_test_run_batch.R"),
-#                            "run_batch\\(\\) only works in interactive mode")
-#             cmd <- paste0(R.home("bin"), "/R --interactive")
-#             #return_text <- system(cmd, input=readLines("container.R"),intern=TRUE)
-#             #expect_match(paste(return_text,collapse="\n"),"run_batch\\(\\) only works in Windows")
-#             expect_match(system(cmd, input=readLines("container.R"),intern=FALSE),"run_batch\\(\\) only works in Windows")
-#             expect_match(system(cmd, input=readLines("container.R"),intern=TRUE),"run_batch\\(\\) only works in Windows")
-#           }
-# )
-
-
-

@@ -103,7 +103,7 @@ sumby <- function(variable,
     X[, , 3] = as.matrix(total)
 
     perpast = function(x){
-      paste0(x[1], "% (", x[2], "/", x[3], ")")
+      paste0( x[2], "/", x[3], " (",x[1],  "%)")
     }
     value           = apply(X, c(1, 2), perpast)
     colnames(value) = nams[[2]]

@@ -2,7 +2,7 @@
 #'
 #' @param root the root directory to start in
 #' @param scripts logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.
-#' @param rm logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in teh output directory.
+#' @param rm logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.
 #' @return cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
 #'
 #' @seealso \code{\link{dir.create}}
@@ -29,6 +29,13 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
   if(rm){ rm_output()}
 
 }
+
+
+# spelling variant
+#' @describeIn cctu_initialise identifical function with american spelling
+#' @export
+cctu_initialize <- cctu_initialise
+
 
 #' @describeIn cctu_initialise Check if the directories exist for cctu
 #' @param warnings logical indicator to issue warning if the directories do not exist. Default FALSE.
@@ -58,7 +65,7 @@ reset_code_tree <- function(root_file="main.R"){
 
 }
 
-#' @describeIn cctu_initialise function to clear previous output files
+#' @describeIn cctu_initialise function to clear previous output files, but leaves the directories in place
 #'
 #' @param root_output character giving the output directory path
 #' @param core logical delete the files in /Core

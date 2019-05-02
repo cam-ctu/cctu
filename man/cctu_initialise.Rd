@@ -2,12 +2,15 @@
 % Please edit documentation in R/cctu_initialise.R
 \name{cctu_initialise}
 \alias{cctu_initialise}
+\alias{cctu_initialize}
 \alias{cctu_check_dir}
 \alias{reset_code_tree}
 \alias{rm_output}
 \title{initialise  objects for using cctu package}
 \usage{
 cctu_initialise(root = getwd(), scripts = FALSE, rm = FALSE)
+
+cctu_initialize(root = getwd(), scripts = FALSE, rm = FALSE)
 
 cctu_check_dir(root = getwd(), warnings = FALSE)
 
@@ -21,7 +24,7 @@ rm_output(root_output = "Output", core = TRUE, figures = TRUE,
 
 \item{scripts}{logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.}
 
-\item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in teh output directory.}
+\item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.}
 
 \item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
 
@@ -49,11 +52,13 @@ initialise  objects for using cctu package
 \itemize{
 \item \code{cctu_initialise}: create the standard directories for outputs if needed.
 
+\item \code{cctu_initialize}: identifical function with american spelling
+
 \item \code{cctu_check_dir}: Check if the directories exist for cctu
 
 \item \code{reset_code_tree}: reset the internal code_tree object to have no entries
 
-\item \code{rm_output}: function to clear previous output files
+\item \code{rm_output}: function to clear previous output files, but leaves the directories in place
 }}
 
 \seealso{

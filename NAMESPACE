@@ -3,6 +3,7 @@
 export(attach_pop)
 export(cctu_check_dir)
 export(cctu_initialise)
+export(cctu_initialize)
 export(clean_names)
 export(clean_up)
 export(create_popn_envir)

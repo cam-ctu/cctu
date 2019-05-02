@@ -10,6 +10,7 @@ library(readxl)
 library(magrittr)
 
 options(verbose=TRUE)
+cctu_initialize()
 
 #PATH <- paste0(getwd(),"/tests/testthat/")
 #PATH <- paste0(getwd(),"/")
@@ -42,20 +43,20 @@ create_popn_envir(c("data"), popn)
 .reserved<- c("meta_table","meta_subset","popn","safety","full","code_tree")
 
 
-if(FALSE){attach_pop(1.1)
+if(TRUE){attach_pop(1.1)
 X <- sumby(endpoint, rx, data=data )
 write_table(X)#, directory="tests/testthat/Output/Core/")
 
 attach_pop("1.1.1")
 X <- sumby(endpoint, rx, data=data )
 write_table(X, clean_up = FALSE)#, directory="tests/testthat/Output/Core/")
-meta_table[1,"subtitle"] <- ""
+#meta_table[1,"subtitle"] <- ""
 
-meta_table <- meta_table[c(1:3,2),]
-meta_table[4,"number"] <- "1.1.2"
-meta_table[4,"population"] <- " "
+#meta_table <- meta_table[c(1:3,2),]
+#meta_table[4,"number"] <- "1.1.2"
+#meta_table[4,"population"] <- " "
 
-write_table(X, number="1.1.2")
+#write_table(X, number="1.1.2")
 
 
 attach_pop("1.10")
@@ -121,12 +122,12 @@ create_word_xml("Test <Report>",
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
-  expect_true(file.exists("Output/Reports/Report.doc"))
+  expect_true(file.exists("Output/Reports/Report2.doc"))
  # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists("Output/Core/table_1.1.1.xml"))
   expect_true(file.exists("Output/Core/table_1.1.xml"))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists("Output/Figures/fig_1.10.jpeg"))
+  expect_true(file.exists("Output/Figures/fig_1.10.png"))
 })
 
 

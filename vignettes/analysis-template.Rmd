@@ -116,6 +116,7 @@ options(verbose=TRUE)
 #run_batch("main.R")
 DATA <- "PATH_TO_DATA"
 cctu_initialise()
+rm_output()
 ```
 
 If you run just these initial lines, the last command will evoke R CMD BATCH to run the entire set of code and produce a log file "main.Rout", which should be the final step, using the validated server. The `run_batch` line is commented out as the vignette will not work with this though..

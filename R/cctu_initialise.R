@@ -12,7 +12,8 @@
 
 #' @describeIn cctu_initialise create the standard directories for outputs if needed.
 cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
-  root %<>% normalizePath %>% final_slash
+  root_no_slash <- root %>% normalizePath
+  root <- root_no_slash %>% final_slash
   reset_code_tree(root_file=paste0(root,"ROOT"))
   if( !cctu_check_dir(root=root)){
     dir.create(paste0(root, "Output")) &
@@ -21,8 +22,8 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
       dir.create( paste0(root, "Output\\Reports"))
   }
   if(scripts) {
-    file.copy( system.file("scripts\\main.R",package="cctu"), root)
-    file.copy( system.file("scripts\\Progs",package="cctu"), root, recursive=TRUE)
+    file.copy( system.file("scripts\\main.R",package="cctu"), root_no_slash)
+    file.copy( system.file("scripts\\Progs",package="cctu"), root_no_slash, recursive=TRUE)
     dir.create(paste0(root, "library"))
     print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
   }
@@ -78,7 +79,7 @@ reset_code_tree <- function(root_file="main.R"){
 
 rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRUE, output=TRUE){
   if(output){
-    files <- list.files(root_output, recursive=TRUE)
+    files <- list.files(root_output, recursive=FALSE)
     dirs <- list.dirs(root_output)[-1]
     dirs <- gsub(paste0(root_output,"/"),"", dirs)
     for(file in files){
@@ -89,16 +90,16 @@ rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRU
   }
 
   if( core){
-    files <- list.files(paste0(root_output,"\\Core"), full.names = TRUE)
-    for( file in files){ file.remove(file)}
+    files <- list.files(paste0(root_output,"\\Core"))
+    for( file in files){ file.remove(paste0(root_output,"\\Core\\",file))}
   }
   if( figures){
-    files <- list.files(paste0(root_output,"\\Figures"), full.names = TRUE)
-    for( file in files){ file.remove(file)}
+    files <- list.files(paste0(root_output,"\\Figures"))
+    for( file in files){ file.remove(paste0(root_output,"\\Figures\\",file))}
   }
   if( reports){
-    files <- list.files(paste0(root_output,"\\Reports"), full.names = TRUE)
-    for( file in files){ file.remove(file)}
+    files <- list.files(paste0(root_output,"\\Reports"))
+    for( file in files){ file.remove(paste0(root_output,"\\Reports\\",file))}
   }
 
 }

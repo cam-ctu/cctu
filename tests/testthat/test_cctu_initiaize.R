@@ -10,7 +10,7 @@ test_that( "rm_output",
            {
              dir.create("Output")
              dir.create("Output\\Core")
-             write.csv(cctu::meta_table, file="Output/Core/meta.csv")
+             write.csv(cctu::meta_table, file="Output\\Core\\meta.csv")
              expect_gt(length(list.files("Output", recursive=TRUE)), 0)
              rm_output()
              list.files("Output", recursive=TRUE)
@@ -22,7 +22,7 @@ test_that( "rm_output",
 
 # make sure there is no directory
 unlink("Output", recursive=TRUE, force=TRUE)
-
+print(list.files())
 # check_directory  on empty output
 
 test_that("check_dir negative",{
@@ -68,6 +68,7 @@ test_that("non root=getwd()",
           {
               dir.create("nonroot")
               cctu_initialise(root="nonroot")
+              print(list.files())
               file_list <- list.files("nonroot", recursive = TRUE, include.dirs = TRUE)
               print(file_list)
               expect_true( any(grepl("Core", file_list )))

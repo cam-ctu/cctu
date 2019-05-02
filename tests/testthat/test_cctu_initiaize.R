@@ -50,6 +50,7 @@ test_that("check_dir scripts",{
   unlink("library", recursive = TRUE)
   cctu_initialize(scripts=TRUE)
   file_list <- list.files(getwd())
+  print(file_list)
   expect_true(any( grepl("main.R" , file_list)))
   expect_true(any(grepl("Progs" , file_list)))
   expect_true(any(grepl("library" ,file_list)))

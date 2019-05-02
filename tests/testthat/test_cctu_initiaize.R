@@ -9,8 +9,8 @@ library(testthat)
 test_that( "rm_output",
            {
              dir.create("Output")
-             dir.create("Output\\Core")
-             write.csv(cctu::meta_table, file="Output\\Core\\meta.csv")
+             dir.create("Output/Core")
+             write.csv(cctu::meta_table, file="Output/Core/meta.csv")
              expect_gt(length(list.files("Output", recursive=TRUE)), 0)
              rm_output()
              print(list.files("Output", recursive=TRUE))
@@ -83,10 +83,10 @@ test_that("non root=getwd()",
 test_that( "add spurious files and check rm_output option in cctu_initialise",
            {
              dir.create("Output")
-             dir.create("Output\\Core")
-             write.csv(cctu::meta_table, file="Output\\Core\\meta.csv")
+             dir.create("Output/Core")
+             write.csv(cctu::meta_table, file="Output/Core/meta.csv")
              cctu_initialise(rm=TRUE)
-             expect_false(file.exists("Output\\Core\\meta.csv"))
+             expect_false(file.exists("Output/Core/meta.csv"))
 
            }
 

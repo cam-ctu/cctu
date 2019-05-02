@@ -21,8 +21,8 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
       dir.create( paste0(root, "Output\\Reports"))
   }
   if(scripts) {
-    file.copy( system.file("doc/main.R",package="cctu"), root)
-    file.copy( system.file("doc/Progs",package="cctu"), root, recursive=TRUE)
+    file.copy( system.file("scripts/main.R",package="cctu"), root)
+    file.copy( system.file("scripts/Progs",package="cctu"), root, recursive=TRUE)
     dir.create(paste0(root, "library"))
     print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
   }

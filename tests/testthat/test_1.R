@@ -49,7 +49,7 @@ write_table(X)#, directory="tests/testthat/Output/Core/")
 
 attach_pop("1.1.1")
 X <- sumby(endpoint, rx, data=data )
-write_table(X, clean_up = FALSE)#, directory="tests/testthat/Output/Core/")
+write_table(X)#, directory="tests/testthat/Output/Core/")
 #meta_table[1,"subtitle"] <- ""
 
 #meta_table <- meta_table[c(1:3,2),]

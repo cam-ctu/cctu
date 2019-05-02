@@ -78,7 +78,7 @@ reset_code_tree <- function(root_file="main.R"){
 
 rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRUE, output=TRUE){
   if(output){
-    files <- list.files(root_output)
+    files <- list.files(root_output, recursive=TRUE)
     dirs <- list.dirs(root_output)[-1]
     dirs <- gsub(paste0(root_output,"/"),"", dirs)
     for(file in files){

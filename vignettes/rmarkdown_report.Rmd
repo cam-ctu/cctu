@@ -40,7 +40,7 @@ for(sect in sections){
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
           src <- c(src, 
-               knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
+               knitr::knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
                            chunk_name=paste0("table",subtab[row,"number"]),
                            file_name=file_name 
                            )
@@ -71,12 +71,12 @@ This would typically be called from `main.R` like, to achieve a html version of 
 
 ```{r, eval=FALSE}
 
-render("Progs/rmarkdown_report.Rmd",
+rmarkdown::render("Progs/rmarkdown_report.Rmd",
        output_file ="Vignette Report.html",output_dir = "Output/Reports",
        params=list(my_author="Simon Bond",
                    my_title= "Vignette Report")
 )
 ```
 
-NB use the file `/doc/Progs/rmarkdown_report.Rmd` and not the similarly named one within `/doc` . Building vignettes requires these two slighlty different versions. 
+NB use the file `/scripts/Progs/rmarkdown_report.Rmd` and not the similarly named one within `/scripts` . Building vignettes requires these two slighlty different versions. 
 

@@ -64,7 +64,7 @@ sumby <- function(variable,
 
   variable.class = class(variable)
   # continuous variable summary statistics by arm
-  if(variable.class == "numeric" || variable.class == "integer"){
+  if(inherits(variable, "numeric") || inherits(variable,"integer")){
     mu   = format(tapply(variable, arm, mean, na.rm = T), digits = 3, width = 2)
     sd   = format(tapply(variable, arm, sd, na.rm = T), digits = 3, width = 2)
     n    = tapply(variable, arm, function(x){sum(!is.na(x))})

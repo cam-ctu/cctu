@@ -13,7 +13,7 @@ test_that( "rm_output",
              write.csv(cctu::meta_table, file="Output\\Core\\meta.csv")
              expect_gt(length(list.files("Output", recursive=TRUE)), 0)
              rm_output()
-             list.files("Output", recursive=TRUE)
+             print(list.files("Output", recursive=TRUE))
              expect_equal(length(list.files("Output", recursive=TRUE)), 0)
 
            }
@@ -21,7 +21,8 @@ test_that( "rm_output",
 )
 
 # make sure there is no directory
-unlink("Output", recursive=TRUE, force=TRUE)
+#unlink("Output", recursive=TRUE, force=TRUE)
+system("rm -r Output")
 print(list.files())
 # check_directory  on empty output
 
@@ -46,18 +47,18 @@ test_that("check_dir positive",{
 # cctu_initialize for scripts,
 
 test_that("check_dir scripts",{
-  unlink("main.R")
+  system(" rm -r main.R")
   unlink("Progs", recursive = TRUE)
   unlink("library", recursive = TRUE)
   cctu_initialize(scripts=TRUE)
   file_list <- list.files(getwd())
- # print(system.file("doc/main.R",package="cctu"))
+  print(system.file("scripts/main.R",package="cctu"))
   print(file_list)
   expect_true(any( grepl("main.R" , file_list)))
   expect_true(any(grepl("Progs" , file_list)))
   expect_true(any(grepl("library" ,file_list)))
   #tidy up
-  unlink("main.R")
+  system(" rm -r main.R")
   unlink("Progs", recursive = TRUE)
   unlink("library", recursive = TRUE)
 
@@ -69,7 +70,7 @@ test_that("non root=getwd()",
               dir.create("nonroot")
               cctu_initialise(root="nonroot")
               print(list.files())
-              file_list <- list.files("nonroot", recursive = TRUE, include.dirs = TRUE)
+              file_list <- list.dirs("nonroot", recursive = TRUE)
               print(file_list)
               expect_true( any(grepl("Core", file_list )))
               expect_true(any(grepl("Figures", file_list )) )

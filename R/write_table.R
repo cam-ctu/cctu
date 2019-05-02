@@ -15,7 +15,7 @@ write_table = function(X,
                       heading  = colnames(X),
                       na_to_empty=FALSE,
                       clean_up = TRUE,
-                      directory="Output\\Core\\",
+                      directory=file.path("Output","Core"),
                       verbose=options()$verbose
                       ){
 
@@ -56,8 +56,8 @@ write_table = function(X,
   paste_plus("</table>\n")
 
 
-  directory %<>% normalizePath %>% final_slash
-  file_name <- paste0(directory,"table_",number,".xml")
+  #directory %<>% normalizePath %>% final_slash
+  file_name <- file.path(directory,paste0("table_",number,".xml"))
 
   cat(output_string, file = file_name, append = FALSE)
   if(verbose){cat("\n", file_name, "created.\n")}

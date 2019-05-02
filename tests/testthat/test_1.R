@@ -122,20 +122,20 @@ create_word_xml("Test <Report>",
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
-  expect_true(file.exists("Output/Reports/Report2.doc"))
+  expect_true(file.exists(file.path("Output","Reports","Report2.doc")))
  # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
-  expect_true(file.exists("Output/Core/table_1.1.1.xml"))
-  expect_true(file.exists("Output/Core/table_1.1.xml"))
+  expect_true(file.exists(file.path("Output","Core","table_1.1.1.xml")))
+  expect_true(file.exists(file.path("Output","Core","table_1.1.xml")))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists("Output/Figures/fig_1.10.png"))
+  expect_true(file.exists(file.path("Output","Figures","fig_1.10.png")))
 })
 
 
 
 test_that("Comparison to saved output",{
   library(xml2)
-  test <- read_xml("Output\\Core\\table_1.1.xml")
-  expect_known_output(test %>%as.character, "data\\table1.1", update=TRUE, print=TRUE)
+  test <- read_xml(file.path("Output","Core","table_1.1.xml"))
+  expect_known_output(test %>%as.character, file.path("data","table1.1"), update=TRUE, print=TRUE)
   # Won;t work given the explicit file path in the footnotes
   #test <- read_xml("Output/Reports/Report.doc")
   #expect_known_output(test %>%as.character, "data/Report", update=FALSE, print=TRUE)

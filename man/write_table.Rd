@@ -6,7 +6,7 @@
 \usage{
 write_table(X, number = cctu_env$number, heading = colnames(X),
   na_to_empty = FALSE, clean_up = TRUE,
-  directory = "Output\\\\Core\\\\", verbose = options()$verbose)
+  directory = file.path("Output", "Core"), verbose = options()$verbose)
 }
 \arguments{
 \item{X}{the data.frame or table to be saved in xml format}

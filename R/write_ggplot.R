@@ -28,7 +28,7 @@ write_ggplot = function(
                        dpi      = 300,
                        units    = "cm",
                        clean_up = TRUE,
-                       directory="Output\\Figures\\",
+                       directory=file.path("Output","Figures"),
                        format=c("png","postscript","jpeg"),
                        graphics_args=NULL,
                        verbose=options()$verbose
@@ -57,8 +57,8 @@ write_ggplot = function(
   # deals with non-ggplot objects as well now
 
   format <- match.arg(format)
-  directory %<>% normalizePath %>% final_slash
-  file_name <- paste0(directory,"fig_",number)
+  #directory %<>% normalizePath %>% final_slash
+  file_name <- file.path(directory,paste0("fig_",number))
 
 
   args_list <- c( list( file = paste0(file_name, ".", format %>% ifelse(.=="postcript","ps",.)),

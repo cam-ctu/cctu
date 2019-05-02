@@ -1,6 +1,6 @@
 rm(list=ls())
 context("run_batch")
-library(cctu)
+#library(cctu)
 library(testthat)
 
 

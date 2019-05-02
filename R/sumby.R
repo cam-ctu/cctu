@@ -23,7 +23,7 @@ sumby <- function(variable,
                   data  = parent.frame(),
                   total = TRUE,
                   fig   = TRUE,
-                  directory="Output\\Figures\\",
+                  directory=file.path("Output","Figures"),
                   verbose=options()$verbose,
                   text_clean=propercase
                   ){
@@ -41,8 +41,8 @@ sumby <- function(variable,
     if( interactive()){ print(fig_object) }
     cctu_env$sumby_count <- cctu_env$sumby_count + 1
     if( directory!=formals()$directory | cctu_check_dir()){
-      directory %<>% normalizePath %>% final_slash
-      file_name <- paste0(directory,"sumby_fig_",cctu_env$number,"_", cctu_env$sumby_count,".png")
+      #directory %<>% normalizePath %>% final_slash
+      file_name <- file.path(directory,paste0("sumby_fig_",cctu_env$number,"_", cctu_env$sumby_count,".png"))
       ggsave(file_name, fig_object)
       if(verbose){cat(file_name, "created.\n")}
    }

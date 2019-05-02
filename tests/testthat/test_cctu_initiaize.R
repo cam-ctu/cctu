@@ -21,8 +21,8 @@ test_that( "rm_output",
 )
 
 # make sure there is no directory
-#unlink("Output", recursive=TRUE, force=TRUE)
-system("rm -r Output")
+unlink("Output", recursive=TRUE, force=TRUE)
+#system("rm -r Output")
 print(list.files())
 # check_directory  on empty output
 
@@ -47,7 +47,7 @@ test_that("check_dir positive",{
 # cctu_initialize for scripts,
 
 test_that("check_dir scripts",{
-  system(" rm -r main.R")
+  unlink("main.R")
   unlink("Progs", recursive = TRUE)
   unlink("library", recursive = TRUE)
   cctu_initialize(scripts=TRUE)
@@ -58,7 +58,7 @@ test_that("check_dir scripts",{
   expect_true(any(grepl("Progs" , file_list)))
   expect_true(any(grepl("library" ,file_list)))
   #tidy up
-  system(" rm -r main.R")
+  unlink("main.R")
   unlink("Progs", recursive = TRUE)
   unlink("library", recursive = TRUE)
 

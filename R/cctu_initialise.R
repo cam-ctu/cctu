@@ -12,19 +12,19 @@
 
 #' @describeIn cctu_initialise create the standard directories for outputs if needed.
 cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
-  root_no_slash <- root %>% normalizePath
-  root <- root_no_slash %>% final_slash
-  reset_code_tree(root_file=paste0(root,"ROOT"))
+  root <- root %>% normalizePath
+  root_slash <- root %>% final_slash
+  reset_code_tree(root_file=file.path(root,"ROOT"))
   if( !cctu_check_dir(root=root)){
-    dir.create(paste0(root, "Output")) &
-      dir.create( paste0(root,"Output/Core")) &
-      dir.create( paste0(root, "Output/Figures")) &
-      dir.create( paste0(root, "Output/Reports"))
+    dir.create(file.path(root, "Output")) &
+      dir.create( file.path(root,"Output","Core")) &
+      dir.create( file.path(root, "Output","Figures")) &
+      dir.create( file.path(root, "Output","Reports"))
   }
   if(scripts) {
-    file.copy( system.file("scripts/main.R",package="cctu"), root_no_slash)
-    file.copy( system.file("scripts/Progs",package="cctu"), root_no_slash, recursive=TRUE)
-    dir.create(paste0(root, "library"))
+    file.copy( system.file(file.path("scripts","main.R"),package="cctu"), root)
+    file.copy( system.file(file.path("scripts","Progs"),package="cctu"), root, recursive=TRUE)
+    dir.create(file.path(root, "library"))
     print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
   }
   if(rm){ rm_output()}
@@ -44,11 +44,11 @@ cctu_initialize <- cctu_initialise
 #' @export
 
 cctu_check_dir <- function(root=getwd(), warnings=FALSE){
-  root %<>% normalizePath %>% final_slash
-  check <- dir.exists(paste0(root, "Output")) &
-    dir.exists( paste0(root,"Output/Core")) &
-    dir.exists( paste0(root, "Output/Figures")) &
-    dir.exists( paste0(root, "Output/Reports"))
+  root %<>% normalizePath #%>% final_slash
+  check <- dir.exists(file.path(root, "Output")) &
+    dir.exists( file.path(root,"Output","Core")) &
+    dir.exists( file.path(root, "Output","Figures")) &
+    dir.exists( file.path(root, "Output","Reports"))
   if(warnings && !check){ warning("Default directories needed by cctu do not exist")}
   check
 }
@@ -84,24 +84,24 @@ rm_output <- function(root_output="Output", core=TRUE, figures=TRUE, reports=TRU
     dirs <- gsub(paste0(root_output,"/"),"", dirs)
     for(file in files){
       if( !(file %in% c("Core","Figures","Reports",dirs))){
-        file.remove(paste0(root_output,"/",file))
+        file.remove(file.path(root_output,file))
       }
     }
   }
 
   if( core){
-    files <- list.files(paste0(root_output,"/Core"))
-    for( file in files){ file.remove(paste0(root_output,"/Core/",file))}
+    files <- list.files(file.path(root_output,"Core"))
+    for( file in files){ file.remove(file.path(root_output,"Core",file))}
   }
   if( figures){
-    files <- list.files(paste0(root_output,"/Figures"))
+    files <- list.files(file.path(root_output,"Figures"))
     for( file in files){
       print(file)
-      file.remove(paste0(root_output,"/Figures/",file))}
+      file.remove(file.path(root_output,"Figures",file))}
   }
   if( reports){
-    files <- list.files(paste0(root_output,"/Reports"))
-    for( file in files){ file.remove(paste0(root_output,"/Reports/",file))}
+    files <- list.files(file.path(root_output,"Reports"))
+    for( file in files){ file.remove(file.path(root_output,"Reports",file))}
   }
 
 }

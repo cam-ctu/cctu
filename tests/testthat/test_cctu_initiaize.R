@@ -9,8 +9,8 @@ library(testthat)
 test_that( "rm_output",
            {
              dir.create("Output")
-             dir.create("Output/Core")
-             write.csv(cctu::meta_table, file="Output/Core/meta.csv")
+             dir.create(file.path("Output","Core"))
+             write.csv(cctu::meta_table, file=file.path("Output","Core","meta.csv"))
              expect_gt(length(list.files("Output", recursive=TRUE)), 0)
              rm_output()
              print(list.files("Output", recursive=TRUE))
@@ -52,7 +52,7 @@ test_that("check_dir scripts",{
   unlink("library", recursive = TRUE)
   cctu_initialize(scripts=TRUE)
   file_list <- list.files(getwd())
-  print(system.file("scripts/main.R",package="cctu"))
+  print(system.file(file.path("scripts","main.R"),package="cctu"))
   print(file_list)
   expect_true(any( grepl("main.R" , file_list)))
   expect_true(any(grepl("Progs" , file_list)))
@@ -83,11 +83,12 @@ test_that("non root=getwd()",
 test_that( "add spurious files and check rm_output option in cctu_initialise",
            {
              dir.create("Output")
-             dir.create("Output/Core")
-             write.csv(cctu::meta_table, file="Output/Core/meta.csv")
+             dir.create(file.path("Output","Core"))
+             write.csv(cctu::meta_table, file=file.path("Output","Core","meta.csv"))
+             write.csv(cctu::meta_table, file=file.path("Output","meta.csv"))
              cctu_initialise(rm=TRUE)
-             expect_false(file.exists("Output/Core/meta.csv"))
-
+             expect_false(file.exists(file.path("Output","Core","meta.csv")))
+             expect_false(file.exists(file.path("Output","meta.csv")))
            }
 
 )

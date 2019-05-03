@@ -18,7 +18,7 @@
 #'
 #' @return This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.
 #'
-#' @details  all file paths need to use "\\" as "/" will not work in windows dos
+#' @details  suggest that \code{\link{file.path}} is used to create non default file paths, to cope with OS vaguaries.
 
 
 
@@ -28,11 +28,11 @@ create_word_xml <- function(
   author,
   meta_table=get_meta_table(),
   datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
-  filename="Output\\Reports\\Report.doc",
+  filename=file.path("Output","Reports","Report.doc"),
   path=getwd(),
-  table_path="Output\\Core\\",
+  table_path=file.path("Output","Core"),
   figure_format=c("png","jpeg","ps"),
-  figure_path="Output\\Figures\\",
+  figure_path=file.path("Output","Figures"),
   popn_labels=NULL,
   verbose=options()$verbose,
   xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
@@ -43,11 +43,12 @@ create_word_xml <- function(
     setwd(path)
     }
   #manage paths to deal with trailing slashes or not...
-  path %<>% normalizePath %>% final_slash
-  figure_path %<>% normalizePath %>% final_slash
-  table_path %<>% normalizePath %>% final_slash
+  path %<>% normalizePath #%>% final_slash
+  figure_path %<>% normalizePath #%>% final_slash
+  table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath
-  filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
+  #filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
+  filename %<>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
 

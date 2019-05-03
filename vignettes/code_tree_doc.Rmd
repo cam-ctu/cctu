@@ -24,7 +24,7 @@ vignette: |
 library(magrittr)
 library(knitr)
 
-code_tree <- read.csv("Output/codetree.csv", stringsAsFactors = FALSE)
+code_tree <- read.csv(file.path("Output","codetree.csv"), stringsAsFactors = FALSE)
 
 
 root <- code_tree[1,1]

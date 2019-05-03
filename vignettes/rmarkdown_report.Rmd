@@ -19,9 +19,9 @@ vignette: |
 library(cctu)
 library(magrittr)
 
-PATH_figure <- paste0(getwd(),"/Output/Figures/")
+PATH_figure <- file.path(getwd(),"Output","Figures")
 
-meta_table <- read.csv(file="Output/meta_table.csv", stringsAsFactors = FALSE)
+meta_table <- read.csv(file=file.path("Output","meta_table.csv"), stringsAsFactors = FALSE)
 index <- order_dewey(meta_table$number)
 meta_table <- meta_table[index,]
 rm(index)
@@ -36,11 +36,11 @@ for(sect in sections){
     if( !is.na(subtab[row,"subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"subtitle"]))}
              
     if( subtab[row,"item"] %>% tolower=="table"){
-          file_name <- paste0("Output/Core/table_",subtab[row,"number"],".xml") 
+          file_name <- file.path("Output","Core",paste0("table_",subtab[row,"number"],".xml") )
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
           src <- c(src, 
-               knitr::knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
+               knitr::knit_expand(file=file.path("Progs","table.Rmd") %>% normalizePath(),
                            chunk_name=paste0("table",subtab[row,"number"]),
                            file_name=file_name 
                            )
@@ -49,7 +49,7 @@ for(sect in sections){
      
     }
     if(subtab[row,"item"] %>% tolower=="figure" ){
-      file_name <- paste0(PATH_figure,"fig_",subtab[row,"number"],".png")
+      file_name <- file.path(PATH_figure,paste0("fig_",subtab[row,"number"],".png"))
       if( file.exists(file_name)) src <- c(src, paste0("![](",file_name,") \n" ))
     }
     if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote1"]))}
@@ -71,8 +71,8 @@ This would typically be called from `main.R` like, to achieve a html version of 
 
 ```{r, eval=FALSE}
 
-rmarkdown::render("Progs/rmarkdown_report.Rmd",
-       output_file ="Vignette Report.html",output_dir = "Output/Reports",
+rmarkdown::render(file.path("Progs","rmarkdown_report.Rmd"),
+       output_file ="Vignette Report.html",output_dir = file.path("Output","Reports"),
        params=list(my_author="Simon Bond",
                    my_title= "Vignette Report")
 )

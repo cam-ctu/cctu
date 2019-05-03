@@ -133,13 +133,13 @@ It is recommended to set up a config.R file that
 
 ```{r, echo=FALSE}
 sourceKnit <- function(path, label){
-  cmd <- knitr::knit_expand("Progs/templ.Rmd")
+  cmd <- knitr::knit_expand(file.path("Progs","templ.Rmd"))
   knitr::knit_child(text=unlist(cmd))
 }
 
 ```
 
-`r sourceKnit("Progs/config.R", "config")`
+`r sourceKnit(file.path("Progs","config.R"), "config")`
 
 ## Data Import
 
@@ -160,7 +160,7 @@ Here we grab a ready prepared 'dirty' raw data typical of MACRO DB and apply som
 
 ## Analysis
 
-`r sourceKnit("Progs/analysis.R","analysis")`
+`r sourceKnit(file.path("Progs","analysis.R"),"analysis")`
 
 
 ## Creating the Report
@@ -174,11 +174,12 @@ pop_name <- unique(get_meta_table()$population)
 index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
-write.csv(get_meta_table(), file="Output/meta_table.csv", row.names = FALSE)
-write.csv(cctu:::cctu_env$code_tree, file="Output/codetree.csv", row.names = FALSE)
+write.csv(get_meta_table(), file=file.path("Output","meta_table.csv"), row.names = FALSE)
+write.csv(cctu:::cctu_env$code_tree, file=file.path("Output","codetree.csv"), row.names = FALSE)
 create_word_xml(report_title="Vignette Report",
-            author="Simon Bond", filename="Output/Reports/Vignette_Report.doc",
-            popn_labels=popn_labels
+                author="Simon Bond",
+                filename=file.path("Output","Reports","Vignette_Report.doc"),
+                popn_labels=popn_labels
             )
 Sys.info()
 sessionInfo()

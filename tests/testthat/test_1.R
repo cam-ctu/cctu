@@ -97,9 +97,9 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename="Output/Reports/Report2.doc",
-                table_path = "Output/Core",
-                figure_path="Output/Figures"
+                filename=file.path("Output","Reports","Report2.doc"),
+                #table_path = "Output/Core",
+                #figure_path="Output/Figures"
 )
 
 #setwd("tests/testthat")

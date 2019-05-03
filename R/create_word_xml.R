@@ -104,18 +104,18 @@ create_word_xml <- function(
 
     if(meta_table[i, "item"] == "table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      file.append(filename, paste0( table_path,'table_', meta_table[i, "number"], '.xml'))
+      file.append(filename, file.path(table_path,paste0( 'table_', meta_table[i, "number"], '.xml')))
       cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "figure"){
       cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
-      cat("<src>", figure_path,"fig_", meta_table[i, "number"],
-          ".",figure_format,"</src>", sep = "", file = filename, append = TRUE)
+      cat("<src>", file.path(figure_path,paste0("fig_", meta_table[i, "number"],
+          ".",figure_format)),"</src>", sep = "", file = filename, append = TRUE)
       cat(footers[i], program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      file.append(filename, paste0( table_path,'table_', meta_table[i, "number"], '.xml'))
+      file.append(filename, file.path(table_path,paste0('table_', meta_table[i, "number"], '.xml')))
       cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
     }
   }

@@ -1,3 +1,4 @@
-Progs$
-Output$
-main.R
+^Progs$
+^output$
+^main.R$
+vignettes\Output\.*

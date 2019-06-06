@@ -30,5 +30,5 @@ Functions that attach and detach environments based on which populations are use
 }}
 
 \seealso{
-\code{\link{attach}} \code{\link{detach}}
+\code{\link{attach}} \code{\link{detach}} \code{\link{rm_envir}}
 }

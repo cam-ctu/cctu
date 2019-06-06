@@ -5,7 +5,7 @@
 #' @param rm_envir logical, default=TRUE. Whether to run \code{\link{rm_envir}} first before attaching a population.
 #'
 #' @return invisibly returns an environment for attaching, or NULL for detaching.
-#' @seealso \code{\link{attach}} \code{\link{detach}}
+#' @seealso \code{\link{attach}} \code{\link{detach}} \code{\link{rm_envir}}
 #' @importFrom magrittr %>%
 
 

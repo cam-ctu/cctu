@@ -24,8 +24,8 @@ set_meta_table <- function(meta_table){
 add_program <- function(number, calling_prog){
 
   meta_table <- get_meta_table()
-  if( !("number" %in% names(meta_table))){warning("Need to have 'number' column in meta_table")}
-  if( !("program" %in% names(meta_table))){warning("Need to have 'program' column in meta_table")}
+  if( !("number" %in% names(meta_table))){stop("Need to have 'number' column in meta_table")}
+  if( !("program" %in% names(meta_table))){warning("Need to have 'program' column in meta_table", immediate.=TRUE)}
   index <- match(number, meta_table$number)
   meta_table[index, "program"] <- calling_prog
   set_meta_table(meta_table)
@@ -46,16 +46,26 @@ clean_meta_table <- function(meta_table){
 
 
 
-  if( !("number" %in% names(meta_table))){warning("Need to have 'number' column in meta_table")}
-  if( !("item" %in% names(meta_table))){warning("Need to have 'item' column meta_table")}
+  if( !("number" %in% names(meta_table))){
+    stop("Need to have 'number' column in meta_table")
+  } else {
+    meta_table$number <- gsub("\\s","", meta_table$number)
+    index <- meta_table$number %>% as.character %>% order_dewey
+    meta_table <- meta_table[index,]
+    pmat <- pmatch(names(meta_table), columns_needed)
+    meta_table <- subset( meta_table, !is.na(meta_table$number) & meta_table$number!="", select=!is.na(pmat))
+  }
 
-  meta_table$number <- gsub("\\s","", meta_table$number)
-  pmat <- pmatch(names(meta_table), columns_needed)
-  meta_table <- subset( meta_table, !is.na(meta_table$number) & meta_table$number!="", select=!is.na(pmat))
+  if( !("item" %in% names(meta_table))){
+     warning("Need to have 'item' column meta_table", immediate.=TRUE)
+  }
+
+
+
+
   pmat <- pmatch(names(meta_table), columns_needed)
   names(meta_table) <- columns_needed[pmat]
-  index <- meta_table$number %>% as.character %>% order_dewey
-  meta_table <- meta_table[index,]
+
   n <- nrow(meta_table)
 
   extra_cols <- columns_needed[-pmat]
@@ -72,20 +82,20 @@ clean_meta_table <- function(meta_table){
     meta_table$orientation <- "portrait"
   }
 
-  item_index <- pmatch(meta_table$item %>% tolower,
-                       c("table","figure","text"),
-                       duplicates.ok = TRUE)
-  if(any(is.na(item_index))){
-    warning("invalid values for 'item' converted to 'table'")
-    item_index <- ifelse(is.na(item_index),1, item_index)
-  }
-  meta_table$item <- c("table","figure","text")[item_index]
+    item_index <- pmatch(meta_table$item %>% tolower,
+                         c("table","figure","text"),
+                         duplicates.ok = TRUE)
+    if(any(is.na(item_index))){
+      warning("invalid values for 'item' converted to 'table'", immediate.=TRUE)
+      item_index <- ifelse(is.na(item_index),1, item_index)
+    }
+    meta_table$item <- c("table","figure","text")[item_index]
 
   orient_index <- pmatch(meta_table$orientation %>% tolower,
                          c("portrait", "landscape"),
                          duplicates.ok=TRUE)
   if(any(is.na(orient_index))){
-    warning("invalid values for 'orientation' converted to 'portrait'")
+    warning("invalid values for 'orientation' converted to 'portrait'", immediate.=TRUE)
     orient_index <- ifelse(is.na(orient_index), 1, orient_index)
   }
   meta_table$orientation <- c("portrait", "landscape")[orient_index]

@@ -12,6 +12,11 @@ then copy the vignettes/Output directory into ~/inst
 then
 
 devtools::build() to get the tar.gz source
+# Or maybe do
+
+setwd("..")
+system("R CMD build cctu") seems to do a better job...
+
 
 then install from tar.gz
 

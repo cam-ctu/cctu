@@ -14,3 +14,4 @@ RoxygenNote: 6.1.1
 Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, grid
 Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra
 VignetteBuilder: knitr
+Repository: local-cran

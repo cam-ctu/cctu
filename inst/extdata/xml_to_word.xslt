@@ -133,7 +133,17 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <w:bottom w:val="single" w:sz="12" w:space="0" w:color="000000"/>
 </w:tblBorders>
 </w:tblPr>
-<xsl:apply-templates select="table/tr"/>
+
+
+
+<xsl:apply-templates select="table/tr">
+  <xsl:with-param name="fontsize">
+    <xsl:choose>
+      <xsl:when test="heading/fontsize=''">20</xsl:when>
+      <xsl:otherwise><xsl:value-of select="heading/fontsize"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:with-param>
+</xsl:apply-templates>
 </w:tbl>
 
 
@@ -221,10 +231,9 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 
 <xsl:template match="table/tr" name="tr">
-		<w:tr>
+<xsl:param name="fontsize" select="$fontsize"/>
 
-
-
+    <w:tr>
 		<xsl:choose>
 		<xsl:when test="position()=1">
 			<w:tblPrEx>
@@ -247,6 +256,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 <xsl:apply-templates select="td">
 	<xsl:with-param name="RowPosition" select="position()"/>
+  <xsl:with-param name="fontsize" select="$fontsize"/>
 </xsl:apply-templates>
 
 
@@ -275,7 +285,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <xsl:template match="td"  name="td">
 
 <xsl:param name="RowPosition"/>
-
+<xsl:param name="fontsize" select="$fontsize"/>
 
 				<w:tc><w:p>
 			<w:pPr>
@@ -293,6 +303,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 					<w:r>
 					<w:rPr>
 				    <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            <w:sz w:val="{$fontsize}"/>
 					<xsl:choose>
 					<xsl:when test="$RowPosition=1">
 					<w:b w:val="true"/>
@@ -403,21 +414,3 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 
 </xsl:stylesheet>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

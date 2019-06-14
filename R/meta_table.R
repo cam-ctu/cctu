@@ -11,6 +11,7 @@
 #'  \item{item}{takes values "table", "figure", or far more rarely "text". \code{\link{create_word_xml}} will expect there to exist 'table_XX.xml', 'figure_XX.png' or 'text_XX.xml' as appropriate where 'XX' is the number value.}
 #'  \item{footnote1}{optional footnote. Use the empty string if no subtitle wanted.}
 #'  \item{footnote2}{optional footnote. Use the empty string if no subtitle wanted.}
+#'  \item{fontsize}{optional fontsize. Set the font size used in a table in units 1/144 of inch. Defaults to 20 if not set.}
 #'
 #'
 #'This is an example of the structure of a meta_table that must exist to use \code{\link{attach_pop},\link{write_table}, \link{write_ggplot},\link{create_word_xml}}.

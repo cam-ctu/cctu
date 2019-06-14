@@ -42,7 +42,7 @@ clean_meta_table <- function(meta_table){
   op <- options()
   options(stringsAsFactors = FALSE)
   columns_needed <- c("section","title","subtitle","number","population",
-                      "orientation", "program", "item", "footnote1","footnote2")
+                      "orientation", "program", "item", "footnote1","footnote2","fontsize")
 
 
 
@@ -70,7 +70,7 @@ clean_meta_table <- function(meta_table){
 
   extra_cols <- columns_needed[-pmat]
   if(length(extra_cols)){
-    X <- matrix(" ", nrow=n, ncol=length(extra_cols))
+    X <- matrix("", nrow=n, ncol=length(extra_cols))
     X <- as.data.frame(X)
     names(X) <- extra_cols
     meta_table <- cbind(meta_table, X)

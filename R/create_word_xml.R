@@ -86,7 +86,9 @@ create_word_xml <- function(
                         "</population><subtitle>",
                         ifelse(is.na(subtitle), "", remove_xml_specials(as.character(subtitle))),
                         "</subtitle><number>", number,
-                        "</number><orientation>", orientation,
+                        "</number><fontsize>",
+                        ifelse(is.na(fontsize), "", remove_xml_specials(as.character(fontsize))),
+                        "</fontsize><orientation>", orientation,
                         "</orientation></heading>"))
 
   footers = with(meta_table,

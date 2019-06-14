@@ -20,7 +20,7 @@ meta_table <- read_excel(system.file("extdata", "meta_table.xlsx", package="cctu
 meta_table %<>% within(
   item %<>% tolower
 ) %>% dplyr::select(section, title, subtitle, number, population,
-                      orientation, program, item, footnote1, footnote2)
+                      orientation, program, item, footnote1, footnote2,fontsize)
 meta_subset <- meta_table[3,]
 #devtools::use_data(meta_table, overwrite = TRUE)
 

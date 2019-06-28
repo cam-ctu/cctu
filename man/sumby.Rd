@@ -6,7 +6,8 @@
 \usage{
 sumby(variable, arm, label = NULL, data = parent.frame(),
   total = TRUE, fig = TRUE, directory = file.path("Output",
-  "Figures"), verbose = options()$verbose, text_clean = propercase)
+  "Figures"), verbose = options()$verbose, text_clean = propercase,
+  pct_digits = 0)
 }
 \arguments{
 \item{variable}{A variable of interest to be summarised. Works for several classes: numeric, integer, factor, character.}
@@ -26,6 +27,8 @@ sumby(variable, arm, label = NULL, data = parent.frame(),
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
 \item{text_clean}{a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.}
+
+\item{pct_digits}{number of decimal places to present percentages to. Defaults to 0.}
 }
 \value{
 a data.frame containing summary statistics in character format,

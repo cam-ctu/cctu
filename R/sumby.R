@@ -6,6 +6,7 @@
 #'@param directory the path to the directory where figures will be saved as "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.
 #' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'@param text_clean a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.
+#'@param pct_digits number of decimal places to present percentages to. Defaults to 0.
 #'
 #'@return a data.frame containing summary statistics in character format,
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object
@@ -25,7 +26,8 @@ sumby <- function(variable,
                   fig   = TRUE,
                   directory=file.path("Output","Figures"),
                   verbose=options()$verbose,
-                  text_clean=propercase
+                  text_clean=propercase,
+                  pct_digits=0
                   ){
 
   variable_name <- deparse(substitute(variable))
@@ -95,7 +97,7 @@ sumby <- function(variable,
     }
     stats = text_clean(tab[, 1])
     tab   = tab[, -1]
-    perc  = round(100 * tab / total, 1)
+    perc  = round(100 * tab / total, digits=pct_digits)
 
     X        = array(0, dim = c(dim(perc), 3))
     X[, , 1] = as.matrix(perc)

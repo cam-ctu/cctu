@@ -14,6 +14,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
    <xsl:text>progid="Word.Document"</xsl:text>
   </xsl:processing-instruction>
 <w:wordDocument>
+
 <w:body>
 
 
@@ -338,8 +339,29 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
           <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
         </w:rPr>
         <w:t>
-			Cambridge CTU,<xsl:value-of select="/Report/author"/>-<xsl:value-of select="/Report/datestamp"/>- Page&#160;<w:fldSimple w:instr="PAGE"/>
-		 </w:t>
+			Cambridge CTU,<xsl:value-of select="/Report/author"/>-<xsl:value-of select="/Report/datestamp"/>- Page&#160;</w:t>
+    </w:r>
+    <w:r>
+    <w:fldChar w:fldCharType="begin"/>
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+      </w:rPr>
+    <w:instrText xml:space="preserve"> PAGE </w:instrText>
+    </w:r>
+    <w:r>
+    <w:fldChar w:fldCharType="separate"/>
+    </w:r>
+    <w:r>
+    <w:fldChar w:fldCharType="end"/>
+    </w:r>
+
+
+        <w:r>
+          <w:rPr>
+            <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          </w:rPr>
         <w:t>
           <w:br/>Program:<xsl:value-of select="."/>
         </w:t>

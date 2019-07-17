@@ -19,7 +19,7 @@ attach_pop <- function(number,
   cctu_env$number <- as.character(number)
   cctu_env$sumby_count <- 0
   popn_name <- match_population(number)
-  if(!is.null(popn_name) && popn_name !="" && exists(popn_name, where=parent.frame())){
+  if(length(popn_name) && popn_name !="" && exists(popn_name, where=parent.frame())){
     if(rm_envir){ rm_envir(verbose=verbose)}
     #attach is fussy about its argument needing to be an object, not a character
     eval(call("attach", as.name(popn_name)),envir=parent.frame())

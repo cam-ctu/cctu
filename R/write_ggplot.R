@@ -49,8 +49,8 @@ write_ggplot = function(
 
   CallingProg <- cctu_env$parent[1]#get_file_name()
   if(is.null(CallingProg)){
-    warning(paste("Unable to identify the code file that created figure", number))
     CallingProg <- "Missing"
+    warning(paste("Unable to identify the code file that created figure", number))
   }
   add_program(number, CallingProg )
 
@@ -74,11 +74,12 @@ write_ggplot = function(
     if(verbose){cat("\n", args_list$file, "created.\n")}
     })
   grid::grid.draw(plot)
-  invisible()
+  #
 
   # this links in with using environments to define the correct population
   # detach_pop(number)
   if(clean_up){
     clean_up(number, frame = parent.frame(), verbose=verbose)
   }
+  invisible()
 }

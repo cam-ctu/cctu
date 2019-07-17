@@ -4,7 +4,7 @@
 \alias{source}
 \title{A modified version of the source() function to capture in a data.frame what file was called and from which file}
 \usage{
-source(file, local = FALSE)
+source(file, local = FALSE, backup = NULL)
 }
 \arguments{
 \item{file}{a \link{connection} or a character string giving the
@@ -16,6 +16,9 @@ source(file, local = FALSE)
     default) corresponds to the user's workspace (the global
     environment) and \code{TRUE} to the environment from which
     \code{source} is called.}
+
+\item{backup}{A character string giving the file path to which to save an image of the R environment before sourcing any code.
+Default is NULL, which does not save any image.}
 }
 \value{
 no return value

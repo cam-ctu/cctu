@@ -19,3 +19,10 @@ x <- xtabs(~x+x)
 expect_error(rbind_space(x,x))
 }
 )
+
+test_that("wrong number of columns",{
+          a <- matrix(1, nrow=2, ncol=3)
+          b <- matrix(1, nrow=2, ncol=2)
+          expect_error(rbind_space(a,b), "the number of columns do not match")
+}
+          )

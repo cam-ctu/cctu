@@ -2,6 +2,8 @@
 #'
 #'
 #' @inheritParams base::source
+#' @param backup A character string giving the file path to which to save an image of the R environment before sourcing any code.
+#' Default is NULL, which does not save any image.
 #' @details evaluates code in the file argument, and also augments or creates a dataframe with two variables (parent, child).
 #' The intention is to record the architecture of a sequenece of code files run using nested source() statements. To override this function use
 #' \code{source <- base::source}.
@@ -10,10 +12,11 @@
 #' @seealso  \code{\link[base]{source}}
 #' @export
 
-source <- function(file, local=FALSE
+source <- function(file, local=FALSE, backup=NULL
                    #code_tree_string="code_tree", frame=parent.frame()
                    ){
   parent_frame <- parent.frame()
+  if(!is.null(backup)){save.image(file=backup)}
   code_tree <- cctu_env$code_tree
   child <- normalizePath(file)
   code_tree[1+nrow(code_tree),] <- c(cctu_env$parent[1], child)

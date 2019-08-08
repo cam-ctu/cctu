@@ -8,10 +8,10 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = file.path("Output", "Reports", "Report.doc"),
   path = getwd(), table_path = file.path("Output", "Core"),
-  figure_format = c("png", "jpeg", "ps"),
-  figure_path = file.path("Output", "Figures"), popn_labels = NULL,
-  verbose = options()$verbose, xslt_file = system.file("extdata",
-  "xml_to_word.xslt", package = "cctu"))
+  figure_format = c("png", "jpeg", "ps"), figure_path = file.path("..",
+  "Figures"), popn_labels = NULL, verbose = options()$verbose,
+  xslt_file = system.file("extdata", "xml_to_word.xslt", package =
+  "cctu"))
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}
@@ -20,7 +20,7 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
 
 \item{meta_table}{a data frame  that contains meta information on tables (title, population, number). Defaults is get_meta_table()}
 
-\item{datestamp}{text used to give the date-time stampe, defaults to the system date/time at the time of running the function}
+\item{datestamp}{text used to give the date-time stamp, defaults to the system date/time at the time of running the function}
 
 \item{filename}{text string giving the filename/path to output the word document to}
 

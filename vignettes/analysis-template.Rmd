@@ -186,6 +186,12 @@ sessionInfo()
 date()
 ```
 
+```{r,  include=FALSE}
+if(!dir.exists("../inst/doc")){dir.create("../inst/doc")}
+unlink("../inst/doc/Output", recursive=TRUE)
+file.copy("Output", "../inst/doc", recursive=TRUE)
+```
+
 The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
 
 

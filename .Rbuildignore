@@ -9,3 +9,6 @@
 ^doc$
 ^tests/testthat/script_to_test_run_batch.Rout$
 ^scripts$
+^build_dashboard.R$
+SPIRO
+^cctu_package_wishlist.xlsx$

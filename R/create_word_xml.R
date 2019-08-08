@@ -3,7 +3,7 @@
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
 #' @param meta_table a data frame  that contains meta information on tables (title, population, number). Defaults is get_meta_table()
-#' @param datestamp text used to give the date-time stampe, defaults to the system date/time at the time of running the function
+#' @param datestamp text used to give the date-time stamp, defaults to the system date/time at the time of running the function
 #' @param filename text string giving the filename/path to output the word document to
 #' @param path text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.
 #' @inheritParams write_ggplot
@@ -32,7 +32,7 @@ create_word_xml <- function(
   path=getwd(),
   table_path=file.path("Output","Core"),
   figure_format=c("png","jpeg","ps"),
-  figure_path=file.path("Output","Figures"),
+  figure_path=file.path("..","Figures"),
   popn_labels=NULL,
   verbose=options()$verbose,
   xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
@@ -44,7 +44,8 @@ create_word_xml <- function(
     }
   #manage paths to deal with trailing slashes or not...
   path %<>% normalizePath #%>% final_slash
-  figure_path %<>% normalizePath #%>% final_slash
+  # Need to allow relateive directories... when building vignettes and output.
+  #figure_path %<>% normalizePath #%>% final_slash
   table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath
   #filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")

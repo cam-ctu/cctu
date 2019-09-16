@@ -55,17 +55,6 @@ cctu_check_dir <- function(root=getwd(), warnings=FALSE){
 
 
 
-#' @describeIn cctu_initialise reset the internal code_tree object to have no entries
-#' @param root_file the name of the code file you want to use as the initial root for code tree
-#' @export
-reset_code_tree <- function(root_file="main.R"){
-  cctu_env$code_tree <- data.frame(parent = as.character(NULL),
-                                   child = as.character(NULL),
-                                   stringsAsFactors = FALSE)
-  cctu_env$parent <- root_file
-
-}
-
 #' @describeIn cctu_initialise function to clear previous output files, but leaves the directories in place
 #'
 #' @param root_output character giving the output directory path

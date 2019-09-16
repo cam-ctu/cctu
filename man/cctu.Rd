@@ -18,7 +18,7 @@ See the vignette \code{vignette("analysis-template", package="cctu")} for an ove
 
 
 \itemize{
- \item \code{\link{meta_table}}
+ \item \code{\link{meta_table_example}}
  \item \code{\link{create_popn_envir}}
  \item \code{\link{attach_pop}}
  \item \code{\link{sumby}}

@@ -10,7 +10,7 @@ test_that( "rm_output",
            {
              dir.create("Output")
              dir.create(file.path("Output","Core"))
-             write.csv(cctu::meta_table, file=file.path("Output","Core","meta.csv"))
+             write.csv(cctu::meta_table_example, file=file.path("Output","Core","meta.csv"))
              expect_gt(length(list.files("Output", recursive=TRUE)), 0)
              rm_output()
              print(list.files("Output", recursive=TRUE))
@@ -84,8 +84,8 @@ test_that( "add spurious files and check rm_output option in cctu_initialise",
            {
              dir.create("Output")
              dir.create(file.path("Output","Core"))
-             write.csv(cctu::meta_table, file=file.path("Output","Core","meta.csv"))
-             write.csv(cctu::meta_table, file=file.path("Output","meta.csv"))
+             write.csv(cctu::meta_table_example, file=file.path("Output","Core","meta.csv"))
+             write.csv(cctu::meta_table_example, file=file.path("Output","meta.csv"))
              cctu_initialise(rm=TRUE)
              expect_false(file.exists(file.path("Output","Core","meta.csv")))
              expect_false(file.exists(file.path("Output","meta.csv")))

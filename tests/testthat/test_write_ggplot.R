@@ -3,7 +3,7 @@ context("testing write_ggplot")
 
 test_that("alternative dimension",
           {.old_meta <- get_meta_table()
-            set_meta_table(cctu::meta_table)
+            set_meta_table(cctu::meta_table_example)
             X <- data.frame(x=1,y=1)
             fig <- ggplot(X, aes(x=x,y=y))+geom_point()
             .parent <- cctu_env$parent

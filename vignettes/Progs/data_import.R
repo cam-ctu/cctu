@@ -16,7 +16,7 @@ data$start_date <- as.POSIXct( data$start_date , format="%d/%m/%Y")
 data_name <- names(data)
 names(data)[match("subject_id", data_name)] <- "subjid"
 
-set_meta_table( cctu::meta_table )
+set_meta_table( cctu::meta_table_example)
 
 #Create the population table
 

@@ -42,18 +42,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:p>
 </w:sect>
 
-<w:hdr>
-<w:p>
-<w:pPr>
-<w:pStyle w:val="Header"/>
-<w:jc w:val="center"/>
-</w:pPr>
-<w:r>
-<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
-<w:t>Tables Listing and Graphs for<xsl:value-of select="Report/study"/></w:t>
-</w:r>
-</w:p>
-</w:hdr>
 
 
 
@@ -80,12 +68,12 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
 <xsl:template match="MetaText" name="MetaText">
     <xsl:apply-templates select="heading"/>
-     <xsl:apply-templates select="Program"/>
+     xsl:apply-templates select="Program"/>
     <w:p>
     <w:pPr>
           <w:jc w:val="center"/>
     </w:pPr>
-        <xsl:apply-templates select="theText"/>
+        <xsl:apply-templates select="text"/>
     </w:p>
      <w:p>
           <w:pPr>
@@ -103,7 +91,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 
    </xsl:template>
 
-<xsl:template match="theText" name="theText">
+<xsl:template match="text" name="text">
 <xsl:if test="position() &gt;1">
 <w:br/>
 </xsl:if>
@@ -172,6 +160,21 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 	<xsl:variable name="previous_section" select="../preceding-sibling::*[1]/heading/section"/>
 	<xsl:variable name="current_section"  select="section"/>
 	<xsl:if test = "not( $previous_section = $current_section)">
+	<w:hdr>
+    <w:p>
+    <w:pPr>
+    <w:pStyle w:val="Header"/>
+    <w:jc w:val="left"/>
+      </w:pPr>
+
+    <w:r>
+    <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
+    <w:t>Tables Listing and Graphs for<xsl:value-of select="/Report/study"/>| Section: <xsl:value-of select="section"/></w:t>
+    </w:r></w:p>
+</w:hdr>
+
+
+
 	<w:p>
 		<w:pPr>
 			<w:jc w:val="center"/>
@@ -196,8 +199,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 		<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 			<w:t>
 				Title: <xsl:value-of select="title"/>
-				<xsl:apply-templates select="population"/>
-				</w:t>
+			</w:t>
 		</w:r>
 	</w:p>
 	<w:p>
@@ -209,16 +211,17 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 		<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 			<w:t>
 				<xsl:apply-templates select="subtitle"/>
+				<xsl:apply-templates select="population"/>
 				Number: <xsl:value-of select="number"/><w:br/>
 			</w:t>
 		</w:r>
 	</w:p>
-	</xsl:template>
+ 	</xsl:template>
 
 
 	<xsl:template match="population" name="population">
 	<xsl:if test = ". != '' ">
-		<w:br/>Population: <xsl:value-of select ="."/>
+		Population: <xsl:value-of select ="."/><w:br/>
 	</xsl:if>
 	</xsl:template>
 

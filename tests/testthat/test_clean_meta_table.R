@@ -2,9 +2,9 @@
 context("Test clean_meta_table")
 
 
-X <- cctu::meta_table
+X <- cctu::meta_table_example
 test_that("basic and errors",{
-  expect_is(cctu:::clean_meta_table(cctu::meta_table), "data.frame")
+  expect_is(cctu:::clean_meta_table(cctu::meta_table_example), "data.frame")
   expect_error(cctu:::clean_meta_table(X[,-4]))
   expect_warning(cctu:::clean_meta_table(X[,-8]))
   Y <- X
@@ -18,7 +18,7 @@ test_that("basic and errors",{
 
 test_that("errors in add_program",{
 
-X <- cctu::meta_table
+X <- cctu::meta_table_example
 Y <- X[,-4]
 assign("meta_table", Y, cctu:::cctu_env)
 expect_error( cctu:::add_program("1.1", "test.R"))

@@ -17,6 +17,6 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --library="V:/STATISTICS/STUDY PLANNING/R_libraryV3.5"
+PackageInstallArgs: --library="U:/My Documents/R/win-library/3.6"
 PackageCheckArgs: --no-tests
 PackageRoxygenize: rd,collate,namespace

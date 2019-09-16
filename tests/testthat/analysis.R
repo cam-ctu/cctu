@@ -13,9 +13,9 @@ meta_table <- get_meta_table()
 
 meta_table[2,"subtitle"] <- ""
 
-
-meta_table[4,"number"] <- "1.1.2"
-meta_table[4,"population"] <- " "
+ntabs <- nrow(meta_table)
+meta_table[ntabs+1,"number"] <- "1.1.2"
+meta_table[ntabs+1,"population"] <- " "
 set_meta_table(meta_table)
 
 write_table(X, number="1.1.2")
@@ -27,5 +27,6 @@ sumby(response, rx, data=data )
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
 write_ggplot( fig, format="png")
 
-
+attach_pop("2.1")
+write_text("There were no deaths")
 

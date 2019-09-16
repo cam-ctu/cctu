@@ -97,9 +97,11 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename=file.path("Output","Reports","Report2.doc"),
+                filename=file.path("Output","Reports","Report2.doc")#,
+                #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
-                #figure_path="Output/Figures"
+                #figure_path="Output/Figures",
+
 )
 
 #setwd("tests/testthat")
@@ -123,12 +125,18 @@ create_word_xml("Test <Report>",
 
 test_that("Creation of files",{
   expect_true(file.exists(file.path("Output","Reports","Report2.doc")))
- # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
+  # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists(file.path("Output","Core","table_1.1.1.xml")))
   expect_true(file.exists(file.path("Output","Core","table_1.1.xml")))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
   expect_true(file.exists(file.path("Output","Figures","fig_1.10.png")))
 })
+
+test_that("get_code_tree",{
+  write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
+  expect_true(file.exists(file.path("Output","codetree.doc")))
+})
+
 
 
 

@@ -118,7 +118,7 @@ create_word_xml <- function(
     }
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      file.append(filename, file.path(table_path,paste0('table_', meta_table[i, "number"], '.xml')))
+      file.append(filename, file.path(table_path,paste0('text_', meta_table[i, "number"], '.xml')))
       cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
     }
   }

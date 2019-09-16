@@ -3,7 +3,7 @@ context("Test attach_pop errors")
 test_that("call all warnings",
           {
             expect_warning(attach_pop("99.99.99.99"), "No population was attached")
-            meta_table <- cctu::meta_table
+            meta_table <- cctu::meta_table_example
             meta_table <- meta_table[, -c(4,5)]
             old_meta <- get_meta_table()
             assign("meta_table",meta_table, envir=cctu_env)

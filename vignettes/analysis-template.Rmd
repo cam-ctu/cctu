@@ -175,7 +175,7 @@ index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
 write.csv(get_meta_table(), file=file.path("Output","meta_table.csv"), row.names = FALSE)
-write.csv(cctu:::cctu_env$code_tree, file=file.path("Output","codetree.csv"), row.names = FALSE)
+write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
 create_word_xml(report_title="Vignette Report",
                 author="Simon Bond",
                 filename=file.path("Output","Reports","Vignette_Report.doc"),

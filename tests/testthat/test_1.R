@@ -134,7 +134,7 @@ test_that("Creation of files",{
 
 test_that("get_code_tree",{
   write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-  expect_true(file.exists(file.path("Output","codetree.doc")))
+  expect_true(file.exists(file.path("Output","codetree.csv")))
 })
 
 

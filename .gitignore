@@ -5,7 +5,7 @@ doc
 .RData
 .Ruserdata
 inst/doc
-^Output
+Output/
 script_to_test_run_batch.Rout
 cctu.Rproj
 SPIRO-CKD Final Report - Version 1.0.pdf

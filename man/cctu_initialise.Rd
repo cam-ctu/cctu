@@ -4,7 +4,6 @@
 \alias{cctu_initialise}
 \alias{cctu_initialize}
 \alias{cctu_check_dir}
-\alias{reset_code_tree}
 \alias{rm_output}
 \title{initialise  objects for using cctu package}
 \usage{
@@ -13,8 +12,6 @@ cctu_initialise(root = getwd(), scripts = FALSE, rm = FALSE)
 cctu_initialize(root = getwd(), scripts = FALSE, rm = FALSE)
 
 cctu_check_dir(root = getwd(), warnings = FALSE)
-
-reset_code_tree(root_file = "main.R")
 
 rm_output(root_output = "Output", core = TRUE, figures = TRUE,
   reports = TRUE, output = TRUE)
@@ -27,8 +24,6 @@ rm_output(root_output = "Output", core = TRUE, figures = TRUE,
 \item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.}
 
 \item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
-
-\item{root_file}{the name of the code file you want to use as the initial root for code tree}
 
 \item{root_output}{character giving the output directory path}
 
@@ -55,8 +50,6 @@ initialise  objects for using cctu package
 \item \code{cctu_initialize}: identifical function with american spelling
 
 \item \code{cctu_check_dir}: Check if the directories exist for cctu
-
-\item \code{reset_code_tree}: reset the internal code_tree object to have no entries
 
 \item \code{rm_output}: function to clear previous output files, but leaves the directories in place
 }}

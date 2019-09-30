@@ -40,5 +40,9 @@ expect_equivalent(r%>%as.character, gsub( "(\\d+)/.*",  "\\1", value, perl=TRUE)
 expect_equivalent(n%>%as.character, gsub(".*/(\\d+).*","\\1", value, perl=TRUE))# ".*/(\\d+)\\).*",
 })
 
+test_that("characterconvert",
+          expect_silent(X_gender <- sumby(gender , arm , data=df, text_clean=NULL, fig=FALSE,label=NULL))
+
+          )
 
 

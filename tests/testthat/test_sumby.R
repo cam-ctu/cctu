@@ -45,4 +45,10 @@ test_that("characterconvert",
 
           )
 
+test_that("sumfig direct",
+          {
+            fig <- sumfig(gender , arm , data=df)
+            expect_is(fig, "gg")
+          }
+          )
 

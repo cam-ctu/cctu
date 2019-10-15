@@ -37,6 +37,7 @@ rm_output(root_output = "Output", core = TRUE, figures = TRUE,
 }
 \value{
 cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
+It also runs \code{reset_code_tree(root)} automatically.
 
 cctu_check_dir gives a logical indicating if the directories exist,
 }
@@ -55,5 +56,5 @@ initialise  objects for using cctu package
 }}
 
 \seealso{
-\code{\link{dir.create}}
+\code{\link{dir.create}} \code{\link{reset_code_tree}}
 }

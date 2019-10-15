@@ -4,8 +4,9 @@
 #' @param scripts logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.
 #' @param rm logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.
 #' @return cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
+#' It also runs \code{reset_code_tree(root)} automatically.
 #'
-#' @seealso \code{\link{dir.create}}
+#' @seealso \code{\link{dir.create}} \code{\link{reset_code_tree}}
 #'
 #' @export
 #' @importFrom magrittr %>% %<>%

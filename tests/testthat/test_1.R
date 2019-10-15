@@ -74,8 +74,13 @@ write_ggplot( format="png")
 
 
 # need the local =TRUE to call this from the testthat(). but not in general.
+expect_warning(source("analysis.R", local=TRUE), "Recommend using cctu_initialise()")
 reset_code_tree()
-source("analysis.R", local=TRUE)
+file.remove("backup_image.Rdata")
+expect_equal(file.exists("backup_image.Rdata"), FALSE)
+source("analysis.R", local=TRUE, backup="backup_image.Rdata")
+expect_equal(file.exists("backup_image.Rdata"), TRUE)
+file.remove("backup_image.Rdata")
 cctu_env$code_tree
 
 test_that("exist",

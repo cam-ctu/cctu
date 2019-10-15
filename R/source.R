@@ -17,6 +17,10 @@ source <- function(file, local=FALSE, backup=NULL
                    ){
   parent_frame <- parent.frame()
   if(!is.null(backup)){save.image(file=backup)}
+  if(!exists("cctu_env$code_tree")){
+    warning("Recommend using cctu_initialise()")
+    reset_code_tree(root_file=file.path(getwd(),"ROOT"))
+  }
   code_tree <- cctu_env$code_tree
   child <- normalizePath(file)
   code_tree[1+nrow(code_tree),] <- c(cctu_env$parent[1], child)

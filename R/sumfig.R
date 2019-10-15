@@ -26,10 +26,9 @@ sumfig <- function(variable,
   arm      <- eval(mf$arm, envir = data)
   data     <- data.frame(variable = variable, arm = arm)
 
-  variable.class = class(variable)
 
   # produce boxplot by arm for continuous variables
-  if(variable.class == "numeric" || variable.class == "integer"){
+  if(inherits(variable,c("numeric","integer"))){
     fig <- ggplot(data = data, aes(x = arm, y = variable), ... = ...) +
            geom_boxplot() +
            theme(axis.title.x = element_blank()) +
@@ -37,7 +36,7 @@ sumfig <- function(variable,
   }
 
   # produce bar chart by arm for categorical variables
-  if(inherits(variable, "factor") || variable.class == "character"){
+  if(inherits(variable, c("factor","character"))){
      fig <- ggplot(data = data, aes(x = arm, fill = variable), ... = ...) +
             geom_bar() +
             theme(axis.title.x = element_blank()) +

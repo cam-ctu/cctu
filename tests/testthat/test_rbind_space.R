@@ -33,6 +33,7 @@ test_that("mixture of matrix and 1-d character",
             b <- c("A","B","C")
             c <- 1:3
             d <- rnorm(3)
+            attr(d,"other") <- "not now a vector"
             expect_is(Reduce(rbind_space, list(a,b,c,d)), "matrix")
           }
 

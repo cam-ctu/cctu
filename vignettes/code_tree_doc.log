@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  30 SEP 2019 16:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  16 OCT 2019 10:46
 entering extended mode
 **./code_tree_doc.tex
 (code_tree_doc.tex
@@ -895,10 +895,6 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 ) ABD: EveryShipout initializing macros
-Overfull \hbox (56.55692pt too wide) in paragraph at lines 137--138
-[][] 
- []
-
 LaTeX Font Info:    Try loading font information for T1+lmtt on input line 143.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmtt.fd"
@@ -928,20 +924,20 @@ Package rerunfilecheck Info: File `code_tree_doc.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 161.
  ) 
 Here is how much of TeX's memory you used:
- 23326 strings out of 492945
- 416093 string characters out of 3135510
- 495296 words of memory out of 3000000
- 26864 multiletter control sequences out of 15000+200000
+ 23303 strings out of 492945
+ 415592 string characters out of 3135510
+ 493296 words of memory out of 3000000
+ 26841 multiletter control sequences out of 15000+200000
  24909 words of font info for 29 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,10n,52p,978b,1102s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,8n,52p,978b,894s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr
 17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri12.pfb><C:/Progra
 m Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.
 9/fonts/type1/public/lm/lmtt10.pfb>
-Output written on code_tree_doc.pdf (1 page, 144070 bytes).
+Output written on code_tree_doc.pdf (1 page, 143225 bytes).
 PDF statistics:
  45 PDF objects out of 1000 (max. 8388607)
  4 named destinations out of 1000 (max. 500000)

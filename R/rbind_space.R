@@ -26,6 +26,7 @@ tidy_input <- function(x){
   if(!inherits(x, c("integer","factor","numeric","character","data.frame","matrix"))){stop("Invalid input class")}
   if(is.factor(x)){x <- as.character(x)}
   if(is.vector(x)){x <- t(x)}
+  if(is.character(x)|is.numeric(x) | is.integer(x)){x <- as.matrix(x)}
   if( is.data.frame(x)){  x <- as.data.frame(lapply(x, as.character), stringsAsFactors = FALSE)}
   x
 }

@@ -26,3 +26,14 @@ test_that("wrong number of columns",{
           expect_error(rbind_space(a,b), "the number of columns do not match")
 }
           )
+
+test_that("mixture of matrix and 1-d character",
+          {
+            a <- matrix(1, nrow=2, ncol=3)
+            b <- c("A","B","C")
+            c <- 1:3
+            d <- rnorm(3)
+            expect_is(Reduce(rbind_space, list(a,b,c,d)), "matrix")
+          }
+
+          )

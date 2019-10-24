@@ -1,9 +1,22 @@
 options(stringsAsFactors = FALSE)
 
-data <- read.csv(system.file("extdata", "dirtydata.csv", package = "cctu"))
-data %<>% clean_names() %>% remove_blank_rows_cols()
+data_table <- data.frame(
+  name=c("data","codes"),
+  file=c(
+    system.file("extdata", "dirtydata.csv", package = "cctu"),
+    system.file("extdata","codes.csv", package="cctu")
+  ),
+  folder=""
+)
 
-codes <- read.csv(system.file("extdata","codes.csv", package="cctu")) %>% clean_names()
+for(obj in data_table$name){read_data(obj, data_table)}
+
+set_meta_table( cctu::meta_table_example)
+write_table(data_table_summary(data_table),number = "9", clean_up = FALSE)
+
+
+data %<>% clean_names() %>% remove_blank_rows_cols()
+codes %<>% clean_names
 
 
 for( x in unique(codes$var)){
@@ -16,7 +29,7 @@ data$start_date <- as.POSIXct( data$start_date , format="%d/%m/%Y")
 data_name <- names(data)
 names(data)[match("subject_id", data_name)] <- "subjid"
 
-set_meta_table( cctu::meta_table_example)
+
 
 #Create the population table
 

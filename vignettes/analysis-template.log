@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  17 OCT 2019 13:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  24 OCT 2019 13:11
 entering extended mode
 **./analysis-template.tex
 (analysis-template.tex
@@ -908,175 +908,198 @@ File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 {C:/Users/sjb277/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 
-Package xcolor Warning: Incompatible color definition on input line 363.
+Package xcolor Warning: Incompatible color definition on input line 373.
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 365.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 374
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 375.
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 384
 .
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ts1lmtt.fd"
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
-Package xcolor Warning: Incompatible color definition on input line 390.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
 
-Package xcolor Warning: Incompatible color definition on input line 390.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
 
-Overfull \vbox (0.54419pt too high) detected at line 390
- []
-
-
-Package xcolor Warning: Incompatible color definition on input line 390.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
 [3]
 
-Package xcolor Warning: Incompatible color definition on input line 390.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
 
-Package xcolor Warning: Incompatible color definition on input line 390.
+Package xcolor Warning: Incompatible color definition on input line 400.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 402.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 412.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 402.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 412.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 402
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 412
 .
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 402
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 412
 .
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 402.
+(Font)              <10> on input line 412.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 402.
+(Font)              <7> on input line 412.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 402.
-LaTeX Font Info:    Try loading font information for U+msa on input line 402.
+(Font)              <5> on input line 412.
+LaTeX Font Info:    Try loading font information for U+msa on input line 412.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/microtype\mt-msa.cfg"
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 402.
+LaTeX Font Info:    Try loading font information for U+msb on input line 412.
 ("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) ("C:\Program Files\MiKTeX 2.9\tex/latex/microtype\mt-msb.cfg"
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-Package xcolor Warning: Incompatible color definition on input line 419.
+Package xcolor Warning: Incompatible color definition on input line 429.
 
 
-Package xcolor Warning: Incompatible color definition on input line 423.
+Package xcolor Warning: Incompatible color definition on input line 433.
 
 
-Package xcolor Warning: Incompatible color definition on input line 423.
+Package xcolor Warning: Incompatible color definition on input line 433.
 
 
-Package xcolor Warning: Incompatible color definition on input line 425.
+Package xcolor Warning: Incompatible color definition on input line 435.
 
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 472.
 
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 472.
 
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 472.
 
 [4]
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 472.
 
 
-Package xcolor Warning: Incompatible color definition on input line 462.
+Package xcolor Warning: Incompatible color definition on input line 472.
 
 
-Package xcolor Warning: Incompatible color definition on input line 491.
+Package xcolor Warning: Incompatible color definition on input line 501.
 
 
-Package xcolor Warning: Incompatible color definition on input line 495.
+Package xcolor Warning: Incompatible color definition on input line 505.
 
 
-Package xcolor Warning: Incompatible color definition on input line 495.
+Package xcolor Warning: Incompatible color definition on input line 505.
 
 
-Package xcolor Warning: Incompatible color definition on input line 497.
+Package xcolor Warning: Incompatible color definition on input line 507.
 
 
-Package xcolor Warning: Incompatible color definition on input line 531.
+Package xcolor Warning: Incompatible color definition on input line 554.
 
 
-Package xcolor Warning: Incompatible color definition on input line 531.
+Package xcolor Warning: Incompatible color definition on input line 554.
 
 
-Package xcolor Warning: Incompatible color definition on input line 536.
-
-
-Package xcolor Warning: Incompatible color definition on input line 540.
-
-
-Package xcolor Warning: Incompatible color definition on input line 540.
-
-
-Package xcolor Warning: Incompatible color definition on input line 542.
+Package xcolor Warning: Incompatible color definition on input line 554.
 
 [5]
 
-Package xcolor Warning: Incompatible color definition on input line 563.
+Package xcolor Warning: Incompatible color definition on input line 554.
+
+
+Package xcolor Warning: Incompatible color definition on input line 554.
+
+
+Package xcolor Warning: Incompatible color definition on input line 559.
 
 
 Package xcolor Warning: Incompatible color definition on input line 563.
 
 
-Package xcolor Warning: Incompatible color definition on input line 571.
+Package xcolor Warning: Incompatible color definition on input line 563.
 
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 565.
 
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 586.
 
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 586.
+
+
+Package xcolor Warning: Incompatible color definition on input line 594.
+
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+
+Package xcolor Warning: Incompatible color definition on input line 679.
 
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 679.
 
 
-Package xcolor Warning: Incompatible color definition on input line 656.
+Package xcolor Warning: Incompatible color definition on input line 679.
 
-[7] [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 692.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 692.
+
+Underfull \vbox (badness 10000) detected at line 679
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 679
+ []
+
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+[7]
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+
+Package xcolor Warning: Incompatible color definition on input line 679.
+
+[8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 715.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 715.
 (analysis-template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 692.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 692.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 715.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 715.
 Package rerunfilecheck Info: File `analysis-template.out' has not changed.
 (rerunfilecheck)             Checksum: BFF166F6218C77EF2F39625AB278CD4C;2389.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 692.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 715.
  ) 
 Here is how much of TeX's memory you used:
- 23565 strings out of 492945
- 419565 string characters out of 3135510
- 503029 words of memory out of 3000000
+ 23567 strings out of 492945
+ 419585 string characters out of 3135510
+ 505029 words of memory out of 3000000
  26953 multiletter control sequences out of 15000+200000
- 50627 words of font info for 76 fonts, out of 3000000 for 9000
+ 50710 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,6n,52p,982b,395s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 55i,6n,52p,982b,393s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Program Files/MiKTeX 2.9/fonts/type
 1/public/lm/lmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmbx1
@@ -1086,7 +1109,7 @@ onts/type1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /lm/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb>
-Output written on analysis-template.pdf (8 pages, 257331 bytes).
+Output written on analysis-template.pdf (8 pages, 258373 bytes).
 PDF statistics:
  196 PDF objects out of 1000 (max. 8388607)
  47 named destinations out of 1000 (max. 500000)

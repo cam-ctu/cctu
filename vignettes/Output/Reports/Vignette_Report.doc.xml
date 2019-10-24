@@ -4,7 +4,7 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
 ?>
  <Report>
   <study> Vignette Report </study>
-  <author> Simon Bond </author><datestamp> 13:42 17 Oct 2019 </datestamp>
+  <author> Simon Bond </author><datestamp> 13:11 24 Oct 2019 </datestamp>
 
  <MetaTable> 
  <heading><section>Baseline</section><title>Summary Table</title><population>Full (n = 4)</population><subtitle>Note A</subtitle><number>1.1.1</number><fontsize>16</fontsize><orientation>portrait</orientation></heading> <table>
@@ -39,5 +39,15 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
  <MetaFigure> 
  <heading><section>Baseline</section><title>Summary Figure</title><population>Safety (n = 6)</population><subtitle>Note B</subtitle><number>1.10</number><fontsize>20</fontsize><orientation>landscape</orientation></heading><src>../Figures/fig_1.10.png</src><footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\analysis.R </Program> 
  </MetaFigure> 
+
+
+ <MetaTable> 
+ <heading><section>Meta</section><title>Imported Data</title><population>NA (n = NA)</population><subtitle></subtitle><number>9</number><fontsize></fontsize><orientation>landscape</orientation></heading> <table>
+<tr> <td> name </td> <td> file </td> <td> folder </td> <td> mod_time </td> <td> full_file_path </td> </tr>
+ <tr> <td> data </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpKoxVZ3/temp_libpath237c67d73803/cctu/extdata/dirtydata.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpKoxVZ3/temp_libpath237c67d73803/cctu/extdata/dirtydata.csv </td> </tr>
+ <tr> <td> codes </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpKoxVZ3/temp_libpath237c67d73803/cctu/extdata/codes.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpKoxVZ3/temp_libpath237c67d73803/cctu/extdata/codes.csv </td> </tr>
+ </table>
+<footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\data_import.R </Program> 
+ </MetaTable> 
 
  </Report>

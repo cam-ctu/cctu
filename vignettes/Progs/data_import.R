@@ -10,6 +10,8 @@ data_table <- data.frame(
 )
 
 for(obj in data_table$name){read_data(obj, data_table)}
+# Or Just
+read_data(data_table)
 
 set_meta_table( cctu::meta_table_example)
 write_table(data_table_summary(data_table),number = "9", clean_up = FALSE)

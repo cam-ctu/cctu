@@ -6,15 +6,25 @@ context("read_data")
                                  system.file("extdata","meta_table.xlsx", package="cctu")),
                           folder="")
 
+
+
+
  test_that("basic case",{expect_is(data_table_summary(data_table), "data.frame")
  options("verbose"=TRUE)
 
  expect_false(exists("dirtydata"))
  expect_false(exists("meta"))
- for( obj in data_table$name){ read_data(obj, data_table) }
+ read_data(data_table)
  expect_true(exists("dirtydata"))
  expect_true(exists("meta"))
  rm(dirtydata, meta)
+ data2 <- data_table
+ names(data2) <- c("link","path","dolf")
+ read_data(data2, name_variable="link", file_variable="path")
+ expect_true(exists("dirtydata"))
+ expect_true(exists("meta"))
+ rm(dirtydata, meta)
+
  }
 )
 
@@ -25,8 +35,21 @@ context("read_data")
  expect_warning(read_data("dirtydata",data_table, fun=print, frame=NULL),
                 "this function is designed to be used for reading in data. You are calling: print"
  )
- }
- )
+
+
+ old_fn <- base::requireNamespace
+ myrequireNamespace <- function(...) FALSE
+ unlockBinding("requireNamespace", as.environment("package:base"))
+ assign("requireNamespace",myrequireNamespace, "package:base")
+ expect_error(read_data("meta",data_table,  frame=NULL),"Package \"readxl\" needed for this function to load excel files")
+ assign("requireNamespace",old_fn, "package:base")
+ lockBinding("requireNamespace", as.environment("package:base"))
+ rm(old_fn, myrequireNamespace)
+
+}
+)
+
+
 
 
 

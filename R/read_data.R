@@ -1,6 +1,6 @@
 #' Automatic reading in data from a meta-table of external data sets.
 #'
-#' @param x character string, the name of the object to be created, and referenced within the data to find the file path.
+#' @param x character string or data.frame.  If it is a character then it is the name of the object to be created, and referenced within the data to find the file path. If it is a dataframe then read_data is repeated across all the rows of the data.frame.
 #' @param data_table data frame containing the meta-table of file paths of the external data files, and their desired R object names.
 #' @param fun the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".
 #' @param frame Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.
@@ -15,6 +15,8 @@
 #' to be created, and the other giving the file path to the external data; use \code{read_data} as a wrapper to read in the data as specified. This ends up with less code, and allows an table of extenral data and associated meta-data to
 #' be easily produced using \code{data_table_summary}. If options("verbose") is TRUE then \code{read_data} will display messages describing what objects have been created.
 #'
+#'This is a generic method with methods defined for a character string, and a data.frame. The former just reads in one data.frame, the latter reads in all the data.frames specified.
+#'
 #' @examples
 #' data_table <- data.frame(name=c("dirtydata","meta"),
 #'                          file=c(system.file("extdata","dirtydata.csv", package="cctu"),
@@ -22,17 +24,38 @@
 #'                          folder="")
 #' data_table_summary(data_table)
 #' options("verbose"=TRUE)
-#' for( obj in data_table$name){ read_data(obj, data_table) }
+#' read_data("dirtydata", data_table, stringsAsFactors=FALSE, frame=NULL)
+#' read_data(data_table)
 #' summary(dirtydata)
 #' summary(meta)
 #'
 #' @export
-#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}}
+#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}} \code{\link{data_table_summary}}
 
 
+read_data <- function(x,...){ UseMethod("read_data",x)}
 
-#' @describeIn read_data reads in data from external files using a meta-table of file names and objects names to be created.
-read_data <- function(x,
+#' @describeIn read_data data.frame method for read_data generic
+#' @export
+read_data.data.frame <- function(x,
+                                 name_variable="name",
+                                 ...){
+  grandparent <- parent.frame()
+  dots <- list(...)
+  for(obj in x[,name_variable]){
+    output <- do.call(read_data.character,
+                      c(list(x=obj,
+                             data_table=x,
+                             name_variable=name_variable),
+                        dots),
+                      envir=grandparent)
+  }
+  if( exists("frame",dots) && is.null(dots$frame) ) return(output)
+}
+
+#' @describeIn read_data  character method for read_data generic
+#' @export
+read_data.character <- function(x,
                       data_table,
                       fun=NULL,
                       frame=parent.frame(),
@@ -50,45 +73,19 @@ read_data <- function(x,
       if(!requireNamespace("readxl",quietly = TRUE) ){stop("Package \"readxl\" needed for this function to load excel files")}
       fun <- readxl::read_excel
     }
-  }else if( !grepl("read",deparse(substitute(fun)))){
+  }else if( all(!grepl("read",deparse(substitute(fun))))){
     warning(
       paste("this function is designed to be used for reading in data. You are calling:",
-            deparse(substitute(fun))
+            paste(deparse(substitute(fun)), collapse=", ")
       )
     )}
 
    output <- do.call(fun, c(list(file), ...=...))
   if( is.null(frame)){
-    output
+     return(output)
   }else{
     assign(x, output,envir = frame)
     if(options()$verbose){ cat(paste0("object created in ",environmentName(frame),": ", x,"\n"))}
   }
-}
-
-#' @describeIn read_data produce a summary of the meta-table giving the external data files.
-#' @inheritParams read_data
-#' @param folder_variable character string giving the variable name within \code{data} that contains the folder to find the external file. \code{data_table_summary} Looks up \code{getwd()} if empty.
-#' @param mod_time_variable character string given the variable name to be created in \code{data_table_summary} that records the time stamp of when the external file was last modified.
-#'
-#' @return \code{data_table_summary} returns a data frame sumarising the meta-table and the associated information about time of last modification and full file paths.
-#'
-#' @export
-
-
-
-data_table_summary <- function(data_table,
-                             name_variable="name",
-                             file_variable="file",
-                             folder_variable="folder",
-                             mod_time_variable="mod_time"
-){
-  folder <- data_table[,folder_variable]
-  folder <- ifelse(is.na(folder)|folder=="", getwd(), normalizePath(folder))
-  full_path <- file.path(folder, data_table[,file_variable])
-  mod_time= file.mtime(full_path)
-  X <- data.frame(data_table[,name_variable],data_table[,file_variable], folder,  mod_time, full_path)
-  names(X) <- c(name_variable, file_variable, folder_variable,mod_time_variable, "full_file_path")
-  X
 }
 

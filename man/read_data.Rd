@@ -2,18 +2,24 @@
 % Please edit documentation in R/read_data.R
 \name{read_data}
 \alias{read_data}
-\alias{data_table_summary}
+\alias{read_data.data.frame}
+\alias{read_data.character}
 \title{Automatic reading in data from a meta-table of external data sets.}
 \usage{
-read_data(x, data_table, fun = NULL, frame = parent.frame(),
-  name_variable = "name", file_variable = "file", ...)
+read_data(x, ...)
 
-data_table_summary(data_table, name_variable = "name",
-  file_variable = "file", folder_variable = "folder",
-  mod_time_variable = "mod_time")
+\method{read_data}{data.frame}(x, name_variable = "name", ...)
+
+\method{read_data}{character}(x, data_table, fun = NULL,
+  frame = parent.frame(), name_variable = "name",
+  file_variable = "file", ...)
 }
 \arguments{
-\item{x}{character string, the name of the object to be created, and referenced within the data to find the file path.}
+\item{x}{character string or data.frame.  If it is a character then it is the name of the object to be created, and referenced within the data to find the file path. If it is a dataframe then read_data is repeated across all the rows of the data.frame.}
+
+\item{...}{other arguments to supply to \code{fun}.}
+
+\item{name_variable}{character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".}
 
 \item{data_table}{data frame containing the meta-table of file paths of the external data files, and their desired R object names.}
 
@@ -21,20 +27,10 @@ data_table_summary(data_table, name_variable = "name",
 
 \item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.}
 
-\item{name_variable}{character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".}
-
 \item{file_variable}{character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".}
-
-\item{...}{other arguments to supply to \code{fun}.}
-
-\item{folder_variable}{character string giving the variable name within \code{data} that contains the folder to find the external file. \code{data_table_summary} Looks up \code{getwd()} if empty.}
-
-\item{mod_time_variable}{character string given the variable name to be created in \code{data_table_summary} that records the time stamp of when the external file was last modified.}
 }
 \value{
 \code{read_data} assigns or returns a data frame reading in data from an external file
-
-\code{data_table_summary} returns a data frame sumarising the meta-table and the associated information about time of last modification and full file paths.
 }
 \description{
 Automatic reading in data from a meta-table of external data sets.
@@ -44,12 +40,14 @@ The idea is to improve the tracibility of reading in external data.
 This should be used in two steps: create a meta-table in R that has a minimum of 2 columns, one with the name of the R data.frame
 to be created, and the other giving the file path to the external data; use \code{read_data} as a wrapper to read in the data as specified. This ends up with less code, and allows an table of extenral data and associated meta-data to
 be easily produced using \code{data_table_summary}. If options("verbose") is TRUE then \code{read_data} will display messages describing what objects have been created.
-}
-\section{Functions}{
-\itemize{
-\item \code{read_data}: reads in data from external files using a meta-table of file names and objects names to be created.
 
-\item \code{data_table_summary}: produce a summary of the meta-table giving the external data files.
+This is a generic method with methods defined for a character string, and a data.frame. The former just reads in one data.frame, the latter reads in all the data.frames specified.
+}
+\section{Methods (by class)}{
+\itemize{
+\item \code{data.frame}: data.frame method for read_data generic
+
+\item \code{character}: character method for read_data generic
 }}
 
 \examples{
@@ -59,11 +57,12 @@ data_table <- data.frame(name=c("dirtydata","meta"),
                          folder="")
 data_table_summary(data_table)
 options("verbose"=TRUE)
-for( obj in data_table$name){ read_data(obj, data_table) }
+read_data("dirtydata", data_table, stringsAsFactors=FALSE, frame=NULL)
+read_data(data_table)
 summary(dirtydata)
 summary(meta)
 
 }
 \seealso{
-\code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}}
+\code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}} \code{\link{data_table_summary}}
 }

@@ -13,6 +13,11 @@ test_that("basic and errors",{
   Y <- X
   Y$orientation <- "bi"
   expect_warning(cctu:::clean_meta_table(Y))
+  #check auto adding of orientation
+  Y2 <- Y[,names(Y)!="orientation"]
+  Y2 <- cctu:::clean_meta_table(Y2)
+  expect_true("orientation" %in% names(Y2))
+  expect_true(all(Y2$orientation=="portrait"))
 }
 )
 

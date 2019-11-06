@@ -29,7 +29,7 @@ context("read_data")
 )
 
  test_that("non standard case",{
- X <- read_data("dirtydata", data_table, frame=NULL, stringsAsFactors=FALSE)
+ X <- read_data(data_table[1,], frame=NULL, stringsAsFactors=FALSE)
  expect_false(is.factor(X$gender))
  expect_error(read_data("dirtydata",data_table, fun=readxl::read_excel, frame=NULL))
  expect_warning(read_data("dirtydata",data_table, fun=print, frame=NULL),

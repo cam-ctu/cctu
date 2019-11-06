@@ -52,3 +52,21 @@ test_that("sumfig direct",
           }
           )
 
+test_that("interactive figure",
+          {
+            if(Sys.info()["sysname"] == "Windows" ){
+              cmd <- paste0( R.home("bin"), '/R --ess --no-save')
+            } else{
+              cmd <- paste0( R.home("bin"), '/R --interactive --no-save')
+            }
+            fig_file=file.path(tempdir(),"fig_file.pdf")
+            #deal with \ needed to be doubled, and escape sequences in gsub...
+            fig_file <- gsub("\\\\","\\\\\\\\",fig_file)
+            script_file=file.path(tempdir(),"interactive_sumby.R")
+            script <- c(paste0("fig_file=\"",fig_file,"\""))
+            writeLines(c(script, readLines("interactive_sumby.R")), script_file)
+            system(cmd, input=readLines(script_file) )
+            expect_equal(file.exists(fig_file), TRUE)
+          }
+)
+

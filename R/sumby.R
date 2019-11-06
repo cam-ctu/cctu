@@ -73,11 +73,7 @@ sumby <- function(variable,
     meds = tapply(variable, arm, stats::median, na.rm = T)
     mins = tapply(variable, arm, min, na.rm = T)
     maxs = tapply(variable, arm, max, na.rm = T)
-    if(is.null(label)){
-      variable = c(text_clean(variable_name), "", "", "")
-    } else{
-      variable = c(text_clean(label), "", "", "")
-    }
+    variable = c(text_clean(label), "", "", "")
     stats = c("n", "Mean (SD)", "Median", "Min, Max")
     value = rbind(n, paste0(mu," (", sd, ")"), meds, paste0(mins, ", ", maxs))
     ans   = data.frame(cbind(variable, stats, value), row.names = 1:4)
@@ -90,11 +86,7 @@ sumby <- function(variable,
     tab   = as.data.frame(tab)
     total = matrix(rep(with(tab, tapply(Freq, arm, sum)), dims[1]), nrow = dims[1], byrow = T)
     tab   = stats::reshape(tab, direction = "wide", v.names = "Freq", timevar = "arm", idvar = "variable")
-    if(is.null(label)){
-      variable = c(text_clean(variable_name), rep("", dims[1]-1))
-    } else{
-      variable = c(text_clean(label), rep("", dims[1]-1))
-    }
+    variable = c(text_clean(label), rep("", dims[1]-1))
     stats = text_clean(tab[, 1])
     tab   = tab[, -1]
     perc  = round(100 * tab / total, digits=pct_digits)

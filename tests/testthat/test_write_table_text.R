@@ -9,10 +9,14 @@ test_that("alternative dimension for table",
             .parent <- cctu_env$parent
             assign("parent", NULL, envir=cctu_env)
             expect_warning(
-              write_table(X,number="1.10", na_to_empty=TRUE),
+              write_table(X,number="1.10", na_to_empty=TRUE,
+                          clean_up=FALSE),
               "Unable to identify the code file that created table"
             )
-
+            expect_warning(
+              write_table(X,number="1.10", na_to_empty=TRUE),
+              "will be removed by clean_up()"
+            )
 
             expect_warning(
               write_text("Hello World!",number="1.10"),

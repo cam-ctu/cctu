@@ -8,8 +8,8 @@
 #' @param path text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.
 #' @inheritParams write_ggplot
 #' @inheritParams attach_pop
-#' @param table_path text string giving the filepath to the tables
-#' @param figure_path text string giving the filepath to the figures
+#' @param table_path text string giving the filepath to the tables folder. This is used to directly open table files and copy the content.
+#' @param figure_path text string giving the filepath to the figures folder. This is used to create a reference within the  word document. Hence it needs to be a relative (to the output report) path "../Figures".
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
 #' @param  figure_format the format to look for figure files when building the report ("png", "jpeg","ps")
 #' @param xslt_file a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").
@@ -29,7 +29,6 @@ create_word_xml <- function(
   meta_table=get_meta_table(),
   datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
   filename=file.path("Output","Reports","Report.doc"),
-  path=getwd(),
   table_path=file.path("Output","Core"),
   figure_format=c("png","jpeg","ps"),
   figure_path=file.path("..","Figures"),
@@ -37,18 +36,9 @@ create_word_xml <- function(
   verbose=options()$verbose,
   xslt_file=system.file("extdata", "xml_to_word.xslt", package="cctu")
 ){
-  #check you are in the right working directory
-  if(getwd()!=path){
-    warning(paste("you are calling create_word_xml with the working directory not equal to", path))
-    setwd(path)
-    }
-  #manage paths to deal with trailing slashes or not...
-  path %<>% normalizePath #%>% final_slash
-  # Need to allow relateive directories... when building vignettes and output.
-  #figure_path %<>% normalizePath #%>% final_slash
+
   table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath
-  #filename %<>% normalizePath() %>% sub("\\.[^\\.]*$","", . , perl=TRUE) %>% paste0(.,".xml")
   filename %<>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
@@ -61,17 +51,10 @@ create_word_xml <- function(
 
 
 
-  ### NEED to put the header into the package data somehow and call it
+
   file.copy( system.file("extdata", "header.txt", package="cctu") ,
              filename, overwrite=TRUE
   )
-
-
-  #put a copy of the xslt file into the report path
-  # report_folder <- normalizePath(paste0(path,filename,"/.."))
-  # file.copy(system.file("extdata", "xml_to_word.xslt", package="cctu"),
-  #           report_folder, overwrite=TRUE
-  # )
 
   cat(
     "\n <Report>

@@ -17,4 +17,7 @@ attach_pop("1.10")
 X <- sumby(age, treatment, data=data)
 write_ggplot(attr(X,"fig"))
 
+attach_pop("2")
+write_text("There were no deaths")
+
 

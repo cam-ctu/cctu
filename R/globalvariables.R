@@ -5,5 +5,5 @@ cctu_env <- new.env(parent= emptyenv())
 cctu_env$number <- "0"
 cctu_env$sumby_count <- 0
 
-.reserved <- character(0)
+#.reserved <- character(0)
 

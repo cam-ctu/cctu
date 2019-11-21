@@ -7,9 +7,9 @@
 create_word_xml(report_title, author, meta_table = get_meta_table(),
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = file.path("Output", "Reports", "Report.doc"),
-  path = getwd(), table_path = file.path("Output", "Core"),
-  figure_format = c("png", "jpeg", "ps"), figure_path = file.path("..",
-  "Figures"), popn_labels = NULL, verbose = options()$verbose,
+  table_path = file.path("Output", "Core"), figure_format = c("png",
+  "jpeg", "ps"), figure_path = file.path("..", "Figures"),
+  popn_labels = NULL, verbose = options()$verbose,
   xslt_file = system.file("extdata", "xml_to_word.xslt", package =
   "cctu"))
 }
@@ -24,19 +24,19 @@ create_word_xml(report_title, author, meta_table = get_meta_table(),
 
 \item{filename}{text string giving the filename/path to output the word document to}
 
-\item{path}{text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.}
-
-\item{table_path}{text string giving the filepath to the tables}
+\item{table_path}{text string giving the filepath to the tables folder. This is used to directly open table files and copy the content.}
 
 \item{figure_format}{the format to look for figure files when building the report ("png", "jpeg","ps")}
 
-\item{figure_path}{text string giving the filepath to the figures}
+\item{figure_path}{text string giving the filepath to the figures folder. This is used to create a reference within the  word document. Hence it needs to be a relative (to the output report) path "../Figures".}
 
 \item{popn_labels}{alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
 \item{xslt_file}{a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").}
+
+\item{path}{text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.}
 }
 \value{
 This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.

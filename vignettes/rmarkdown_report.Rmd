@@ -45,9 +45,22 @@ for(sect in sections){
                            file_name=file_name 
                            )
           )}
-      
-     
     }
+    
+    
+    if( subtab[row,"item"] %>% tolower=="text"){
+          file_name <- paste0("Output/Core/text_",subtab[row,"number"],".xml") 
+        # knit exapnd really doesn't like absolute paths or \ or \\
+        if( file.exists(file_name)){
+          src <- c(src, 
+               knit_expand(file="Progs/text.Rmd" %>% normalizePath(),
+                           chunk_name=paste0("text",subtab[row,"number"]),
+                           file_name=file_name 
+                           )
+          )}
+    }
+    
+    
     if(subtab[row,"item"] %>% tolower=="figure" ){
       file_name <- file.path(PATH_figure,paste0("fig_",subtab[row,"number"],".png"))
       if( file.exists(file_name)) src <- c(src, paste0("![](",file_name,") \n" ))

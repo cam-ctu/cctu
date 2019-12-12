@@ -4,14 +4,19 @@
 \alias{create_word_xml}
 \title{Produces the final xml file}
 \usage{
-create_word_xml(report_title, author, meta_table = get_meta_table(),
+create_word_xml(
+  report_title,
+  author,
+  meta_table = get_meta_table(),
   datestamp = format(Sys.time(), format = "\%H:\%M \%d \%b \%Y"),
   filename = file.path("Output", "Reports", "Report.doc"),
-  table_path = file.path("Output", "Core"), figure_format = c("png",
-  "jpeg", "ps"), figure_path = file.path("..", "Figures"),
-  popn_labels = NULL, verbose = options()$verbose,
-  xslt_file = system.file("extdata", "xml_to_word.xslt", package =
-  "cctu"))
+  table_path = file.path("Output", "Core"),
+  figure_format = c("png", "jpeg", "ps"),
+  figure_path = file.path("..", "Figures"),
+  popn_labels = NULL,
+  verbose = options()$verbose,
+  xslt_file = system.file("extdata", "xml_to_word.xslt", package = "cctu")
+)
 }
 \arguments{
 \item{report_title}{text string used to label the report title page}

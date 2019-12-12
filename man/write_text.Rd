@@ -4,8 +4,13 @@
 \alias{write_text}
 \title{Function to write a text into xml format in the correct directory, and edit TableofTables}
 \usage{
-write_text(X, number = cctu_env$number, clean_up = TRUE,
-  directory = file.path("Output", "Core"), verbose = options()$verbose)
+write_text(
+  X,
+  number = cctu_env$number,
+  clean_up = TRUE,
+  directory = file.path("Output", "Core"),
+  verbose = options()$verbose
+)
 }
 \arguments{
 \item{X}{the character string to be saved in xml format}

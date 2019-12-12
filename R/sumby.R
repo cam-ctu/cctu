@@ -36,7 +36,10 @@ sumby <- function(variable,
   variable <- eval(mf$variable, envir = data)
   arm      <- eval(mf$arm, envir = data)
 
-
+  if( is.factor(variable) & all(is.na(variable))){
+    warning("Cannot produce a figure for a factor that is all missing")
+    fig=FALSE
+  }
 
   if(fig){
     fig_object <- sumfig(variable = variable, arm = arm, label = label)

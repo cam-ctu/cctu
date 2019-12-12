@@ -4,8 +4,11 @@
 \alias{rm_envir}
 \title{A function to remove all attached objects from the search path with any exceptions specified}
 \usage{
-rm_envir(ignore = c(".GlobalEnv", "package:", "tools:", "Autoloads"),
-  verbose = options()$verbose, perl = FALSE)
+rm_envir(
+  ignore = c(".GlobalEnv", "package:", "tools:", "Autoloads"),
+  verbose = options()$verbose,
+  perl = FALSE
+)
 }
 \arguments{
 \item{ignore}{a character vector of regular expression search terms  within the output from \code{search()} as to which should be retained.}

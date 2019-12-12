@@ -4,11 +4,19 @@
 \alias{write_ggplot}
 \title{Function to save ggplot figures.}
 \usage{
-write_ggplot(plot = last_plot(), number = cctu_env$number,
-  width = 29.7 * 0.6, height = 21 * 0.6, dpi = 300, units = "cm",
-  clean_up = TRUE, directory = file.path("Output", "Figures"),
-  format = c("png", "postscript", "jpeg"), graphics_args = NULL,
-  verbose = options()$verbose)
+write_ggplot(
+  plot = last_plot(),
+  number = cctu_env$number,
+  width = 29.7 * 0.6,
+  height = 21 * 0.6,
+  dpi = 300,
+  units = "cm",
+  clean_up = TRUE,
+  directory = file.path("Output", "Figures"),
+  format = c("png", "postscript", "jpeg"),
+  graphics_args = NULL,
+  verbose = options()$verbose
+)
 }
 \arguments{
 \item{plot}{the plot object to save. defaults to \code{last_plot}}

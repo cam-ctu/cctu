@@ -70,3 +70,13 @@ test_that("interactive figure",
           }
 )
 
+
+
+test_that("empty factor",{
+  expect_warning(
+    X <- sumby(factor(rep(NA,40), levels=c("male","female")), arm, data=df,fig=TRUE),
+    "Cannot produce a figure for a factor that is all missing"
+  )
+  expect_true( is.null(attr(X,"fig")))
+}
+)

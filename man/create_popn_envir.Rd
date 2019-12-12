@@ -4,9 +4,14 @@
 \alias{create_popn_envir}
 \title{create environments contain a set of data frames filtered for each population}
 \usage{
-create_popn_envir(data_names, popn, subjid_string = "subjid",
-  rm_from_frame = TRUE, frame = parent.frame(),
-  verbose = options()$verbose)
+create_popn_envir(
+  data_names,
+  popn,
+  subjid_string = "subjid",
+  rm_from_frame = TRUE,
+  frame = parent.frame(),
+  verbose = options()$verbose
+)
 }
 \arguments{
 \item{data_names}{a character vector of the key data frames to be filtered}

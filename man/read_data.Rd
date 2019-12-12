@@ -10,9 +10,15 @@ read_data(x, ...)
 
 \method{read_data}{data.frame}(x, name_variable = "name", ...)
 
-\method{read_data}{character}(x, data_table, fun = NULL,
-  frame = parent.frame(), name_variable = "name",
-  file_variable = "file", ...)
+\method{read_data}{character}(
+  x,
+  data_table,
+  fun = NULL,
+  frame = parent.frame(),
+  name_variable = "name",
+  file_variable = "file",
+  ...
+)
 }
 \arguments{
 \item{x}{character string or data.frame.  If it is a character then it is the name of the object to be created, and referenced within the data to find the file path. If it is a dataframe then read_data is repeated across all the rows of the data.frame.}

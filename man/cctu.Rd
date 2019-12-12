@@ -3,7 +3,6 @@
 \docType{package}
 \name{cctu}
 \alias{cctu}
-\alias{cctu-package}
 \title{cctu: A package for producing analysis reports from clinical trials}
 \description{
 The package `cctu` is designed to help run the analysis of clinical trials which typically produce an output

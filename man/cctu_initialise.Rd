@@ -13,8 +13,13 @@ cctu_initialize(root = getwd(), scripts = FALSE, rm = FALSE)
 
 cctu_check_dir(root = getwd(), warnings = FALSE)
 
-rm_output(root_output = "Output", core = TRUE, figures = TRUE,
-  reports = TRUE, output = TRUE)
+rm_output(
+  root_output = "Output",
+  core = TRUE,
+  figures = TRUE,
+  reports = TRUE,
+  output = TRUE
+)
 }
 \arguments{
 \item{root}{the root directory to start in}

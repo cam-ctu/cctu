@@ -4,9 +4,13 @@
 \alias{data_table_summary}
 \title{Provides a summary with date stamps of external data files.}
 \usage{
-data_table_summary(data_table, name_variable = "name",
-  file_variable = "file", folder_variable = "folder",
-  mod_time_variable = "mod_time")
+data_table_summary(
+  data_table,
+  name_variable = "name",
+  file_variable = "file",
+  folder_variable = "folder",
+  mod_time_variable = "mod_time"
+)
 }
 \arguments{
 \item{data_table}{data frame containing the meta-table of file paths of the external data files, and their desired R object names.}

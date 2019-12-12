@@ -7,9 +7,9 @@
 source(file, local = FALSE, backup = NULL)
 }
 \arguments{
-\item{file}{a \link{connection} or a character string giving the
+\item{file}{a \link[base]{connection} or a character string giving the
     pathname of the file or URL to read from.  \code{""} indicates the
-    connection \code{\link{stdin}()}.}
+    connection \code{\link[base]{stdin}()}.}
 
 \item{local}{\code{TRUE}, \code{FALSE} or an environment, determining
     where the parsed expressions are evaluated.  \code{FALSE} (the

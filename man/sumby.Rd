@@ -4,10 +4,18 @@
 \alias{sumby}
 \title{Produces summary statistics on a variable broken down by arm, display a graphical equivalent.}
 \usage{
-sumby(variable, arm, label = NULL, data = parent.frame(),
-  total = TRUE, fig = TRUE, directory = file.path("Output",
-  "Figures"), verbose = options()$verbose, text_clean = propercase,
-  pct_digits = 0)
+sumby(
+  variable,
+  arm,
+  label = NULL,
+  data = parent.frame(),
+  total = TRUE,
+  fig = TRUE,
+  directory = file.path("Output", "Figures"),
+  verbose = options()$verbose,
+  text_clean = propercase,
+  pct_digits = 0
+)
 }
 \arguments{
 \item{variable}{A variable of interest to be summarised. Works for several classes: numeric, integer, factor, character.}

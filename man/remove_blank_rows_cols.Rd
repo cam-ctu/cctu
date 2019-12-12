@@ -4,8 +4,13 @@
 \alias{remove_blank_rows_cols}
 \title{Function to remove blank rows/columns from a df}
 \usage{
-remove_blank_rows_cols(df, convert = TRUE, verbose = options()$verbose,
-  rows = TRUE, cols = TRUE)
+remove_blank_rows_cols(
+  df,
+  convert = TRUE,
+  verbose = options()$verbose,
+  rows = TRUE,
+  cols = TRUE
+)
 }
 \arguments{
 \item{df}{a data.frame}

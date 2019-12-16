@@ -80,3 +80,11 @@ test_that("empty factor",{
   expect_true( is.null(attr(X,"fig")))
 }
 )
+
+
+test_that("case with binary endpoint and just want one of the rows",{
+  X <- sumby(gender, arm, data=df, delete="Male")
+  expect_equal( class(X),"character")
+  expect_equivalent(X["Statistics"],"Female")
+
+})

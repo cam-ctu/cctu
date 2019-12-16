@@ -14,7 +14,8 @@ sumby(
   directory = file.path("Output", "Figures"),
   verbose = options()$verbose,
   text_clean = propercase,
-  pct_digits = 0
+  pct_digits = 0,
+  delete = NULL
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ sumby(
 \item{text_clean}{a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.}
 
 \item{pct_digits}{number of decimal places to present percentages to. Defaults to 0.}
+
+\item{delete}{levels of the input variable that should be removed from the output table, in the case of frequency tables. Can be useful for a binary variable if you just want the rate of "yes" for example.}
 }
 \value{
 a data.frame containing summary statistics in character format,

@@ -7,7 +7,7 @@
 #' @param verbose logical to print information on changes to the global environment or external files. Defaults to options()$verbose.
 #'@param text_clean a function to transform character labels. Defaults to propercase. Or set to NULL if you want to preserve the original text.
 #'@param pct_digits number of decimal places to present percentages to. Defaults to 0.
-#'
+#' @param delete levels of the input variable that should be removed from the output table, in the case of frequency tables. Can be useful for a binary variable if you just want the rate of "yes" for example.
 #'@return a data.frame containing summary statistics in character format,
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object
 #'
@@ -27,7 +27,8 @@ sumby <- function(variable,
                   directory=file.path("Output","Figures"),
                   verbose=options()$verbose,
                   text_clean=propercase,
-                  pct_digits=0
+                  pct_digits=0,
+                  delete=NULL
                   ){
 
   variable_name <- deparse(substitute(variable))
@@ -84,16 +85,16 @@ sumby <- function(variable,
   # categorical variable summary statistics by arm
   if(inherits(variable, "factor") || variable.class == "character"){
     tab   = table(variable, arm)
-    dims  = dim(tab)
     nams  = dimnames(tab)
-    tab   = as.data.frame(tab)
-    total = matrix(rep(with(tab, tapply(Freq, arm, sum)), dims[1]), nrow = dims[1], byrow = T)
+    tab_all   = as.data.frame(tab)
+    tab   <- subset(tab_all, !(variable %in% delete))
     tab   = stats::reshape(tab, direction = "wide", v.names = "Freq", timevar = "arm", idvar = "variable")
+    dims  = dim(tab)
+    total = matrix(rep(with(tab_all, tapply(Freq, arm, sum)), dims[1]), nrow = dims[1], byrow = T)
     variable = c(text_clean(label), rep("", dims[1]-1))
     stats = text_clean(tab[, 1])
     tab   = tab[, -1]
     perc  = round(100 * tab / total, digits=pct_digits)
-
     X        = array(0, dim = c(dim(perc), 3))
     X[, , 1] = as.matrix(perc)
     X[, , 2] = as.matrix(tab)

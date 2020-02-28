@@ -4,7 +4,7 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
 ?>
  <Report>
   <study> Vignette Report </study>
-  <author> Simon Bond </author><datestamp> 13:35 16 Dec 2019 </datestamp>
+  <author> Simon Bond </author><datestamp> 12:21 28 Feb 2020 </datestamp>
 
  <MetaTable> 
  <heading><section>Baseline</section><title>Summary Table</title><population>Full (n = 4)</population><subtitle>Note A</subtitle><number>1.1.1</number><fontsize>16</fontsize><orientation>portrait</orientation></heading> <table>
@@ -51,8 +51,8 @@ xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
  <MetaTable> 
  <heading><section>Meta</section><title>Imported Data</title><population>NA (n = NA)</population><subtitle></subtitle><number>9</number><fontsize></fontsize><orientation>landscape</orientation></heading> <table>
 <tr> <td> name </td> <td> file </td> <td> folder </td> <td> mod_time </td> <td> full_file_path </td> </tr>
- <tr> <td> data </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpCa6GcT/temp_libpath130454d4550e/cctu/extdata/dirtydata.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpCa6GcT/temp_libpath130454d4550e/cctu/extdata/dirtydata.csv </td> </tr>
- <tr> <td> codes </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpCa6GcT/temp_libpath130454d4550e/cctu/extdata/codes.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpCa6GcT/temp_libpath130454d4550e/cctu/extdata/codes.csv </td> </tr>
+ <tr> <td> data </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpM1NWmP/temp_libpath31b81d065614/cctu/extdata/dirtydata.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpM1NWmP/temp_libpath31b81d065614/cctu/extdata/dirtydata.csv </td> </tr>
+ <tr> <td> codes </td> <td> C:/Users/sjb277/AppData/Local/Temp/RtmpM1NWmP/temp_libpath31b81d065614/cctu/extdata/codes.csv </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes </td> <td> NA </td> <td> V:/STATISTICS/NON STUDY FOLDER/Software/R/R Code Library/cctu/vignettes/C:/Users/sjb277/AppData/Local/Temp/RtmpM1NWmP/temp_libpath31b81d065614/cctu/extdata/codes.csv </td> </tr>
  </table>
 <footnote>  </footnote><footnote>  </footnote> <Program> V:\STATISTICS\NON STUDY FOLDER\Software\R\R Code Library\cctu\vignettes\Progs\data_import.R </Program> 
  </MetaTable> 

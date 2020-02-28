@@ -56,6 +56,13 @@ create_word_xml <- function(
              filename, overwrite=TRUE
   )
 
+ 
+  
+  filename_text <- filename
+  #create a connection to use in cat and 
+  filename <- file(description=filename, open="a")
+  
+  
   cat(
     "\n <Report>
   <study>",  remove_xml_specials(report_title),"</study>
@@ -90,7 +97,9 @@ create_word_xml <- function(
 
     if(meta_table[i, "item"] == "table"){
       cat("\n <MetaTable> \n", headers[i], file = filename, append = TRUE )
-      file.append(filename, file.path(table_path,paste0( 'table_', meta_table[i, "number"], '.xml')))
+      table_text <- readLines( con=file.path(table_path,paste0( 'table_', meta_table[i, "number"], '.xml')))
+      writeLines(table_text, con=filename)
+      #file.append(filename, file.path(table_path,paste0( 'table_', meta_table[i, "number"], '.xml')))
       cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "figure"){
@@ -101,16 +110,19 @@ create_word_xml <- function(
     }
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
-      file.append(filename, file.path(table_path,paste0('text_', meta_table[i, "number"], '.xml')))
+      table_text <- readLines( con=file.path(table_path,paste0( 'text_', meta_table[i, "number"], '.xml')))
+      writeLines(table_text, con=filename)
+      #file.append(filename, file.path(table_path,paste0('text_', meta_table[i, "number"], '.xml')))
       cat(footers[i], program[i], "\n </MetaText> \n", file = filename, append = TRUE)
     }
   }
 
 
-  cat("\n </Report>", file = filename, append = TRUE)
-
+  #cat("\n </Report>", file = filename, append = TRUE)
+  writeLines("\n </Report>", con = filename )
+  close(con=filename)
   #now apply the transform explicitly.
-  doc <- xml2::read_xml(filename)
+  doc <- xml2::read_xml(filename_text)
   transform <- xml2::read_xml(xslt_file)
   output <- xslt::xml_xslt(doc, transform)
   xml2::write_xml(output, file=long_filename)

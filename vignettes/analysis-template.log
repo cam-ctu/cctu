@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  16 DEC 2019 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.3.21)  28 FEB 2020 12:22
 entering extended mode
 **./analysis-template.tex
 (analysis-template.tex
@@ -1049,53 +1049,53 @@ Package xcolor Warning: Incompatible color definition on input line 595.
 Package xcolor Warning: Incompatible color definition on input line 603.
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 [6]
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 
-Underfull \vbox (badness 10000) detected at line 684
+Underfull \vbox (badness 10000) detected at line 680
  []
 
 
-Underfull \vbox (badness 10000) detected at line 684
+Underfull \vbox (badness 10000) detected at line 680
  []
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 [7]
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 
-Package xcolor Warning: Incompatible color definition on input line 684.
+Package xcolor Warning: Incompatible color definition on input line 680.
 
 [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 720.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 720.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 716.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 716.
 (analysis-template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 720.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 720.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 716.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 716.
 Package rerunfilecheck Info: File `analysis-template.out' has not changed.
 (rerunfilecheck)             Checksum: BFF166F6218C77EF2F39625AB278CD4C;2389.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 720.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 716.
  ) 
 Here is how much of TeX's memory you used:
  23567 strings out of 492945
  419585 string characters out of 3135510
- 505029 words of memory out of 3000000
+ 504029 words of memory out of 3000000
  26953 multiletter control sequences out of 15000+200000
  50710 words of font info for 77 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1109,7 +1109,7 @@ onts/type1/public/lm/lmri10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /lm/lmri12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt10.pfb><C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmtti10.pfb>
-Output written on analysis-template.pdf (8 pages, 258416 bytes).
+Output written on analysis-template.pdf (8 pages, 258021 bytes).
 PDF statistics:
  196 PDF objects out of 1000 (max. 8388607)
  47 named destinations out of 1000 (max. 500000)

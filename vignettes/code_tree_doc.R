@@ -1,28 +1,14 @@
----
-date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
-header-includes:
-  - \usepackage{tikz}
-  - \usetikzlibrary{trees,arrows}
-output: pdf_document
-classoption: landscape
-params:
-  my_title: "You only live twice"
-  my_author: "Ian Flemming"
-title: "`r params$my_title`"
-author: "`r params$my_author`"
----
 
-```{r code_tree_chunk, include=FALSE}
+## ----include=FALSE------------------------------------------------------------
 library(magrittr)
 library(knitr)
 
+code_tree <- read.csv(file.path("Output","codetree.csv"), stringsAsFactors = FALSE)
 
 
-code_tree <- cctu:::cctu_env$code_tree
 root <- code_tree[1,1]
 
 PATH <- gsub("\\\\ROOT$", "", root,perl=TRUE) 
-
 
 code_tree %<>% within({
   parent %<>% gsub("\\\\","/",., fixed=TRUE) %>% gsub(PATH,"",  . ,fixed=TRUE)
@@ -37,11 +23,11 @@ graphcode <- function( edges, node, rootnode=TRUE){
     if(rootnode){ output <- "" }
     output <- c(output,  "node{ ", node,"} ")
     #if(rootnode){ output <- c(output, "[grow=right] ")}
-    for( child in children){
+    for( child in children){ 
       output <- c(output, Recall(edges, child, rootnode=FALSE))
     }
     if(!rootnode){ output <- c( output, " }")}
-  } else{
+  } else{ 
     output <- ""
   }
   output
@@ -57,9 +43,7 @@ graph <- paste(c('\\',graph, ";"), collapse = "")
 graph
 
 #sibling distance=20em,
-```
 
-\begin{tikzpicture}[edge from parent fork right, level distance=20em, grow'=right,
-                    every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}]
-                    `r knit_child(text=graph)`
-\end{tikzpicture}
+
+
+

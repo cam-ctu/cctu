@@ -8,7 +8,7 @@
 \usage{
 read_data(x, ...)
 
-\method{read_data}{data.frame}(x, name_variable = "name", ...)
+\method{read_data}{data.frame}(x, name_variable = "name", file_variable = "file", ...)
 
 \method{read_data}{character}(
   x,
@@ -27,13 +27,13 @@ read_data(x, ...)
 
 \item{name_variable}{character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".}
 
+\item{file_variable}{character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".}
+
 \item{data_table}{data frame containing the meta-table of file paths of the external data files, and their desired R object names.}
 
 \item{fun}{the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".}
 
 \item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.}
-
-\item{file_variable}{character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".}
 }
 \value{
 \code{read_data} assigns or returns a data frame reading in data from an external file
@@ -70,5 +70,5 @@ summary(meta)
 
 }
 \seealso{
-\code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}} \code{\link{data_table_summary}}
+\code{\link{read.csv}} \code{\link[readxl]{read_excel}}  \code{\link{data_table_summary}}
 }

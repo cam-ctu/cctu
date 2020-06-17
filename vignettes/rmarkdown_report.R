@@ -1,25 +1,11 @@
----
-date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: false
-params:
-  my_title: "You only live twice"
-  my_author: "Ian Flemming"
-title: "`r params$my_title`"  
-author: "`r params$my_author`"
----
 
+## ----html_report , include=FALSE, message=TRUE, warning=FALSE-----------------
+library(cctu)
+library(magrittr)
 
+PATH_figure <- file.path(getwd(),"Output","Figures")
 
-```{r  html_report , include=FALSE, message=TRUE, warning=FALSE}
-
-
-
-PATH_figure <- paste0(getwd(),"/Output/Figures/")
-meta_table <- get_meta_table()#read.csv(file="Data/TableOfTablesPostCode.csv", stringsAsFactors = FALSE)
+meta_table <- read.csv(file=file.path("Output","meta_table.csv"), stringsAsFactors = FALSE)
 index <- order_dewey(meta_table$number)
 meta_table <- meta_table[index,]
 rm(index)
@@ -34,18 +20,19 @@ for(sect in sections){
     if( !is.na(subtab[row,"subtitle"])){ src <- c(src, paste("\nSubtitle:",subtab[row,"subtitle"]))}
              
     if( subtab[row,"item"] %>% tolower=="table"){
-          file_name <- paste0("Output/Core/table_",subtab[row,"number"],".xml") 
+          file_name <- file.path("Output","Core",paste0("table_",subtab[row,"number"],".xml") )
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
           src <- c(src, 
-               knitr::knit_expand(file="Progs/table.Rmd" %>% normalizePath(),
+               knitr::knit_expand(file=file.path("Progs","table.Rmd") %>% normalizePath(),
                            chunk_name=paste0("table",subtab[row,"number"]),
                            file_name=file_name 
                            )
           )}
     }
-
-if( subtab[row,"item"] %>% tolower=="text"){
+    
+    
+    if( subtab[row,"item"] %>% tolower=="text"){
           file_name <- paste0("Output/Core/text_",subtab[row,"number"],".xml") 
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
@@ -59,7 +46,7 @@ if( subtab[row,"item"] %>% tolower=="text"){
     
     
     if(subtab[row,"item"] %>% tolower=="figure" ){
-      file_name <- paste0(PATH_figure,"fig_",subtab[row,"number"],".png")
+      file_name <- file.path(PATH_figure,paste0("fig_",subtab[row,"number"],".png"))
       if( file.exists(file_name)) src <- c(src, paste0("![](",file_name,") \n" ))
     }
     if( !is.na(subtab[row,"footnote1"])){ src <- c(src, paste("\n",subtab[row,"footnote1"]))}
@@ -69,7 +56,7 @@ if( subtab[row,"item"] %>% tolower=="text"){
 
 
 
-```
 
 
-`r knit_child(text=src)`
+
+

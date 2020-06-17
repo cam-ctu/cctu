@@ -30,7 +30,7 @@
 #' summary(meta)
 #'
 #' @export
-#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_xls}} \code{\link[readxl]{read_xlsx}} \code{\link{data_table_summary}}
+#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_excel}}  \code{\link{data_table_summary}}
 
 
 read_data <- function(x,...){ UseMethod("read_data",x)}
@@ -39,14 +39,25 @@ read_data <- function(x,...){ UseMethod("read_data",x)}
 #' @export
 read_data.data.frame <- function(x,
                                  name_variable="name",
+                                 file_variable="file",
                                  ...){
   grandparent <- parent.frame()
   dots <- list(...)
+
+  if("folder" %in% names(x)){
+
+    folder <- x[, "folder"]
+    folder <- ifelse(is.na(folder) | folder == "", getwd(),
+                     normalizePath(folder))
+    x[,file_variable] <- file.path(folder, x[, file_variable])
+  }
+
   for(obj in x[,name_variable]){
     output <- do.call(read_data.character,
                       c(list(x=obj,
                              data_table=x,
-                             name_variable=name_variable),
+                             name_variable=name_variable,
+                             file_variable=file_variable),
                         dots),
                       envir=grandparent)
   }

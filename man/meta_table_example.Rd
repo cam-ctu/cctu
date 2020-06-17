@@ -4,7 +4,8 @@
 \name{meta_table_example}
 \alias{meta_table_example}
 \title{Example of a meta_table data frame}
-\format{a dataset with 10 columns and 3 example rows
+\format{
+a dataset with 10 columns and 3 example rows
 \describe{
  \item{section}{Section label to help subdivide a report}
  \item{title}{title of each individual item in a repoert}
@@ -30,7 +31,8 @@ Then you must set it internally using  \code{\link{set_meta_table}}, and possibl
 To preserve troublesome number values '1.10', or '1.1.1' , in excel one can prefix the ' character ( to the left of the # key) before the number value
 
 
-}}
+}
+}
 \usage{
 meta_table_example
 }

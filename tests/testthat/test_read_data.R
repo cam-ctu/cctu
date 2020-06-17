@@ -2,9 +2,9 @@
 context("read_data")
 
  data_table <- data.frame(name=c("dirtydata","meta"),
-                          file=c(system.file("extdata","dirtydata.csv", package="cctu"),
-                                 system.file("extdata","meta_table.xlsx", package="cctu")),
-                          folder="")
+                          file=c("dirtydata.csv",
+                                 "meta_table.xlsx"),
+                          folder=system.file("extdata", package="cctu"))
 
 
 
@@ -19,7 +19,7 @@ context("read_data")
  expect_true(exists("meta"))
  rm(dirtydata, meta)
  data2 <- data_table
- names(data2) <- c("link","path","dolf")
+ names(data2) <- c("link","path","folder")
  read_data(data2, name_variable="link", file_variable="path")
  expect_true(exists("dirtydata"))
  expect_true(exists("meta"))

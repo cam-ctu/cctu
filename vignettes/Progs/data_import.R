@@ -2,21 +2,24 @@ options(stringsAsFactors = FALSE)
 
 data_table <- data.frame(
   name=c("data","codes"),
-  file=c(
-    system.file("extdata", "dirtydata.csv", package = "cctu"),
-    system.file("extdata","codes.csv", package="cctu")
-  ),
-  folder=""
+  file=c("dirtydata.csv",
+         "codes.csv"),
+  folder=system.file("extdata", package="cctu"),
+  stringsAsFactors = FALSE
 )
 
-for(obj in data_table$name){read_data(obj, data_table)}
-# Or Just
+
 read_data(data_table)
+# if you wanted to read in just one data set, using non-standard options say
+read_data( data_table[2,], remove_blank_rows_cols_option=FALSE, clean_names_option=FALSE)
+
 
 set_meta_table( cctu::meta_table_example)
 write_table(data_table_summary(data_table),number = "9", clean_up = FALSE)
 
 
+# Not strictly needed as the default is to apply these two functions inside of read_data(), but this
+# can be turned off with clean_names_option = FALSE , or remove_blank_rows_cols_option=FALSE
 data %<>% clean_names() %>% remove_blank_rows_cols()
 codes %<>% clean_names
 

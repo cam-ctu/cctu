@@ -17,6 +17,8 @@ read_data(x, ...)
   frame = parent.frame(),
   name_variable = "name",
   file_variable = "file",
+  clean_names_option = TRUE,
+  remove_blank_rows_cols_option = TRUE,
   ...
 )
 }
@@ -34,6 +36,10 @@ read_data(x, ...)
 \item{fun}{the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".}
 
 \item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.}
+
+\item{clean_names_option}{logical to apply the \code{\link{clean_names}} function internally. Defaults to TRUE}
+
+\item{remove_blank_rows_cols_option}{logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to TRUE.}
 }
 \value{
 \code{read_data} assigns or returns a data frame reading in data from an external file
@@ -58,9 +64,8 @@ This is a generic method with methods defined for a character string, and a data
 
 \examples{
 data_table <- data.frame(name=c("dirtydata","meta"),
-                         file=c(system.file("extdata","dirtydata.csv", package="cctu"),
-                                system.file("extdata","meta_table.xlsx", package="cctu")),
-                         folder="")
+                         file=c("dirtydata.csv", "meta_table.xlsx"),
+                         folder=system.file("extdata", package="cctu"))
 data_table_summary(data_table)
 options("verbose"=TRUE)
 read_data("dirtydata", data_table, stringsAsFactors=FALSE, frame=NULL)

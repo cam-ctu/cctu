@@ -6,6 +6,8 @@
 #' @param frame Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.
 #' @param name_variable character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".
 #' @param file_variable character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".
+#' @param clean_names_option logical to apply the \code{\link{clean_names}} function internally. Defaults to TRUE
+#' @param remove_blank_rows_cols_option logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to TRUE.
 #' @param ... other arguments to supply to \code{fun}.
 #'
 #' @return \code{read_data} assigns or returns a data frame reading in data from an external file
@@ -19,9 +21,8 @@
 #'
 #' @examples
 #' data_table <- data.frame(name=c("dirtydata","meta"),
-#'                          file=c(system.file("extdata","dirtydata.csv", package="cctu"),
-#'                                 system.file("extdata","meta_table.xlsx", package="cctu")),
-#'                          folder="")
+#'                          file=c("dirtydata.csv", "meta_table.xlsx"),
+#'                          folder=system.file("extdata", package="cctu"))
 #' data_table_summary(data_table)
 #' options("verbose"=TRUE)
 #' read_data("dirtydata", data_table, stringsAsFactors=FALSE, frame=NULL)
@@ -72,6 +73,8 @@ read_data.character <- function(x,
                       frame=parent.frame(),
                       name_variable="name",
                       file_variable="file",
+                      clean_names_option=TRUE,
+                      remove_blank_rows_cols_option=TRUE,
                       ...){
   names <- data_table[,name_variable]
   files <- data_table[,file_variable]
@@ -92,6 +95,9 @@ read_data.character <- function(x,
     )}
 
    output <- do.call(fun, c(list(file), ...=...))
+   if( clean_names_option){ clean_names(output)}
+   if( remove_blank_rows_cols_option){remove_blank_rows_cols(output)}
+
   if( is.null(frame)){
      return(output)
   }else{

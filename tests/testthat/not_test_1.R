@@ -1,3 +1,10 @@
+
+### This is an early edevelopement test. Not needed now. 18 Jun2020.
+
+
+
+
+
 #.libPaths(c(.libPaths(), "V:/STATISTICS/STUDY PLANNING/R_library"))
 #.libPaths("V:/STATISTICS/STUDY PLANNING/R_library")
 # Sys.setenv(R_LIBS_USER="V:/STATISTICS/STUDY PLANNING/R_libraryV3.5")

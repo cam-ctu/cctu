@@ -4,7 +4,9 @@ context("read_data")
  data_table <- data.frame(name=c("dirtydata","meta"),
                           file=c("dirtydata.csv",
                                  "meta_table.xlsx"),
-                          folder=system.file("extdata", package="cctu"))
+                          folder=system.file("extdata", package="cctu"),
+                          stringsAsFactors = FALSE
+                          )
 
 
 
@@ -32,7 +34,7 @@ context("read_data")
  X <- read_data(data_table[1,], frame=NULL, stringsAsFactors=FALSE)
  expect_false(is.factor(X$gender))
  expect_error(read_data("dirtydata",data_table, fun=readxl::read_excel, frame=NULL))
- expect_warning(read_data("dirtydata",data_table, fun=print, frame=NULL),
+ expect_warning(read_data("dirtydata",data_table, fun=print, remove_blank_rows_cols_option=FALSE,frame=NULL),
                 "this function is designed to be used for reading in data. You are calling: print"
  )
 

@@ -83,6 +83,8 @@ Other function may be worth looking up in their help files, and hopefully their 
 * `clean_names`
 * `remove_blank_rows_cols`
 
+The set of external data files to be read in, along with the names of the corresponding data.frames created should be recorded in one initial data.frame. This can then be summarised in a table in the report using `data_table_summary` and also used to succinctly read in all the data files with `read_data`.
+
 
 ### Analysis
  * `sumby()` is a work-horse to produce standard summary tables, with additional figures produced as side-effects
@@ -94,7 +96,6 @@ Other function may be worth looking up in their help files, and hopefully their 
  
 ## Audit trails  
 
-The set of external data files to be read in, along with the names of the corresponding data.frames created should be recorded in one initial data.frame. This can then be summarised in a table in the report using `data_table_summary` and also used to succinctly read in all the data files with `read_data`.
 
 As described already `source()` captures a trail of which code sources other code. There is a demonstration below of how to convert this into a graphical tree representation using a combination of Rmarkdown and latex. Or you can just get a copy `cctu:::cctu_env$code_tree` and write a local copy to a csv file say.
 

@@ -7,6 +7,8 @@ _so_  first run
 
 devtools::build_packages(clean=FALSE)
 
+###Update v 0.5.4 18JUN2020 this is not needed. The vignetters put the Ouptut folder into Doc and it works fine.
+
 then copy the vignettes/Output directory into ~/inst
 
 then

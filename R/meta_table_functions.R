@@ -44,7 +44,8 @@ clean_meta_table <- function(meta_table){
   columns_needed <- c("section","title","subtitle","number","population",
                       "orientation", "program", "item", "footnote1","footnote2","fontsize")
 
-
+  #makes empty columns are characters - read_excel will make them logicals.
+  meta_table <- lapply(meta_table, as.character) %>% data.frame
 
   if( !("number" %in% names(meta_table))){
     stop("Need to have 'number' column in meta_table")

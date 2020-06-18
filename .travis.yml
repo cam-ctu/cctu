@@ -13,6 +13,9 @@ env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
+apt_packages:
+  - libxml2-dev
+
 r_binary_packages:
   - ggplot2
   - magrittr

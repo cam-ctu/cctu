@@ -25,7 +25,6 @@
 #'                          folder=system.file("extdata", package="cctu"))
 #' data_table_summary(data_table)
 #' options("verbose"=TRUE)
-#' read_data("dirtydata", data_table, stringsAsFactors=FALSE, frame=NULL)
 #' read_data(data_table)
 #' summary(dirtydata)
 #' summary(meta)

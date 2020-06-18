@@ -53,6 +53,8 @@ r_binary_packages:
   - sessioninfo
   - usethis
   - rcpp
+  - knitr
+  - devetools
 
 r_packages:
 
@@ -63,5 +65,5 @@ notifications:
     on_failure: change
 
 
-after_success:
-  - Rscript -e 'library(covr); codecov()'
+#after_success:
+#  - Rscript -e 'library(covr); codecov()'

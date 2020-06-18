@@ -18,9 +18,9 @@ library(magrittr)
 
 options(verbose=TRUE)
 
-#test_that("ccti_initialise",
-#expect_warning(source("hello_world.R", local=TRUE), "Recommend using cctu_initialise()")
-#)
+test_that("ccti_initialise",
+expect_warning(source("hello_world.R", local=TRUE), "Recommend using cctu_initialise()")
+)
 
 cctu_initialize()
 
@@ -75,7 +75,7 @@ attach_pop("1.10")
 sumby(response, rx, data=data )
 #could actually just call the write_ggplot() now, but the line below is clearer
 fig <- sumby(response, rx, data=data ) %>% attr("fig")
-write_ggplot( format="png")
+write_ggplot()
 }
 
 

@@ -4,6 +4,11 @@ language: R
 sudo: required
 cache: packages
 
+
+repos:
+  CRAN: https://cloud.r-project.org
+  ropensci: http://packages.ropensci.org
+
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=FALSE

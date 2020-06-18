@@ -22,7 +22,9 @@
 #' @examples
 #' data_table <- data.frame(name=c("dirtydata","meta"),
 #'                          file=c("dirtydata.csv", "meta_table.xlsx"),
-#'                          folder=system.file("extdata", package="cctu"))
+#'                          folder=system.file("extdata", package="cctu"),
+#'                          stringsAsFactors=FALSE
+#'                          )
 #' data_table_summary(data_table)
 #' options("verbose"=TRUE)
 #' read_data(data_table)

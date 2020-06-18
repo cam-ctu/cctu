@@ -4,7 +4,6 @@
 #' @param frame an environment in which to clean up
 #' @param reserved_string a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.
 #' @inheritParams detach_pop
-#' @param ... modifications to the default values \code{\link{detach_pop}}
 #'
 #' @return NULL, but removes objects
 #' @export

@@ -19,8 +19,6 @@ clean_up(
 \item{reserved_string}{a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
-
-\item{...}{modifications to the default values \code{\link{detach_pop}}}
 }
 \value{
 NULL, but removes objects

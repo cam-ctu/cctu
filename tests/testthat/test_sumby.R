@@ -45,6 +45,17 @@ test_that("characterconvert",
 
           )
 
+test_that("arm as factor or character",
+          {
+            df2 <- df
+            df2$arm <- factor(df2$arm)
+           expect_is(sumby(age,arm, data=df2, fig=FALSE), "matrix")
+           df2$arm <- as.character(df2$arm)
+           expect_is(sumby(age,arm, data=df2, fig=FALSE), "matrix")
+          }
+          )
+
+
 test_that("sumfig direct",
           {
             fig <- sumfig(gender , arm , data=df)

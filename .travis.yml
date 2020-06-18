@@ -21,7 +21,6 @@ r_binary_packages:
   - testthat
   - readxl
   - dplyr
-  - knitr
   - tidyr
   - rvest
   - rmarkdown
@@ -50,7 +49,6 @@ r_binary_packages:
   - remotes
   - sessioninfo
   - usethis
-  - devtools
   - rcpp
 
 r_packages:

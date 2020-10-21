@@ -99,3 +99,20 @@ test_that("case with binary endpoint and just want one of the rows",{
   expect_equivalent(X["Statistics"],"Female")
 
 })
+
+
+test_that("factors with spaces in",{
+df <- data.frame(arm=rep(c("A type","B type"), rep(n,2)),
+                 age = rnorm(2*n, mean=40,sd=10) %>% round(1),
+                 gender = sample(c("Male","Female"),2*n, replace=TRUE)
+)
+X <- sumby(age, arm, data=df)
+print(X)
+print(class(X))
+print(colnames(X))
+expect_equal(colnames(X)[3:4],c("A type","B type"))
+X <- sumby(gender, arm, data=df)
+expect_equal(colnames(X)[3:4],c("A type","B type"))
+}
+)
+

@@ -80,7 +80,7 @@ sumby <- function(variable,
     variable = c(text_clean(label), "", "", "")
     stats = c("n", "Mean (SD)", "Median", "Min, Max")
     value = rbind(n, paste0(mu," (", sd, ")"), meds, paste0(mins, ", ", maxs))
-    ans   = data.frame(cbind(variable, stats, value), row.names = 1:4)
+    ans   = data.frame(cbind(variable, stats, value), row.names = 1:4, check.names=FALSE)
   }
   # categorical variable summary statistics by arm
   if(inherits(variable, "factor") || variable.class == "character"){
@@ -106,7 +106,7 @@ sumby <- function(variable,
     value           = apply(X, c(1, 2), perpast)
     colnames(value) = nams[[2]]
 
-    ans = data.frame(cbind(variable, stats, value), row.names = 1:dims[1])
+    ans = data.frame(cbind(variable, stats, value), row.names = 1:dims[1], check.names=FALSE)
   }
 
   names(ans)[1:2]  <- c("Variable", "Statistics")

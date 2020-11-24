@@ -50,10 +50,11 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
       - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-tinytex@master
 
       - name: Query dependencies
         run: |
-          install.packages('remotes', repos="https://www.stats.bris.ac.uk/R/", type="binary")
+          install.packages('remotes', repos="https://www.stats.bris.ac.uk/R/", type=ifelse(Sys.info()[1]=="Linux","source","binary"))
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}

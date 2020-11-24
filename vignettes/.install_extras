@@ -1,4 +1,4 @@
 ^Progs$
 ^output$
 ^main.R$
-vignettes\Output\.*
+vignettes/Output/.*

@@ -61,7 +61,7 @@ write_ggplot = function(
   file_name <- file.path(directory,paste0("fig_",number))
 
 
-  args_list <- c( list( file = paste0(file_name, ".", format %>% ifelse(.=="postcript","ps",.)),
+  args_list <- c( list( file = paste0(file_name, ".", format %>% ifelse(.=="postscript","eps",.)),
                         height = height, width = width), graphics_args)
   extra_args <-NULL
   if( format %in% c("png","jpeg")){

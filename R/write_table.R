@@ -36,7 +36,7 @@ write_table = function(X,
     initial  <- paste(initial, ...)
     assign(arg_name, initial, envir = parent.frame())
   }
-
+  if( inherits(X,"tbl_df")){X <- as.data.frame(X)}
   paste_plus("<table>\n<tr>")
   for(col in 1:dim(X)[2]){
     paste_plus("<td>", heading[col], "</td>")

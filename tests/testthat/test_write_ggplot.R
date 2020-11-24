@@ -18,7 +18,9 @@ test_that("alternative dimension",
             expect_error(  write_ggplot(fig,number="1.10", directory=".", units="pt", clean_up = FALSE),
                            "units must be ''cm'' or ''inches''"
                            )
-
+            file.remove("fig_1.10.eps")
+            write_ggplot(fig,number="1.10", directory=".", format="postscript", clean_up = FALSE)
+            expect_equal(file.exists("fig_1.10.eps"), TRUE)
             set_meta_table(.old_meta)
             rm(.old_meta, .parent)
             }

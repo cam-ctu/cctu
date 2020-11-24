@@ -6,6 +6,9 @@ output: github_document
 [![codecov](https://codecov.io/github/shug0131/cctu/branch/master/graphs/badge.svg)](https://codecov.io/github/shug0131/cctu)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/shug0131/cctu?branch=master&svg=true)](https://ci.appveyor.com/project/shug0131/cctu)
 
+<!-- badges: start -->
+[![R build status](https://github.com/shug0131/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/shug0131/cctu/actions)
+<!-- badges: end -->
 
 
 

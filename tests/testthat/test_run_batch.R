@@ -10,8 +10,9 @@ test_that("basic test",
                            "run_batch\\(\\) only works in interactive mode")
             file.remove("batch_test.csv")
             expect_equal(file.exists("batch_test.csv"), FALSE)
+            print(Sys.info()["sysname"])
             #need this to fool it into being interactive
-            if(Sys.info()["sysname"] == "Windows" ){
+            if(grepl("[Ww]indows",Sys.info()["sysname"]) ){
               cmd <- paste0( R.home("bin"), '/R --ess --no-save')
             } else{
               cmd <- paste0( R.home("bin"), '/R --interactive --no-save')

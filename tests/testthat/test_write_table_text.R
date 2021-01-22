@@ -38,3 +38,29 @@ test_that("alternative dimension for table",
             }
 )
 
+test_that("clean up behaviour standard code evaluation",
+          { X <- data.frame(gender=rep(1:2,c(10,20)))
+          .reserved <- "Y"
+          Y <- X %>% dplyr::mutate(sex=factor(gender, labels=c("Male","Female"))) %>%
+            dplyr::group_by(sex) %>%
+            dplyr::summarise(n=dplyr::n(),.groups="drop")
+            write_table(Y,number="1.10", directory=".")
+          expect_false("X" %in% ls())
+          expect_true("Y" %in% ls())
+          }
+)
+
+
+
+
+test_that("clean up behaviour when piping",
+          { X <- data.frame(gender=rep(1:2,c(10,20)))
+          X %>% dplyr::mutate(sex=factor(gender, labels=c("Male","Female"))) %>%
+            dplyr::group_by(sex) %>%
+            dplyr::summarise(n=dplyr::n(),.groups="drop") %>%
+            write_table(number="1.10", directory=".")
+            expect_false("X" %in% ls())
+
+          }
+          )
+

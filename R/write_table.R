@@ -7,7 +7,7 @@
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
-#' @seealso \code{\link{write_ggplot}}
+#' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}
 #' @importFrom magrittr %>% %<>%
 
 write_table = function(X,
@@ -36,7 +36,15 @@ write_table = function(X,
     initial  <- paste(initial, ...)
     assign(arg_name, initial, envir = parent.frame())
   }
-  if( inherits(X,"tbl_df")){X <- as.data.frame(X)}
+  if( inherits(X,c("tbl_df","matrix","array"))){X <- as.data.frame(X)}
+  utf8_check <- detect_invalid_utf8(X)
+  if( nrow(utf8_check)){
+    warning("Invalid non-UTF8 characters found\n", utf8_check,
+            "\nRemove manually from the xml output, or clean input data at source,
+   or clean using remove__invalid_utf8()")
+  }
+
+
   paste_plus("<table>\n<tr>")
   for(col in 1:dim(X)[2]){
     paste_plus("<td>", heading[col], "</td>")

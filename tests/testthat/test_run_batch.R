@@ -6,6 +6,7 @@ library(testthat)
 
 test_that("basic test",
           {
+
             expect_warning(run_batch("script_to_test_run_batch.R"),
                            "run_batch\\(\\) only works in interactive mode")
             file.remove("batch_test.csv")
@@ -19,6 +20,7 @@ test_that("basic test",
             }
             system(cmd, input=readLines("container.R"))
             #shell("R --ess --vanilla < container.R ")
+            print(getwd())
             expect_equal(file.exists("batch_test.csv"), TRUE)
           }
 )

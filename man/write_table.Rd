@@ -36,5 +36,5 @@ writes an xml version of the input data to file table_number.xml . Edits the Tab
 Function to write a table into xml format in the correct directory, and edit TableofTables
 }
 \seealso{
-\code{\link{write_ggplot}}
+
 }

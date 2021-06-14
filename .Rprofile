@@ -1,1 +1,1 @@
-.libPaths(c("U:/My Documents/R/win-library/3.6","V:/STATISTICS/STUDY PLANNING/R_libraryV3.5"))
+.libPaths(c("U:/My Documents/R/win-library/4.0","V:/STATISTICS/STUDY PLANNING/R_libraryV4.0"))

@@ -47,6 +47,8 @@ write_table = function(X,
 
   paste_plus("<table>\n<tr>")
   for(col in 1:dim(X)[2]){
+    #clean the heading here
+    heading[col] <- remove_xml_specials(heading[col])
     paste_plus("<td>", heading[col], "</td>")
   }
   paste_plus("</tr>\n")

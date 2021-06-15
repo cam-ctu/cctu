@@ -38,7 +38,7 @@ create_word_xml <- function(
 ){
 
   table_path %<>% normalizePath #%>% final_slash
-  long_filename <-  filename %>% normalizePath
+  long_filename <-  filename %>% normalizePath(., mustWork=FALSE)
   filename %<>% paste0(.,".xml")
 
   meta_table <- clean_meta_table(meta_table)
@@ -56,13 +56,13 @@ create_word_xml <- function(
              filename, overwrite=TRUE
   )
 
- 
-  
+
+
   filename_text <- filename
-  #create a connection to use in cat and 
+  #create a connection to use in cat and
   filename <- file(description=filename, open="a")
-  
-  
+
+
   cat(
     "\n <Report>
   <study>",  remove_xml_specials(report_title),"</study>

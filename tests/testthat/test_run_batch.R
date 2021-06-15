@@ -14,11 +14,20 @@ test_that("basic test",
             print(Sys.info()["sysname"])
             #need this to fool it into being interactive
             if(grepl("[Ww]indows",Sys.info()["sysname"]) ){
-              cmd <- paste0( R.home("bin"), '/R --ess --no-save')
+              cmd <- paste0( R.home("bin"), '/R')# --ess --no-save')
+              args <- c("--ess","--no-save")
             } else{
-              cmd <- paste0( R.home("bin"), '/R --interactive --no-save')
+              cmd <- paste0( R.home("bin"), '/R')
+              args <- c("--interactive", "--no-save")
             }
-            system(cmd, input=readLines("container.R"))
+            print(getwd())
+            ## THis is where it fails,
+
+            ## It tries to use the UNC path as the working directoy,
+            ## But this fails and it defaults C:/Windows.
+            ## Need to find another way to simulate interactive mode
+
+            system2(cmd, args=args, input=readLines("container.R"))
             #shell("R --ess --vanilla < container.R ")
             print(getwd())
             expect_equal(file.exists("batch_test.csv"), TRUE)

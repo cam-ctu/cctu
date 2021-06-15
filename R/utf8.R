@@ -20,6 +20,8 @@ detect_invalid_utf8 <- function(data){
   X_array <- array(unlist(X), dim=dim(data))
   data.frame(column=cols, row=rows, value=unlist( data[X_array]), row.names=NULL)
 }
+
+#' @describeIn detect_invalid_utf8 Function to delete invalid UTF8 charachters
 #' @export
 remove_invalid_utf8 <- function(data){
   if( !inherits(data, "data.frame")){stop("input a data.frame")}

@@ -13,10 +13,27 @@ test_that("alternative dimension for table",
                           clean_up=FALSE),
               "Unable to identify the code file that created table"
             )
+            X <- data.frame(x=1,y=1)
+            write_table(X, number="1.1", heading=c("x<2", "Y>3"))
+            filetemp <- tempfile("report", fileext=".doc")
+            create_word_xml("test report", "author",
+                              meta_table=get_meta_table() %>% dplyr::filter(number=="1.1"),
+                              popn_labels=c("my population"),
+                              filename = filetemp
+
+              )
+            expect_true(file.exists(filetemp))
+            unlink(filetemp)
+
+            X <- data.frame(x=1,y=1)
+
             expect_warning(
               write_table(X,number="1.10", na_to_empty=TRUE),
               "will be removed by clean_up()"
             )
+
+            #checking when the heading has dodgy characters
+
 
             expect_warning(
               write_text("Hello World!",number="1.10"),

@@ -26,6 +26,7 @@ detect_invalid_utf8 <- function(data){
 remove_invalid_utf8 <- function(data){
   if( !inherits(data, "data.frame")){stop("input a data.frame")}
   X <- lapply(data, function(x){ iconv(x, "UTF-8", "UTF-8",sub='')})
+  X <- lapply(X, function(x){gsub("\u00A0","\u0020",x)})
   data.frame(X)
 }
 
@@ -33,6 +34,7 @@ remove_invalid_utf8 <- function(data){
 #' @keywords internal
 
 invalid_utf8_ <- function(x){
-  !is.na(x) & is.na(iconv(x, "UTF-8", "UTF-8"))
+  !is.na(x) & is.na(iconv(x, "UTF-8", "UTF-8")) |
+    grepl("\u00A0",x)
 }
 

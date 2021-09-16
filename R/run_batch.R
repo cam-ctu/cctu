@@ -28,13 +28,15 @@ run_batch <- function(filename, ...){
   if( !interactive()){
     warning("run_batch() only works in interactive mode")
   } else {
-
+    warning("Make certain you only have the project open on one computer")
     # belt and braces approach to use full filepaths with quotes.
     # It did work  with just "R CMD BATCH --vanilla filename", in a simple example.
-    command <- paste0( R.home("bin"),
-                       '/R CMD BATCH --vanilla "',
+    command <- paste0( '"',R.home("bin"),
+                       '/R" CMD BATCH --vanilla "',
                        normalizePath(filename),
                        '"')
     system(command,...)
+    #tools::Rcmd(c("BATCH","--vanilla", normalizePath(filename)))
+    #still doesn't fix the testing problem with UNC path
   }
 }

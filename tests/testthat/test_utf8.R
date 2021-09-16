@@ -26,6 +26,16 @@ test_that("check removal",{
 
   })
 
+test_that("non-breaking spaces",{
+  x <- data.frame(x="A\u00A0space")
+  expect_equal(nrow(detect_invalid_utf8(x)),1)
+  y <- remove_invalid_utf8(x)
+  expect_equal(y[1,1], "A space")
+
+  })
+
+
+
 test_that("write_table warning",{
 
   .old_meta <- get_meta_table()

@@ -15,15 +15,6 @@ name: R-CMD-check
 
 jobs:
 
-  build_latex:
-    runs-on: ${{ matrix.config.os }}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: xu-cheng/texlive-action/full@v1
-        with:
-          run: |
-            apk add make
-            make
 
 
 
@@ -67,6 +58,8 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
+
+      - uses: r-lib/actions/setup-tinytex@master
 
       - uses: r-lib/actions/check-r-package@v1
 

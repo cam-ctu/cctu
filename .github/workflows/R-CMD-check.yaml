@@ -42,8 +42,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v1
-
-      - uses: r-lib/actions/setup-r@v1
+#changed from @v1
+      - uses: r-lib/actions/setup-r@master
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
@@ -58,7 +58,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@master
         with:
           extra-packages: rcmdcheck
-
+#changed from @v1
       - uses: r-lib/actions/setup-tinytex@master
 
       - uses: r-lib/actions/check-r-package@v1

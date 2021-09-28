@@ -55,7 +55,7 @@ jobs:
 #          saveRDS(pak::pkg_deps("local::.", dependencies = TRUE), ".github/r-depends.rds")
 #        shell: Rscript {0}
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      - uses: r-lib/actions/setup-r-dependencies@master
         with:
           extra-packages: rcmdcheck
 

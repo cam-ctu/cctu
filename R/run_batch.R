@@ -28,7 +28,7 @@ run_batch <- function(filename, ...){
   if( !interactive()){
     warning("run_batch() only works in interactive mode")
   } else {
-    warning("Make certain you only have the project open on one computer")
+    warning("Make certain you only have the project open on one computer", immediate. = TRUE)
     # belt and braces approach to use full filepaths with quotes.
     # It did work  with just "R CMD BATCH --vanilla filename", in a simple example.
     command <- paste0( '"',R.home("bin"),

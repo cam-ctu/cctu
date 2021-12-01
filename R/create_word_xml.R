@@ -5,11 +5,10 @@
 #' @param meta_table a data frame  that contains meta information on tables (title, population, number). Defaults is get_meta_table()
 #' @param datestamp text used to give the date-time stamp, defaults to the system date/time at the time of running the function
 #' @param filename text string giving the filename/path to output the word document to
-#' @param path text string giving the parent folder in which the output file, table_path and figure_path are held. Defaults to the current working directory.
 #' @inheritParams write_ggplot
 #' @inheritParams attach_pop
 #' @param table_path text string giving the filepath to the tables folder. This is used to directly open table files and copy the content.
-#' @param figure_path text string giving the filepath to the figures folder. This is used to create a reference within the  word document. Hence it needs to be a relative (to the output report) path "../Figures".
+#' @param figure_path text string giving the filepath to the figures folder. This is used to create a reference within the  word document. Hence it needs to be a relative (to the output report) path "../Figures". Likely to lead to empty figures in the report if it is changed.
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
 #' @param  figure_format the format to look for figure files when building the report ("png", "jpeg","ps")
 #' @param xslt_file a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").

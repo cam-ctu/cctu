@@ -34,11 +34,9 @@ for(pop_name in popn_names){
     data_temp <- eval(as.name(df), envir=frame)
     # important here to automate - depends on consistent use of subjid
     # some data frames might not have subjid ...
-    popn_temp        <- popn[, c(subjid_string, pop_name)]
-    names(popn_temp) <- c(subjid_string, "filter")
+    popn_temp        <- popn[[subjid_string]][popn[[pop_name]]]
     # take a subset based on the logical variable in population
-    data_temp <- merge(data_temp, popn_temp, by = subjid_string)
-    data_temp <- subset(data_temp, data_temp$filter, select = (names(data_temp) != "filter"))
+    data_temp <- data_temp[data_temp[[subjid_string]] %in% popn_temp, ]
     assign(df, data_temp, envir = env_temp)
   }
   # keep an environment of the different population-based version of the data sets

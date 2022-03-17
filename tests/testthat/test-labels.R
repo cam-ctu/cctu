@@ -43,6 +43,8 @@ test_that("Check assign variable lables", {
 
   expect_false(has.label(mtcars$am_tmp))
 
+  expect_null(val_lab(mtcars))
+
 })
 
 test_that("Drop variable lables", {
@@ -106,7 +108,7 @@ test_that("Label/labls attributes", {
 })
 
 
-test_that("Conver value label to value", {
+test_that("Convert value label to value", {
 
   vec = 1:7
 

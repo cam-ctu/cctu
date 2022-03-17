@@ -259,9 +259,7 @@ unlab <- function(x) {
 unlab.default <- function(x) {
   if (is.null(x))
     return(x)
-  if (is.list(x)) {
-    return(unlab.list(x))
-  }
+
   if(has.label(x))
     attr(x, "label") = NULL
   if(has.labels(x))

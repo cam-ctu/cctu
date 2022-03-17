@@ -118,8 +118,8 @@ round_pad <- function (x,
 format_percent <- function(x, digits = 1, ...) {
   res <- sapply(x, function(v){
     if (v == 0) "0"
-    else if (v == 100) "100"
-    else round_pad(v, digits = digits, ...)
+    else if (v == 1) "100"
+    else round_pad(100*v, digits = digits, ...)
   })
   paste0(res, "%")
 }

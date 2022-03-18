@@ -18,6 +18,8 @@ detect_invalid_utf8 <- function(data){
   cols <- rep(col_names, lapply(where, length))
   rows <- unlist(where)
   X_array <- array(unlist(X), dim=dim(data))
+  # Tibble has issues, convert to data.frame
+  data <- as.data.frame(data)
   data.frame(column=cols, row=rows, value=unlist( data[X_array]), row.names=NULL)
 }
 

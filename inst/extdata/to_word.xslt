@@ -212,7 +212,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <!--Population-->
 <xsl:template match="population" name="population">
 <xsl:if test = ". != '' ">
-(Population: <xsl:value-of select ="."/>)
+Population: <xsl:value-of select ="."/>
 </xsl:if>
 </xsl:template>
 

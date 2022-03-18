@@ -15,7 +15,7 @@ create_word_xml(
   figure_path = file.path("..", "Figures"),
   popn_labels = NULL,
   verbose = options()$verbose,
-  xslt_file = system.file("extdata", "xml_to_word.xslt", package = "cctu")
+  xslt_file = system.file("extdata", "to_word.xslt", package = "cctu")
 )
 }
 \arguments{

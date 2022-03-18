@@ -21,8 +21,8 @@
 #' }
 #' After the conversion of the data, variable label attribute will be created for the variable.
 #' See  \code{\link{var_lab}}.
-#' 
-#' After this is completed and if the clu file is provided, value label attribute will be 
+#'
+#' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
 #'  \code{\link[data.table]{data.table}}
@@ -77,7 +77,7 @@ apply_lus <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
 #' Tidy DLU form
 #'
 #' @description Separate Visit, Form and Question into different columns.
-#' The DLU file contains four columns: 
+#' The DLU file contains four columns:
 #' \itemize{
 #'   \item{ShortCode}: Variable name of the downloaded data.
 #'   \item{Visit/Form/Question}: Contains visit, form and question. It is
@@ -86,13 +86,13 @@ apply_lus <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
 #' is the unique variable name for a particular CRF form.
 #'   \item{Description}: Description of the variable, namely variable label.
 #' This is will be used by \code{\link{apply_lus}} to create variable label.
-#'  \item{Type}: Type of the variable, it has IntegerData, Text, Date, Real and 
+#'  \item{Type}: Type of the variable, it has IntegerData, Text, Date, Real and
 #' Category four categories. This will be used by \code{\link{apply_lus}} to
 #' convert variables to corresponding type.
 #' }
 #' @param x DLU data.frame
 #' @return A data.frame
-#' @seealso \code{\link{apply_lus}} 
+#' @seealso \code{\link{apply_lus}}
 #' @export
 #'
 sep_dlu <- function(x){
@@ -105,7 +105,7 @@ sep_dlu <- function(x){
 #' Extract data by form from MACRO dataset
 #'
 #' @description Extract data by form from MACRO dataset. Data will be transformed to long format
-#'  adding a new column of `Visit`. 
+#'  adding a new column of `Visit`.
 #'
 #' @param data A data.frame from macro dataset.
 #' @param form Name of the form in the DLU file, see \code{\link{sep_dlu}}.
@@ -120,10 +120,11 @@ sep_dlu <- function(x){
 #' \dontrun{
 #' extract_form(full_dt, "LabResF", dlu)
 #' }
-#' 
+#'
 #' @return A data.table object.
 #'
 #' @importFrom stats setNames
+#' @import data.table
 #'
 #'
 extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu){
@@ -141,10 +142,10 @@ extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_
   if(!is.null(visit)){
     if(!all(visit %in% dlu$Visit))
       stop("Visit name ", paste(setdiff(visit, dlu$Visit), collapse = ", "), " can not be found in the DLU file.")
-      
+
     dlu <- dlu[dlu$Visit %in% visit, ]
   }
-    
+
 
   data.table::setDT(data)
 

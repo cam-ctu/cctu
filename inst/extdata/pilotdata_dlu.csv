@@ -1,0 +1,24 @@
+"ShortCode","Visit/Form/Question","Description","Type"
+"ARM","COVER/PatientReg/ARM","Treatment Arm",Category
+"AGE","COVER/PatientReg/AGE","Age",Real
+"RACEN","COVER/PatientReg/RACEN","Race (N)",Category
+"SEX","COVER/PatientReg/SEX","Sex",Category
+"BMIBL","COVER/PatientReg/BMIBL","Baseline BMI (kg/m^2)",Real
+"AVISIT","SCREENING/Lab/AVISIT","Study Visit",Category
+"BILI","SCREENING/Lab/BILI","Bilirubin (umol/L)",Real
+"ALT","SCREENING/Lab/ALT","Alanine Aminotransferase (U/L)",Real
+"PERF","SCREENING/Lab/PERF","ALT performed",Category
+"AST","SCREENING/Lab/AST","Aspartate Aminotransferase (U/L)",Real
+"SUBJID0","SCREENING/Lab/SUBJID","Unique Subject Identifier",IntegerData
+"AVISIT1","TRT/Lab/AVISIT","Study Visit",Category
+"BILI1","TRT/Lab/BILI","Bilirubin (umol/L)",Real
+"PERF1","TRT/Lab/PERF","ALT performed",Category
+"ALT1","TRT/Lab/ALT","Alanine Aminotransferase (U/L)",Real
+"AST1","TRT/Lab/AST","Aspartate Aminotransferase (U/L)",Real
+"SUBJID1","TRT/Lab/SUBJID","Unique Subject Identifier",IntegerData
+"AVISIT2","ENDTRT/Lab/AVISIT","Study Visit",Category
+"BILI2","ENDTRT/Lab/BILI","Bilirubin (umol/L)",Real
+"PERF2","ENDTRT/Lab/PERF","ALT performed",Category
+"ALT2","ENDTRT/Lab/ALT","Alanine Aminotransferase (U/L)",Real
+"AST2","ENDTRT/Lab/AST","Aspartate Aminotransferase (U/L)",Real
+"SUBJID2","ENDTRT/Lab/SUBJID","Unique Subject Identifier",IntegerData

@@ -1,17 +1,22 @@
 Package: cctu
 Type: Package
 Title: In-house Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.6.3
+Version: 1.0.0
 Date: 2021-12-01
-Author: Simon Bond
-Maintainer: Simon Bond <simon.bond@addenbrookes.nhs.uk>
+Authors@R: c(person(given = "Simon",
+                    family = "Bond",
+                    role = c("aut", "cre"),
+                    email = "simon.bond@addenbrookes.nhs.uk"),
+             person(given = "Alimu",
+                    family = "Dayimu",
+                    role = c("aut", "ctb")))
 Description: Several useful functions and a vignette to explain how to put it all together. Notably, it produces word documents via xml, and deals with ensuring the correct population is used.
 Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
-Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, grid
+Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, grid, data.table
 Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr
 VignetteBuilder: knitr
 Repository: local-cran

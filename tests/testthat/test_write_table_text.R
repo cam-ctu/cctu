@@ -48,9 +48,9 @@ test_that("alternative dimension for table",
               write_table(number="1.10", directory=".")
             tab <- xml2::read_xml("table_1.10.xml")
             second_row <- xml2::xml_text(xml2::xml_find_all(tab, "//tr")[[2]])
-            expect_equal(second_row," Male  10 ")
+            expect_equal(second_row,"Male10")
             assign("parent", .parent, envir=cctu_env)
-            set_meta_table(.old_meta)
+            # set_meta_table(.old_meta)
             rm(.old_meta, .parent)
             }
 )

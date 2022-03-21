@@ -21,7 +21,7 @@ test_that("alternative dimension",
             file.remove("fig_1.10.eps")
             write_ggplot(fig,number="1.10", directory=".", format="postscript", clean_up = FALSE)
             expect_equal(file.exists("fig_1.10.eps"), TRUE)
-            set_meta_table(.old_meta)
+            # set_meta_table(.old_meta)
             rm(.old_meta, .parent)
             }
 )

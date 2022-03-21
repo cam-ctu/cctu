@@ -13,7 +13,10 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
    <xsl:text>progid="Word.Document"</xsl:text>
   </xsl:processing-instruction>
 <w:wordDocument>
-
+  <w:fonts>
+    <w:defaultFonts w:ascii="Arial" w:fareast="Arial"
+                    w:h-ansi="Arial" w:cs="Arial"/>
+  </w:fonts>
 <w:body>
 
 
@@ -30,7 +33,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:pPr>
 <w:r>
 <w:rPr>
-<w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
 <w:b/>
 <w:sz w:val="30"/>
 </w:rPr>
@@ -89,7 +91,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <w:br/>
 </xsl:if>
 <w:r>
-<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 <w:t><xsl:call-template  name="insertBreaks"/></w:t></w:r>
 </xsl:template>
 
@@ -145,7 +146,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
             <w:jc w:val="left"/>
         </w:pPr>
     <w:r>
-    <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
     <w:t>Tables Listing and Figures for<xsl:value-of select="/Report/study"/>| Section: <xsl:value-of select="section"/></w:t>
     </w:r></w:p>
     </w:hdr>
@@ -156,7 +156,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			<w:outlineLvl w:val="1" />
 		</w:pPr>
 		<w:r>
-		<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 			<w:t>
 				Section: <xsl:value-of select="section"/>
 			</w:t>
@@ -171,7 +170,6 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
     <!--Start Bookmark -->
     <aml:annotation  w:type="Word.Bookmark.Start" />
     <w:r>
-        <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
         <w:t>
           <xsl:value-of select="$titletype"/>
         </w:t>
@@ -193,14 +191,12 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
     <aml:annotation  w:type="Word.Bookmark.End" />
     <!--Bookmark ends-->
     <w:r>
-        <w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
         <w:t><xsl:value-of select="title"/></w:t>
     </w:r>
 </w:p>
 <w:p>
 	<w:pPr><w:jc w:val="center"/></w:pPr>
 	<w:r>
-	<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 		<w:t>
 			<!--<xsl:apply-templates select="subtitle"/>-->
       <xsl:value-of select="subtitle"/><xsl:apply-templates select="population"/>
@@ -250,6 +246,8 @@ Population: <xsl:value-of select ="."/>
       <w:r>
         <w:rPr>
          <w:b  w:val="on"/>
+         <!--Table font size to 9-->
+         <w:sz w:val="18"/>
         </w:rPr>
 				<w:t><xsl:call-template name="insertBreaks"/></w:t>
       </w:r>
@@ -352,6 +350,8 @@ Population: <xsl:value-of select ="."/>
 		</w:pPr>
     <w:r>
     <w:rPr>
+      <!--Table font size to 9-->
+      <w:sz w:val="18"/>
       <!--Bold-->
       <xsl:if test="@style and contains(@style, 'bold')">
         <w:b  w:val="on"/>
@@ -385,7 +385,6 @@ Population: <xsl:value-of select ="."/>
 <xsl:template match="footnote" name="footnote">
 <w:br/>
 <w:r>
-<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/></w:rPr>
 <w:t><xsl:value-of select="."/></w:t></w:r>
 </xsl:template>
   <xsl:template match="Program" name="Program">
@@ -395,9 +394,6 @@ Population: <xsl:value-of select ="."/>
         <w:pStyle w:val="Footer"/>
       </w:pPr>
       <w:r>
-        <w:rPr>
-          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-        </w:rPr>
         <w:t>
 			Cambridge CTU,<xsl:value-of select="/Report/author"/>-<xsl:value-of select="/Report/datestamp"/>- Page&#160;</w:t>
     </w:r>
@@ -405,9 +401,6 @@ Population: <xsl:value-of select ="."/>
     <w:fldChar w:fldCharType="begin"/>
     </w:r>
     <w:r>
-      <w:rPr>
-        <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-      </w:rPr>
     <w:instrText xml:space="preserve"> PAGE </w:instrText>
     </w:r>
     <w:r>
@@ -417,9 +410,6 @@ Population: <xsl:value-of select ="."/>
     <w:fldChar w:fldCharType="end"/>
     </w:r>
         <w:r>
-          <w:rPr>
-            <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
-          </w:rPr>
         <w:t>
           <w:br/>Program:<xsl:value-of select="."/>
         </w:t>

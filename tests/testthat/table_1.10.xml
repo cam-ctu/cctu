@@ -1,5 +1,10 @@
- <table>
-<tr> <td> sex </td> <td> n </td> </tr>
- <tr> <td> Male </td> <td> 10 </td> </tr>
- <tr> <td> Female </td> <td> 20 </td> </tr>
+
+<table>
+ <thead>
+<tr><th>sex</th><th>n</th></tr>
+</thead>
+ <tbody>
+<tr><td>Male</td><td>10</td></tr>
+<tr><td>Female</td><td>20</td></tr>
+</tbody>
  </table>

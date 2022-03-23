@@ -10,7 +10,10 @@ stat_tab(
   data,
   total = TRUE,
   select = NULL,
-  add_missing = TRUE
+  add_missing = TRUE,
+  digits = 2,
+  digits_pct = 1,
+  rounding_fn = signif_pad
 )
 }
 \arguments{
@@ -29,8 +32,17 @@ element of `select` will be used to select the individuals to be analyzed
  for every row-variable. Name of the vector corresponds to the row variable,
  element is the selection.}
 
-\item{add_missing}{If missing number and missing percentage in the  will be
+\item{add_missing}{If missing number and missing percentage will be
 reported in the summary table, default is `TRUE`.}
+
+\item{digits}{An integer specifying the number of significant digits to keep.}
+
+\item{digits_pct}{An integer specifying the number of digits after the
+decimal place for percentages.}
+
+\item{rounding_fn}{The function to use to do the rounding. Defaults to
+\code{\link{signif_pad}}. To round up by digits instead of significant
+values, set it to \code{round_pad}.}
 }
 \value{
 An object of class "cttab".

@@ -13,6 +13,9 @@ cttab(
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
+  digits = 3,
+  digits_pct = 1,
+  rounding_fn = signif_pad,
   dlu = cctu_env$dlu,
   subjid_string = "subjid"
 )
@@ -41,6 +44,15 @@ reported in the summary table, default is `TRUE`.}
 
 \item{add_obs}{Add an observation row (default).}
 
+\item{digits}{An integer specifying the number of significant digits to keep.}
+
+\item{digits_pct}{An integer specifying the number of digits after the
+decimal place for percentages.}
+
+\item{rounding_fn}{The function to use to do the rounding. Defaults to
+\code{\link{signif_pad}}. To round up by digits instead of significant
+values, set it to \code{round_pad}.}
+
 \item{dlu}{A data.frame of DLU file.}
 
 \item{subjid_string}{A character naming the column used to identify subject.}
@@ -51,4 +63,9 @@ A matrix with `cttab` class.
 \description{
 This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
 split statistics table by `row_split` variable.
+}
+\seealso{
+\code{\link{signif_pad}}
+\code{\link{round_pad}}
+\code{\link{stat_tab}}
 }

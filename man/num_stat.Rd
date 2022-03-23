@@ -5,9 +5,9 @@
 \alias{cat_stat}
 \title{Compute some basic descriptive statistics.}
 \usage{
-num_stat(x, digits = 3, digits.pct = 1)
+num_stat(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad)
 
-cat_stat(x, digits.pct = 1)
+cat_stat(x, digits_pct = 1)
 }
 \arguments{
 \item{x}{A vector or numeric, factor, character or logical values.}
@@ -15,8 +15,11 @@ cat_stat(x, digits.pct = 1)
 \item{digits}{An integer specifying the number of significant digits to keep
 for numerical results. See \code{signif_pad}.}
 
-\item{digits.pct}{An integer specifying the number of significant digits to 
+\item{digits_pct}{An integer specifying the number of significant digits to 
 keep for percentage.}
+
+\item{rounding_fn}{The function to use to do the rounding. Defaults to
+\code{\link{signif_pad}}.}
 }
 \value{
 A list. For numeric \code{x}, the list contains the numeric elements:
@@ -57,5 +60,9 @@ y[1:10] <- NA
 cat_stat(y)
 cat_stat(is.na(y))
 
+}
+\seealso{
+\code{\link{signif_pad}}
+\code{\link{round_pad}}
 }
 \keyword{utilities}

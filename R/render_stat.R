@@ -10,7 +10,9 @@
 #' @return A \code{character} vector. Each element is to be displayed in a
 #' separate cell in the table. The \code{\link{names}} of the vector are the
 #' labels to use in the table. 
-#'
+#' @seealso
+#' \code{\link{signif_pad}}
+#' \code{\link{round_pad}}
 #' @examples
 #' x <- exp(rnorm(100, 1, 1))
 #' render_numeric(x)
@@ -59,11 +61,13 @@ render_cat <- function(x, ...){
 #' zero counts are retained.
 #'
 #' @param x A vector or numeric, factor, character or logical values.
-#' @param digits.pct An integer specifying the number of significant digits to 
+#' @param digits_pct An integer specifying the number of significant digits to 
 #' keep for percentage.
 #' @param digits An integer specifying the number of significant digits to keep
 #' for numerical results. See \code{signif_pad}.
-#'
+#' @param rounding_fn The function to use to do the rounding. Defaults to
+#' \code{\link{signif_pad}}.
+#' 
 #' @return A list. For numeric \code{x}, the list contains the numeric elements:
 #' \itemize{
 #'   \item \code{N}: the number of non-missing values
@@ -86,7 +90,9 @@ render_cat <- function(x, ...){
 #'   \item \code{PCT}: the percent relative frequency, including NA in the denominator
 #'   \item \code{PCTnoNA}: the percent relative frequency, excluding NA from the denominator
 #' }
-#'
+#' @seealso
+#' \code{\link{signif_pad}}
+#' \code{\link{round_pad}}
 #' @examples
 #' x <- exp(rnorm(100, 1, 1))
 #' num_stat(x)
@@ -100,7 +106,7 @@ render_cat <- function(x, ...){
 #' @export
 #' @importFrom stats sd median na.omit
 
-num_stat <- function(x, digits = 3, digits.pct = 1){
+num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
   if(sum(!is.na(x)) == 0){
     r <- list(N = sum(!is.na(x)),
               NMISS = sum(is.na(x)),
@@ -132,8 +138,8 @@ num_stat <- function(x, digits = 3, digits.pct = 1){
               MIN = min(x, na.rm = TRUE),
               MAX = max(x, na.rm = TRUE))
     cx <- lapply(r, format)
-    pct <- lapply(r[c("CV", "GCV")], format_percent, digits = digits.pct)
-    r <- lapply(r, signif_pad, digits = digits)
+    pct <- lapply(r[c("CV", "GCV")], format_percent, digits = digits_pct)
+    r <- lapply(r, rounding_fn, digits = digits)
     r[c("N", "NMISS")] <- cx[c("N", "NMISS")]
     r[c("CV", "GCV")] <- pct
   }
@@ -143,7 +149,7 @@ num_stat <- function(x, digits = 3, digits.pct = 1){
 
 #' @rdname num_stat
 #' @export
-cat_stat <- function(x, digits.pct = 1){
+cat_stat <- function(x, digits_pct = 1){
   
   if (is.logical(x)) {
     x <- factor(x,
@@ -158,8 +164,8 @@ cat_stat <- function(x, digits.pct = 1){
   lapply(y, function(z)
     list(
       FREQ = z,
-      PCT = format_percent(z / length(x), digits = digits.pct),
-      PCTnoNA = format_percent(z / sum(y), digits = digits.pct),
+      PCT = format_percent(z / length(x), digits = digits_pct),
+      PCTnoNA = format_percent(z / sum(y), digits = digits_pct),
       Nall = length(x),
       N = sum(y)
     ))

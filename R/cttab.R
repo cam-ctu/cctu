@@ -20,9 +20,18 @@
 #' @param add_missing If missing number and missing percentage will be
 #'   reported in the summary table, default is `TRUE`.
 #' @param add_obs Add an observation row (default).
+#' @param digits An integer specifying the number of significant digits to keep.
+#' @param digits_pct An integer specifying the number of digits after the
+#' decimal place for percentages.
+#' @param rounding_fn The function to use to do the rounding. Defaults to
+#' \code{\link{signif_pad}}. To round up by digits instead of significant
+#' values, set it to \code{round_pad}.
 #' @param dlu A data.frame of DLU file.
 #' @param subjid_string A character naming the column used to identify subject.
-#'
+#' @seealso
+#' \code{\link{signif_pad}}
+#' \code{\link{round_pad}}
+#' \code{\link{stat_tab}}
 #' @return A matrix with `cttab` class.
 #' @export
 #'
@@ -34,6 +43,9 @@ cttab <- function(vars,
                  select = NULL,
                  add_missing = TRUE,
                  add_obs = TRUE,
+                 digits = 3,
+                 digits_pct = 1,
+                 rounding_fn = signif_pad,
                  dlu = cctu_env$dlu,
                  subjid_string = "subjid") {
 
@@ -92,7 +104,10 @@ cttab <- function(vars,
                       data   = dat,
                       total  = total,
                       select = select,
-                      add_missing = add_missing)
+                      add_missing = add_missing,
+                      digits = digits,
+                      digits_pct = digits_pct,
+                      rounding_fn = rounding_fn)
 
         # Add grouping
         if(!is_empty(names(vars)[i])){
@@ -123,7 +138,10 @@ cttab <- function(vars,
                       data   = dat,
                       total  = total,
                       select = select,
-                      add_missing = add_missing)
+                      add_missing = add_missing,
+                      digits = digits,
+                      digits_pct = digits_pct,
+                      rounding_fn = rounding_fn)
     }
 
     # Add observation row
@@ -151,15 +169,15 @@ cttab <- function(vars,
     tbody <- calc_tab(data)
 
     # Report missing
-    if(!is.null(dlu) && !is.null(subjid_string)){
+    if(add_missing && !is.null(dlu) && !is.null(subjid_string)){
       miss_rep <- report_missing(data = data, vars = vars, select = select,
                                dlu = dlu, subjid_string = subjid_string)
 
-    
+
       cctu_env$missing_report_data <- rbind(cctu_env$missing_report_data,
                                           miss_rep)
     }
-    
+
 
   } else{
 
@@ -180,7 +198,7 @@ cttab <- function(vars,
       out <- rbind(to_insert, out)
 
       # Report missing
-      if(!is.null(dlu) && !is.null(subjid_string)){
+      if(add_missing && !is.null(dlu) && !is.null(subjid_string)){
         miss_rep <- report_missing(data = dfm[[x]], vars = vars, select = select,
                                   dlu = dlu, subjid_string = subjid_string)
         if(nrow(miss_rep) != 0){
@@ -214,18 +232,7 @@ cttab <- function(vars,
 #' a variable label.
 #'
 #'
-#' @param vars Variables to be used for summary table.
-#' @param data A \code{data.frame} from which the variables in \code{vars}
-#' should be taken.
-#' @param group Name of the grouping variable.
-#' @param total If a "Total" column will be created (default). Specify
-#' \code{FALSE} to omit the column.
-#' @param select a named vector with as many components as row-variables. Every
-#' element of `select` will be used to select the individuals to be analyzed
-#'  for every row-variable. Name of the vector corresponds to the row variable,
-#'  element is the selection.
-#' @param add_missing If missing number and missing percentage in the  will be
-#'   reported in the summary table, default is `TRUE`.
+#' @inheritParams cttab
 #'
 #' @return An object of class "cttab".
 #'
@@ -261,7 +268,10 @@ stat_tab <- function(vars,
                      data,
                      total  = TRUE,
                      select = NULL,
-                     add_missing = TRUE){
+                     add_missing = TRUE,
+                     digits = 2,
+                     digits_pct = 1,
+                     rounding_fn = signif_pad){
 
   mf <- match.call()
 
@@ -333,24 +343,24 @@ stat_tab <- function(vars,
         stop(paste("Variable", v, "are", class(z), "and not supported!"))
 
       if(inherits(z, c("factor", "character"))){
-        r <- c("", render_cat(z))
+        r <- c("", render_cat(z, digits_pct = digits_pct))
       }
 
       if(inherits(z, "logical")){
-        r <- miss <- with(cat_stat(z)$Yes,
+        r <- miss <- with(cat_stat(z, digits_pct = digits_pct)$Yes,
                           c(Missing = ifelse(FREQ == 0, "",
                                              sprintf("%s/%s (%s)", FREQ, Nall, PCT))))
         add_missing <- FALSE
       }
 
       if(inherits(z, c("numeric", "integer"))){
-        r <- c("", render_numeric(z))
+        r <- c("", render_numeric(z, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
       }
 
       names(r)[1] <- variable
 
       if(add_missing & any_miss[v]){
-        miss <- with(cat_stat(is.na(z))$Yes,
+        miss <- with(cat_stat(is.na(z), digits_pct = digits_pct)$Yes,
                      c(Missing = ifelse(FREQ == 0, "",
                                         sprintf("%s (%s)", FREQ, PCT))))
         r <- c(r, miss)

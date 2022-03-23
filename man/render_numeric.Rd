@@ -25,4 +25,8 @@ x <- exp(rnorm(100, 1, 1))
 render_numeric(x)
 
 }
+\seealso{
+\code{\link{signif_pad}}
+\code{\link{round_pad}}
+}
 \keyword{utilities}

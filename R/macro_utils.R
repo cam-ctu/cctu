@@ -48,11 +48,8 @@ apply_lus <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
       data[[i]] <- as.Date(data[[i]], date_format)
 
     # Format Number
-    if (dlu$Type[dlu$ShortCode == i] %in% c("IntegerData", "Real", "Category")){
-      # Skip the variables with characters
-      if(!any(grepl("\\D+", data[[i]])))
+    if (dlu$Type[dlu$ShortCode == i] %in% c("IntegerData", "Real", "Category") && all_is_numeric(data[[i]]))
         data[[i]] <- as.numeric(data[[i]])
-    }
 
     # Format date
     if (dlu$Type[dlu$ShortCode == i] == "Text")

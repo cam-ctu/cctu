@@ -87,10 +87,7 @@ report_missing <- function(data,
 #' folder, named as `variable_missing_report.csv`.
 #' @export
 #'
-dump_missing_report <- function(x = NULL){
-
-  if(is.null(x))
-    x <- "Output/variable_missing_report.csv"
+dump_missing_report <- function(x = "Output/variable_missing_report.csv"){
 
   utils::write.csv(get_missing_report(),
                   file = x,

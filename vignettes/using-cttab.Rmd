@@ -235,6 +235,20 @@ X <- cttab(vars = list(c("AGE", "SEX", "BMIBL"),
                       "ALT" = "PERF == 1"))
 ```
 
+## Rounding
+
+The default behaviour of this function is to keep one digits for the percentage and 3 significant value for the numerical values. The default rounding function is `signif_pad`, you can also use `round` or `round_pad` to keep digits in the summary. The `format_percent` function is used to format the percentage values. There is `format_pval` might be useful to you.
+
+```{r echo=TRUE, eval=FALSE}
+X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
+           group = "ARM",                  # Group variable
+           data = df,                      # Data
+           digits = 2,                     # Keep 2 digits for numerical 
+           digits_pct = 1,                 # Keep 1 digits for percentage
+           rounding_fn = round)            # Use function round for rounding
+```
+
+
 # One more thing
 
 Tables can be cross-referenced in the word. Don't forgot to try writing narratives by cross referencing tables. 

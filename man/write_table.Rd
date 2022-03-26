@@ -2,7 +2,8 @@
 % Please edit documentation in R/write_table.R
 \name{write_table}
 \alias{write_table}
-\title{Function to write a table into xml format in the correct directory, and edit TableofTables}
+\title{Function to write a table into xml format in the correct directory, and edit
+TableofTables}
 \usage{
 write_table(
   X,
@@ -33,7 +34,8 @@ write_table(
 writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 }
 \description{
-Function to write a table into xml format in the correct directory, and edit TableofTables
+Function to write a table into xml format in the correct directory, and edit
+TableofTables
 }
 \seealso{
 \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}

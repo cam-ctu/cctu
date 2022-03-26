@@ -40,8 +40,7 @@ the right edge if they are significant.
 x <- c(0.9001, 12345, 1.2, 1., 0.1, 0.00001 , 1e5)
 signif_pad(x, digits=3)
 signif_pad(x, digits=3, round.integers=TRUE)
-round_pad(x, digits=3)
-round_pad(x, digits=3, round.integers=TRUE)
+round_pad(x, digits=2)
 
 # Compare:
 as.character(signif(x, digits=3))

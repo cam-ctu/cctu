@@ -6,7 +6,7 @@
 \alias{reset_missing_report}
 \title{Missing ness report}
 \usage{
-dump_missing_report(x = NULL)
+dump_missing_report(x = "Output/variable_missing_report.csv")
 
 get_missing_report()
 

@@ -340,7 +340,7 @@ stat_tab <- function(vars,
         z <- to_factor(z, ordered = TRUE)
 
       if(!inherits(z, c("numeric", "integer", "factor", "character", "logical")))
-        stop(paste("Variable", v, "are", class(z), "and not supported!"))
+        stop(paste("The class of variable", v, "is", class(z), "and not supported!"))
 
       if(inherits(z, c("factor", "character"))){
         r <- c("", render_cat(z, digits_pct = digits_pct))

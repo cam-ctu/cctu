@@ -26,16 +26,15 @@
 #' \code{\link{formatC}}
 #' \code{\link{prettyNum}}
 #' \code{\link{format}}
-#' 
-#' @references 
+#'
+#' @references
 #' This is a direct copy from `table1` package
 #'
 #' @examples
 #' x <- c(0.9001, 12345, 1.2, 1., 0.1, 0.00001 , 1e5)
 #' signif_pad(x, digits=3)
 #' signif_pad(x, digits=3, round.integers=TRUE)
-#' round_pad(x, digits=3)
-#' round_pad(x, digits=3, round.integers=TRUE)
+#' round_pad(x, digits=2)
 #'
 #' # Compare:
 #' as.character(signif(x, digits=3))
@@ -63,11 +62,11 @@ signif_pad <- function(x,
       x * (10 ^ (-(digits + 3)))
     else
       0
-    
+
     rx <- ifelse(x >= 10 ^ digits & !round.integers,
                  round(x),
                  signif(x + eps, digits))
-    
+
     cx <- do.call(formatC,
                   c(list(
                     x = rx,
@@ -76,7 +75,7 @@ signif_pad <- function(x,
                     flag = "#"
                   ),
                   args[names(args) %in% names(formals(formatC))]))
-    
+
     cx[is.na(x)] <- "0"  # Put in a dummy value for missing x
     cx <- gsub("[^0-9]*$", "", cx) # Remove any trailing non-digit characters
     ifelse(is.na(x), NA, cx)
@@ -94,9 +93,9 @@ round_pad <- function (x,
     10 ^ (-(digits + 3))
   else
     0
-  
+
   rx <- round(x + eps, digits)
-  
+
   cx <- do.call(formatC,
                 c(list(
                   x = rx,
@@ -109,21 +108,33 @@ round_pad <- function (x,
 }
 
 #' Format number to percent
-#' 
+#'
 #' Format values to percentage format. Multiply 100 and add \% symbol.
 #' @param x Number to format percentage.
-#' @inheritParams base::formatC 
+#' @inheritParams base::formatC
 #'
 #' @return A formatted percent character.
 #' @export
 #'
 format_percent <- function(x, digits = 1, ...) {
-  res <- sapply(x, function(v){
+
+  if(!is.numeric(x))
+    stop("x must be numeric.")
+
+  res <- sapply(x[!is_empty(x)], function(v){
     if (v == 0) "0"
     else if (v == 1) "100"
     else round_pad(100*v, digits = digits, ...)
   })
-  paste0(res, "%")
+  res <- paste0(res, "%")
+
+  if(any(is_empty(x))){
+    out <- rep("", length(x))
+    out[!is_empty(x)] <- res
+    return(out)
+  }else{
+    return(res)
+  }
 }
 
 
@@ -138,21 +149,21 @@ format_percent <- function(x, digits = 1, ...) {
 #' @examples
 #' pv <- c(-1, 0.00001, 0.0042, 0.0601, 0.1335, 0.4999, 0.51, 0.89, 0.9, 1)
 #' format_pval(pv)
-#' 
+#'
 format_pval <- function(pvals, sig.limit = .001, digits = 3) {
-  
+
   roundr <- function(x, digits = 1) {
     res <- sprintf(paste0('%.', digits, 'f'), x)
     zzz <- paste0('0.', paste(rep('0', digits), collapse = ''))
     res[res == paste0('-', zzz)] <- zzz
     res
   }
-  
+
   sapply(pvals, function(x, sig.limit) {
     if(is.na(x))
       return(x)
     if (x < sig.limit)
-      return(sprintf('<%s', format(sig.limit))) 
+      return(sprintf('<%s', format(sig.limit)))
     else
       return(roundr(x, digits = digits))
   }, sig.limit = sig.limit, simplify = TRUE)

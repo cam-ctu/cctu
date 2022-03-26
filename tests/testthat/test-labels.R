@@ -83,6 +83,10 @@ test_that("Assign value lables", {
   expect_false(has.labels(a))
   expect_identical(unval(a), 1)
 
+  dd = data.frame(a=1:3,b=3:1,d=3)
+  dd$a <- as.factor(dd$a)
+  val_lab(dd$a) <- c(a = 1, b = 2)
+
 })
 
 

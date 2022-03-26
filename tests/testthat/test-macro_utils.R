@@ -1,6 +1,7 @@
 # Test MACRO util functions
 
-dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"))
+dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"),
+               colClasses = "character")
 dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 
@@ -19,6 +20,8 @@ test_that("Apply DLU and CLU files", {
   expect_equal(nrow(cctu_env$dlu), nrow(dlu))
   expect_identical(names(cctu_env$dlu), c("ShortCode", "Description", "Type",
                                           "Visit", "Form", "Question"))
+
+  expect_true(is.numeric(dt$BMIBL))
 
 })
 

@@ -23,6 +23,15 @@ test_that("Test for round_pad", {
                    c("0%", "90.01%", "15600.00%", "120.00%", "100%",
                      "10.00%", "0.00%", "0.01%", "0.03%"))
 
+  x <- c(NaN, 0.4, NA, 1)
+  expect_equal(format_percent(x, digits=2),
+               c("", "40.00%", "", "100%"))
+
+  x <- c(1, 2, 3, "a")
+  expect_error(format_percent(x, digits=2),
+               "x must be numeric.")
+
+
 })
 
 test_that("Test for p-value", {

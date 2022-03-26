@@ -35,6 +35,8 @@ test_that("Start from data reading", {
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
 
+  testthat_print(X)
+
   mis_rp <- get_missing_report()
   expect_identical(mis_rp$subject_ID, "1275")
   reset_missing_report()
@@ -82,6 +84,10 @@ test_that("Variable groups", {
 
   expect_true(compare_file_text(test_path("ref", "table_ctab2.xml"),
                                 file.path(tmp_dir, "table_1.1.xml")))
+
+  dmp_path <- tempfile(fileext = ".csv")
+  dump_missing_report(dmp_path)
+  expect_true(file.exists(dmp_path))
 
 })
 
@@ -168,3 +174,46 @@ test_that("Check errors", {
 
 })
 
+test_that("Check stat_tab", {
+
+  dat <- expand.grid(id=1:10, sex=c("Male", "Female"),
+                     treat = c(1, 2),
+                     dates = c(as.Date("2010-1-1"), as.Date("2015-1-1")))
+  dat$age <- runif(nrow(dat), 10, 50)
+  dat$age[3] <- NA  # Add a missing value
+  dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
+
+  var_lab(dat$sex) <- "Sex"
+  var_lab(dat$age) <- "Age"
+  var_lab(dat$treat) <- "Treatment Group"
+  var_lab(dat$wt) <- "Weight"
+  val_lab(dat$treat) <- c("Treated" = 1, "Placebo" = 2)
+
+
+  tab1 <- stat_tab(c("age", "sex"),
+                   data = dat,
+                   total = FALSE,
+                   group = "treat")
+
+  expect_equal(ncol(tab1), 2)
+
+  expect_error(stat_tab("dates",
+                        data = dat,
+                        group = "treat"),
+               "The class of variable")
+
+  dat$height <- NA
+
+  expect_null(stat_tab("height",
+                       data = dat,
+                       group = "treat"))
+
+  dat$bmi <- NA
+  val_lab(dat$bmi) <- c("Over" = 1, "Under" = 2)
+
+  expect_null(stat_tab("bmi",
+                       data = dat,
+                       group = "treat"))
+
+
+})

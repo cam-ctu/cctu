@@ -25,4 +25,3 @@ all_is_numeric(c('1','1.2','3'))
 all_is_numeric(c('1','1.2','3a'))
 
 }
-\keyword{internal}

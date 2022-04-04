@@ -2,8 +2,7 @@ context("testing write_ggplot")
 
 
 test_that("alternative dimension",
-          {.old_meta <- get_meta_table()
-            set_meta_table(cctu::meta_table_example)
+          {.old_meta <- set_meta_table(cctu::meta_table_example)
             X <- data.frame(x=1,y=1)
             fig <- ggplot(X, aes(x=x,y=y))+geom_point()
             .parent <- cctu_env$parent
@@ -21,7 +20,7 @@ test_that("alternative dimension",
             file.remove("fig_1.10.eps")
             write_ggplot(fig,number="1.10", directory=".", format="postscript", clean_up = FALSE)
             expect_equal(file.exists("fig_1.10.eps"), TRUE)
-            # set_meta_table(.old_meta)
+            set_meta_table(.old_meta)
             rm(.old_meta, .parent)
             }
 )

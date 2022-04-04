@@ -2,8 +2,7 @@ context("testing write_text and write_table")
 
 
 test_that("alternative dimension for table",
-          {.old_meta <- get_meta_table()
-            set_meta_table(cctu::meta_table_example)
+          {.old_meta <- set_meta_table(cctu::meta_table_example)
             X <- data.frame(x=1,y=1)
             fig <- ggplot(X, aes(x=x,y=y))+geom_point()
             .parent <- cctu_env$parent
@@ -50,13 +49,15 @@ test_that("alternative dimension for table",
             second_row <- xml2::xml_text(xml2::xml_find_all(tab, "//tr")[[2]])
             expect_equal(second_row,"Male10")
             assign("parent", .parent, envir=cctu_env)
-            # set_meta_table(.old_meta)
+            set_meta_table(.old_meta)
             rm(.old_meta, .parent)
             }
 )
 
 test_that("clean up behaviour standard code evaluation",
-          { X <- data.frame(gender=rep(1:2,c(10,20)))
+          {
+            .old_meta <- set_meta_table(cctu::meta_table_example)
+            X <- data.frame(gender=rep(1:2,c(10,20)))
           .reserved <- "Y"
           Y <- X %>% dplyr::mutate(sex=factor(gender, labels=c("Male","Female"))) %>%
             dplyr::group_by(sex) %>%
@@ -64,6 +65,8 @@ test_that("clean up behaviour standard code evaluation",
             write_table(Y,number="1.10", directory=".")
           expect_false("X" %in% ls())
           expect_true("Y" %in% ls())
+          set_meta_table(.old_meta)
+          rm(.old_meta)
           }
 )
 
@@ -72,6 +75,9 @@ test_that("clean up behaviour standard code evaluation",
 
 test_that("clean up behaviour when piping",
           {
+          .old_meta <- set_meta_table(cctu::meta_table_example)
+          on.exit(set_meta_table(.old_meta))
+          on.exit(rm(.old_meta) )
           X <- data.frame(gender=rep(1:2,c(10,20)))
           X %>% dplyr::mutate(sex=factor(gender, labels=c("Male","Female"))) %>%
             dplyr::group_by(sex) %>%

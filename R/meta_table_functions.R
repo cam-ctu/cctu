@@ -2,6 +2,7 @@
 #'
 #' @param meta_table a data.frame to be  set as the meta_table internal object
 #' @return get_table returns the global object, set_table invisibly returns the previous version
+#' @details \code{set_meta_table(NULL)} will remove the meta_table .
 
 #' @describeIn get_meta_table  gets a copy of the internal object
 #' @export
@@ -13,8 +14,12 @@ get_meta_table <- function(){
 #' @export
 set_meta_table <- function(meta_table){
   old <- cctu_env$meta_table
-  meta_table <-clean_meta_table(meta_table)
-  cctu_env$meta_table <- meta_table
+  if( is.null(meta_table)){
+    rm("meta_table", envir=cctu_env)
+  }else{
+    meta_table <-clean_meta_table(meta_table)
+    cctu_env$meta_table <- meta_table
+  }
   invisible(old)
 }
 

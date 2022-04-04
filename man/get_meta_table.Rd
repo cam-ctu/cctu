@@ -18,6 +18,9 @@ get_table returns the global object, set_table invisibly returns the previous ve
 \description{
 Functions to handle meta_table
 }
+\details{
+\code{set_meta_table(NULL)} will remove the meta_table .
+}
 \section{Functions}{
 \itemize{
 \item \code{get_meta_table}: gets a copy of the internal object

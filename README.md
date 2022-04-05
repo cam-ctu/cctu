@@ -1,8 +1,7 @@
 
-<!-- badges: start -->
+<!-- badges: start 
+[![Travis-CI Build Status](https://travis-ci.com/shug0131/cctu.svg?branch=master)](https://travis-ci.com/shug0131/cctu)-->
 
-[![Travis-CI Build
-Status](https://travis-ci.com/shug0131/cctu.svg?branch=master)](https://travis-ci.com/shug0131/cctu)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/shug0131/cctu?branch=master&svg=true)](https://ci.appveyor.com/project/shug0131/cctu)
 [![R-CMD-check](https://github.com/shug0131/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/shug0131/cctu/actions)

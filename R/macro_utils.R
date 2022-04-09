@@ -7,6 +7,8 @@
 #' @param dlu Data frame of DLU
 #' @param clu Data frame of CLU
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
+#' @param to_lower Conver variable name to lower case, this will also change the 
+#' values in the DLU as well. Default is \code{FALSE}.
 #' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -29,15 +31,22 @@
 #' @return A data.table object.
 #' @export
 #'
-apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
+apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to_lower = FALSE){
 
   data.table::setDT(data)
 
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)
 
+  if(to_lower){
+    colnames(data) <- tolower(names(data))
+    dlu$ShortCode <- tolower(dlu$ShortCode)
+    dlu$Question <- tolower(dlu$Question)
+  }
+
   # Store DLU file inside the cctu env
-  cctu_env$dlu <- dlu
+  if(is.null(cctu_env$dlu))
+    cctu_env$dlu <- dlu
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]
@@ -96,10 +105,7 @@ sep_dlu <- function(x){
   vfq <- strsplit(as.character(x$Visit.Form.Question),'/')
   vfq <- as.data.frame(do.call(rbind, vfq))
   colnames(vfq) <- c("Visit", "Form", "Question")
-  r <- cbind.data.frame(x[, -2], vfq)
-  if(is.null(cctu_options("dlu")))
-    cctu_options("dlu" = r)
-  return(r)
+  cbind.data.frame(x[, -2], vfq)
 }
 
 #' Extract data by form from MACRO dataset

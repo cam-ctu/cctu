@@ -25,6 +25,12 @@ test_that("Apply DLU and CLU files", {
 
 })
 
+test_that("Apply lower case", {
+  dt <- apply_macro_dict(dt, dlu, clu, to_lower = TRUE)
+
+  expect_true(all(cctu_env$dlu$ShortCode %in% names(dt)))
+
+})
 
 test_that("Extract form", {
   dt <- apply_macro_dict(dt, dlu, clu)

@@ -12,7 +12,7 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 test_that("Apply DLU and CLU files", {
-  dt <- apply_macro_dict(dt, dlu, clu)
+  dt <- apply_macro_dict(dt, dlu, clu, to_lower = FALSE)
   expect_s3_class(dt, "data.table")
   expect_identical(var_lab(dt$ARM), "Treatment Arm")
   expect_identical(val_lab(dt$ARM), c("Placebo" = 1L, "Research" = 2L))
@@ -25,15 +25,9 @@ test_that("Apply DLU and CLU files", {
 
 })
 
-test_that("Apply lower case", {
-  dt <- apply_macro_dict(dt, dlu, clu, to_lower = TRUE)
-
-  expect_true(all(cctu_env$dlu$ShortCode %in% names(dt)))
-
-})
 
 test_that("Extract form", {
-  dt <- apply_macro_dict(dt, dlu, clu)
+  dt <- apply_macro_dict(dt, dlu, clu, to_lower = FALSE)
   lb <- extract_form(dt, "Lab")
   expect_true(all(unique(lb$FormVisit) %in% c("SCREENING", "TRT", "ENDTRT")))
 

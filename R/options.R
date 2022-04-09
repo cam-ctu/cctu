@@ -1,47 +1,43 @@
 
 #' Initialise cctu package environment and options
 #'
-#' This function will reset the default options.
+#' This function will reset the default options. Internal use, user shouldn't call
+#' this function during the analysis.
 #'
-#' @rdname cctu_options
-#' @export
+#' @keywords internal
 init_cctu_env <- function(){
 
-  cctu_env <<- new.env()
-
-  e <- cctu_env
+  # Clean-up everything in the environment
+  rm(list = ls(all.names = TRUE, envir = cctu_env), envir = cctu_env)
 
   # Internal option only
-  assign("number", "0", e)
-  assign("sumby_count", 0, e)
-  assign("nested_run_batch", 0, e)
+  cctu_env$number <- "0"
+  cctu_env$sumby_count <- 0
+  cctu_env$nested_run_batch <- FALSE
 
   # Missing data report
-  assign("missing_report_data",
-         setNames(data.frame(matrix(ncol = 8, nrow = 0)),
-                  c("form", "visit_var", "visit_label", "visit", "variable",
-                    "label", "missing_pct", "subject_ID")),
-         e)
-
+  cctu_env$missing_report_data <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
+                                          c("form", "visit_var", "visit_label",
+                                            "visit", "variable", "label", "missing_pct",
+                                            "subject_ID"))
   # Setup DLU file
-  assign("dlu", NULL, e)
+  cctu_env$dlu <- NULL
 
   # Set default digital decimal for numeric variables
-  assign("digits", 3, e)
+  cctu_env$digits <- 3
 
   # Set default digital decimal for percentage
-  assign("digits_pct", 0, e)
+  cctu_env$digits_pct <- 1
 
   # Set default rounding function
-  assign("rounding_fn", signif_pad, e)
+  cctu_env$rounding_fn <- signif_pad
 
   # Set default subject string
-  assign("subjid_string", "subjid", e)
+  cctu_env$subjid_string <- "subjid"
 
   # Set default print plot
-  assign("print_plot", TRUE, e)
+  cctu_env$print_plot <- TRUE
 
-  invisible(e)
 }
 
 #' Set cctu package options
@@ -69,7 +65,7 @@ init_cctu_env <- function(){
 #'   \item{\code{digits_pct}}{A numeric value specifying the number of digits after
 #'   the decimal place for percentages, default is \code{1}. Used by \code{\link{cttab}}
 #'   function. See \code{\link{cttab}} for details.}
-#'   \item{\code{digits}}{A numeric value of rounding to be passed to \link{rounding_fn},
+#'   \item{\code{digits}}{A numeric value of rounding to be passed to \code{rounding_fn},
 #'    default is \code{3}. Mainly used by \code{\link{cttab}} function. See \code{\link{cttab}}
 #'    for details.}
 #'   \item{\code{subjid_string}}{A character string indicating the variable name of
@@ -96,10 +92,6 @@ cctu_options <- function(...) {
   # Change to these options will be ignored
   internal_options <- c("sumby_count", "number", "nested_run_batch",
                         "missing_report_data", "dlu")
-
-  # If not initialized the env
-  if (length(as.list(e)) == 0)
-    init_cctu_env(e)
 
   a <-  list(...)
   len <- length(a)

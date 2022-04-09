@@ -5,6 +5,7 @@
 #' @inheritParams cttab
 #'
 #' @keywords internal
+#' @importFrom stats aggregate as.formula
 #'
 cctab_plot <- function(vars,
                        data,
@@ -20,12 +21,18 @@ cctab_plot <- function(vars,
     }
   }
 
-  vars <- unlist(vars)
+  vars <- unlist(vars, use.names = FALSE)
 
   logic_vars <- sapply(vars, function(x)is.logical(data[[x]]))
 
   # For numeric variables, count number of TRUE
   if(any(logic_vars)){
+
+    # Extract labels
+    logis_labs <- sapply(vars[logic_vars], function(x){
+      ifelse(has.label(data[[x]]), var_lab(data[[x]]), x)
+    })
+
     if(!is.null(group) | !is.null(row_split)){
       fom_ag <- paste("cbind(", paste(vars[logic_vars], collapse = ","),
                       ") ~ ", paste(c(group, row_split), collapse = "+"))
@@ -45,19 +52,38 @@ cctab_plot <- function(vars,
                              row.names = NULL)
     }
 
+    logic_dt$logic_variables <- factor(logic_dt$logic_variables,
+                                       levels = names(logis_labs),
+                                       labels = unname(logis_labs))
+
     vars <- c(vars[!logic_vars], "logic_variables")
   }
 
+  # Extract group and split labels
+  if(!is.null(group))
+    gp_lab <- ifelse(has.label(data[[group]]), var_lab(data[[group]]), group)
+  else
+    gp_lab <- NULL
+
+  if(!is.null(row_split))
+    rs_lab <- ifelse(has.label(data[[row_split]]), var_lab(data[[row_split]]), row_split)
+  else
+    rs_lab <- NULL
+
+
   p_list <- lapply(vars, function(v){
 
+    v_lab <- ifelse(has.label(data[[v]]), var_lab(data[[v]]), v)
+
     # Convert character to factor
-    if(has.labels(data[[v]]) | is.character(data[[v]]))
+    if(v != "logic_variables" && (has.labels(data[[v]]) || is.character(data[[v]])))
       data[[v]] <- to_factor(data[[v]], ordered = TRUE)
 
     # Barplot for logical variable
     if(v == "logic_variables"){
-      p <- ggplot(logic_dt, aes_string(x = "logic_variables", fill = group)) +
-        geom_bar(position = "dodge", na.rm=TRUE)
+      p <- ggplot(logic_dt, aes_string(x = "logic_variables", y = "value", fill = group)) +
+        geom_bar(stat = "identity", position = "dodge", na.rm=TRUE) +
+        labs(x = "Logic variables (count TRUE)", y = "Count")
       if(!is.null(row_split))
         p <- p + facet_wrap(as.formula(paste("~", row_split)))
 
@@ -67,7 +93,8 @@ cctab_plot <- function(vars,
     # Barplot for logical variable
     if(inherits(data[[v]], c("factor", "character"))){
       p <- ggplot(data, aes_string(x = v, fill = group)) +
-        geom_bar(position = "dodge", na.rm=TRUE)
+        geom_bar(position = "dodge", na.rm=TRUE) +
+        labs(x = v_lab, fill = gp_lab)
       if(!is.null(row_split))
         p <- p + facet_wrap(as.formula(paste("~", row_split)))
 
@@ -77,7 +104,8 @@ cctab_plot <- function(vars,
     # Boxplot for a numerical variable
     if(inherits(data[[v]], c("numeric", "integer"))){
       p <- ggplot(data, aes_string(x = row_split, y = v, fill = group)) +
-        geom_boxplot(na.rm=TRUE)
+        geom_boxplot(na.rm=TRUE) +
+        labs(x = rs_lab, y = v_lab, fill = gp_lab)
 
       return(p)
     }
@@ -109,6 +137,9 @@ cctab_plot <- function(vars,
 #' @references https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs
 #'
 #' @examples
+#' \dontrun{
+#' library(ggplot2)
+#' library(gridExtra)
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' p1 <- qplot(carat, price, data = dsamp, colour = clarity)
 #' p2 <- qplot(cut, price, data = dsamp, colour = clarity)
@@ -116,7 +147,7 @@ cctab_plot <- function(vars,
 #' p4 <- qplot(depth, price, data = dsamp, colour = clarity)
 #' grid_arrange_shared_legend(p1, p2, p3, p4, ncol = 4, nrow = 1)
 #' grid_arrange_shared_legend(p1, p2, p3, p4, ncol = 2, nrow = 2)
-#'
+#' }
 #' @importFrom grid unit.c grid.newpage grid.draw
 #' @importFrom gridExtra arrangeGrob grid.arrange
 grid_arrange_shared_legend <- function(plot_list,

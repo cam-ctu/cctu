@@ -7,8 +7,8 @@
 #' @param dlu Data frame of DLU
 #' @param clu Data frame of CLU
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
-#' @param to_lower Conver variable name to lower case, this will also change the 
-#' values in the DLU as well. Default is \code{FALSE}.
+#' @param to_lower Conver variable name to lower case (default), this will also change the 
+#' values in the DLU as well.
 #' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -31,7 +31,7 @@
 #' @return A data.table object.
 #' @export
 #'
-apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to_lower = FALSE){
+apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to_lower = TRUE){
 
   data.table::setDT(data)
 
@@ -45,8 +45,7 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to
   }
 
   # Store DLU file inside the cctu env
-  if(is.null(cctu_env$dlu))
-    cctu_env$dlu <- dlu
+  cctu_env$dlu <- dlu
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]

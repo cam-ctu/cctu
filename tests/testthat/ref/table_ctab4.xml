@@ -16,5 +16,7 @@
 <tr><td style='indent;firstleft'>Mean (SD)</td><td>26.2 (4.11)</td></tr>
 <tr><td style='indent;firstleft'>Median [Min, Max]</td><td>24.2 [21.3, 32.8]</td></tr>
 <tr><td style='indent;firstleft'>Missing</td><td>1 (9.1%)</td></tr>
+<tr><td style='indent;firstleft'>over_w</td><td>16/100 (16.0%)</td></tr>
+<tr><td style='indent;firstleft'>hi_age</td><td>74/100 (74.0%)</td></tr>
 </tbody>
  </table>

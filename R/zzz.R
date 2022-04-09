@@ -1,4 +1,5 @@
 
+utils::globalVariables(".")
 
 cctu_env <- new.env(parent= emptyenv())
 

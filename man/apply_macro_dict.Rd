@@ -4,7 +4,13 @@
 \alias{apply_macro_dict}
 \title{Apply DLU/CLU file to the data frame}
 \usage{
-apply_macro_dict(data, dlu, clu = NULL, date_format = "\%d/\%m/\%Y")
+apply_macro_dict(
+  data,
+  dlu,
+  clu = NULL,
+  date_format = "\%d/\%m/\%Y",
+  to_lower = FALSE
+)
 }
 \arguments{
 \item{data}{Data frame to be applied.}
@@ -14,6 +20,9 @@ apply_macro_dict(data, dlu, clu = NULL, date_format = "\%d/\%m/\%Y")
 \item{clu}{Data frame of CLU}
 
 \item{date_format}{Date format to be converted, default is `\%d/\%m/\%Y`.}
+
+\item{to_lower}{Conver variable name to lower case, this will also change the 
+values in the DLU as well. Default is \code{FALSE}.}
 }
 \value{
 A data.table object.

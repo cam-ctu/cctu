@@ -27,6 +27,9 @@ grid_arrange_shared_legend(
 Arrange multiple plots with shared legend
 }
 \examples{
+\dontrun{
+library(ggplot2)
+library(gridExtra)
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 p1 <- qplot(carat, price, data = dsamp, colour = clarity)
 p2 <- qplot(cut, price, data = dsamp, colour = clarity)
@@ -34,7 +37,7 @@ p3 <- qplot(color, price, data = dsamp, colour = clarity)
 p4 <- qplot(depth, price, data = dsamp, colour = clarity)
 grid_arrange_shared_legend(p1, p2, p3, p4, ncol = 4, nrow = 1)
 grid_arrange_shared_legend(p1, p2, p3, p4, ncol = 2, nrow = 2)
-
+}
 }
 \references{
 https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs

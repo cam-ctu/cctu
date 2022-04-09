@@ -45,8 +45,7 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to
   }
 
   # Store DLU file inside the cctu env
-  if(is.null(cctu_env$dlu))
-    cctu_env$dlu <- dlu
+  cctu_env$dlu <- dlu
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]

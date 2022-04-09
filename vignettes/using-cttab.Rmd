@@ -24,14 +24,14 @@ library(cctu)
 ```
 # What this Document Does
 
-The package `cctu` has been updated to utilize the DLU file and CLU file to facilitate the analyzing process. The newly added functions will not affect previous process. But here, in this document we are going to learn some new functions provided in the package to facilitate your analysis. Before you start, you should get yourself familiarized with the `cctu` package by looking through the `Analysis Template` vignette.
+The package `cctu` has been updated to utilize the DLU file and CLU file to facilitate the analyzing process. The newly added functions will not affect previous process. But here, in this document we are going to learn some new functions provided in the package to facilitate your analysis. Before you start, you should get yourself familiarized with the `cctu` package by looking through the `Analysis Template` vignette. **Remember, the `sumby` function will not benefit from any of those new functions mentioned in this document except the coress reference**. You don't need to read this document if you are going to stick to the `sumby` function.
 
 # What's new
 
 ## Variable and value label
 If you are familiar with `SAS`, `Stata` or `SPSS`, you should already know there's a variable label and value label (variable format in some). The variable label gives you the description of the variable, and the value label is to explain what the values stand for. The variable will stay as a numeric but has categories attached to it. Which means, you can subset or manipulate it like a numerical variable but report the data as a categorical one. It is important to understand this, let's use `mtcars` dataset and demonstrate how it works.
 
-```{r echo=TRUE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 data(mtcars)
 # Assign variable label
 var_lab(mtcars$am) <- "Transmission"
@@ -64,7 +64,9 @@ For value label, you can use `val_lab` to extract or assign value label. And use
 
 ## MACRO dataset utility functions
 
-There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_macro_dict` function uses DLU and CLU file to assign variable and value labels to the dataset. This will also convert the dataset based on the variable type as in the DLU file. The `extract_form` can extract MACRO data by form and visits. The data will be converted to `data.table` class, which is an extension of the `data.frame` and works exactly the same. It is a fantastic package with lots of data manipulation capability, you should seek the [website](https://CRAN.R-project.org/package=data.table) for more details. But one thing to remember is that all the names in the variable selection will be considered as a variable of the data. 
+There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_macro_dict` function uses DLU and CLU file to assign variable and value labels to the dataset. This will also convert the dataset based on the variable type as in the DLU file. And if you want to convert the variable name to lower cases, you should set `to_lower = TRUE`. This will convert the variable name to lower cases of the dataset and DLU data internally. 
+
+The `extract_form` can extract MACRO data by form and visits. The data will be converted to `data.table` class, which is an extension of the `data.frame` and works exactly the same. It is a great package with lots of data manipulation capability, you should seek the [website](https://CRAN.R-project.org/package=data.table) for more details. But one thing to remember is that all the names in the variable selection will be considered as a variable of the data. 
 
 ```{r echo=TRUE, eval=FALSE}
 vars <- c("mpg", "am")
@@ -81,7 +83,19 @@ mtcars[,vars, with=FALSE]
 
 ## Table populate function
 
-You might already knew how to use the `sumby` function, but now a new function called `cttab` has been added. You can feed the labelled data to this function and it will populate a summary table. Report data by treatment group, stratify tables by visit. Also, you can report variable based on some conditions and group the variable in the report. It generates a missing report internally and you can dump the missing report at the end. No extra step is needed. The remaining of this document will show you with a working case 
+You might already knew how to use the `sumby` function, but now a new function called `cttab` has been added. The difference between these two functions are the latter can handle variable label and value labels. You can feed the labelled data to this function and it will populate a summary table. Report data by treatment group, stratify tables by visit. Also, you can report variable based on some conditions and group the variable in the report. It generates a missing report internally and you can dump the missing report at the end. No extra step is needed. It will also produce the summary plots of the variables. The produced plots will be arrange to 3 by 3 and new plot will be producd if the variables exceeds 9. The remaining of this document will show you with a working case. 
+
+## Setting options
+
+The `cctab` function has a good flexibility, which means it has lots of parameters you can use. You should check out the manual of the `cctab` function. But, you can use `cctu_options` to set the default value of the parameters to be used by `cctab`. Below is setting some of the options, for more details please check out the `cctu_options` and `cctab` function manuals.
+
+```{r eval = FALSE}
+cctu_options(digits = 3) # keep 3 digits for numerical value
+cctu_options(digits_pct = 0) # keep 0 digits for percentage 
+cctu_options(subjid_string = "subjid") # Set subject ID string
+cctu_options(print_plot = FALSE) # Don't produce plots
+```
+
 
 # Working example
 
@@ -89,8 +103,8 @@ In this section, we will show how to populate tables.
 
 ## Data reading
 
-You should read the data as before, but you can and should read the data by setting all the columns to character. This will be handled later.
-```{r echo=TRUE, eval=FALSE}
+You should read the data as before, but you can and should read the data by setting all the columns to character. This will be handled later. Same process can be found in the `Analysis Template` vignette.
+```{r echo=TRUE}
 # Read example data
 dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"),
                colClasses = "character")
@@ -102,7 +116,7 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 
 If you have multiple datasets, you should combine them at this stage. Next, we will apply the DLU and CLU files to the dataset.
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 # Create subjid
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
@@ -113,9 +127,10 @@ dt <- apply_macro_dict(dt, dlu = dlu, clu = clu)
 var_lab(dt$subjid) <- "Subject ID"
 ```
 
-After this, you should follow the `Analysis Template` vignette and setup the population etc. For example:
+After this, you should follow the `Analysis Template` vignette and setup the population etc. 
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=FALSE}
+# You should read 
 set_meta_table(cctu::meta_table_example)
 #Create the population table
 popn <- dt[,"subjid", drop=FALSE]
@@ -131,7 +146,7 @@ Next we will do some data analysis.
 
 After you have attached the population, next thing you may want to do is extract a particular form from the data. For the table, assume we are reporting age, sex and BMI from the patient registration form by treatment arm. For demonstrating the filtering, we only report non-white patients' BMI. 
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 # Attach population
 attach_pop("1.1")
 
@@ -145,7 +160,7 @@ X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
            select = c("BMIBL" = "RACEN != 1")) # Filter for variable BMI
 
 # Write table
-write_table(X)
+X
 ```
 
 
@@ -174,25 +189,29 @@ As you have seen previously, the `cttab` function can easily populate simple tab
 ## Simple table
 
 Table only some variables, no treatment arm or variable selection.
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
-           data = df,                      # Data
+           data = df)                      # Data
+
+X
 ```
 
 ## By group and filter
 
 This is what we have seen before
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
            group = "ARM",                  # Group variable
            data = df,                      # Data
            select = c("BMIBL" = "RACEN != 1")) # Filter for variable BMI
+
+X
 ```
 
 ## Split table row by visit
 
 You can define `row_split` parameter to the name of visit or repeat variable. 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 attach_pop("1.1")
 df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
 
@@ -201,13 +220,15 @@ X <- cttab(vars = c("AST", "BILI", "ALT"),
            data = df,
            row_split = "AVISIT",            # Visit variable
            select = c("ALT" = "PERF == 1"))
+
+X
 ```
 
 ## Group variable
 
 In this example, we will report demographic variable, lab results and lab abnormality. Variables will be grouped, no group name will be given to demographic variables, "Blood" to lab results and "Pts with Abnormal" to lab abnormality. Here, we count the number of patients with abnormal lab results. The `cttab` will report the count and percentage of `TRUE`. This is useful if you want to report patient numbers for different condition that belong to one category. Below is how to do it:
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 # Prepare data as before
 attach_pop("1.1")
 df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
@@ -233,27 +254,30 @@ X <- cttab(vars = list(c("AGE", "SEX", "BMIBL"),
            # Add some filtering
            select = c("BMIBL" = "RACEN != 1",
                       "ALT" = "PERF == 1"))
+
+X                     
 ```
 
 ## Rounding
 
 The default behaviour of this function is to keep one digits for the percentage and 3 significant value for the numerical values. The default rounding function is `signif_pad`, you can also use `round` or `round_pad` to keep digits in the summary. The `format_percent` function is used to format the percentage values. There is `format_pval` might be useful to you.
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=TRUE}
 X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
            group = "ARM",                  # Group variable
            data = df,                      # Data
            digits = 2,                     # Keep 2 digits for numerical 
            digits_pct = 1,                 # Keep 1 digits for percentage
            rounding_fn = round)            # Use function round for rounding
+
+X
 ```
 
 
-# One more thing
+# Cross reference
 
-Tables can be cross-referenced in the word. Don't forgot to try writing narratives by cross referencing tables. 
+Tables can be cross-referenced in the word. This is very convenient if you are writing narratives and want to reference tables or figures. You can find how to cross reference tables or figures [here](https://erinwrightwriting.com/cross-reference-tables-and-figures-in-microsoft-word/). If you can changed the order of the tables by cut and paste or by dragging the headings in the navigation pane of the word the reference will still be there. You can press `Ctrl+A` select all, and press `F9`. This will change numbering of the table and figure, this change will also be applied to the references you made in the narratives.
 
-Have fun!
 
 
 

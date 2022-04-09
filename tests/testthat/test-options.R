@@ -1,4 +1,5 @@
 
+init_cctu_env()
 
 test_that("Check defaults", {
   o <- cctu_options()
@@ -7,7 +8,7 @@ test_that("Check defaults", {
                            'missing_report_data', 'dlu', 'digits',
                            'subjid_string'))
 
-  expect_equal(cctu_options("digits_pct"), 0)
+  expect_equal(cctu_options("digits_pct"), 1)
   expect_null(cctu_options("dlu"))
   expect_equal(cctu_options("subjid_string"), "subjid")
 
@@ -43,7 +44,7 @@ test_that("Check assign", {
 
   o <- cctu_options()
   expect_equal(cctu_options("digits"), 3)
-  expect_equal(cctu_options("digits_pct"), 0)
+  expect_equal(cctu_options("digits_pct"), 1)
   expect_warning(cctu_options("testname"),
                  "cctu option 'testname' not found")
   expect_warning(cctu_options("a"),

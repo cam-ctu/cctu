@@ -71,4 +71,6 @@ split statistics table by `row_split` variable.
 \code{\link{signif_pad}}
 \code{\link{round_pad}}
 \code{\link{stat_tab}}
+\code{\link{sumby}}
+\code{\link{cctu_options}}
 }

@@ -30,14 +30,14 @@ print.cttab <- function(x, indent = "  ", ...){
 
   # Calculate the widths of the column with colnames excluding the span rows
   l_h <- nchar(colnames(x), type = 'width')
-  l <- apply(x[!rowclass %in% c(0, 2), ], 2,
-             function(z) max(nchar(z, type = 'width'), na.rm = TRUE))
+  l <- vapply(as.data.frame(x[!rowclass %in% c(0, 2), ]), 
+              function(z) max(nchar(z, type = 'width'), na.rm = TRUE), numeric(1))
 
   l <- apply(rbind(l_h, l), 2, max)
 
   # If span row larger than all combined, expand width
-  l_row <- apply(x[rowclass %in% c(0, 2), ], 2,
-                 function(z) max(nchar(z, type = 'width'), na.rm = TRUE))
+  l_row <- vapply(as.data.frame(x[rowclass %in% c(0, 2), ]), 
+                 function(z) max(nchar(z, type = 'width'), na.rm = TRUE), numeric(1))
   if(l_row[1] > sum(l)){
     add_l <- ceiling((l_row[1] - sum(l))/length(l))
     l <- l + add_l

@@ -99,9 +99,42 @@ test_that("By cycle summary", {
   df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
 
   expect_true("ARM" %in% names(df))
+  df$inrange <- ifelse(df$AST < 20, "Low",
+                       ifelse(df$AST > 40, "High", "Normal"))
+  var_lab(df$inrange) <- "AST range"
 
-  X <- cttab(vars = c("AST", "BILI", "ALT"),
+  X <- cttab(vars = c("AST", "BILI", "ALT", "inrange"),
              group = "ARM",
+             data = df,
+             row_split = "AVISIT",
+             select = c("ALT" = "PERF == 1"))
+
+  mis_rp <- get_missing_report()
+  expect_identical(mis_rp$visit[6], "Baseline")
+  expect_identical(mis_rp$subject_ID[4], "1160")
+  expect_identical(mis_rp$form[4], "Derived")
+
+  cctu_env$parent <- "test"
+  write_table(X, directory = tmp_dir)
+
+  expect_true(compare_file_text(test_path("ref", "table_ctab3.xml"),
+                                file.path(tmp_dir, "table_1.10.xml")))
+
+})
+
+test_that("By cycle No treatment arm summary", {
+
+  attach_pop("1.10")
+  df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
+
+  df$ABNORMALT <- df$ALT > 22.5
+  var_lab(df$ABNORMALT) <- "ALT abnormal"
+  df$ABNORMAST <- df$AST > 25.5
+  var_lab(df$ABNORMAST) <- "AST abnormal"
+
+
+  X <- cttab(vars = list(c("AST", "BILI", "ALT"),
+                          "Abnormal" = c("ABNORMALT", "ABNORMAST")),
              data = df,
              row_split = "AVISIT",
              select = c("ALT" = "PERF == 1"))
@@ -113,19 +146,24 @@ test_that("By cycle summary", {
   cctu_env$parent <- "test"
   write_table(X, directory = tmp_dir)
 
-  expect_true(compare_file_text(test_path("ref", "table_ctab3.xml"),
+  expect_true(compare_file_text(test_path("ref", "table_ctab5.xml"),
                                 file.path(tmp_dir, "table_1.10.xml")))
 
 })
 
-test_that("No treatment arm", {
+
+test_that("No treatment arm and cycle", {
 
   attach_pop("1.1")
   df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
 
+  df$over_w <- df$BMIBL > 28
+  df$hi_age <- df$AGE > 70
+
+
   df$BMIBL[df$RACEN == 6] <- NA
 
-  X <- cttab(vars = c("AGE", "SEX", "BMIBL"),
+  X <- cttab(vars = c("AGE", "SEX", "BMIBL", "over_w", "hi_age"),
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
 
@@ -214,6 +252,19 @@ test_that("Check stat_tab", {
   expect_null(stat_tab("bmi",
                        data = dat,
                        group = "treat"))
+
+  dat$bmi <- factor(dat$bmi, levels = c(1, 2), labels = c("Over", "Under"))
+
+  tab <- stat_tab("bmi",
+                  data = dat,
+                  group = "treat")
+  expect_equal(nrow(tab), 2)
+  expect_equal(row.names(tab)[2], "Missing")
+
+  expect_null(stat_tab("bmi",
+                       data = dat,
+                       group = "treat",
+                       add_missing = FALSE))
 
 
 })

@@ -33,6 +33,8 @@
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
 #' \code{\link{stat_tab}}
+#' \code{\link{sumby}}
+#' \code{\link{cctu_options}}
 #' @return A matrix with `cttab` class.
 #' @export
 #'
@@ -381,6 +383,7 @@ stat_tab <- function(vars,
       y <- y[all_val, ,drop = FALSE]
     }
 
+    # Don't report if the variable has no values to report
     if(nrow(y) == 1 & all(y == ""))
       return(NULL)
 

@@ -28,6 +28,7 @@
 #' values, set it to \code{round_pad}.
 #' @param dlu A data.frame of DLU file.
 #' @param subjid_string A character naming the column used to identify subject.
+#' @param print_plot A logical value, print summary plot of the variables (default).
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
@@ -43,11 +44,14 @@ cttab <- function(vars,
                  select = NULL,
                  add_missing = TRUE,
                  add_obs = TRUE,
-                 digits = 3,
-                 digits_pct = 1,
-                 rounding_fn = signif_pad,
-                 dlu = cctu_env$dlu,
-                 subjid_string = "subjid") {
+                 digits = cctu_options("digits"),
+                 digits_pct = cctu_options("digits_pct"),
+                 rounding_fn = cctu_options("rounding_fn"),
+                 dlu = cctu_options("dlu"),
+                 subjid_string = cctu_options("subjid_string"),
+                 print_plot = cctu_options("print_plot")) {
+
+  tpcall <- match.call()
 
   vars_list <- c(unlist(vars), group, row_split)
   if (!all(vars_list %in% names(data))) {
@@ -162,6 +166,11 @@ cttab <- function(vars,
     }
 
     return(res)
+  }
+
+  # Get arguments that will be passed to plot printing
+  if(print_plot){
+    cctab_plot(vars, data, group, row_split, select)
   }
 
   # If no split
@@ -296,16 +305,6 @@ stat_tab <- function(vars,
 
   }
 
-  # Generate selection vector function
-  gen_selec <- function(dat, var, select = NULL) {
-    if (is.null(select) | !var %in% names(select)) {
-      return(rep(TRUE, length(dat[[var]])))
-    } else{
-      r <- eval(str2expression(select[var]), envir = dat)
-      r & !is.na(r)
-    }
-  }
-
   # Create value labels for characters variables to avoid missing levels between groups
   convcols <- names(Filter(is.character, data))
 
@@ -397,3 +396,13 @@ stat_tab <- function(vars,
 }
 
 
+# Generate selection vector function
+# Evaluate the select in the data and generate a logical vector.
+gen_selec <- function(dat, var, select = NULL) {
+  if (is.null(select) | !var %in% names(select)) {
+    return(rep(TRUE, length(dat[[var]])))
+  } else{
+    r <- eval(str2expression(select[var]), envir = dat)
+    r & !is.na(r)
+  }
+}

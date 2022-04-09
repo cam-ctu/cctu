@@ -14,6 +14,8 @@ cctu_options(...)
 \code{cctu_options(digits = 3)}.}
 }
 \description{
+This function will reset the default options.
+
 Allows to set and examine the global options which will affect the behaviors
 of the \code{cctu} package.
 }
@@ -39,7 +41,7 @@ current values of the options. Note that not all options listed below are set
    default is \code{3}. Mainly used by \code{\link{cttab}} function. See \code{\link{cttab}}
    for details.}
   \item{\code{subjid_string}}{A character string indicating the variable name of
-  the subject ID in the dataset, default is "subjid"}
+  the subject ID in the dataset, default is \code{"subjid"}}
 
 }
 }

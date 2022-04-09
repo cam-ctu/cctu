@@ -13,11 +13,12 @@ cttab(
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
-  digits = 3,
-  digits_pct = 1,
-  rounding_fn = signif_pad,
-  dlu = cctu_env$dlu,
-  subjid_string = "subjid"
+  digits = cctu_options("digits"),
+  digits_pct = cctu_options("digits_pct"),
+  rounding_fn = cctu_options("rounding_fn"),
+  dlu = cctu_options("dlu"),
+  subjid_string = cctu_options("subjid_string"),
+  print_plot = cctu_options("print_plot")
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ values, set it to \code{round_pad}.}
 \item{dlu}{A data.frame of DLU file.}
 
 \item{subjid_string}{A character naming the column used to identify subject.}
+
+\item{print_plot}{A logical value, print summary plot of the variables (default).}
 }
 \value{
 A matrix with `cttab` class.

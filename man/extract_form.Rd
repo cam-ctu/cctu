@@ -4,7 +4,13 @@
 \alias{extract_form}
 \title{Extract data by form from MACRO dataset}
 \usage{
-extract_form(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu)
+extract_form(
+  data,
+  form,
+  visit = NULL,
+  vars_keep = NULL,
+  dlu = cctu_options("dlu")
+)
 }
 \arguments{
 \item{data}{A data.frame from macro dataset.}

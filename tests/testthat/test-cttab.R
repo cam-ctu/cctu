@@ -5,7 +5,7 @@ dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 
 dt$subjid <- substr(dt$USUBJID, 8, 11)
-dt <- apply_lus(dt, dlu, clu)
+dt <- apply_macro_dict(dt, dlu, clu)
 
 set_meta_table(cctu::meta_table_example)
 

@@ -64,7 +64,7 @@ For value label, you can use `val_lab` to extract or assign value label. And use
 
 ## MACRO dataset utility functions
 
-There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_lus` function uses DLU and CLU file to assign variable and value labels to the dataset. This will also convert the dataset based on the variable type as in the DLU file. The `extract_form` can extract MACRO data by form and visits. The data will be converted to `data.table` class, which is an extension of the `data.frame` and works exactly the same. It is a fantastic package with lots of data manipulation capability, you should seek the [website](https://CRAN.R-project.org/package=data.table) for more details. But one thing to remember is that all the names in the variable selection will be considered as a variable of the data. 
+There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_macro_dict` function uses DLU and CLU file to assign variable and value labels to the dataset. This will also convert the dataset based on the variable type as in the DLU file. The `extract_form` can extract MACRO data by form and visits. The data will be converted to `data.table` class, which is an extension of the `data.frame` and works exactly the same. It is a fantastic package with lots of data manipulation capability, you should seek the [website](https://CRAN.R-project.org/package=data.table) for more details. But one thing to remember is that all the names in the variable selection will be considered as a variable of the data. 
 
 ```{r echo=TRUE, eval=FALSE}
 vars <- c("mpg", "am")
@@ -107,7 +107,7 @@ If you have multiple datasets, you should combine them at this stage. Next, we w
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 # Apply CLU and DLU files
-dt <- apply_lus(dt, dlu = dlu, clu = clu)
+dt <- apply_macro_dict(dt, dlu = dlu, clu = clu)
 
 # Give new variable a label
 var_lab(dt$subjid) <- "Subject ID"

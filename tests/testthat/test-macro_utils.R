@@ -12,7 +12,7 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 test_that("Apply DLU and CLU files", {
-  dt <- apply_lus(dt, dlu, clu)
+  dt <- apply_macro_dict(dt, dlu, clu)
   expect_s3_class(dt, "data.table")
   expect_identical(var_lab(dt$ARM), "Treatment Arm")
   expect_identical(val_lab(dt$ARM), c("Placebo" = 1L, "Research" = 2L))
@@ -27,7 +27,7 @@ test_that("Apply DLU and CLU files", {
 
 
 test_that("Extract form", {
-  dt <- apply_lus(dt, dlu, clu)
+  dt <- apply_macro_dict(dt, dlu, clu)
   lb <- extract_form(dt, "Lab")
   expect_true(all(unique(lb$FormVisit) %in% c("SCREENING", "TRT", "ENDTRT")))
 

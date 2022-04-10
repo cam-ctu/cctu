@@ -29,6 +29,7 @@ test_that("Apply DLU and CLU files", {
 test_that("Extract form", {
   dt <- apply_macro_dict(dt, dlu, clu, to_lower = FALSE)
   lb <- extract_form(dt, "Lab")
+  expect_equal(names(lb)[1:4], toupper(c("avisit", "bili", "alt", "perf")))
   expect_true(all(unique(lb$FormVisit) %in% c("SCREENING", "TRT", "ENDTRT")))
 
   expect_true(all(levels(to_factor(lb$AVISIT)) %in% c('Baseline','Week 4','Week 8','Week 16','End of Treatment')))
@@ -47,6 +48,10 @@ test_that("Extract form", {
 
   expect_error(extract_form(dt, "Lab", visit = c("SCREENING", "TEST")),
                "Visit name TEST can not be found in the DLU file")
+
+  dt <- apply_macro_dict(dt, dlu, clu)
+  lb <- extract_form(dt, "Lab")
+  expect_equal(names(lb)[1:4], c("avisit", "bili", "alt", "perf"))
 
 })
 

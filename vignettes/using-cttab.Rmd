@@ -24,7 +24,7 @@ library(cctu)
 ```
 # What this Document Does
 
-The package `cctu` has been updated to utilize the DLU file and CLU file to facilitate the analyzing process. The newly added functions will not affect previous process. But here, in this document we are going to learn some new functions provided in the package to facilitate your analysis. Before you start, you should get yourself familiarized with the `cctu` package by looking through the `Analysis Template` vignette. **Remember, the `sumby` function will not benefit from any of those new functions mentioned in this document except the coress reference**. You don't need to read this document if you are going to stick to the `sumby` function.
+The package `cctu` has been updated to utilize the DLU file and CLU file to facilitate the analyzing process. The newly added functions will not affect previous process. But here, in this document we are going to learn some new functions provided in the package to facilitate your analysis. Before you start, you should get yourself familiarized with the `cctu` package by looking through the `Analysis Template` vignette. **Remember, the `sumby` function will not benefit from any of the data attribute related new functions mentioned in this document**. Namely, the variable label and value labels will not have an effect on the output. You don't need to go through everything in this document if you are going to stick to the `sumby` function.
 
 # What's new
 

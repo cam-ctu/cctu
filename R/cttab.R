@@ -20,21 +20,29 @@
 #' @param add_missing If missing number and missing percentage will be
 #'   reported in the summary table, default is `TRUE`.
 #' @param add_obs Add an observation row (default).
-#' @param digits An integer specifying the number of significant digits to keep.
+#' @param digits An integer specifying the number of significant digits to keep,
+#' default is 3.
 #' @param digits_pct An integer specifying the number of digits after the
-#' decimal place for percentages.
-#' @param rounding_fn The function to use to do the rounding. Defaults to
+#' decimal place for percentages, default is 0.
+#' @param rounding_fn The function to use to do the rounding. Defaults is
 #' \code{\link{signif_pad}}. To round up by digits instead of significant
 #' values, set it to \code{round_pad}.
 #' @param dlu A data.frame of DLU file.
-#' @param subjid_string A character naming the column used to identify subject.
+#' @param subjid_string A character naming the column used to identify subject,
+#' default.
 #' @param print_plot A logical value, print summary plot of the variables (default).
+#' @details 
+#' Some of the function parameters can be set with options. This will have an global 
+#' effect on the \code{cctab} function. It is an ideal way to set a global settings
+#' if you want this to be effctive globally. Currently, you can set \code{digits}, 
+#' \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
+#'  prefix in the \code{options}. For example, you can suppress the plot
+#' from printting by setting \code{options(cctu_print_plot = FALSE)}.
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
 #' \code{\link{stat_tab}}
 #' \code{\link{sumby}}
-#' \code{\link{cctu_options}}
 #' @return A matrix with `cttab` class.
 #' @export
 #'
@@ -46,12 +54,12 @@ cttab <- function(vars,
                  select = NULL,
                  add_missing = TRUE,
                  add_obs = TRUE,
-                 digits = cctu_options("digits"),
-                 digits_pct = cctu_options("digits_pct"),
-                 rounding_fn = cctu_options("rounding_fn"),
-                 dlu = cctu_options("dlu"),
-                 subjid_string = cctu_options("subjid_string"),
-                 print_plot = cctu_options("print_plot")) {
+                 digits = getOption("cctu_digits", default = 3),
+                 digits_pct = getOption("cctu_digits_pct", default = 0),
+                 rounding_fn = signif_pad,
+                 dlu = cctu_env$dlu,
+                 subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+                 print_plot = getOption("cctu_print_plot", default = TRUE)) {
 
   tpcall <- match.call()
 

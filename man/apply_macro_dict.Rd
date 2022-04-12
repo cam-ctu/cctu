@@ -9,7 +9,7 @@ apply_macro_dict(
   dlu,
   clu = NULL,
   date_format = "\%d/\%m/\%Y",
-  to_lower = TRUE
+  clean_names = TRUE
 )
 }
 \arguments{
@@ -21,8 +21,8 @@ apply_macro_dict(
 
 \item{date_format}{Date format to be converted, default is `\%d/\%m/\%Y`.}
 
-\item{to_lower}{Conver variable name to lower case (default), this will also change the 
-values in the DLU as well.}
+\item{clean_names}{Conver variable name to lower case (default), this will also change the 
+values in the DLU as well. See \code{\link{clean_names}} for details.}
 }
 \value{
 A data.table object.
@@ -51,5 +51,5 @@ create for the variables listed in the clu file. See \code{\link{val_lab}}.
 }
 \seealso{
 \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
- \code{\link[data.table]{data.table}}
+ \code{\link[data.table]{data.table}} \code{\link{clean_names}}
 }

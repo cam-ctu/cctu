@@ -35,12 +35,13 @@ element of `select` will be used to select the individuals to be analyzed
 \item{add_missing}{If missing number and missing percentage will be
 reported in the summary table, default is `TRUE`.}
 
-\item{digits}{An integer specifying the number of significant digits to keep.}
+\item{digits}{An integer specifying the number of significant digits to keep,
+default is 3.}
 
 \item{digits_pct}{An integer specifying the number of digits after the
-decimal place for percentages.}
+decimal place for percentages, default is 0.}
 
-\item{rounding_fn}{The function to use to do the rounding. Defaults to
+\item{rounding_fn}{The function to use to do the rounding. Defaults is
 \code{\link{signif_pad}}. To round up by digits instead of significant
 values, set it to \code{round_pad}.}
 }

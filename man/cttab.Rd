@@ -13,12 +13,12 @@ cttab(
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
-  digits = cctu_options("digits"),
-  digits_pct = cctu_options("digits_pct"),
-  rounding_fn = cctu_options("rounding_fn"),
-  dlu = cctu_options("dlu"),
-  subjid_string = cctu_options("subjid_string"),
-  print_plot = cctu_options("print_plot")
+  digits = getOption("cctu_digits", default = 3),
+  digits_pct = getOption("cctu_digits_pct", default = 0),
+  rounding_fn = signif_pad,
+  dlu = cctu_env$dlu,
+  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+  print_plot = getOption("cctu_print_plot", default = TRUE)
 )
 }
 \arguments{
@@ -45,18 +45,20 @@ reported in the summary table, default is `TRUE`.}
 
 \item{add_obs}{Add an observation row (default).}
 
-\item{digits}{An integer specifying the number of significant digits to keep.}
+\item{digits}{An integer specifying the number of significant digits to keep,
+default is 3.}
 
 \item{digits_pct}{An integer specifying the number of digits after the
-decimal place for percentages.}
+decimal place for percentages, default is 0.}
 
-\item{rounding_fn}{The function to use to do the rounding. Defaults to
+\item{rounding_fn}{The function to use to do the rounding. Defaults is
 \code{\link{signif_pad}}. To round up by digits instead of significant
 values, set it to \code{round_pad}.}
 
 \item{dlu}{A data.frame of DLU file.}
 
-\item{subjid_string}{A character naming the column used to identify subject.}
+\item{subjid_string}{A character naming the column used to identify subject,
+default.}
 
 \item{print_plot}{A logical value, print summary plot of the variables (default).}
 }
@@ -67,10 +69,17 @@ A matrix with `cttab` class.
 This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
 split statistics table by `row_split` variable.
 }
+\details{
+Some of the function parameters can be set with options. This will have an global 
+effect on the \code{cctab} function. It is an ideal way to set a global settings
+if you want this to be effctive globally. Currently, you can set \code{digits}, 
+\code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
+ prefix in the \code{options}. For example, you can suppress the plot
+from printting by setting \code{options(cctu_print_plot = FALSE)}.
+}
 \seealso{
 \code{\link{signif_pad}}
 \code{\link{round_pad}}
 \code{\link{stat_tab}}
 \code{\link{sumby}}
-\code{\link{cctu_options}}
 }

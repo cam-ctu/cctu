@@ -5,7 +5,7 @@ dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 
 dt$subjid <- substr(dt$USUBJID, 8, 11)
-dt <- apply_macro_dict(dt, dlu, clu, to_lower = FALSE)
+dt <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE)
 
 set_meta_table(cctu::meta_table_example)
 
@@ -20,6 +20,7 @@ tmp_dir <- tempdir()
 rm(dlu)
 .reserved <- ls()
 
+options("cctu_digits_pct" = 1)
 
 test_that("Start from data reading", {
 

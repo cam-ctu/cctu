@@ -23,16 +23,8 @@
 
 clean_names <- function(df, convert = TRUE, verbose=options()$verbose){
   arg_name_df <- deparse(substitute(df))
-  df_names    <- names(df)           %>%
-                 tolower(.)          %>%
-                 gsub("\\s+","_",.)  %>%
-                 gsub("-","_",.)     %>%
-                 gsub("/","_",.)     %>%
-                 gsub("\\.", "_", .) %>%
-                 gsub("_+", "_", .)  %>%
-                 gsub("^_", "", .)   %>%
-                 gsub("_$", "", .)   %>%
-                 trimws
+  df_names    <- clean_string(names(df))
+
   if(convert){
     names(df) <- df_names
     assign(arg_name_df, df, envir = parent.frame())
@@ -42,3 +34,19 @@ clean_names <- function(df, convert = TRUE, verbose=options()$verbose){
     df_names
   }
 }
+
+#' @keywords internal
+clean_string <- function(x){
+  x %>%
+    tolower(.)          %>%
+    gsub("\\s+","_",.)  %>%
+    gsub("-","_",.)     %>%
+    gsub("/","_",.)     %>%
+    gsub("\\.", "_", .) %>%
+    gsub("_+", "_", .)  %>%
+    gsub("^_", "", .)   %>%
+    gsub("_$", "", .)   %>%
+    trimws
+}
+
+

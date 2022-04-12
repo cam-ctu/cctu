@@ -65,7 +65,7 @@ For value label, you can use `val_lab` to extract or assign value label. And use
 
 ## MACRO dataset utility functions
 
-There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_macro_dict` function uses DLU and CLU file to assign variable and value labels to the dataset. This function will convert the variable name in the data and DLU to lower case by default. This will also convert the dataset based on the variable type as in the DLU file. If you don't want to convert the variable name to lower cases, you should set `to_lower = FALSE`. 
+There are new functions have been added to utilize the DLU and CLU files for the data analysis. The `apply_macro_dict` function uses DLU and CLU file to assign variable and value labels to the dataset. This function will convert the variable name in the data and DLU to lower case by default. This will also convert the dataset based on the variable type as in the DLU file. If you don't want to convert the variable name to lower cases, you should set `clean_names = FALSE`. 
 
 The `extract_form` can extract MACRO data by form and visits. The data will be converted to `data.table` class, which is an extension of the `data.frame` and works exactly the same. It is a great package with lots of data manipulation capability, you should seek the [website](https://CRAN.R-project.org/package=data.table) for more details. But one thing to remember is that all the names in the variable selection will be considered as a variable of the data. 
 
@@ -88,13 +88,13 @@ You might already knew how to use the `sumby` function, but now a new function c
 
 ## Setting options
 
-The `cctab` function has a good flexibility, which means it has lots of parameters you can use. You should check out the manual of the `cctab` function. But, you can use `cctu_options` to set the default value of the parameters to be used by `cctab`. Below is setting some of the options, for more details please check out the `cctu_options` and `cctab` function manuals.
+The `cctab` function has a good flexibility, which means it has lots of parameters you can use. You should check out the manual of the `cctab` function. But, you can use `options` to set the default value of the parameters to be used by `cctab`. Below is setting some of the options, for more details please check out the `cctab` function manuals.
 
 ```{r eval = FALSE}
-cctu_options(digits = 3) # keep 3 digits for numerical value
-cctu_options(digits_pct = 0) # keep 0 digits for percentage 
-cctu_options(subjid_string = "subjid") # Set subject ID string
-cctu_options(print_plot = FALSE) # Don't produce plots
+options(cctu_digits = 3) # keep 3 digits for numerical value
+options(cctu_digits_pct = 0) # keep 0 digits for percentage 
+options(cctu_subjid_string = "subjid") # Set subject ID string
+options(cctu_print_plot = FALSE) # Don't produce plots
 ```
 
 
@@ -122,7 +122,7 @@ If you have multiple datasets, you should combine them at this stage. Next, we w
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 # Apply CLU and DLU files
-dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, to_lower = FALSE)
+dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
 
 # Give new variable a label
 var_lab(dt$subjid) <- "Subject ID"

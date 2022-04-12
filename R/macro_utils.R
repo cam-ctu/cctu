@@ -7,8 +7,8 @@
 #' @param dlu Data frame of DLU
 #' @param clu Data frame of CLU
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
-#' @param to_lower Conver variable name to lower case (default), this will also change the 
-#' values in the DLU as well.
+#' @param clean_names Conver variable name to lower case (default), this will also change the 
+#' values in the DLU as well. See \code{\link{clean_names}} for details.
 #' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -27,21 +27,21 @@
 #' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
-#'  \code{\link[data.table]{data.table}}
+#'  \code{\link[data.table]{data.table}} \code{\link{clean_names}}
 #' @return A data.table object.
 #' @export
 #'
-apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", to_lower = TRUE){
+apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", clean_names = TRUE){
 
   data.table::setDT(data)
 
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)
 
-  if(to_lower){
-    colnames(data) <- tolower(names(data))
-    dlu$ShortCode <- tolower(dlu$ShortCode)
-    dlu$Question <- tolower(dlu$Question)
+  if(clean_names){
+    colnames(data) <- clean_string(names(data))
+    dlu$ShortCode <- clean_string(dlu$ShortCode)
+    dlu$Question <- clean_string(dlu$Question)
   }
 
   # Store DLU file inside the cctu env
@@ -132,7 +132,7 @@ sep_dlu <- function(x){
 #' @import data.table
 #'
 #'
-extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_options("dlu")){
+extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu){
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)
 

@@ -32,7 +32,11 @@
 #' summary(meta)
 #'
 #' @export
-#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_excel}}  \code{\link{data_table_summary}}
+#' @seealso \code{\link{read.csv}} \code{\link[readxl]{read_excel}}
+#' \code{\link{data_table_summary}}
+#' \code{\link{apply_macro_dict}}
+#' \code{\link{var_lab}}
+#' \code{\link{extract_form}}
 
 
 read_data <- function(x,...){ UseMethod("read_data",x)}

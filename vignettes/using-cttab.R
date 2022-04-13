@@ -37,10 +37,10 @@ table(to_factor(mtcars$am))
 #  mtcars[,vars, with=FALSE]
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  cctu_options(digits = 3) # keep 3 digits for numerical value
-#  cctu_options(digits_pct = 0) # keep 0 digits for percentage
-#  cctu_options(subjid_string = "subjid") # Set subject ID string
-#  cctu_options(print_plot = FALSE) # Don't produce plots
+#  options(cctu_digits = 3) # keep 3 digits for numerical value
+#  options(cctu_digits_pct = 0) # keep 0 digits for percentage
+#  options(cctu_subjid_string = "subjid") # Set subject ID string
+#  options(cctu_print_plot = FALSE) # Don't produce plots
 
 ## ----echo=TRUE----------------------------------------------------------------
 # Read example data
@@ -56,7 +56,7 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 # Apply CLU and DLU files
-dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, to_lower = FALSE)
+dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
 
 # Give new variable a label
 var_lab(dt$subjid) <- "Subject ID"

@@ -70,9 +70,9 @@ This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
 split statistics table by `row_split` variable.
 }
 \details{
-Some of the function parameters can be set with options. This will have an global 
+Some of the function parameters can be set with options. This will have an global
 effect on the \code{cctab} function. It is an ideal way to set a global settings
-if you want this to be effctive globally. Currently, you can set \code{digits}, 
+if you want this to be effctive globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
  prefix in the \code{options}. For example, you can suppress the plot
 from printting by setting \code{options(cctu_print_plot = FALSE)}.
@@ -82,4 +82,6 @@ from printting by setting \code{options(cctu_print_plot = FALSE)}.
 \code{\link{round_pad}}
 \code{\link{stat_tab}}
 \code{\link{sumby}}
+\code{\link{dump_missing_report}}
+\code{\link{get_missing_report}}
 }

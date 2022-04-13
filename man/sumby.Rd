@@ -49,5 +49,6 @@ ready to use with write_table(). Plus an attribute "fig" that contains a ggplot 
 Produces summary statistics on a variable broken down by arm, display a graphical equivalent.
 }
 \seealso{
-\code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}}
+\code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}},
+\code{\link{cttab}}
 }

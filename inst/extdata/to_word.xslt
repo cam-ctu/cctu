@@ -113,8 +113,22 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
             <w:bottom w:val="single" w:sz="10" w:space="0" w:color="000000"/>
         </w:tblBorders> 
         </w:tblPr>
-        <xsl:apply-templates select="table/thead/tr" />
-        <xsl:apply-templates select="table/tbody/tr" />
+        <xsl:apply-templates select="table/thead/tr">
+          <xsl:with-param name="fontsize">
+            <xsl:choose>
+              <xsl:when test="heading/fontsize=''">20</xsl:when>
+              <xsl:otherwise><xsl:value-of select="heading/fontsize"/></xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:apply-templates>
+        <xsl:apply-templates select="table/tbody/tr">
+          <xsl:with-param name="fontsize">
+            <xsl:choose>
+              <xsl:when test="heading/fontsize=''">20</xsl:when>
+              <xsl:otherwise><xsl:value-of select="heading/fontsize"/></xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:apply-templates>
     </w:tbl>
 
     <w:p>
@@ -221,6 +235,7 @@ Population: <xsl:value-of select ="."/>
 
 <!--Table header rows-->
 <xsl:template match="thead/tr">
+<xsl:param name="fontsize" select="$fontsize"/>
 <w:tr>
   <w:tblPrEx>
 		<w:tblBorders>
@@ -231,12 +246,15 @@ Population: <xsl:value-of select ="."/>
 	<w:trPr>
 		<w:tblHeader/>
 	</w:trPr>
-  <xsl:apply-templates select="th" />
+  <xsl:apply-templates select="th" >
+    <xsl:with-param name="fontsize" select="$fontsize"/>
+  </xsl:apply-templates>
 </w:tr>
 </xsl:template>
 
 <!--Table header cells-->
 <xsl:template match="th"  name="th">
+  <xsl:param name="fontsize" select="$fontsize"/>
   <w:tc>
     <w:p>
       <w:pPr>
@@ -247,7 +265,7 @@ Population: <xsl:value-of select ="."/>
         <w:rPr>
          <w:b  w:val="on"/>
          <!--Table font size to 9-->
-         <w:sz w:val="18"/>
+         <w:sz w:val="{$fontsize}"/>
         </w:rPr>
 				<w:t><xsl:call-template name="insertBreaks"/></w:t>
       </w:r>
@@ -257,7 +275,7 @@ Population: <xsl:value-of select ="."/>
 
 <!--Table body rows-->
 <xsl:template match="tbody/tr">
-
+<xsl:param name="fontsize" select="$fontsize"/>
 <xsl:variable name="span">
    <xsl:choose>
      <xsl:when test="td[1]/@style and contains(td[1]/@style, 'span')">
@@ -299,6 +317,7 @@ Population: <xsl:value-of select ="."/>
     <xsl:with-param name="span" select="$span"/>
     <xsl:with-param name="tab1" select="$tab1"/>
     <xsl:with-param name="align" select="$align"/>
+    <xsl:with-param name="fontsize" select="$fontsize"/>
   </xsl:apply-templates>
 </w:tr>
 </xsl:template>
@@ -309,6 +328,7 @@ Population: <xsl:value-of select ="."/>
 <xsl:param name="span"/>
 <xsl:param name="tab1"/>
 <xsl:param name="align"/>
+<xsl:param name="fontsize" select="$fontsize"/>
 
 <w:tc>
   <w:tcPr>
@@ -351,7 +371,7 @@ Population: <xsl:value-of select ="."/>
     <w:r>
     <w:rPr>
       <!--Table font size to 9-->
-      <w:sz w:val="18"/>
+      <w:sz w:val="{$fontsize}"/>
       <!--Bold-->
       <xsl:if test="@style and contains(@style, 'bold')">
         <w:b  w:val="on"/>

@@ -109,6 +109,8 @@ test_that("Label/labls attributes", {
   var_nolab <- as.character(rep(1:2,5))
   expect_error(copy_lab(var_nolab, var_with_lab))
 
+  expect_null(unlab(NULL))
+
 })
 
 
@@ -155,6 +157,14 @@ test_that("Convert value label to value", {
   val_lab(aaa) = c(a=1, b = 2)
 
   expect_identical(class(lab2val(aaa)), "character")
+
+  var_lab(aaa) <- "Test"
+  aaa <- to_factor(aaa)
+  val_lab(aaa) = c(a=1, b = 2)
+  expect_identical(var_lab(aaa), "Test")
+
+  expect_error(val_lab(aaa) <- c(1, 2),
+               "'val_lab' - labels should be named vector.")
 
 })
 

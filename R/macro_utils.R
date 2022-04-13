@@ -7,6 +7,8 @@
 #' @param dlu Data frame of DLU
 #' @param clu Data frame of CLU
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
+#' @param clean_names Conver variable name to lower case (default), this will also change the 
+#' values in the DLU as well. See \code{\link{clean_names}} for details.
 #' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -25,16 +27,22 @@
 #' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
-#'  \code{\link[data.table]{data.table}}
+#'  \code{\link[data.table]{data.table}} \code{\link{clean_names}}
 #' @return A data.table object.
 #' @export
 #'
-apply_lus <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
+apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", clean_names = TRUE){
 
   data.table::setDT(data)
 
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)
+
+  if(clean_names){
+    colnames(data) <- clean_string(names(data))
+    dlu$ShortCode <- clean_string(dlu$ShortCode)
+    dlu$Question <- clean_string(dlu$Question)
+  }
 
   # Store DLU file inside the cctu env
   cctu_env$dlu <- dlu
@@ -82,14 +90,14 @@ apply_lus <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y"){
 #' `Form` and `Question` column in the output dataset. The `Question` column
 #' is the unique variable name for a particular CRF form.
 #'   \item{Description}: Description of the variable, namely variable label.
-#' This is will be used by \code{\link{apply_lus}} to create variable label.
+#' This is will be used by \code{\link{apply_macro_dict}} to create variable label.
 #'  \item{Type}: Type of the variable, it has IntegerData, Text, Date, Real and
-#' Category four categories. This will be used by \code{\link{apply_lus}} to
+#' Category four categories. This will be used by \code{\link{apply_macro_dict}} to
 #' convert variables to corresponding type.
 #' }
 #' @param x DLU data.frame
 #' @return A data.frame
-#' @seealso \code{\link{apply_lus}}
+#' @seealso \code{\link{apply_macro_dict}}
 #' @export
 #'
 sep_dlu <- function(x){

@@ -20,18 +20,29 @@
 #' @param add_missing If missing number and missing percentage will be
 #'   reported in the summary table, default is `TRUE`.
 #' @param add_obs Add an observation row (default).
-#' @param digits An integer specifying the number of significant digits to keep.
+#' @param digits An integer specifying the number of significant digits to keep,
+#' default is 3.
 #' @param digits_pct An integer specifying the number of digits after the
-#' decimal place for percentages.
-#' @param rounding_fn The function to use to do the rounding. Defaults to
+#' decimal place for percentages, default is 0.
+#' @param rounding_fn The function to use to do the rounding. Defaults is
 #' \code{\link{signif_pad}}. To round up by digits instead of significant
 #' values, set it to \code{round_pad}.
 #' @param dlu A data.frame of DLU file.
-#' @param subjid_string A character naming the column used to identify subject.
+#' @param subjid_string A character naming the column used to identify subject,
+#' default.
+#' @param print_plot A logical value, print summary plot of the variables (default).
+#' @details 
+#' Some of the function parameters can be set with options. This will have an global 
+#' effect on the \code{cctab} function. It is an ideal way to set a global settings
+#' if you want this to be effctive globally. Currently, you can set \code{digits}, 
+#' \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
+#'  prefix in the \code{options}. For example, you can suppress the plot
+#' from printting by setting \code{options(cctu_print_plot = FALSE)}.
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
 #' \code{\link{stat_tab}}
+#' \code{\link{sumby}}
 #' @return A matrix with `cttab` class.
 #' @export
 #'
@@ -43,11 +54,14 @@ cttab <- function(vars,
                  select = NULL,
                  add_missing = TRUE,
                  add_obs = TRUE,
-                 digits = 3,
-                 digits_pct = 1,
+                 digits = getOption("cctu_digits", default = 3),
+                 digits_pct = getOption("cctu_digits_pct", default = 0),
                  rounding_fn = signif_pad,
                  dlu = cctu_env$dlu,
-                 subjid_string = "subjid") {
+                 subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+                 print_plot = getOption("cctu_print_plot", default = TRUE)) {
+
+  tpcall <- match.call()
 
   vars_list <- c(unlist(vars), group, row_split)
   if (!all(vars_list %in% names(data))) {
@@ -162,6 +176,11 @@ cttab <- function(vars,
     }
 
     return(res)
+  }
+
+  # Get arguments that will be passed to plot printing
+  if(print_plot){
+    cctab_plot(vars, data, group, row_split, select)
   }
 
   # If no split
@@ -296,16 +315,6 @@ stat_tab <- function(vars,
 
   }
 
-  # Generate selection vector function
-  gen_selec <- function(dat, var, select = NULL) {
-    if (is.null(select) | !var %in% names(select)) {
-      return(rep(TRUE, length(dat[[var]])))
-    } else{
-      r <- eval(str2expression(select[var]), envir = dat)
-      r & !is.na(r)
-    }
-  }
-
   # Create value labels for characters variables to avoid missing levels between groups
   convcols <- names(Filter(is.character, data))
 
@@ -382,6 +391,7 @@ stat_tab <- function(vars,
       y <- y[all_val, ,drop = FALSE]
     }
 
+    # Don't report if the variable has no values to report
     if(nrow(y) == 1 & all(y == ""))
       return(NULL)
 
@@ -397,3 +407,13 @@ stat_tab <- function(vars,
 }
 
 
+# Generate selection vector function
+# Evaluate the select in the data and generate a logical vector.
+gen_selec <- function(dat, var, select = NULL) {
+  if (is.null(select) | !var %in% names(select)) {
+    return(rep(TRUE, length(dat[[var]])))
+  } else{
+    r <- eval(str2expression(select[var]), envir = dat)
+    r & !is.na(r)
+  }
+}

@@ -8,16 +8,7 @@ on:
 
 name: R-CMD-check
 
-
-
-
-
-
 jobs:
-
-
-
-
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
@@ -41,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
 #changed from @v1
       - uses: r-lib/actions/setup-r@master
         with:
@@ -61,7 +52,7 @@ jobs:
 #changed from @v1
       - uses: r-lib/actions/setup-tinytex@master
 
-      - uses: r-lib/actions/check-r-package@v1
+      - uses: r-lib/actions/check-r-package@v2
 
       - name: Show testthat output
         if: always()

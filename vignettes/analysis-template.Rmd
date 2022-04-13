@@ -3,7 +3,8 @@ title: "Analysis Template"
 author: "Simon Bond"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
+  pdf_document: 
+    latex_engine: xelatex
   html_vignette:
     keep_md: no
 header-includes:

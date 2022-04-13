@@ -22,12 +22,12 @@ separated by a slash. This function will separate this column into `Visit`,
 `Form` and `Question` column in the output dataset. The `Question` column
 is the unique variable name for a particular CRF form.
   \item{Description}: Description of the variable, namely variable label.
-This is will be used by \code{\link{apply_lus}} to create variable label.
+This is will be used by \code{\link{apply_macro_dict}} to create variable label.
  \item{Type}: Type of the variable, it has IntegerData, Text, Date, Real and
-Category four categories. This will be used by \code{\link{apply_lus}} to
+Category four categories. This will be used by \code{\link{apply_macro_dict}} to
 convert variables to corresponding type.
 }
 }
 \seealso{
-\code{\link{apply_lus}}
+\code{\link{apply_macro_dict}}
 }

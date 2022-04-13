@@ -29,7 +29,8 @@ splited using this variable. Useful for repeated measures.}
 
 \item{dlu}{A data.frame of DLU file.}
 
-\item{subjid_string}{A character naming the column used to identify subject.}
+\item{subjid_string}{A character naming the column used to identify subject,
+default.}
 }
 \value{
 A data frame

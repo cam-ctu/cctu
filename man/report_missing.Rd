@@ -17,20 +17,20 @@ report_missing(
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
 
-\item{vars}{Variables to be used for summary table.}
-
 \item{select}{a named vector with as many components as row-variables. Every
 element of `select` will be used to select the individuals to be analyzed
  for every row-variable. Name of the vector corresponds to the row variable,
  element is the selection.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
-splited using this variable. Useful for repeated measures.}
+ splited using this variable. Useful for repeated measures. If \code{x} is 
+a \code{formula}, \code{row_split} should be provded on the far right hand
+side of the formula after \code{|}. For example, \code{treat ~ age + sex|cycle}.}
 
 \item{dlu}{A data.frame of DLU file.}
 
 \item{subjid_string}{A character naming the column used to identify subject,
-default.}
+default is \code{"subjid"}.}
 }
 \value{
 A data frame

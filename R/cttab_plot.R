@@ -103,9 +103,14 @@ cctab_plot <- function(vars,
 
     # Boxplot for a numerical variable
     if(inherits(data[[v]], c("numeric", "integer"))){
-      p <- ggplot(data, aes_string(x = row_split, y = v, fill = group)) +
-        geom_boxplot(na.rm=TRUE) +
-        labs(x = rs_lab, y = v_lab, fill = gp_lab)
+      if(is.null(row_split))
+        p <- ggplot(data, aes_string(x = group, y = v, fill = group)) +
+          geom_boxplot(na.rm=TRUE) +
+          labs(x = gp_lab, y = v_lab, fill = gp_lab)
+      else
+        p <- ggplot(data, aes_string(x = row_split, y = v, fill = group)) +
+          geom_boxplot(na.rm=TRUE) +
+          labs(x = rs_lab, y = v_lab, fill = gp_lab)
 
       return(p)
     }

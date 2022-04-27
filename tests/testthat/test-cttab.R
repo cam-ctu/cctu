@@ -31,10 +31,16 @@ test_that("Start from data reading", {
 
   df$BMIBL[df$RACEN == 6] <- NA
 
-  X <- cttab(vars = c("AGE", "SEX", "BMIBL"),
+  X <- cttab(x = c("AGE", "SEX", "BMIBL"),
              group = "ARM",
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
+
+  X1 <- cttab(ARM~AGE + SEX + BMIBL,
+             data = df,
+             select = c("BMIBL" = "RACEN != 1"))
+
+  expect_identical(X, X1)
 
   testthat_print(X)
 
@@ -69,7 +75,7 @@ test_that("Variable groups", {
 
   df$BMIBL[df$RACEN == 6] <- NA
 
-  X <- cttab(vars = list(c("AGE", "SEX", "BMIBL"),
+  X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
                          "Blood" = c("ALT", "AST"),
                          "Patients with Abnormal" = c("ABNORMAST", "ABNORMALT")),
              group = "ARM",
@@ -104,11 +110,17 @@ test_that("By cycle summary", {
                        ifelse(df$AST > 40, "High", "Normal"))
   var_lab(df$inrange) <- "AST range"
 
-  X <- cttab(vars = c("AST", "BILI", "ALT", "inrange"),
+  X <- cttab(x = c("AST", "BILI", "ALT", "inrange"),
              group = "ARM",
              data = df,
              row_split = "AVISIT",
              select = c("ALT" = "PERF == 1"))
+
+  X1 <- cttab(ARM ~ AST + BILI + ALT + inrange|AVISIT,
+              data = df,
+              select = c("ALT" = "PERF == 1"))
+
+  expect_identical(X, X1)
 
   mis_rp <- get_missing_report()
   expect_identical(mis_rp$visit[6], "Baseline")
@@ -133,8 +145,19 @@ test_that("By cycle No treatment arm summary", {
   df$ABNORMAST <- df$AST > 25.5
   var_lab(df$ABNORMAST) <- "AST abnormal"
 
+  X <- cttab(x = c("AST", "BILI", "ALT", "ABNORMALT", "ABNORMAST"),
+             data = df,
+             row_split = "AVISIT",
+             select = c("ALT" = "PERF == 1"))
 
-  X <- cttab(vars = list(c("AST", "BILI", "ALT"),
+  X1 <- cttab(~AST + BILI + ALT + ABNORMALT + ABNORMAST | AVISIT,
+              data = df,
+              select = c("ALT" = "PERF == 1"))
+
+  expect_identical(X, X1)
+
+
+  X <- cttab(x = list(c("AST", "BILI", "ALT"),
                           "Abnormal" = c("ABNORMALT", "ABNORMAST")),
              data = df,
              row_split = "AVISIT",
@@ -164,9 +187,15 @@ test_that("No treatment arm and cycle", {
 
   df$BMIBL[df$RACEN == 6] <- NA
 
-  X <- cttab(vars = c("AGE", "SEX", "BMIBL", "over_w", "hi_age"),
+  X <- cttab(x = c("AGE", "SEX", "BMIBL", "over_w", "hi_age"),
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
+
+  X1 <- cttab(~AGE + SEX + BMIBL + over_w + hi_age,
+              data = df,
+              select = c("BMIBL" = "RACEN != 1"))
+
+  expect_identical(X, X1)
 
   cctu_env$parent <- "test"
   write_table(X, directory = tmp_dir)
@@ -183,22 +212,22 @@ test_that("Check errors", {
   df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
 
   # Duplicated variables
-  expect_error(cttab(vars = c("AST", "BILI", "ALT", "ALT"),
+  expect_error(cttab(x = c("AST", "BILI", "ALT", "ALT"),
                      group = "ARM",
                      data = df,
                      row_split = "AVISIT",
                      select = c("ALT" = "PERF == 1")),
-               "vars, group and row_splot duplicated.")
+               "The variable list, group or row split variable have duplicated variable.")
 
-  expect_error(cttab(vars = c("AST", "BILI", "ALT", "ARM"),
+  expect_error(cttab(x = c("AST", "BILI", "ALT", "ARM"),
                      group = "ARM",
                      data = df,
                      row_split = "AVISIT",
                      select = c("ALT" = "PERF == 1")),
-               "vars, group and row_splot duplicated.")
+               "The variable list, group or row split variable have duplicated variable.")
 
   # Extra variables not in the dataset
-  expect_error(cttab(vars = c("AST", "BILI", "ALT", "MPG"),
+  expect_error(cttab(x = c("AST", "BILI", "ALT", "MPG"),
                      group = "ARM",
                      data = df,
                      row_split = "AVISIT",
@@ -211,6 +240,24 @@ test_that("Check errors", {
                      select = c("ALT" = "PERF == 1")),
                "Variable MPG not in the dataset, please check!")
 
+  expect_error(stat_tab(vars = c("AST", "BILI", "ALT", "MPG"),
+                        group = "ARM",
+                        data = df,
+                        select = c("ALT" = "PERF == 1")),
+               "Variable MPG not in the dataset, please check!")
+
+
+  expect_error(cttab(~., data = df),
+               "Invalid formula, no variables provded.")
+
+  expect_error(cttab(~ over_w + hi_age|AGE|SEX, data = df),
+               "Invalid formula, multiple split provided.")
+
+  expect_error(cttab(ARM|SEX ~ AGE, data = df),
+               "Invalid formula, only one variable is allowed on the left hand side.")
+
+  expect_error(cttab(ARM+SEX ~ AGE, data = df),
+               "Invalid formula, only one variable is allowed on the left hand side.")
 })
 
 test_that("Check stat_tab", {

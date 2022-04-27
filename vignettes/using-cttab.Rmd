@@ -155,7 +155,7 @@ attach_pop("1.1")
 df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
 
 # Now report Age, Sex and BMI. For BMI, report not white only 
-X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
+X <- cttab(x = c("AGE", "SEX", "BMIBL"), # Variable to report
            group = "ARM",                  # Group variable
            data = df,                      # Data
            select = c("BMIBL" = "RACEN != 1")) # Filter for variable BMI
@@ -164,6 +164,19 @@ X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
 X
 ```
 
+## Formula interface
+
+One can use fomula in the `cctab` just like `lm`, but you will not be able to group variables (described in the later section). The left hand side of the formula is the grouping variable, left blank if there isn't any. Right hand side of the fomula is the variables to be summarised in the table. The by visit variable should be proivded at the right hand side of the formula and separate with `|`. No `group` or `row_split` should be used in the formula interface. All the other parameters are the same.
+```{r eval=FALSE}
+# No grouping
+X <- cttab( ~ AGE + SEX + BMIBL, data = df)
+# Group summarise by ARM
+X <- cttab(ARM ~ AGE + SEX + BMIBL, data = df)
+# Group summarise by ARM and split by visit cycle
+X <- cttab(ARM ~ AST + BILI | AVISIT, data = df)
+# Split by visit cycle
+X <- cttab(ARM ~ AST + BILI | AVISIT, data = df)
+```
 
 ## Missing data report
 
@@ -191,7 +204,7 @@ As you have seen previously, the `cttab` function can easily populate simple tab
 
 Table only some variables, no treatment arm or variable selection.
 ```{r echo=TRUE}
-X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
+X <- cttab(x = c("AGE", "SEX", "BMIBL"), # Variable to report
            data = df)                      # Data
 
 X
@@ -201,7 +214,7 @@ X
 
 This is what we have seen before
 ```{r echo=TRUE}
-X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
+X <- cttab(x = c("AGE", "SEX", "BMIBL"), # Variable to report
            group = "ARM",                  # Group variable
            data = df,                      # Data
            select = c("BMIBL" = "RACEN != 1")) # Filter for variable BMI
@@ -216,7 +229,7 @@ You can define `row_split` parameter to the name of visit or repeat variable.
 attach_pop("1.1")
 df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
 
-X <- cttab(vars = c("AST", "BILI", "ALT"),
+X <- cttab(x = c("AST", "BILI", "ALT"),
            group = "ARM",
            data = df,
            row_split = "AVISIT",            # Visit variable
@@ -245,7 +258,7 @@ var_lab(base_lab$ABNORMAST) <- "AST abnormal"
 df <- merge(df, base_lab, by = "subjid")
 
 # Table
-X <- cttab(vars = list(c("AGE", "SEX", "BMIBL"),
+X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
                        # Group lab variable
                        "Blood" = c("ALT", "AST"),
                        # Group abnormal variable
@@ -264,7 +277,7 @@ X
 The default behaviour of this function is to keep one digits for the percentage and 3 significant value for the numerical values. The default rounding function is `signif_pad`, you can also use `round` or `round_pad` to keep digits in the summary. The `format_percent` function is used to format the percentage values. There is `format_pval` might be useful to you.
 
 ```{r echo=TRUE}
-X <- cttab(vars = c("AGE", "SEX", "BMIBL"), # Variable to report
+X <- cttab(x = c("AGE", "SEX", "BMIBL"), # Variable to report
            group = "ARM",                  # Group variable
            data = df,                      # Data
            digits = 2,                     # Keep 2 digits for numerical 

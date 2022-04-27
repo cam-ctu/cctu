@@ -23,7 +23,7 @@ Missing ness report
 \itemize{
 \item \code{get_missing_report}: Return the missingness report data.
 
-\item \code{reset_missing_report}: Reset the internal missingness report 
+\item \code{reset_missing_report}: Reset the internal missingness report
 data to blank.
 }}
 

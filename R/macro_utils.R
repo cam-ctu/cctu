@@ -7,7 +7,7 @@
 #' @param dlu Data frame of DLU
 #' @param clu Data frame of CLU
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
-#' @param clean_names Conver variable name to lower case (default), this will also change the 
+#' @param clean_names Conver variable name to lower case (default), this will also change the
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
 #' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
@@ -27,7 +27,7 @@
 #' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
-#'  \code{\link[data.table]{data.table}} \code{\link{clean_names}}
+#'  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
 #' @return A data.table object.
 #' @export
 #'
@@ -97,7 +97,7 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 #' }
 #' @param x DLU data.frame
 #' @return A data.frame
-#' @seealso \code{\link{apply_macro_dict}}
+#' @seealso \code{\link{apply_macro_dict}} \code{\link{read_data}}
 #' @export
 #'
 sep_dlu <- function(x){
@@ -118,7 +118,7 @@ sep_dlu <- function(x){
 #' @param visit A character string or vector of visit name in the DLU file, see \code{\link{sep_dlu}}.
 #' @param vars_keep Parameters to keep in the output data. This is useful if you want to keep
 #' treatment arm or age variable.
-#' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
+#' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}} \code{\link{read_data}}
 #' @export
 #'
 #' @examples

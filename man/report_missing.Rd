@@ -41,4 +41,7 @@ missingness of the variables. It includes which form is the variable from,
 set as `Derived` if not from DLU file. And missing percentage with which subjects
 are have missing value for that particular variable.
 }
+\seealso{
+\code{\link{cttab}}
+}
 \keyword{internal}

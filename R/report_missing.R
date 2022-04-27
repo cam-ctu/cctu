@@ -8,6 +8,8 @@
 #'
 #' @inheritParams cttab
 #'
+#' @seealso \code{\link{cttab}}
+#'
 #' @return A data frame
 #'
 #' @keywords internal
@@ -100,12 +102,12 @@ get_missing_report <- function(){
   unique(cctu_env$missing_report_data)
 }
 
-#' @describeIn dump_missing_report Reset the internal missingness report 
+#' @describeIn dump_missing_report Reset the internal missingness report
 #' data to blank.
 #' @export
 reset_missing_report <- function(){
   cctu_env$missing_report_data <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
-                                         c("form", "visit_var", "visit_label", 
+                                         c("form", "visit_var", "visit_label",
                                            "visit", "variable", "label", "missing_pct",
                                            "subject_ID"))
 }

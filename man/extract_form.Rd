@@ -32,5 +32,5 @@ extract_form(full_dt, "LabResF", dlu)
 
 }
 \seealso{
-\code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
+\code{\link{sep_dlu}} \code{\link[data.table]{data.table}} \code{\link{read_data}}
 }

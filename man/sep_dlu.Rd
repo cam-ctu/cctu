@@ -29,5 +29,5 @@ convert variables to corresponding type.
 }
 }
 \seealso{
-\code{\link{apply_macro_dict}}
+\code{\link{apply_macro_dict}} \code{\link{read_data}}
 }

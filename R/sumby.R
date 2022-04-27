@@ -12,7 +12,8 @@
 #'ready to use with write_table(). Plus an attribute "fig" that contains a ggplot object
 #'
 #'
-#'@seealso \code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}}
+#'@seealso \code{\link{sumfig}} , \code{\link{write_table}}, \code{\link{propercase}},
+#'\code{\link{cttab}}
 #'
 #'@importFrom magrittr %<>% %>%
 #'@export

@@ -76,5 +76,9 @@ summary(meta)
 
 }
 \seealso{
-\code{\link{read.csv}} \code{\link[readxl]{read_excel}}  \code{\link{data_table_summary}}
+\code{\link{read.csv}} \code{\link[readxl]{read_excel}}
+\code{\link{data_table_summary}}
+\code{\link{apply_macro_dict}}
+\code{\link{var_lab}}
+\code{\link{extract_form}}
 }

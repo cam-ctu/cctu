@@ -28,6 +28,9 @@ The package `cctu` is designed to help run the analysis of clinical trials which
 
 This document should give you an overview of the tools provided in this package, explain the thought behind them, and show how to use them together. We will start by explaining the rationale, and then finish with a worked example. A complimentary set of R scripts and outputs, that aren't easily directly captured within a vignette are also provided with the /doc directory.
 
+Further functions and tools have been added, for more streamlined importing of MACRO data, give improvements to the basic tables, and to automate the reporting of missing data. These are explained more in the separate `using-cttab` vignette.
+
+
 # Key Concepts
 
 ## Meta Table
@@ -83,17 +86,31 @@ Other function may be worth looking up in their help files, and hopefully their 
 * `data_table_summary`
 * `clean_names`
 * `remove_blank_rows_cols`
+* Recent additions are:
+  + `var_lab`
+  + `apply_macro_dict`
+  + `extract_form`
 
 The set of external data files to be read in, along with the names of the corresponding data.frames created should be recorded in one initial data.frame. This can then be summarised in a table in the report using `data_table_summary` and also used to succinctly read in all the data files with `read_data`.
 
 
 ### Analysis
  * `sumby()` is a work-horse to produce standard summary tables, with additional figures produced as side-effects
+ * `cttab` is a recent addition which greatly expands the flexibility and scope from `sumby`
  * `propercase`
  * `rbind_space` : to glue together repeated outputs from `sumby`
  * `clean_up` is called by default within each call of `write_*`. They have arguments to not call `clean_up` if the code is such that you need to re-use the same R objects for multiple outputs.
  * `.reserved`  is a hidden variable in the global environment. `clean_up` ignores any objects named in `.reserved`. So you can edit this as an alternative to using the arguments within `write_*`, but ideally it should be defined once at the end of data manipulation.
  * `rm_envir`  maybe helpful during code development and interactive use of `attach_pop`.
+
+## Missing Data
+
+With the use of `cttab` there are created as a side-effect summaries of missing data. See these functions
+
+* `dump_missing_report`
+* `get_missing_report`
+* `reset_missing_report`
+
  
 ## Audit trails  
 
@@ -162,7 +179,7 @@ Here we grab a ready prepared 'dirty' raw data typical of MACRO DB and apply som
 `r sourceKnit("Progs/data_import.R", "data_import")`
 
 
-
+From here one coudl refer to the vignette `using-cttab`, and apply further functions: `apply_macro_dict`, and/or `var_lab`
 
 ## Analysis
 

@@ -36,7 +36,7 @@ test_that("Start from data reading", {
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
 
-  X1 <- cttab(ARM~AGE + SEX + BMIBL,
+  X1 <- cttab(AGE + SEX + BMIBL ~ ARM,
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
 
@@ -116,7 +116,7 @@ test_that("By cycle summary", {
              row_split = "AVISIT",
              select = c("ALT" = "PERF == 1"))
 
-  X1 <- cttab(ARM ~ AST + BILI + ALT + inrange|AVISIT,
+  X1 <- cttab(AST + BILI + ALT + inrange ~ ARM|AVISIT,
               data = df,
               select = c("ALT" = "PERF == 1"))
 
@@ -150,7 +150,7 @@ test_that("By cycle No treatment arm summary", {
              row_split = "AVISIT",
              select = c("ALT" = "PERF == 1"))
 
-  X1 <- cttab(~AST + BILI + ALT + ABNORMALT + ABNORMAST | AVISIT,
+  X1 <- cttab(AST + BILI + ALT + ABNORMALT + ABNORMAST ~ 1 | AVISIT,
               data = df,
               select = c("ALT" = "PERF == 1"))
 
@@ -191,7 +191,7 @@ test_that("No treatment arm and cycle", {
              data = df,
              select = c("BMIBL" = "RACEN != 1"))
 
-  X1 <- cttab(~AGE + SEX + BMIBL + over_w + hi_age,
+  X1 <- cttab(AGE + SEX + BMIBL + over_w + hi_age ~ 1,
               data = df,
               select = c("BMIBL" = "RACEN != 1"))
 
@@ -248,16 +248,16 @@ test_that("Check errors", {
 
 
   expect_error(cttab(~., data = df),
-               "Invalid formula, no variables provded.")
+               "No variables provided to summarise")
 
-  expect_error(cttab(~ over_w + hi_age|AGE|SEX, data = df),
+  expect_error(cttab(over_w + hi_age ~ 1|AGE|SEX, data = df),
                "Invalid formula, multiple split provided.")
 
-  expect_error(cttab(ARM|SEX ~ AGE, data = df),
-               "Invalid formula, only one variable is allowed on the left hand side.")
+  expect_error(cttab(ARM|SEX + over_w ~ AGE, data = df),
+               "Invalid formula, only")
 
-  expect_error(cttab(ARM+SEX ~ AGE, data = df),
-               "Invalid formula, only one variable is allowed on the left hand side.")
+  expect_error(cttab(ARM+SEX ~ ., data = df),
+               "Invalid formula, dot is not allowed.")
 })
 
 test_that("Check stat_tab", {

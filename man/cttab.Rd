@@ -43,20 +43,23 @@ cttab(x, ...)
 )
 }
 \arguments{
-\item{x}{Variables to be used or a \code{formula} for summary table.}
+\item{x}{Variables to be used or a \code{formula} for summary table. 
+If \code{x} is a \code{formula}, then the \code{group} variable should
+ be provided at the right had side, use \code{1} if there's no grouping
+variable. And \code{row_split} should also be provided on the right hand side 
+of the formula and separate it using \code{|} with grouping variable. For example, 
+\code{age + sex ~ treat|cycle} or \code{age + sex ~ 1|cycle} without grouping.
+See details.}
 
 \item{...}{Not used.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
 
-\item{group}{Name of the grouping variable. If \code{x} is a \code{formula},
-then the \code{group} variable should be provided at the left had side.}
+\item{group}{Name of the grouping variable.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
- splited using this variable. Useful for repeated measures. If \code{x} is 
-a \code{formula}, \code{row_split} should be provded on the far right hand
-side of the formula after \code{|}. For example, \code{treat ~ age + sex|cycle}.}
+splited using this variable. Useful for repeated measures.}
 
 \item{total}{If a "Total" column will be created (default). Specify
 \code{FALSE} to omit the column.}
@@ -97,6 +100,8 @@ split statistics table by `row_split` variable.
 }
 \details{
 Some of the function parameters can be set with options. This will have an global
+
+Some of the function parameters can be set with options. This will have an global
 effect on the \code{cctab} function. It is an ideal way to set a global settings
 if you want this to be effctive globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
@@ -106,10 +111,13 @@ from printting by setting \code{options(cctu_print_plot = FALSE)}.
 There are two interfaces, the default, which typically takes a variable vector from
 \code{data.frame} for \code{x}, and the formula interface. The formula interface is
  less flexible, but simpler to use and designed to handle the most common use cases.
-For the formula version, the formula is expected to be a one-sided or two-sided formula.
-Left hand side is the group variable and the right hand side is the variables to be 
-summarised. To include a row splitting variable, far right hand of the formula after 
-add a \code{|} and then the row split variable. For example, \code{treat ~ age + sex|visit}.
+For the formula version, the formula is expected to be a two-sided formula. Left hand 
+side is the variables to be summarised and the right hand side is the group and/or split
+ variable. To include a row splitting variable, use \code{|} to separate the row splitting
+variable after the grouping variable and then the row split variable. For example, 
+\code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
+ variable by default. A value of \code{1} should be provided if there is no grouping variable,
+ for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -139,7 +147,7 @@ dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
 
 cttab(x = c("age", "sex", "wt"), data = dat, group = "treat")
 
-cttab(treat ~ age + sex + wt, data = dat, group = "treat")
+cttab(age + sex + wt ~ treat, data = dat, group = "treat")
 
 }
 \seealso{

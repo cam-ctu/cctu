@@ -10,13 +10,10 @@ cctab_plot(vars, data, group = NULL, row_split = NULL, select = NULL)
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
 
-\item{group}{Name of the grouping variable. If \code{x} is a \code{formula},
-then the \code{group} variable should be provided at the left had side.}
+\item{group}{Name of the grouping variable.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
- splited using this variable. Useful for repeated measures. If \code{x} is 
-a \code{formula}, \code{row_split} should be provded on the far right hand
-side of the formula after \code{|}. For example, \code{treat ~ age + sex|cycle}.}
+splited using this variable. Useful for repeated measures.}
 
 \item{select}{a named vector with as many components as row-variables. Every
 element of `select` will be used to select the individuals to be analyzed

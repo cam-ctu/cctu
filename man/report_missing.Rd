@@ -23,9 +23,7 @@ element of `select` will be used to select the individuals to be analyzed
  element is the selection.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
- splited using this variable. Useful for repeated measures. If \code{x} is 
-a \code{formula}, \code{row_split} should be provded on the far right hand
-side of the formula after \code{|}. For example, \code{treat ~ age + sex|cycle}.}
+splited using this variable. Useful for repeated measures.}
 
 \item{dlu}{A data.frame of DLU file.}
 

@@ -17,8 +17,7 @@ stat_tab(
 )
 }
 \arguments{
-\item{group}{Name of the grouping variable. If \code{x} is a \code{formula},
-then the \code{group} variable should be provided at the left had side.}
+\item{group}{Name of the grouping variable.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}

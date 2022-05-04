@@ -1,8 +1,8 @@
 Package: cctu
 Type: Package
 Title: In-house Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.7.0
-Date: 2022-04-13
+Version: 0.7.1
+Date: 2022-05-04
 Author: Simon Bond, Alimu Dayimu
 Maintainer: Simon Bond <simon.bond@addenbrookes.nhs.uk>
 Description: Several useful functions and a vignette to explain how to put it all together. Notably, it produces word documents via xml, and deals with ensuring the correct population is used.

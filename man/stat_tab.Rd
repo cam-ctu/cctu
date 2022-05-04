@@ -17,9 +17,8 @@ stat_tab(
 )
 }
 \arguments{
-\item{vars}{Variables to be used for summary table.}
-
-\item{group}{Name of the grouping variable.}
+\item{group}{Name of the grouping variable. If \code{x} is a \code{formula},
+then the \code{group} variable should be provided at the left had side.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
@@ -56,28 +55,4 @@ labels will be used in the output. The first row will be blank with row names
 of variable label. Variable name will be used if the variable does not have
 a variable label.
 }
-\examples{
-
-dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
-dat$age <- runif(nrow(dat), 10, 50)
-dat$age[3] <- NA  # Add a missing value
-dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
-
-var_lab(dat$sex) <- "Sex"
-var_lab(dat$age) <- "Age"
-var_lab(dat$treat) <- "Treatment Group"
-var_lab(dat$wt) <- "Weight"
-
-
-# Something more complicated
-
-dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
-                   sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
-dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
-
-
-cttab(c("age", "sex", "wt"),
-data = dat,
-group = "treat")
-}
-\keyword{utilities}
+\keyword{internal}

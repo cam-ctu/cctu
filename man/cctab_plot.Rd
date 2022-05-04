@@ -7,8 +7,6 @@
 cctab_plot(vars, data, group = NULL, row_split = NULL, select = NULL)
 }
 \arguments{
-\item{vars}{Variables to be used for summary table.}
-
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
 

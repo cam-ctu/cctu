@@ -57,3 +57,31 @@ all_is_numeric <- function(x, extras=c('.','NA')){
     FALSE
   suppressWarnings(!any(is.na(as.numeric(xs))))
 }
+
+
+# split formulas
+# From Formula package
+#' @keywords internal
+split_formula <- function(f) {
+
+  stopifnot(inherits(f, "formula"))
+
+  rhs <- if(length(f) > 2) f[[3L]] else f[[2L]]
+  lhs <- if(length(f) > 2) f[[2L]] else NULL
+
+  extract_parts <- function(x, sep = "|") {
+    if(is.null(x)) return(NULL)
+
+    rval <- list()
+    if(length(x) > 1L && x[[1L]] == sep) {
+      while(length(x) > 1L && x[[1L]] == sep) {
+        rval <- c(x[[3L]], rval)
+        x <- x[[2L]]
+      }
+    }
+    return(c(x, rval))
+  }
+
+  list(lhs = extract_parts(lhs), rhs = extract_parts(rhs))
+}
+

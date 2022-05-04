@@ -5,12 +5,18 @@
 #' This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
 #' split statistics table by `row_split` variable.
 #'
-#' @param vars Variables to be used for summary table.
+#' @param x Variables to be used or a \code{formula} for summary table. 
+#' If \code{x} is a \code{formula}, then the \code{group} variable should
+#'  be provided at the right had side, use \code{1} if there's no grouping
+#' variable. And \code{row_split} should also be provided on the right hand side 
+#' of the formula and separate it using \code{|} with grouping variable. For example, 
+#' \code{age + sex ~ treat|cycle} or \code{age + sex ~ 1|cycle} without grouping.
+#' See details.
 #' @param data A \code{data.frame} from which the variables in \code{vars}
 #' should be taken.
-#' @param group Name of the grouping variable.
+#' @param group Name of the grouping variable. 
 #' @param row_split Variable that used for splitting table rows, rows will be
-#'  splited using this variable. Useful for repeated measures.
+#'  splited using this variable. Useful for repeated measures. 
 #' @param total If a "Total" column will be created (default). Specify
 #' \code{FALSE} to omit the column.
 #' @param select a named vector with as many components as row-variables. Every
@@ -29,8 +35,11 @@
 #' values, set it to \code{round_pad}.
 #' @param dlu A data.frame of DLU file.
 #' @param subjid_string A character naming the column used to identify subject,
-#' default.
+#' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
+#' @param ... Not used.
+#' @details 
+#' Some of the function parameters can be set with options. This will have an global 
 #' @details
 #' Some of the function parameters can be set with options. This will have an global
 #' effect on the \code{cctab} function. It is an ideal way to set a global settings
@@ -38,6 +47,17 @@
 #' \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
 #'  prefix in the \code{options}. For example, you can suppress the plot
 #' from printting by setting \code{options(cctu_print_plot = FALSE)}.
+#' 
+#' There are two interfaces, the default, which typically takes a variable vector from
+#' \code{data.frame} for \code{x}, and the formula interface. The formula interface is
+#'  less flexible, but simpler to use and designed to handle the most common use cases.
+#' For the formula version, the formula is expected to be a two-sided formula. Left hand 
+#' side is the variables to be summarised and the right hand side is the group and/or split
+#'  variable. To include a row splitting variable, use \code{|} to separate the row splitting
+#' variable after the grouping variable and then the row split variable. For example, 
+#' \code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
+#'  variable by default. A value of \code{1} should be provided if there is no grouping variable,
+#'  for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
@@ -46,22 +66,138 @@
 #' \code{\link{dump_missing_report}}
 #' \code{\link{get_missing_report}}
 #' @return A matrix with `cttab` class.
+#' 
+#' @examples 
+#' dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
+#' dat$age <- runif(nrow(dat), 10, 50)
+#' dat$age[3] <- NA  # Add a missing value
+#' dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
+#'
+#' var_lab(dat$sex) <- "Sex"
+#' var_lab(dat$age) <- "Age"
+#' var_lab(dat$treat) <- "Treatment Group"
+#' var_lab(dat$wt) <- "Weight"
+#'
+#'
+#' # Something more complicated
+#'
+#' dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
+#'                    sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
+#' dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
+#'
+#'
+#' cttab(x = c("age", "sex", "wt"), data = dat, group = "treat")
+#' 
+#' cttab(age + sex + wt ~ treat, data = dat, group = "treat")
+#' 
 #' @export
 #'
-cttab <- function(vars,
-                 data,
-                 group = NULL,
-                 row_split = NULL,
-                 total = TRUE,
-                 select = NULL,
-                 add_missing = TRUE,
-                 add_obs = TRUE,
-                 digits = getOption("cctu_digits", default = 3),
-                 digits_pct = getOption("cctu_digits_pct", default = 0),
-                 rounding_fn = signif_pad,
-                 dlu = cctu_env$dlu,
-                 subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-                 print_plot = getOption("cctu_print_plot", default = TRUE)) {
+
+cttab <- function(x, ...) {
+    UseMethod("cttab")
+}
+
+#' @describeIn cttab The default interface, where \code{x} is a \code{data.frame}.
+#' @export
+cttab.default <- function(x,
+                          data,
+                          group = NULL,
+                          row_split = NULL,
+                          total = TRUE,
+                          select = NULL,
+                          add_missing = TRUE,
+                          add_obs = TRUE,
+                          digits = getOption("cctu_digits", default = 3),
+                          digits_pct = getOption("cctu_digits_pct", default = 0),
+                          rounding_fn = signif_pad,
+                          dlu = cctu_env$dlu,
+                          subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+                          print_plot = getOption("cctu_print_plot", default = TRUE),
+                          ...) {
+    .cttab.internal(vars = x,
+                    data = data,
+                    group = group,
+                    row_split = row_split,
+                    total = total,
+                    select = select,
+                    add_missing = add_missing,
+                    add_obs = add_obs,
+                    digits = digits,
+                    digits_pct = digits_pct,
+                    rounding_fn = rounding_fn,
+                    dlu = dlu,
+                    subjid_string = subjid_string,
+                    print_plot =print_plot)
+}
+
+#' @describeIn cttab The formula interface, where \code{x} is a \code{formula}.
+#' @export
+cttab.formula <- function(x,
+                          data,
+                          total = TRUE,
+                          select = NULL,
+                          add_missing = TRUE,
+                          add_obs = TRUE,
+                          digits = getOption("cctu_digits", default = 3),
+                          digits_pct = getOption("cctu_digits_pct", default = 0),
+                          rounding_fn = signif_pad,
+                          dlu = cctu_env$dlu,
+                          subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+                          print_plot = getOption("cctu_print_plot", default = TRUE),
+                          ...) {
+
+    f <- split_formula(x)
+
+    if(is.null(f$lhs))
+      stop("No variables provided to summarise, please add variable to the left hand side of the formula.")
+    
+    if(length(f$lhs) != 1)
+      stop("Invalid formula, only `+` is allowed to list multiple variables.")
+
+    if(!length(f$rhs) %in% c(1, 2))
+      stop("Invalid formula, multiple split provided.")
+
+    if(f$rhs[[1]] == ".")
+      stop("Invalid formula, dot is not allowed.")
+
+    group <- if(f$rhs[[1]] == 1) NULL else all.vars(f$rhs[[1]])
+    vars <- all.vars(f$lhs[[1]])
+
+    if(length(f$rhs) == 2)
+      row_split <- all.vars(f$rhs[[2]])
+    else
+      row_split <- NULL
+
+    .cttab.internal(vars = vars,
+                    data = data,
+                    group = group,
+                    row_split = row_split,
+                    total = total,
+                    select = select,
+                    add_missing = add_missing,
+                    add_obs = add_obs,
+                    digits = digits,
+                    digits_pct = digits_pct,
+                    rounding_fn = rounding_fn,
+                    dlu = dlu,
+                    subjid_string = subjid_string,
+                    print_plot =print_plot)
+}
+
+.cttab.internal <- function(vars,
+                            data,
+                            group = NULL,
+                            row_split = NULL,
+                            total = TRUE,
+                            select = NULL,
+                            add_missing = TRUE,
+                            add_obs = TRUE,
+                            digits = getOption("cctu_digits", default = 3),
+                            digits_pct = getOption("cctu_digits_pct", default = 0),
+                            rounding_fn = signif_pad,
+                            dlu = cctu_env$dlu,
+                            subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+                            print_plot = getOption("cctu_print_plot", default = TRUE)) {
 
   tpcall <- match.call()
 
@@ -88,7 +224,7 @@ cttab <- function(vars,
   }
 
   if(base::anyDuplicated(vars_list))
-    stop("vars, group and row_splot duplicated.")
+    stop("The variable list, group or row split variable have duplicated variable.")
 
   if (!is.null(row_split)) {
     if (has.labels(data[[row_split]]) | !is.factor(data[[row_split]]))
@@ -257,32 +393,8 @@ cttab <- function(vars,
 #'
 #' @return An object of class "cttab".
 #'
-#' @examples
-#'
-#' dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
-#' dat$age <- runif(nrow(dat), 10, 50)
-#' dat$age[3] <- NA  # Add a missing value
-#' dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
-#'
-#' var_lab(dat$sex) <- "Sex"
-#' var_lab(dat$age) <- "Age"
-#' var_lab(dat$treat) <- "Treatment Group"
-#' var_lab(dat$wt) <- "Weight"
-#'
-#'
-#' # Something more complicated
-#'
-#' dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
-#'                    sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
-#' dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
-#'
-#'
-#' cttab(c("age", "sex", "wt"),
-#' data = dat,
-#' group = "treat")
 #' @importFrom data.table .SD
-#' @keywords utilities
-#' @export
+#' @keywords internal
 
 stat_tab <- function(vars,
                      group = NULL,

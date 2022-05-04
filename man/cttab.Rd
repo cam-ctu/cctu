@@ -2,10 +2,14 @@
 % Please edit documentation in R/cttab.R
 \name{cttab}
 \alias{cttab}
+\alias{cttab.default}
+\alias{cttab.formula}
 \title{Generate an table of descriptive statistics.}
 \usage{
-cttab(
-  vars,
+cttab(x, ...)
+
+\method{cttab}{default}(
+  x,
   data,
   group = NULL,
   row_split = NULL,
@@ -18,11 +22,36 @@ cttab(
   rounding_fn = signif_pad,
   dlu = cctu_env$dlu,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE)
+  print_plot = getOption("cctu_print_plot", default = TRUE),
+  ...
+)
+
+\method{cttab}{formula}(
+  x,
+  data,
+  total = TRUE,
+  select = NULL,
+  add_missing = TRUE,
+  add_obs = TRUE,
+  digits = getOption("cctu_digits", default = 3),
+  digits_pct = getOption("cctu_digits_pct", default = 0),
+  rounding_fn = signif_pad,
+  dlu = cctu_env$dlu,
+  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
+  print_plot = getOption("cctu_print_plot", default = TRUE),
+  ...
 )
 }
 \arguments{
-\item{vars}{Variables to be used for summary table.}
+\item{x}{Variables to be used or a \code{formula} for summary table. 
+If \code{x} is a \code{formula}, then the \code{group} variable should
+ be provided at the right had side, use \code{1} if there's no grouping
+variable. And \code{row_split} should also be provided on the right hand side 
+of the formula and separate it using \code{|} with grouping variable. For example, 
+\code{age + sex ~ treat|cycle} or \code{age + sex ~ 1|cycle} without grouping.
+See details.}
+
+\item{...}{Not used.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
@@ -58,7 +87,7 @@ values, set it to \code{round_pad}.}
 \item{dlu}{A data.frame of DLU file.}
 
 \item{subjid_string}{A character naming the column used to identify subject,
-default.}
+default is \code{"subjid"}.}
 
 \item{print_plot}{A logical value, print summary plot of the variables (default).}
 }
@@ -71,11 +100,55 @@ split statistics table by `row_split` variable.
 }
 \details{
 Some of the function parameters can be set with options. This will have an global
+
+Some of the function parameters can be set with options. This will have an global
 effect on the \code{cctab} function. It is an ideal way to set a global settings
 if you want this to be effctive globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
  prefix in the \code{options}. For example, you can suppress the plot
 from printting by setting \code{options(cctu_print_plot = FALSE)}.
+
+There are two interfaces, the default, which typically takes a variable vector from
+\code{data.frame} for \code{x}, and the formula interface. The formula interface is
+ less flexible, but simpler to use and designed to handle the most common use cases.
+For the formula version, the formula is expected to be a two-sided formula. Left hand 
+side is the variables to be summarised and the right hand side is the group and/or split
+ variable. To include a row splitting variable, use \code{|} to separate the row splitting
+variable after the grouping variable and then the row split variable. For example, 
+\code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
+ variable by default. A value of \code{1} should be provided if there is no grouping variable,
+ for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.
+}
+\section{Methods (by class)}{
+\itemize{
+\item \code{default}: The default interface, where \code{x} is a \code{data.frame}.
+
+\item \code{formula}: The formula interface, where \code{x} is a \code{formula}.
+}}
+
+\examples{
+dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
+dat$age <- runif(nrow(dat), 10, 50)
+dat$age[3] <- NA  # Add a missing value
+dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
+
+var_lab(dat$sex) <- "Sex"
+var_lab(dat$age) <- "Age"
+var_lab(dat$treat) <- "Treatment Group"
+var_lab(dat$wt) <- "Weight"
+
+
+# Something more complicated
+
+dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
+                   sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
+dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
+
+
+cttab(x = c("age", "sex", "wt"), data = dat, group = "treat")
+
+cttab(age + sex + wt ~ treat, data = dat, group = "treat")
+
 }
 \seealso{
 \code{\link{signif_pad}}

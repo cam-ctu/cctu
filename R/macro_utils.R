@@ -42,6 +42,8 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
     colnames(data) <- clean_string(names(data))
     dlu$ShortCode <- clean_string(dlu$ShortCode)
     dlu$Question <- clean_string(dlu$Question)
+    if(!is.null(clu))
+      clu$ShortCode <- clean_string(clu$ShortCode)
   }
 
   # Store DLU file inside the cctu env
@@ -69,6 +71,10 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
     if(!is.null(clu) && i %in% clu$ShortCode){
       valab <- clu[clu$ShortCode == i, "CatCode"]
       names(valab) <- clu[clu$ShortCode == i, "CatValue"]
+
+      if(any(is_empty(names(valab))))
+        stop("Variable ", i, " has empty category values.")
+
       val_lab(data[[i]]) <- valab
     }
 

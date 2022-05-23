@@ -19,6 +19,9 @@ test_that("Test is_empty", {
   expect_identical(unname(is_empty(c("", "a"))),
                    c(T, F))
 
+  expect_identical(unname(is_empty(c(NA, "a"))),
+                   c(T, F))
+
   # empty data frame and list
   expect_true(is_empty(data.frame()))
   expect_true(is_empty(list(NULL)))

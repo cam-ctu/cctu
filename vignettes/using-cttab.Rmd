@@ -115,7 +115,7 @@ dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 ```
 
-If you have multiple datasets, you should combine them at this stage. Next, we will apply the DLU and CLU files to the dataset.
+If you have multiple datasets, you should combine them at this stage. Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour.
 
 ```{r echo=TRUE}
 # Create subjid

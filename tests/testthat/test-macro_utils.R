@@ -39,6 +39,15 @@ test_that("Apply DLU and CLU files", {
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = tmp),
                "Variable arm has empty category values")
 
+  colnames(clu)[1] <- tolower(colnames(clu)[1])
+  expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
+               "Variable ShortCode not found in the clu data")
+
+  tmp_dlu <- dlu
+  colnames(tmp_dlu) <- tolower(colnames(tmp_dlu))
+  expect_error(apply_macro_dict(dt, dlu = tmp_dlu, clu = clu),
+               "Variable ShortCode, Description, Type not found in the dlu data")
+
 })
 
 

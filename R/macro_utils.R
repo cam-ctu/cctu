@@ -35,8 +35,18 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 
   data.table::setDT(data)
 
-  if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
+  dlu_var_list <- c("ShortCode", "Description", "Type")
+  if(!all(dlu_var_list %in% names(dlu)))
+    stop("Variable ", paste(setdiff(dlu_var_list, names(dlu)), collapse = ", "),
+         " not found in the dlu data. Please DO NOT clean DLU file.")
+
+  if(ncol(dlu) == 4)
     dlu <- sep_dlu(dlu)
+
+  clu_var_list <- c("ShortCode", "CatCode", "CatValue")
+  if(!is.null(clu) && !all(names(clu) %in% clu_var_list))
+    stop("Variable ", paste(setdiff(clu_var_list, names(clu)), collapse = ", "),
+         " not found in the clu data. Please DO NOT clean CLU file.")
 
   if(clean_names){
     colnames(data) <- clean_string(names(data))
@@ -107,7 +117,7 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 #' @export
 #'
 sep_dlu <- function(x){
-  vfq <- strsplit(as.character(x$Visit.Form.Question),'/')
+  vfq <- strsplit(as.character(x[[2]]),'/')
   vfq <- as.data.frame(do.call(rbind, vfq))
   colnames(vfq) <- c("Visit", "Form", "Question")
   cbind.data.frame(x[, -2], vfq)

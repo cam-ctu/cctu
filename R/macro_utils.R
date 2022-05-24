@@ -39,10 +39,6 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
   if(!all(dlu_var_list %in% names(dlu)))
     stop("Variable ", paste(setdiff(dlu_var_list, names(dlu)), collapse = ", "),
          " not found in the dlu data. Please DO NOT clean DLU file.")
-  
-  if_visit_form <- sapply((gregexpr("/", dlu[[2]], fixed=TRUE)), function(i) sum(i > 0))
-  if(length(unique(if_visit_form)) != 1 || unique(if_visit_form) != 2)
-    stop("The second variable of the DLU file must be in the original Visit/Form/Question from MACRO.")
 
   if(ncol(dlu) == 4)
     dlu <- sep_dlu(dlu)
@@ -121,6 +117,11 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 #' @export
 #'
 sep_dlu <- function(x){
+
+  if_visit_form <- unique(sapply((gregexpr("/", x[[2]], fixed=TRUE)), function(i) sum(i > 0)))
+  if(length(if_visit_form) != 1 || if_visit_form != 2)
+    stop("The second variable of the DLU file must be in the original Visit/Form/Question from MACRO.")
+
   vfq <- strsplit(as.character(x[[2]]),'/')
   vfq <- as.data.frame(do.call(rbind, vfq))
   colnames(vfq) <- c("Visit", "Form", "Question")

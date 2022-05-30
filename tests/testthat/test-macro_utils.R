@@ -30,27 +30,34 @@ test_that("Apply DLU and CLU files", {
   expect_identical(val_lab(df$arm), c("Placebo" = 1L, "Research" = 2L))
 
   # CLU not category
-  tmp <- clu
-  tmp$CatValue[clu$ShortCode == "ARM"][1] <- ""
-  expect_error(apply_macro_dict(dt, dlu = dlu, clu = tmp, clean_names = FALSE),
+  dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+  clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
+  clu$CatValue[clu$ShortCode == "ARM"][1] <- ""
+  expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE),
                "Variable ARM has empty category value")
 
-  tmp$CatValue[clu$ShortCode == "ARM"][1] <- NA
-  expect_error(apply_macro_dict(dt, dlu = dlu, clu = tmp),
+  dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+  clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
+  clu$CatValue[clu$ShortCode == "ARM"][1] <- NA
+  expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
                "Variable arm has empty category value")
 
+  dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+  clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
   colnames(clu)[1] <- tolower(colnames(clu)[1])
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
                "Variable ShortCode not found in the clu data")
 
-  tmp_dlu <- dlu
-  colnames(tmp_dlu) <- tolower(colnames(tmp_dlu))
-  expect_error(apply_macro_dict(dt, dlu = tmp_dlu, clu = clu),
+  dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+  clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
+  colnames(dlu) <- tolower(colnames(dlu))
+  expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
                "Variable ShortCode, Description, Type not found in the dlu data")
 
-  tmp_dlu <- dlu
-  tmp_dlu[[2]] <- dlu[[1]]
-  expect_error(apply_macro_dict(dt, dlu = tmp_dlu, clu = clu),
+  dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+  clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
+  dlu[[2]] <- dlu[[1]]
+  expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
                "The second variable of the DLU file must be in the original")
 
 

@@ -9,7 +9,8 @@ apply_macro_dict(
   dlu,
   clu = NULL,
   date_format = "\%d/\%m/\%Y",
-  clean_names = TRUE
+  clean_names = TRUE,
+  rm_empty = c("both", "none", "rows", "cols")
 )
 }
 \arguments{
@@ -23,6 +24,10 @@ apply_macro_dict(
 
 \item{clean_names}{Conver variable name to lower case (default), this will also change the
 values in the DLU as well. See \code{\link{clean_names}} for details.}
+
+\item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
+or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+used to clean the empty rows and/or columns.}
 }
 \value{
 A data.table object.
@@ -31,20 +36,24 @@ A data.table object.
 The variable label attribute will be applied to the data frame from the DLU file.
 }
 \details{
-This funciton first convert the data to a \code{\link[data.table]{data.table}}.
+This function first convert the data to a \code{\link[data.table]{data.table}}.
 This is to avoid the variable attributes dropped by base R functions. Then it will use
 the dlu file to convert the data into corresponding variable types.
 \itemize{
   \item{IntegerData}: Convert to numeric.
   \item{Real}: Convert to numeric.
-  \item{Category}: If there are any non-numerica characters in the variable, no conversion
+  \item{Category}: If there are any non-numeric characters in the variable, no conversion
 will be performed, otherwise convert to numeric.
   \item{Date}: Convert data date format with \code{\link{as.Date}}. The \code{date_format}
-will be used to feed the \code{\link{as.Date}} function during the covnersion.
+will be used to feed the \code{\link{as.Date}} function during the conversion.
   \item{Text}: Convert to character.
 }
 After the conversion of the data, variable label attribute will be created for the variable.
 See  \code{\link{var_lab}}.
+
+If the \code{clean_names} is set to \code{TRUE}, the data name and the dl/clu
+will be cleaned, including the question names in the dlu. The cleaned dlu data
+will be stored in the \code{cctu} environment.
 
 After this is completed and if the clu file is provided, value label attribute will be
 create for the variables listed in the clu file. See \code{\link{val_lab}}.
@@ -52,4 +61,5 @@ create for the variables listed in the clu file. See \code{\link{val_lab}}.
 \seealso{
 \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
+ \code{\link{remove_blank_rows_cols}}
 }

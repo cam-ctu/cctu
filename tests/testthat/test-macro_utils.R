@@ -33,11 +33,11 @@ test_that("Apply DLU and CLU files", {
   tmp <- clu
   tmp$CatValue[clu$ShortCode == "ARM"][1] <- ""
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = tmp, clean_names = FALSE),
-               "Variable ARM has empty category values")
+               "Variable ARM has empty category value")
 
   tmp$CatValue[clu$ShortCode == "ARM"][1] <- NA
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = tmp),
-               "Variable arm has empty category values")
+               "Variable arm has empty category value")
 
   colnames(clu)[1] <- tolower(colnames(clu)[1])
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
@@ -86,3 +86,34 @@ test_that("Extract form", {
 
 })
 
+
+
+test_that("Remove empty cols and rows", {
+
+  dt$AGE <- NA
+  dt[20, ] <- NA
+
+  # Remove empty columns and rows
+  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE)
+  expect_equal(dim(df), dim(dt)-1)
+
+  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE, rm_empty = "rows")
+  expect_equal(nrow(df), nrow(dt)-1)
+  expect_equal(ncol(df), ncol(dt))
+
+  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE, rm_empty = "cols")
+  expect_equal(ncol(df), ncol(dt)-1)
+  expect_equal(nrow(df), nrow(dt))
+
+  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE, rm_empty = "none")
+  expect_equal(dim(df), dim(dt))
+
+  # Remove empty columns and rows for extract_form
+  ptreg <- extract_form(df, "PatientReg")
+  expect_equal(dim(ptreg), c(sum(!is_empty(df$ARM)), 5))
+
+  ptreg <- extract_form(df, "PatientReg", rm_empty = "rows")
+  expect_equal(dim(ptreg), c(sum(!is_empty(df$ARM)), 6))
+
+
+})

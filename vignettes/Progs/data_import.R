@@ -10,8 +10,7 @@ data_table <- data.frame(
 
 
 read_data(data_table)
-# if you wanted to read in just one data set, using non-standard options say
-read_data( data_table[2,], remove_blank_rows_cols_option=FALSE, clean_names_option=FALSE)
+read_data( data_table[2,])
 
 
 set_meta_table( cctu::meta_table_example)

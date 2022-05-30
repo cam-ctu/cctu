@@ -6,8 +6,8 @@
 #' @param frame Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.
 #' @param name_variable character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".
 #' @param file_variable character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".
-#' @param clean_names_option logical to apply the \code{\link{clean_names}} function internally. Defaults to TRUE
-#' @param remove_blank_rows_cols_option logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to TRUE.
+#' @param clean_names_option logical to apply the \code{\link{clean_names}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.
+#' @param remove_blank_rows_cols_option logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.
 #' @param ... other arguments to supply to \code{fun}.
 #'
 #' @return \code{read_data} assigns or returns a data frame reading in data from an external file
@@ -78,8 +78,8 @@ read_data.character <- function(x,
                       frame=parent.frame(),
                       name_variable="name",
                       file_variable="file",
-                      clean_names_option=TRUE,
-                      remove_blank_rows_cols_option=TRUE,
+                      clean_names_option=FALSE,
+                      remove_blank_rows_cols_option=FALSE,
                       ...){
   names <- data_table[,name_variable]
   files <- data_table[,file_variable]

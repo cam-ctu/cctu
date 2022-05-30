@@ -52,7 +52,38 @@ context("read_data")
 )
 
 
+test_that( "interaction with apply_macro_dict",{
+        my_data <- data.frame(
+         name=c("dt","dlu","clu"),
+         file=c("pilotdata.csv","pilotdata_dlu.csv", "pilotdata_clu.csv"),
+         folder=system.file("extdata",  package="cctu")
 
+        )
+
+        read_data(my_data, colClasses = "character")
+        dt$subjid <- substr(dt$USUBJID, 8, 11)
+        # Apply CLU and DLU files
+
+        expect_s3_class(apply_macro_dict(dt, dlu = dlu, clu = clu),"data.table")
+        dt <- apply_macro_dict(dt, dlu = dlu, clu = clu)
+        expect_true( "arm" %in% names(dt))
+        expect_true("arm" %in% dlu$shortcode)
+        # this assume the dlu & clu have teh column names cleaned, as well
+        # as cleaning the content of "shortcode". ShortCode -> shortcode
+        expect_true("arm" %in% clu$shortcode)
+        expect_type( dt$arm, "factor")
+        # there's no columns that are dates, to check their conversion,
+        #but I'm not so bothered about these.
+        read_data(my_data, colClasses = "character", clean_names=TRUE)
+        # The remove_blank_rows_cols, woudl be applicable when a
+        # trial is early in its life. No patients have doen the later visits
+        # So MACRO does not export them , and or they might be deleted
+        # does apply_macro_dict look to see what is in the data, and then
+        # look up the clu/dlu to convert, and do it in that order?
+        dt$subjid <- substr(dt$usubjid, 8, 11)
+        expect_error( apply_macro_dict(dt, dlu = dlu, clu = clu))
+}
+)
 
 
 

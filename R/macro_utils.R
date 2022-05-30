@@ -50,6 +50,10 @@ apply_macro_dict <- function(data,
 
   rm_empty <- match.arg(rm_empty)
 
+  # Get name of the data.frame
+  dlu_name <- deparse(substitute(dlu))
+  clu_name <- deparse(substitute(clu))
+
   dlu_var_list <- c("ShortCode", "Description", "Type")
   if(!all(dlu_var_list %in% names(dlu)))
     stop("Variable ", paste(setdiff(dlu_var_list, names(dlu)), collapse = ", "),
@@ -73,6 +77,10 @@ apply_macro_dict <- function(data,
 
   # Store DLU file inside the cctu env
   cctu_env$dlu <- dlu
+
+  # Restore the dlu and clu to parent frame
+  assign(dlu_name, dlu, envir = parent.frame())
+  assign(clu_name, clu, envir = parent.frame())
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]

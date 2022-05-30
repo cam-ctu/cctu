@@ -83,7 +83,7 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
       names(valab) <- clu[clu$ShortCode == i, "CatValue"]
 
       if(any(is_empty(names(valab))))
-        stop("Variable ", i, " has empty category values.")
+        stop("Variable ", i, " has empty category value, please check.")
 
       val_lab(data[[i]]) <- valab
     }

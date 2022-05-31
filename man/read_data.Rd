@@ -17,8 +17,8 @@ read_data(x, ...)
   frame = parent.frame(),
   name_variable = "name",
   file_variable = "file",
-  clean_names_option = TRUE,
-  remove_blank_rows_cols_option = TRUE,
+  clean_names_option = FALSE,
+  remove_blank_rows_cols_option = FALSE,
   ...
 )
 }
@@ -37,9 +37,9 @@ read_data(x, ...)
 
 \item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.}
 
-\item{clean_names_option}{logical to apply the \code{\link{clean_names}} function internally. Defaults to TRUE}
+\item{clean_names_option}{logical to apply the \code{\link{clean_names}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.}
 
-\item{remove_blank_rows_cols_option}{logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to TRUE.}
+\item{remove_blank_rows_cols_option}{logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.}
 }
 \value{
 \code{read_data} assigns or returns a data frame reading in data from an external file

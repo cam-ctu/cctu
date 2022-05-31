@@ -4,7 +4,14 @@
 \alias{extract_form}
 \title{Extract data by form from MACRO dataset}
 \usage{
-extract_form(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu)
+extract_form(
+  data,
+  form,
+  visit = NULL,
+  vars_keep = NULL,
+  dlu = cctu_env$dlu,
+  rm_empty = c("both", "none", "rows", "cols")
+)
 }
 \arguments{
 \item{data}{A data.frame from macro dataset.}
@@ -17,6 +24,10 @@ extract_form(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu)
 treatment arm or age variable.}
 
 \item{dlu}{A DLU data.frame}
+
+\item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
+or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+used to clean the empty rows and/or columns.}
 }
 \value{
 A data.table object.
@@ -32,5 +43,6 @@ extract_form(full_dt, "LabResF", dlu)
 
 }
 \seealso{
-\code{\link{sep_dlu}} \code{\link[data.table]{data.table}} \code{\link{read_data}}
+\code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
+\code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
 }

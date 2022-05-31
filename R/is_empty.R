@@ -49,30 +49,30 @@ is_empty <- function(x, na_empty = TRUE) {
   if(length(x) == 0)
     return(TRUE)
 
-  sapply(x, function(x){
+  sapply(x, function(val){
 
-    stopifnot(is.atomic(x))
+    stopifnot(is.atomic(val))
 
     # do we have a valid vector?
-    if (!is.null(x)) {
+    if (!is.null(val)) {
 
       # if it's a character, check if we have only one element in that vector
-      if (is.character(x)) {
+      if (is.character(val)) {
         # characters may also be of length 0
-        if (length(x) == 0)
+        if (length(val) == 0 || (is.na(val) & na_empty))
           return(TRUE)
 
         # else, check all elements of x
-        zero_len <- nchar(x) == 0
+        zero_len <- nchar(val) == 0
         # return result for multiple elements of character vector
         return(unname(zero_len))
         # we have a non-character vector here. check for length
       } else {
-        zero_len <- length(x) == 0
+        zero_len <- length(val) == 0
       }
     }
 
-    is.null(x) || zero_len || (is.na(x) & na_empty)
+    is.null(val) || zero_len || (is.na(val) & na_empty)
   })
 
 }

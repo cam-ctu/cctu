@@ -8,8 +8,7 @@ remove_blank_rows_cols(
   df,
   convert = TRUE,
   verbose = options()$verbose,
-  rows = TRUE,
-  cols = TRUE
+  which = c("both", "rows", "cols")
 )
 }
 \arguments{
@@ -20,9 +19,7 @@ or if not simply return a modified version of \code{df}}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
-\item{rows}{logical whether to drop blank rows. Default TRUE.}
-
-\item{cols}{logical whether to drop blank columns. Default TRUE.}
+\item{which}{one of \code{"rows"}, \code{"cols"}, or \code{"both"}. Default is \code{"both"} to removing both empty rows and empty columns.}
 }
 \value{
 this removes columns and rows that are totally empty (either "" or NA).

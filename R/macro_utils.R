@@ -9,44 +9,78 @@
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
 #' @param clean_names Conver variable name to lower case (default), this will also change the
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
-#' @details This funciton first convert the data to a \code{\link[data.table]{data.table}}.
+#' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
+#'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+#'  used to clean the empty rows and/or columns.
+#' @details This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
 #' \itemize{
 #'   \item{IntegerData}: Convert to numeric.
 #'   \item{Real}: Convert to numeric.
-#'   \item{Category}: If there are any non-numerica characters in the variable, no conversion
+#'   \item{Category}: If there are any non-numeric characters in the variable, no conversion
 #' will be performed, otherwise convert to numeric.
 #'   \item{Date}: Convert data date format with \code{\link{as.Date}}. The \code{date_format}
-#' will be used to feed the \code{\link{as.Date}} function during the covnersion.
+#' will be used to feed the \code{\link{as.Date}} function during the conversion.
 #'   \item{Text}: Convert to character.
 #' }
 #' After the conversion of the data, variable label attribute will be created for the variable.
 #' See  \code{\link{var_lab}}.
 #'
+#' If the \code{clean_names} is set to \code{TRUE}, the data name and the dl/clu
+#' will be cleaned, including the question names in the dlu. The cleaned dlu data
+#' will be stored in the \code{cctu} environment.
+#'
 #' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
 #'  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
+#'  \code{\link{remove_blank_rows_cols}}
 #' @return A data.table object.
 #' @export
 #'
-apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", clean_names = TRUE){
+apply_macro_dict <- function(data,
+                             dlu,
+                             clu = NULL,
+                             date_format = "%d/%m/%Y",
+                             clean_names = TRUE,
+                             rm_empty = c("both", "none", "rows", "cols")){
 
   data.table::setDT(data)
 
-  if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
+  rm_empty <- match.arg(rm_empty)
+
+  # Get name of the data.frame
+  dlu_name <- deparse(substitute(dlu))
+  clu_name <- deparse(substitute(clu))
+
+  dlu_var_list <- c("ShortCode", "Description", "Type")
+  if(!all(dlu_var_list %in% names(dlu)))
+    stop("Variable ", paste(setdiff(dlu_var_list, names(dlu)), collapse = ", "),
+         " not found in the dlu data. Please DO NOT clean DLU file.")
+
+  if(ncol(dlu) == 4)
     dlu <- sep_dlu(dlu)
+
+  clu_var_list <- c("ShortCode", "CatCode", "CatValue")
+  if(!is.null(clu) && !all(names(clu) %in% clu_var_list))
+    stop("Variable ", paste(setdiff(clu_var_list, names(clu)), collapse = ", "),
+         " not found in the clu data. Please DO NOT clean CLU file.")
 
   if(clean_names){
     colnames(data) <- clean_string(names(data))
     dlu$ShortCode <- clean_string(dlu$ShortCode)
     dlu$Question <- clean_string(dlu$Question)
-    clu$ShortCode <- clean_string(clu$ShortCode)
+    if(!is.null(clu))
+      clu$ShortCode <- clean_string(clu$ShortCode)
   }
 
   # Store DLU file inside the cctu env
   cctu_env$dlu <- dlu
+
+  # Restore the dlu and clu to parent frame
+  assign(dlu_name, dlu, envir = parent.frame())
+  assign(clu_name, clu, envir = parent.frame())
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]
@@ -73,11 +107,14 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 
       if(any(is_empty(names(valab))))
         stop("Variable ", i, " has empty category value, please check.")
-        
+
       val_lab(data[[i]]) <- valab
     }
 
   }
+
+  if(rm_empty != "none")
+    data <- remove_blank_rows_cols(data, convert = FALSE, which = rm_empty)
 
   return(data)
 }
@@ -106,7 +143,12 @@ apply_macro_dict <- function(data, dlu, clu = NULL, date_format = "%d/%m/%Y", cl
 #' @export
 #'
 sep_dlu <- function(x){
-  vfq <- strsplit(as.character(x$Visit.Form.Question),'/')
+
+  if_visit_form <- unique(sapply((gregexpr("/", x[[2]], fixed=TRUE)), function(i) sum(i > 0)))
+  if(length(if_visit_form) != 1 || if_visit_form != 2)
+    stop("The second variable of the DLU file must be in the original Visit/Form/Question from MACRO.")
+
+  vfq <- strsplit(as.character(x[[2]]),'/')
   vfq <- as.data.frame(do.call(rbind, vfq))
   colnames(vfq) <- c("Visit", "Form", "Question")
   cbind.data.frame(x[, -2], vfq)
@@ -123,7 +165,11 @@ sep_dlu <- function(x){
 #' @param visit A character string or vector of visit name in the DLU file, see \code{\link{sep_dlu}}.
 #' @param vars_keep Parameters to keep in the output data. This is useful if you want to keep
 #' treatment arm or age variable.
-#' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}} \code{\link{read_data}}
+#' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
+#'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+#'  used to clean the empty rows and/or columns.
+#' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
+#' \code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
 #' @export
 #'
 #' @examples
@@ -137,7 +183,15 @@ sep_dlu <- function(x){
 #' @import data.table
 #'
 #'
-extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_env$dlu){
+extract_form <- function(data,
+                         form,
+                         visit = NULL,
+                         vars_keep = NULL,
+                         dlu = cctu_env$dlu,
+                         rm_empty = c("both", "none", "rows", "cols")){
+
+  rm_empty <- match.arg(rm_empty)
+
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)
 
@@ -175,6 +229,9 @@ extract_form <- function(data, form, visit = NULL, vars_keep = NULL, dlu = cctu_
   res <- data.table::rbindlist(res, use.names=TRUE)
   res <- res[!res$if.all.miss, ]
   res$if.all.miss <- NULL
+
+  if(rm_empty != "none")
+    res <- remove_blank_rows_cols(res, convert = FALSE, which = rm_empty)
 
   return(data.table::setDT(res))
 }

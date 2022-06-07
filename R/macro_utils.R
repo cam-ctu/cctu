@@ -11,7 +11,8 @@
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
 #'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
-#'  used to clean the empty rows and/or columns.
+#'  used to clean the empty rows and/or columns. If the data is large, this will
+#'  take a long time, should be set to \code{"none"} in this case.
 #' @details This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -80,37 +81,51 @@ apply_macro_dict <- function(data,
 
   # Restore the dlu and clu to parent frame
   assign(dlu_name, dlu, envir = parent.frame())
-  assign(clu_name, clu, envir = parent.frame())
+  message(dlu_name, " modified with ShortCode and Question cleaned.")
+  if(!is.null(clu)){
+    assign(clu_name, clu, envir = parent.frame())
+    message(clu_name, " modified with ShortCode cleaned.")
+  }
 
   # Keep the variables in the data only
   dlu <- dlu[dlu$ShortCode %in% names(data), ]
 
-  for (i in dlu$ShortCode) {
-    # Format date
-    if (dlu$Type[dlu$ShortCode == i] == "Date")
-      data[[i]] <- as.Date(data[[i]], date_format)
+  # Convert date
+  date_cols <- dlu[dlu$Type == "Date", "ShortCode"]
+  for (j in date_cols)
+    set(data, j = j, value = as.Date(data[[j]], date_format))
 
-    # Format Number
-    if (dlu$Type[dlu$ShortCode == i] %in% c("IntegerData", "Real", "Category") && all_is_numeric(data[[i]]))
-        data[[i]] <- as.numeric(data[[i]])
+  # Convert numeric
+  num_cols1 <- dlu[dlu$Type %in% c("IntegerData", "Real"), "ShortCode"]
+  num_cols2 <- dlu[dlu$Type %in% c("Category"), "ShortCode"]
+  num_cols2 <- num_cols2[which(sapply(data[, num_cols2, with = FALSE], all_is_numeric))] # avoid none-numeric
+  num_cols <- c(num_cols1, num_cols2)
 
-    # Format date
-    if (dlu$Type[dlu$ShortCode == i] == "Text")
-      data[[i]] <- as.character(data[[i]])
+  for (j in num_cols)
+    set(data, j = j, value = as.numeric(data[[j]]))
 
-    # Assign label
-    var_lab(data[[i]]) <- dlu$Description[dlu$ShortCode == i]
+  # Convert characters
+  text_cols <- dlu[dlu$Type == "Text", "ShortCode"]
+  for (j in text_cols)
+    set(data, j = j, value = as.character(data[[j]]))
 
-    if(!is.null(clu) && i %in% clu$ShortCode){
-      valab <- clu[clu$ShortCode == i, "CatCode"]
-      names(valab) <- clu[clu$ShortCode == i, "CatValue"]
+  # Add variable label attributes
+  col_list <- dlu$Description
+  names(col_list) <- dlu$ShortCode
+  invisible(lapply(names(col_list), function(x) setattr(data[[x]], "label", col_list[[x]])))
 
-      if(any(is_empty(names(valab))))
-        stop("Variable ", i, " has empty category value, please check.")
+  # Add value labels
+  if(!is.null(clu)){
+    clu <- clu[clu$ShortCode %in% names(data), ]
+    clu_lst <- clu$CatCode
+    names(clu_lst) <- clu$CatValue
 
-      val_lab(data[[i]]) <- valab
-    }
+    if(any(is_empty(clu$CatValue)))
+      stop("Variable ", paste(unique(clu$ShortCode[is_empty(clu$CatValue)]), collapse = ", "),
+           " has empty category value, please check.")
 
+    clu_lst <- split(clu_lst, clu$ShortCode)
+    invisible(lapply(names(clu_lst), function(x) setattr(data[[x]], "labels", clu_lst[[x]])))
   }
 
   if(rm_empty != "none")

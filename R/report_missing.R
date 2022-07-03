@@ -17,8 +17,8 @@ report_missing <- function(data,
                            vars,
                            select,
                            row_split = NULL,
-                           dlu = dlu,
-                           subjid_string = "subjid"){
+                           dlu = cctu_env$dlu,
+                           subjid_string = getOption("cctu_subjid_string", default = "subjid")){
 
   blnk_miss <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
                         c("form", "visit_var", "visit_label", "visit",

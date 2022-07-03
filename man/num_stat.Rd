@@ -15,7 +15,7 @@ cat_stat(x, digits_pct = 1)
 \item{digits}{An integer specifying the number of significant digits to keep
 for numerical results. See \code{signif_pad}.}
 
-\item{digits_pct}{An integer specifying the number of significant digits to 
+\item{digits_pct}{An integer specifying the number of significant digits to
 keep for percentage.}
 
 \item{rounding_fn}{The function to use to do the rounding. Defaults to

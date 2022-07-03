@@ -12,7 +12,8 @@
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
 #'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
 #'  used to clean the empty rows and/or columns. If the data is large, this will
-#'  take a long time, should be set to \code{"none"} in this case.
+#'  take a long time, should be set to \code{"none"} in this case. Use 
+#' \code{options(cctu_rm_empty = "none")} to set global options.
 #' @details This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types.
@@ -45,11 +46,11 @@ apply_macro_dict <- function(data,
                              clu = NULL,
                              date_format = "%d/%m/%Y",
                              clean_names = TRUE,
-                             rm_empty = c("both", "none", "rows", "cols")){
+                             rm_empty = getOption("cctu_rm_empty", default = "both")){
 
   data.table::setDT(data)
 
-  rm_empty <- match.arg(rm_empty)
+  rm_empty <- match.arg(rm_empty, choices = c("both", "none", "rows", "cols"))
 
   # Get name of the data.frame
   dlu_name <- deparse(substitute(dlu))
@@ -182,7 +183,8 @@ sep_dlu <- function(x){
 #' treatment arm or age variable.
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
 #'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
-#'  used to clean the empty rows and/or columns.
+#'  used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")} 
+#' to set global options.
 #' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
 #' \code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
 #' @export
@@ -203,9 +205,9 @@ extract_form <- function(data,
                          visit = NULL,
                          vars_keep = NULL,
                          dlu = cctu_env$dlu,
-                         rm_empty = c("both", "none", "rows", "cols")){
+                         rm_empty = getOption("cctu_rm_empty", default = "both")){
 
-  rm_empty <- match.arg(rm_empty)
+  rm_empty <- match.arg(rm_empty, choices = c("both", "none", "rows", "cols"))
 
   if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
     dlu <- sep_dlu(dlu)

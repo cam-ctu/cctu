@@ -112,10 +112,12 @@ test_that("Remove empty cols and rows", {
   expect_equal(ncol(df), ncol(dt)-1)
   expect_equal(nrow(df), nrow(dt))
 
-  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE, rm_empty = "none")
+  options(cctu_rm_empty = "none")
+  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE)
   expect_equal(dim(df), dim(dt))
 
   # Remove empty columns and rows for extract_form
+  options(cctu_rm_empty = "both")
   ptreg <- extract_form(df, "PatientReg")
   expect_equal(dim(ptreg), c(sum(!is_empty(df$ARM)), 5))
 

@@ -35,12 +35,9 @@ cctab_plot <- function(vars,
     })
 
     if(!is.null(group) | !is.null(row_split)){
-      fom_ag <- paste("cbind(", paste(vars[logic_vars], collapse = ","),
-                      ") ~ ", paste(c(group, row_split), collapse = "+"))
-
-      logic_dt <- aggregate(as.formula(fom_ag), data = data,
-                            sum)
-      setDT(logic_dt)
+      logic_dt <- setDT(data)[, lapply(.SD, sum, na.rm = T),
+                              by=c(group, row_split),
+                              .SDcols=vars[logic_vars]]
 
       logic_dt <- melt(logic_dt, id.vars = c(group, row_split),
                        measure.vars = vars[logic_vars],

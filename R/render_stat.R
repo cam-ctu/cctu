@@ -9,7 +9,7 @@
 #'
 #' @return A \code{character} vector. Each element is to be displayed in a
 #' separate cell in the table. The \code{\link{names}} of the vector are the
-#' labels to use in the table. 
+#' labels to use in the table.
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
@@ -38,7 +38,7 @@ render_numeric <- function(x, ...){
 #'
 #' @return A \code{character} vector. Each element is to be displayed in a
 #' separate cell in the table. The \code{\link{names}} of the vector are the
-#' labels to use in the table. 
+#' labels to use in the table.
 #'
 #' @examples
 #' y <- factor(sample(0:1, 99, replace=TRUE), labels=c("Female", "Male"))
@@ -61,13 +61,13 @@ render_cat <- function(x, ...){
 #' zero counts are retained.
 #'
 #' @param x A vector or numeric, factor, character or logical values.
-#' @param digits_pct An integer specifying the number of significant digits to 
+#' @param digits_pct An integer specifying the number of significant digits to
 #' keep for percentage.
 #' @param digits An integer specifying the number of significant digits to keep
 #' for numerical results. See \code{signif_pad}.
 #' @param rounding_fn The function to use to do the rounding. Defaults to
 #' \code{\link{signif_pad}}.
-#' 
+#'
 #' @return A list. For numeric \code{x}, the list contains the numeric elements:
 #' \itemize{
 #'   \item \code{N}: the number of non-missing values
@@ -118,7 +118,7 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
               GCV = NA,
               MEDIAN = NA)
   }else{
-    r <- list(N = sum(!is.na(x)),
+    y <- list(N = sum(!is.na(x)),
               NMISS = sum(is.na(x)),
               SUM = sum(x, na.rm = TRUE),
               MEAN = mean(x, na.rm = TRUE),
@@ -137,11 +137,15 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
               MEDIAN = median(x, na.rm = TRUE),
               MIN = min(x, na.rm = TRUE),
               MAX = max(x, na.rm = TRUE))
-    cx <- lapply(r, format)
-    pct <- lapply(r[c("CV", "GCV")], format_percent, digits = digits_pct)
-    r <- lapply(r, rounding_fn, digits = digits)
+    cx <- lapply(y, format)
+
+    # Percentage
+    pct <- c("CV", "GCV")
+    pct <- pct[pct %in% names(y)]
+    pct <- pct[!is.na(y[pct])]
+    r <- lapply(y, rounding_fn, digits = digits)
+    r[pct] <- lapply(y[pct], format_percent, digits = digits_pct)
     r[c("N", "NMISS")] <- cx[c("N", "NMISS")]
-    r[c("CV", "GCV")] <- pct
   }
   return(r)
 }
@@ -150,13 +154,13 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
 #' @rdname num_stat
 #' @export
 cat_stat <- function(x, digits_pct = 1){
-  
+
   if (is.logical(x)) {
     x <- factor(x,
                 levels = c(TRUE, FALSE),
                 labels = c("Yes", "No"))
   }
-  
+
   y <- table(x, useNA = "no")
   nn <- names(y)
   nn[is.na(nn)] <- "Missing"

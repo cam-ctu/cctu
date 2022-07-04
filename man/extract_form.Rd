@@ -10,7 +10,7 @@ extract_form(
   visit = NULL,
   vars_keep = NULL,
   dlu = cctu_env$dlu,
-  rm_empty = c("both", "none", "rows", "cols")
+  rm_empty = getOption("cctu_rm_empty", default = "both")
 )
 }
 \arguments{
@@ -26,8 +26,9 @@ treatment arm or age variable.}
 \item{dlu}{A DLU data.frame}
 
 \item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
-or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
-used to clean the empty rows and/or columns.}
+ or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+ used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")} 
+to set global options.}
 }
 \value{
 A data.table object.

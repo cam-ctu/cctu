@@ -10,7 +10,7 @@ apply_macro_dict(
   clu = NULL,
   date_format = "\%d/\%m/\%Y",
   clean_names = TRUE,
-  rm_empty = c("both", "none", "rows", "cols")
+  rm_empty = getOption("cctu_rm_empty", default = "both")
 )
 }
 \arguments{
@@ -26,8 +26,10 @@ apply_macro_dict(
 values in the DLU as well. See \code{\link{clean_names}} for details.}
 
 \item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
-or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
-used to clean the empty rows and/or columns.}
+ or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
+ used to clean the empty rows and/or columns. If the data is large, this will
+ take a long time, should be set to \code{"none"} in this case. Use 
+\code{options(cctu_rm_empty = "none")} to set global options.}
 }
 \value{
 A data.table object.

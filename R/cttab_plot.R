@@ -35,7 +35,9 @@ cctab_plot <- function(vars,
     })
 
     if(!is.null(group) | !is.null(row_split)){
-      logic_dt <- setDT(data)[, lapply(.SD, sum, na.rm = T),
+      data <- data.table::as.data.table(data)
+      # replacing the setDT(data) in the line below
+      logic_dt <- data[, lapply(.SD, sum, na.rm = T),
                               by=c(group, row_split),
                               .SDcols=vars[logic_vars]]
 

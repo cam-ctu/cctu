@@ -43,11 +43,11 @@ cttab(x, ...)
 )
 }
 \arguments{
-\item{x}{Variables to be used or a \code{formula} for summary table. 
+\item{x}{Variables to be used or a \code{formula} for summary table.
 If \code{x} is a \code{formula}, then the \code{group} variable should
  be provided at the right had side, use \code{1} if there's no grouping
-variable. And \code{row_split} should also be provided on the right hand side 
-of the formula and separate it using \code{|} with grouping variable. For example, 
+variable. And \code{row_split} should also be provided on the right hand side
+of the formula and separate it using \code{|} with grouping variable. For example,
 \code{age + sex ~ treat|cycle} or \code{age + sex ~ 1|cycle} without grouping.
 See details.}
 
@@ -111,10 +111,10 @@ from printting by setting \code{options(cctu_print_plot = FALSE)}.
 There are two interfaces, the default, which typically takes a variable vector from
 \code{data.frame} for \code{x}, and the formula interface. The formula interface is
  less flexible, but simpler to use and designed to handle the most common use cases.
-For the formula version, the formula is expected to be a two-sided formula. Left hand 
+For the formula version, the formula is expected to be a two-sided formula. Left hand
 side is the variables to be summarised and the right hand side is the group and/or split
  variable. To include a row splitting variable, use \code{|} to separate the row splitting
-variable after the grouping variable and then the row split variable. For example, 
+variable after the grouping variable and then the row split variable. For example,
 \code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
  variable by default. A value of \code{1} should be provided if there is no grouping variable,
  for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.

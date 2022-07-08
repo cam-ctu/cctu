@@ -12,7 +12,7 @@
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
 #'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
 #'  used to clean the empty rows and/or columns. If the data is large, this will
-#'  take a long time, should be set to \code{"none"} in this case. Use 
+#'  take a long time, should be set to \code{"none"} in this case. Use
 #' \code{options(cctu_rm_empty = "none")} to set global options.
 #' @details This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
@@ -48,7 +48,8 @@ apply_macro_dict <- function(data,
                              clean_names = TRUE,
                              rm_empty = getOption("cctu_rm_empty", default = "both")){
 
-  data.table::setDT(data)
+  #data.table::setDT(data)
+  data <- data.table::as.data.table(data)
 
   rm_empty <- match.arg(rm_empty, choices = c("both", "none", "rows", "cols"))
 
@@ -183,7 +184,7 @@ sep_dlu <- function(x){
 #' treatment arm or age variable.
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
 #'  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
-#'  used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")} 
+#'  used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")}
 #' to set global options.
 #' @seealso \code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
 #' \code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
@@ -228,7 +229,8 @@ extract_form <- function(data,
   }
 
 
-  data.table::setDT(data)
+  #data.table::setDT(data)
+data <- data.table::as.data.table(data)
 
   res <- lapply(unique(dlu$Visit), function(v){
     vars_selc <- dlu$ShortCode[dlu$Visit == v]
@@ -250,7 +252,8 @@ extract_form <- function(data,
   if(rm_empty != "none")
     res <- remove_blank_rows_cols(res, convert = FALSE, which = rm_empty)
 
-  return(data.table::setDT(res))
+  #return(data.table::setDT(res))
+  return(data.table::as.data.table(res))
 }
 
 

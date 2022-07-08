@@ -27,7 +27,7 @@ treatment arm or age variable.}
 
 \item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
- used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")} 
+ used to clean the empty rows and/or columns. Use \code{options(cctu_rm_empty = "none")}
 to set global options.}
 }
 \value{

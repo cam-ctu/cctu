@@ -7,6 +7,8 @@
 #' are have missing value for that particular variable.
 #'
 #' @inheritParams cttab
+#' @param dlu A data.frame of DLU file, this will be derived from the package environment
+#' and should be set using \code{\link{get_dlu}}.
 #'
 #' @seealso \code{\link{cttab}}
 #'
@@ -17,13 +19,13 @@ report_missing <- function(data,
                            vars,
                            select,
                            row_split = NULL,
-                           dlu = cctu_env$dlu,
                            subjid_string = getOption("cctu_subjid_string", default = "subjid")){
 
   blnk_miss <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
                         c("form", "visit_var", "visit_label", "visit",
-                          "variable", "label", "missing_pct", "subject_ID"))
+                          "variable", "label", "missing_pct", "subject_id"))
 
+  dlu <- get_dlu()
   # If the subjid can not be found in the dataset
   if(!subjid_string %in% names(data))
     return(blnk_miss)
@@ -47,10 +49,6 @@ report_missing <- function(data,
   if(all(!any_miss))
     return(blnk_miss)
 
-  # Use dlu to get form
-  if(ncol(dlu) == 4 & names(dlu)[2] == "Visit.Form.Question")
-    dlu <- sep_dlu(dlu)
-
   # Only report variables with missing
   vars <- vars[any_miss]
 
@@ -62,8 +60,8 @@ report_missing <- function(data,
     subid <- z[[subjid_string]][is.na(z[[v]])]
     pct <- round(100*length(subid)/length(z[[subjid_string]]), 1)
 
-    if(v %in% dlu$ShortCode)
-      fm_name <- dlu$Form[dlu$ShortCode == v]
+    if(v %in% dlu$shortcode)
+      fm_name <- dlu$form[dlu$shortcode == v]
     else
       fm_name <- "Derived"
 
@@ -75,12 +73,12 @@ report_missing <- function(data,
                label       = variable,
                missing_pct = paste0(pct, "% (",length(subid), "/",
                                     length(z[[subjid_string]]), ")"),
-               subject_ID  = paste(subid, collapse = ", "),
+               subject_id  = paste(subid, collapse = ", "),
                row.names = NULL)
   })
 
   res <- do.call(rbind, res)
-  res[res$subject_ID != "", ]
+  res[res$subject_id != "", ]
 }
 
 #' Missing ness report
@@ -109,5 +107,5 @@ reset_missing_report <- function(){
   cctu_env$missing_report_data <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
                                          c("form", "visit_var", "visit_label",
                                            "visit", "variable", "label", "missing_pct",
-                                           "subject_ID"))
+                                           "subject_id"))
 }

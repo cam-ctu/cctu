@@ -28,7 +28,7 @@ values in the DLU as well. See \code{\link{clean_names}} for details.}
 \item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
  or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
  used to clean the empty rows and/or columns. If the data is large, this will
- take a long time, should be set to \code{"none"} in this case. Use 
+ take a long time, should be set to \code{"none"} in this case. Use
 \code{options(cctu_rm_empty = "none")} to set global options.}
 }
 \value{

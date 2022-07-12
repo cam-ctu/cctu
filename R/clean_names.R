@@ -13,7 +13,7 @@
 #' }
 #' so a variable called "Nasty/Var+Name " gets turned into "nasty_var_name" .
 #'
-#' Either a vector of cleaned names is return directly,
+#' \code{clean_names} returns either a vector of cleaned names is return directly,
 #' or the input object is modified in the parent envirnoment (the default) and an invisible copy of the modified input returned
 #'
 #'
@@ -35,7 +35,13 @@ clean_names <- function(df, convert = TRUE, verbose=options()$verbose){
   }
 }
 
-#' @keywords internal
+#'
+#' @rdname clean_names
+#' @export
+#'
+#' @param x a character string to be cleaned.
+#' @returns \code{clean_string} returns an individual vector with the contents cleaned.
+#'
 clean_string <- function(x){
   x %>%
     tolower(.)          %>%

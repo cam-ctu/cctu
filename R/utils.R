@@ -49,7 +49,7 @@ rbind.cttab <- function(...){
 #' @export
 
 
-all_is_numeric <- function(x, extras=c('.','NA')){
+all_is_numeric <- function(x, extras=c('.', NA)){
   x <- sub('[[:space:]]+$', '', x)
   x <- sub('^[[:space:]]+', '', x)
   xs <- x[!x %in% c('',extras)]

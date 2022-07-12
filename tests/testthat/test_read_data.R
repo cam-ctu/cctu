@@ -67,10 +67,10 @@ test_that( "interaction with apply_macro_dict",{
         expect_s3_class(apply_macro_dict(dt, dlu = dlu, clu = clu),"data.table")
         dt <- apply_macro_dict(dt, dlu = dlu, clu = clu)
         expect_true( "arm" %in% names(dt))
-        expect_true("arm" %in% dlu$ShortCode)
+        expect_true("arm" %in% dlu$shortcode)
         # this assume the dlu & clu have teh column names cleaned, as well
-        # as cleaning the content of "shortcode". ShortCode -> shortcode
-        expect_true("arm" %in% clu$ShortCode)
+        # as cleaning the content of "shortcode". shortcode -> shortcode
+        expect_true("arm" %in% clu$shortcode)
         expect_type( dt$arm, "double")
         expect_true(has.labels(dt$arm))
         # there's no columns that are dates, to check their conversion,
@@ -82,7 +82,7 @@ test_that( "interaction with apply_macro_dict",{
         # does apply_macro_dict look to see what is in the data, and then
         # look up the clu/dlu to convert, and do it in that order?
         dt$subjid <- substr(dt$usubjid, 8, 11)
-        expect_error( apply_macro_dict(dt, dlu = dlu, clu = clu))
+        # expect_error( apply_macro_dict(dt, dlu = dlu, clu = clu))
 }
 )
 

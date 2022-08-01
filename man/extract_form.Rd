@@ -35,7 +35,7 @@ A data.table object.
 }
 \description{
 Extract data by form from MACRO dataset. Data will be transformed to long format
- adding a new column of `Visit`.
+ adding a new column of `visit`.
 }
 \examples{
 \dontrun{

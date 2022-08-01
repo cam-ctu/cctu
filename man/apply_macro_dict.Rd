@@ -55,13 +55,17 @@ See  \code{\link{var_lab}}.
 
 If the \code{clean_names} is set to \code{TRUE}, the data name and the dl/clu
 will be cleaned, including the question names in the dlu. The cleaned dlu data
-will be stored in the \code{cctu} environment.
+will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
+function, but it is user's responsibility to make sure the variable name in the dataset
+matches the short code in the dlu file, see \code{\link{set_dlu}} more details.
 
 After this is completed and if the clu file is provided, value label attribute will be
-create for the variables listed in the clu file. See \code{\link{val_lab}}.
+create for the variables listed in the clu file. See \code{\link{val_lab}}. User can use
+\code{\link{lab2val}} to conver value labels of the data to values if the value label
+is desired.
 }
 \seealso{
 \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
- \code{\link{remove_blank_rows_cols}}
+ \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}}
 }

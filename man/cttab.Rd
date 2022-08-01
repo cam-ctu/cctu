@@ -20,7 +20,6 @@ cttab(x, ...)
   digits = getOption("cctu_digits", default = 3),
   digits_pct = getOption("cctu_digits_pct", default = 0),
   rounding_fn = signif_pad,
-  dlu = cctu_env$dlu,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
   ...
@@ -36,7 +35,6 @@ cttab(x, ...)
   digits = getOption("cctu_digits", default = 3),
   digits_pct = getOption("cctu_digits_pct", default = 0),
   rounding_fn = signif_pad,
-  dlu = cctu_env$dlu,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
   ...
@@ -70,7 +68,9 @@ element of `select` will be used to select the individuals to be analyzed
  element is the selection.}
 
 \item{add_missing}{If missing number and missing percentage will be
-reported in the summary table, default is `TRUE`.}
+  reported in the summary table, default is `TRUE`. This will also produce
+data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+for details.}
 
 \item{add_obs}{Add an observation row (default).}
 
@@ -83,8 +83,6 @@ decimal place for percentages, default is 0.}
 \item{rounding_fn}{The function to use to do the rounding. Defaults is
 \code{\link{signif_pad}}. To round up by digits instead of significant
 values, set it to \code{round_pad}.}
-
-\item{dlu}{A data.frame of DLU file.}
 
 \item{subjid_string}{A character naming the column used to identify subject,
 default is \code{"subjid"}.}

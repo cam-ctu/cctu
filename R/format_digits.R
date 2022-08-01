@@ -14,6 +14,8 @@
 #' up? The standard R approach is "go to the even digit" (IEC 60559 standard,
 #' see \code{\link{round}}), while some other softwares (e.g. SAS, Excel)
 #' always round up.
+#' @param format See \code{formatC}. Default is \code{"fg"}, change it to \code{"g"}
+#' if scientific is preferred.
 #' @param ... Further options, passed to \code{formatC} (which is used
 #' internally). Not all options will work, but some might be useful (e.g.
 #' \code{big.mark}, \code{decimal.mark}).
@@ -55,6 +57,7 @@ signif_pad <- function(x,
            digits = 3,
            round.integers = TRUE,
            round5up = TRUE,
+           format = "fg",
            ...) {
     args <- list(...)
 
@@ -67,18 +70,22 @@ signif_pad <- function(x,
                  round(x),
                  signif(x + eps, digits))
 
+    c_pos <- which(x %in% c(NA, -Inf, Inf, NaN)) # Position of non-numbers
+
     cx <- do.call(formatC,
                   c(list(
                     x = rx,
                     digits = digits,
-                    format = "fg",
+                    format = format,
                     flag = "#"
                   ),
                   args[names(args) %in% names(formals(formatC))]))
 
     cx[is.na(x)] <- "0"  # Put in a dummy value for missing x
     cx <- gsub("[^0-9]*$", "", cx) # Remove any trailing non-digit characters
-    ifelse(is.na(x), NA, cx)
+    cx[c_pos] <- x[c_pos] # Restore non-numbers
+
+    return(cx)
   }
 
 #' @rdname signif_pad

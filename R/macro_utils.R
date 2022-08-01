@@ -90,7 +90,9 @@ apply_macro_dict <- function(data,
       stop("Variable ", paste(setdiff(clu_var_list, names(clu)), collapse = ", "),
            " not found in the clu data.")
 
-    clu$shortcode <- clean_string(clu$shortcode)
+    if(clean_names)
+      clu$shortcode <- clean_string(clu$shortcode)
+      
     assign(clu_name, clu, envir = parent.frame())
     message(clu_name, " modified with shortcode cleaned.")
   }

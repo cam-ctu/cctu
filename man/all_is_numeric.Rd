@@ -4,7 +4,7 @@
 \alias{all_is_numeric}
 \title{Check if All Elements in Character Vector are Numeric}
 \usage{
-all_is_numeric(x, extras = c(".", "NA"))
+all_is_numeric(x, extras = c(".", NA))
 }
 \arguments{
 \item{x}{a character vector}

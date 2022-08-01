@@ -38,7 +38,7 @@
 #' After this is completed and if the clu file is provided, value label attribute will be
 #' create for the variables listed in the clu file. See \code{\link{val_lab}}. User can use
 #' \code{\link{lab2val}} to conver value labels of the data to values if the value label
-#' is desired. 
+#' is desired.
 #' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
 #'  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
 #'  \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}}
@@ -58,7 +58,6 @@ apply_macro_dict <- function(data,
 
   # Get name of the data.frame
   dlu_name <- deparse(substitute(dlu))
-  clu_name <- deparse(substitute(clu))
 
   dlu_var_list <- c("shortcode", "description", "type")
   colnames(dlu) <- tolower(colnames(dlu))
@@ -70,17 +69,11 @@ apply_macro_dict <- function(data,
     dlu <- sep_dlu(dlu)
 
   clu_var_list <- c("shortcode", "catcode", "catvalue")
-  colnames(clu) <- tolower(colnames(clu))
-  if(!is.null(clu) && !all(clu_var_list %in% names(clu)))
-    stop("Variable ", paste(setdiff(clu_var_list, names(clu)), collapse = ", "),
-         " not found in the clu data.")
 
   if(clean_names){
     colnames(data) <- clean_string(names(data))
     dlu$shortcode <- clean_string(dlu$shortcode)
     dlu$question <- clean_string(dlu$question)
-    if(!is.null(clu))
-      clu$shortcode <- clean_string(clu$shortcode)
   }
 
   # Store DLU file inside the cctu env
@@ -89,7 +82,15 @@ apply_macro_dict <- function(data,
   # Restore the dlu and clu to parent frame
   assign(dlu_name, dlu, envir = parent.frame())
   message(dlu_name, " modified with shortcode and question cleaned.")
+
   if(!is.null(clu)){
+    clu_name <- deparse(substitute(clu))
+    colnames(clu) <- tolower(colnames(clu))
+    if(!is.null(clu) && !all(clu_var_list %in% names(clu)))
+      stop("Variable ", paste(setdiff(clu_var_list, names(clu)), collapse = ", "),
+           " not found in the clu data.")
+
+    clu$shortcode <- clean_string(clu$shortcode)
     assign(clu_name, clu, envir = parent.frame())
     message(clu_name, " modified with shortcode cleaned.")
   }

@@ -51,7 +51,10 @@ value label is desired. If the \code{clean_names} is set to \code{TRUE}, the dat
  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
 will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
 function, but it is user's responsibility to make sure the variable name in the dataset
-matches the short code in the dlu file, see \code{\link{set_dlu}} more details.
+matches the short code in the dlu file, see \code{\link{set_dlu}} more details. 
+
+Please use \code{\link{get_dlu}} to get the dlu used cleaned by \code{apply_macro_dict} or use 
+\code{\link{sep_dlu}} to clean it. This function uses \code{\link{sep_dlu}} to clean the DLU.
 
 
 ## Variable conversion based on DLU type  
@@ -100,5 +103,5 @@ lb_base <- extract_form(df, "Lab", visit = "SCREENING")
 \seealso{
 \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}} \code{\link{set_dlu}}
  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
- \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}}
+ \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}} \code{\link{get_dlu}}
 }

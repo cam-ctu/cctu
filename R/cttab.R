@@ -68,28 +68,7 @@
 #' \code{\link{get_missing_report}}
 #' @return A matrix with `cttab` class.
 #'
-#' @examples
-#' dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
-#' dat$age <- runif(nrow(dat), 10, 50)
-#' dat$age[3] <- NA  # Add a missing value
-#' dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
-#'
-#' var_lab(dat$sex) <- "Sex"
-#' var_lab(dat$age) <- "Age"
-#' var_lab(dat$treat) <- "Treatment Group"
-#' var_lab(dat$wt) <- "Weight"
-#'
-#'
-#' # Something more complicated
-#'
-#' dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
-#'                    sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
-#' dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
-#'
-#'
-#' cttab(x = c("age", "sex", "wt"), data = dat, group = "treat")
-#'
-#' cttab(age + sex + wt ~ treat, data = dat, group = "treat")
+#' @example inst/examples/cttab.R
 #'
 #' @export
 #'

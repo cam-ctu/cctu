@@ -107,15 +107,37 @@ In this section, we will show how to populate tables.
 You should read the data as before, but you can and should read the data by setting all the columns to character. This will be handled later. Same process can be found in the `Analysis Template` vignette.
 ```{r echo=TRUE}
 # Read example data
-dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"),
-               colClasses = "character")
+dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"), colClasses = "character")
 
 # Read DLU and CLU
 dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 ```
 
-If you have multiple datasets, you should combine them at this stage. Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour.
+If you have multiple datasets, you should combine them at this stage. If multiple datasets are given and they have the same variable name, you can use `rbind` function to combine data together. If you have different datasets with different variable names except for some key variables, you can use `merge_data` function to combine them together.
+
+```{r eval=FALSE, echo=TRUE}
+# Read example data
+dt_a <- read.csv(system.file("extdata", "test_A.csv", package="cctu"),
+                 colClasses = "character")
+dt_b <- read.csv(system.file("extdata", "test_B.csv", package="cctu"),
+                 colClasses = "character")
+
+# Read DLU and CLU
+dlu_a <- read.csv(system.file("extdata", "test_A_DLU.csv", package="cctu"))
+dlu_b <- read.csv(system.file("extdata", "test_B_DLU.csv", package="cctu"))
+clu_a <- read.csv(system.file("extdata", "test_A_CLU.csv", package="cctu"))
+clu_b <- read.csv(system.file("extdata", "test_B_CLU.csv", package="cctu"))
+
+# Merge dataset with merge_data function
+res <- merge_data(datalist = list(dt_a, dt_b), dlulist = list(dlu_a, dlu_b),
+                  clulist = list(clu_a, clu_b))
+dt <- res$data # Extract combined data
+dlu <- res$dlu # Extract combined DLU data
+clu <- res$clu # Extract combined CLU data
+```
+
+Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour.
 
 ```{r echo=TRUE}
 # Create subjid

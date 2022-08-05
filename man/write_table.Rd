@@ -9,7 +9,7 @@ write_table(
   X,
   number = cctu_env$number,
   heading = colnames(X),
-  na_to_empty = FALSE,
+  na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
   clean_up = TRUE,
   directory = file.path("Output", "Core"),
   verbose = options()$verbose
@@ -37,6 +37,10 @@ writes an xml version of the input data to file table_number.xml . Edits the Tab
 Function to write a table into xml format in the correct directory, and edit
 TableofTables
 }
+\details{
+Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
+}
 \seealso{
-\code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}
+\code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}} 
+\code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{apply_macro_dict}}
 }

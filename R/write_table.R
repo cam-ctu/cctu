@@ -5,16 +5,20 @@
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
 #' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
+#' 
+#' @details 
+#' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
-#' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}
+#' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}} 
+#' \code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{apply_macro_dict}}
 #' @importFrom magrittr %>% %<>%
 
 write_table = function(X,
                       number=cctu_env$number,
                       heading  = colnames(X),
-                      na_to_empty=FALSE,
+                      na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
                       verbose=options()$verbose

@@ -14,24 +14,46 @@ merge_data(datalist, dlulist, clulist)
 \item{clulist}{A list of CLU data}
 }
 \value{
-three data.frame
+A list of three data.frame
+\itemize{
+  \item{data}: Merged dataset.
+  \item{dlu}: Merged DLU data.
+  \item{clu}: Merged CLU data.
+}
 }
 \description{
 This function can be used when the MACRO dataset is \strong{vertically} split,
-must not be used to combine horizontally split data which has same variable
-names. This function will rename the variable of the dataset, including
+and must not be used to combine horizontally split data which has same variable
+names. It will rename the variable of the dataset, including
 shortcode of dlu and clu files with underscore and number, and combine them
-to single dataset. Dataset named \code{dt}, dlu named \code{dlu} and
-\code{clu} will return to current environment. Data, DLU and CLU should be in
- same order. The merged dataset, dlu and clu can further be passed to
- \code{\link{apply_macro_dict}}.
+to single dataset. Returns a list with merged dataset, DLU and CLU. Data, DLU 
+and CLU should be in same order. The merged dataset, dlu and clu can further 
+be passed to \code{\link{apply_macro_dict}}.
 }
 \examples{
-\dontrun{
- merge_data(datalist = list(dt_A, dt_B),
-            dlulist = list(dlu_A, dlu_B),
-            clulist = list(clu_A, clu_B))
-}
+
+# Read example data
+dt_a <- read.csv(system.file("extdata", "test_A.csv", package="cctu"),
+                 colClasses = "character")
+dt_b <- read.csv(system.file("extdata", "test_B.csv", package="cctu"),
+                 colClasses = "character")
+
+# Read DLU and CLU
+dlu_a <- read.csv(system.file("extdata", "test_A_DLU.csv", package="cctu"))
+dlu_b <- read.csv(system.file("extdata", "test_B_DLU.csv", package="cctu"))
+clu_a <- read.csv(system.file("extdata", "test_A_CLU.csv", package="cctu"))
+clu_b <- read.csv(system.file("extdata", "test_B_CLU.csv", package="cctu"))
+
+# Merge dataset with merge_data function
+res <- merge_data(datalist = list(dt_a, dt_b), dlulist = list(dlu_a, dlu_b),
+                  clulist = list(clu_a, clu_b))
+dt <- res$data # Extract combined data
+dlu <- res$dlu # Extract combined DLU data
+clu <- res$clu # Extract combined CLU data
+
+# Apply CLU and DLU files
+dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
+
 }
 \seealso{
 \code{\link{read_data}}

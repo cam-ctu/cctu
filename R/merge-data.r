@@ -3,31 +3,30 @@
 #' Merge vertically split data
 #'
 #' This function can be used when the MACRO dataset is \strong{vertically} split,
-#' must not be used to combine horizontally split data which has same variable
-#' names. This function will rename the variable of the dataset, including
+#' and must not be used to combine horizontally split data which has same variable
+#' names. It will rename the variable of the dataset, including
 #' shortcode of dlu and clu files with underscore and number, and combine them
-#' to single dataset. Dataset named \code{dt}, dlu named \code{dlu} and
-#' \code{clu} will return to current environment. Data, DLU and CLU should be in
-#'  same order. The merged dataset, dlu and clu can further be passed to
-#'  \code{\link{apply_macro_dict}}.
+#' to single dataset. Returns a list with merged dataset, DLU and CLU. Data, DLU 
+#' and CLU should be in same order. The merged dataset, dlu and clu can further 
+#' be passed to \code{\link{apply_macro_dict}}.
 #'
 #' @param datalist A list of dataset
 #' @param dlulist A list of DLU data
 #' @param clulist A list of CLU data
 #'
-#' @return three data.frame
+#' @return A list of three data.frame
+#' \itemize{
+#'   \item{data}: Merged dataset.
+#'   \item{dlu}: Merged DLU data.
+#'   \item{clu}: Merged CLU data.
+#' }
 #' @export
 #'
 #' @seealso
 #' \code{\link{read_data}}
 #' \code{\link{apply_macro_dict}}
 #'
-#' @examples
-#' \dontrun{
-#'  merge_data(datalist = list(dt_A, dt_B),
-#'             dlulist = list(dlu_A, dlu_B),
-#'             clulist = list(clu_A, clu_B))
-#' }
+#' @example inst/examples/merge-data.R
 merge_data <- function(datalist,
                        dlulist,
                        clulist){
@@ -42,12 +41,13 @@ merge_data <- function(datalist,
            variables: ", paste(com_cols, collapse = ", "))
 
     if(!all(dlulist[[i]][, 1] %in% names(datalist[[i]])))
-      stop("Not all the short code in the ", i, "th DLU can be found in the data ", i)
+      warning("Not all the short code in the ", i, "th DLU can be found in the data ", i)
 
     if(!all(clulist[[i]][, 1] %in% names(datalist[[i]])))
-      stop("Not all the short code in the ", i, "th CLU can be found in the data ", i)
+      warning("Not all the short code in the ", i, "th CLU can be found in the data ", i)
 
     nams <- setdiff(colnames(datalist[[i]]), com_cols)
+    datalist[[i]] <- data.table::copy(datalist[[i]])
     data.table::setnames(datalist[[i]], nams, paste(nams, i, sep = "_"))
 
     # Rename DLU shortcode
@@ -59,17 +59,12 @@ merge_data <- function(datalist,
     clulist[[i]][clulist[[i]][, 1] %in% nams, 1] <- paste(clu_nams, i, sep = "_")
   }
 
-  dlu <- do.call(rbind, dlulist)
-  clu <- do.call(rbind, clulist)
+  dlu <- unique(do.call(rbind, dlulist))
+  clu <- unique(do.call(rbind, clulist))
 
   dt <- Reduce(function(df1, df2) merge(df1, df2, by = com_cols, all = TRUE, sort = FALSE),
                datalist)
 
-  assign("dt", dt, envir = parent.frame())
-  message("Merged data named `dt` created.")
-
-  assign("dlu", dlu, envir = parent.frame())
-  assign("clu", clu, envir = parent.frame())
-  message("Corresponding dlu and clu named: `dlu` and `clu` are created.")
+  list(data = dt, dlu = dlu, clu = clu)
 
 }

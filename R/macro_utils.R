@@ -5,7 +5,7 @@
 #'
 #' @param data Data frame to be applied.
 #' @param dlu Data frame of DLU
-#' @param clu Data frame of CLU
+#' @param clu Data frame of CLU, see details.
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
 #' @param clean_names Conver variable name to lower case (default), this will also change the
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
@@ -14,9 +14,26 @@
 #'  used to clean the empty rows and/or columns. If the data is large, this will
 #'  take a long time, should be set to \code{"none"} in this case. Use
 #' \code{options(cctu_rm_empty = "none")} to set global options.
-#' @details This function first convert the data to a \code{\link[data.table]{data.table}}.
+#' @details 
+#' 
+#' ## Overview  
+#' 
+#' This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
-#' the dlu file to convert the data into corresponding variable types.
+#' the dlu file to convert the data into corresponding variable types. After the conversion
+#' of the data, variable and value label attribute will be created for the variable, 
+#' see \code{\link{var_lab}}) and \code{\link{val_lab}}.   
+#' 
+#' User can use \code{\link{lab2val}} to conver value labels of the data to values if the 
+#' value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
+#'  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
+#' will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
+#' function, but it is user's responsibility to make sure the variable name in the dataset
+#' matches the short code in the dlu file, see \code{\link{set_dlu}} more details.
+#' 
+#' 
+#' ## Variable conversion based on DLU type  
+#' 
 #' \itemize{
 #'   \item{IntegerData}: Convert to numeric.
 #'   \item{Real}: Convert to numeric.
@@ -26,24 +43,23 @@
 #' will be used to feed the \code{\link{as.Date}} function during the conversion.
 #'   \item{Text}: Convert to character.
 #' }
-#' After the conversion of the data, variable label attribute will be created for the variable.
-#' See  \code{\link{var_lab}}.
-#'
-#' If the \code{clean_names} is set to \code{TRUE}, the data name and the dl/clu
-#' will be cleaned, including the question names in the dlu. The cleaned dlu data
-#' will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
-#' function, but it is user's responsibility to make sure the variable name in the dataset
-#' matches the short code in the dlu file, see \code{\link{set_dlu}} more details.
-#'
-#' After this is completed and if the clu file is provided, value label attribute will be
-#' create for the variables listed in the clu file. See \code{\link{val_lab}}. User can use
-#' \code{\link{lab2val}} to conver value labels of the data to values if the value label
-#' is desired.
-#' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
+#' 
+#' ## CLU data requirements  
+#' 
+#' The CLU file contains three columns:
+#' \itemize{
+#'   \item{ShortCode}: Variable name of the downloaded data.
+#'   \item{CatCode}: Category values, it represents the numeric code for an item in the CRF.
+#'   \item{CatValue}: Label of the category values, for example.
+#' }
+#' 
+#' @seealso \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}} \code{\link{set_dlu}}
 #'  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
 #'  \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}}
 #' @return A data.table object.
 #' @export
+#' 
+#' @example inst/examples/apply_macro_dict.R
 #'
 apply_macro_dict <- function(data,
                              dlu,
@@ -66,22 +82,16 @@ apply_macro_dict <- function(data,
          " not found in the dlu data.")
 
   if(!all(c("shortcode", "description", "type", "visit", "form", "question") %in% names(dlu)))
-    dlu <- sep_dlu(dlu)
+    dlu <- sep_dlu(dlu, clean_names = clean_names)
 
   clu_var_list <- c("shortcode", "catcode", "catvalue")
 
   if(clean_names){
     colnames(data) <- clean_string(names(data))
-    dlu$shortcode <- clean_string(dlu$shortcode)
-    dlu$question <- clean_string(dlu$question)
   }
 
   # Store DLU file inside the cctu env
   cctu_env$dlu <- dlu
-
-  # Restore the dlu and clu to parent frame
-  assign(dlu_name, dlu, envir = parent.frame())
-  message(dlu_name, " modified with shortcode and question cleaned.")
 
   if(!is.null(clu)){
     clu_name <- deparse(substitute(clu))
@@ -92,9 +102,7 @@ apply_macro_dict <- function(data,
 
     if(clean_names)
       clu$shortcode <- clean_string(clu$shortcode)
-      
-    assign(clu_name, clu, envir = parent.frame())
-    message(clu_name, " modified with shortcode cleaned.")
+
   }
 
   # Keep the variables in the data only
@@ -164,12 +172,14 @@ apply_macro_dict <- function(data,
 #' }
 #' Variable names, NOT the values, of the dlu data will be converted to lower cases.
 #' @param x DLU data
+#' @param clean_names Conver variable name to lower case (default). See 
+#' \code{\link{clean_names}} for details.
 #' @return A data.frame
 #' @seealso \code{\link{apply_macro_dict}} \code{\link{read_data}} \code{\link{cttab}}
-#' \code{\link{report_missing}}
+#' \code{\link{report_missing}} \code{\link{clean_names}}
 #' @export
 #'
-sep_dlu <- function(x){
+sep_dlu <- function(x, clean_names = TRUE){
 
   if_visit_form <- unique(sapply((gregexpr("/", x[[2]], fixed=TRUE)), function(i) sum(i > 0)))
   if(length(if_visit_form) != 1 || if_visit_form != 2)
@@ -179,7 +189,14 @@ sep_dlu <- function(x){
   vfq <- as.data.frame(do.call(rbind, vfq))
   colnames(vfq) <- c("visit", "form", "question")
   colnames(x) <- tolower(colnames(x))
-  cbind.data.frame(x[, -2], vfq)
+
+  dlu <- cbind.data.frame(x[, -2], vfq)
+  if(clean_names){
+    dlu$shortcode <- clean_string(dlu$shortcode)
+    dlu$question <- clean_string(dlu$question)
+  }
+
+  return(dlu)
 }
 
 #' @rdname sep_dlu
@@ -187,13 +204,14 @@ sep_dlu <- function(x){
 #'  so it can be used for missing data report by \code{\link{cttab}}. It is user's
 #'  responsibility to make sure values of the short code in the provided DLU data matches
 #'  the variable names in the dataset.
-set_dlu <- function(x){
+set_dlu <- function(x, clean_names = TRUE){
   colnames(x) <- tolower(colnames(x))
   if(!all(c("shortcode", "description", "type", "visit", "form", "question") %in% names(x)))
-    dlu <- sep_dlu(x)
+    dlu <- sep_dlu(x, clean_names)
 
   # Store DLU file inside the cctu env
   cctu_env$dlu <- dlu
+  invisible(dlu)
 }
 
 #' @rdname sep_dlu
@@ -222,10 +240,7 @@ get_dlu <- function(){
 #' \code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#' extract_form(full_dt, "LabResF", dlu)
-#' }
+#' @example inst/examples/apply_macro_dict.R
 #'
 #' @return A data.table object.
 #'

@@ -6,14 +6,17 @@
 \alias{get_dlu}
 \title{Tidy DLU form}
 \usage{
-sep_dlu(x)
+sep_dlu(x, clean_names = TRUE)
 
-set_dlu(x)
+set_dlu(x, clean_names = TRUE)
 
 get_dlu()
 }
 \arguments{
 \item{x}{DLU data}
+
+\item{clean_names}{Conver variable name to lower case (default). See 
+\code{\link{clean_names}} for details.}
 }
 \value{
 A data.frame
@@ -44,5 +47,5 @@ Variable names, NOT the values, of the dlu data will be converted to lower cases
 }
 \seealso{
 \code{\link{apply_macro_dict}} \code{\link{read_data}} \code{\link{cttab}}
-\code{\link{report_missing}}
+\code{\link{report_missing}} \code{\link{clean_names}}
 }

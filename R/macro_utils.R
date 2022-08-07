@@ -4,8 +4,8 @@
 #' The variable label attribute will be applied to the data frame from the DLU file.
 #'
 #' @param data Data frame to be applied.
-#' @param dlu Data frame of DLU
-#' @param clu Data frame of CLU, see details.
+#' @param dlu Data frame of DLU, see \code{\link{sep_dlu}} for the requirements of DLU.
+#' @param clu Data frame of CLU, see details for the requirements of CLU.
 #' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
 #' @param clean_names Conver variable name to lower case (default), this will also change the
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
@@ -28,11 +28,11 @@
 #' value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
 #'  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
 #' will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
-#' function, but it is user's responsibility to make sure the variable name in the dataset
-#' matches the short code in the dlu file, see \code{\link{set_dlu}} more details. 
+#' function, but it will not have any effect on this function, see \code{\link{set_dlu}} more details. 
 #' 
 #' Please use \code{\link{get_dlu}} to get the dlu used cleaned by \code{apply_macro_dict} or use 
-#' \code{\link{sep_dlu}} to clean it. This function uses \code{\link{sep_dlu}} to clean the DLU.
+#' \code{\link{sep_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
+#' to clean the DLU. 
 #' 
 #' 
 #' ## Variable conversion based on DLU type  
@@ -206,7 +206,8 @@ sep_dlu <- function(x, clean_names = TRUE){
 #' @description \code{set_dlu} will set the provided DLU data to package environment,
 #'  so it can be used for missing data report by \code{\link{cttab}}. It is user's
 #'  responsibility to make sure values of the short code in the provided DLU data matches
-#'  the variable names in the dataset.
+#'  the variable names in the dataset. \code{set_dlu} will not have any effect on 
+#' \code{\link{apply_macro_dict}} 
 set_dlu <- function(x, clean_names = TRUE){
   colnames(x) <- tolower(colnames(x))
   if(!all(c("shortcode", "description", "type", "visit", "form", "question") %in% names(x)))

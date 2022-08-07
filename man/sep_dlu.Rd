@@ -41,7 +41,8 @@ Variable names, NOT the values, of the dlu data will be converted to lower cases
 \code{set_dlu} will set the provided DLU data to package environment,
  so it can be used for missing data report by \code{\link{cttab}}. It is user's
  responsibility to make sure values of the short code in the provided DLU data matches
- the variable names in the dataset.
+ the variable names in the dataset. \code{set_dlu} will not have any effect on 
+\code{\link{apply_macro_dict}}
 
 \code{set_dlu} can be used to get a copy of DLU data in stored by \code{set_dlu}.
 }

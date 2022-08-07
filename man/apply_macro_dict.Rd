@@ -16,9 +16,9 @@ apply_macro_dict(
 \arguments{
 \item{data}{Data frame to be applied.}
 
-\item{dlu}{Data frame of DLU}
+\item{dlu}{Data frame of DLU, see \code{\link{sep_dlu}} for the requirements of DLU.}
 
-\item{clu}{Data frame of CLU, see details.}
+\item{clu}{Data frame of CLU, see details for the requirements of CLU.}
 
 \item{date_format}{Date format to be converted, default is `\%d/\%m/\%Y`.}
 
@@ -50,11 +50,11 @@ User can use \code{\link{lab2val}} to conver value labels of the data to values 
 value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
 will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
-function, but it is user's responsibility to make sure the variable name in the dataset
-matches the short code in the dlu file, see \code{\link{set_dlu}} more details. 
+function, but it will not have any effect on this function, see \code{\link{set_dlu}} more details. 
 
 Please use \code{\link{get_dlu}} to get the dlu used cleaned by \code{apply_macro_dict} or use 
-\code{\link{sep_dlu}} to clean it. This function uses \code{\link{sep_dlu}} to clean the DLU.
+\code{\link{sep_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
+to clean the DLU. 
 
 
 ## Variable conversion based on DLU type  

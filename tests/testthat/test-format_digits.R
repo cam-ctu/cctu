@@ -9,6 +9,12 @@ test_that("Test for signif_pad", {
   expect_identical(signif_pad(x, digits=3, round.integers=FALSE),
                    c("0.900", "12356", "1.20", "1.00", "0.100",
                      "0.0000100", "100000", "1.35"))
+  x <- c(0.9001, Inf, -Inf, NA, NaN)
+  expect_identical(signif_pad(x, digits=3, round.integers=FALSE),
+                   c("0.900", "Inf", "-Inf", NA, "NaN"))
+
+  expect_identical(signif_pad(exp(30), format = "g", digits = 3),
+                   "1.07e+13")
 
 })
 

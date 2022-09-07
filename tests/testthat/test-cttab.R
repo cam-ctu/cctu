@@ -45,7 +45,7 @@ test_that("Start from data reading", {
   testthat_print(X)
 
   mis_rp <- get_missing_report()
-  expect_identical(mis_rp$subject_ID, "1275")
+  expect_identical(mis_rp$subject_id, "1275")
   reset_missing_report()
   expect_equal(nrow(get_missing_report()), 0)
 
@@ -124,7 +124,7 @@ test_that("By cycle summary", {
 
   mis_rp <- get_missing_report()
   expect_identical(mis_rp$visit[6], "Baseline")
-  expect_identical(mis_rp$subject_ID[4], "1160")
+  expect_identical(mis_rp$subject_id[4], "1160")
   expect_identical(mis_rp$form[4], "Derived")
 
   cctu_env$parent <- "test"
@@ -164,8 +164,8 @@ test_that("By cycle No treatment arm summary", {
              select = c("ALT" = "PERF == 1"))
 
   mis_rp <- get_missing_report()
-  expect_identical(mis_rp$subject_ID[1], "1275")
-  expect_identical(mis_rp$subject_ID[7], "1181, 1286, 1259")
+  expect_identical(mis_rp$subject_id[1], "1275")
+  expect_identical(mis_rp$subject_id[7], "1181, 1286, 1259")
 
   cctu_env$parent <- "test"
   write_table(X, directory = tmp_dir)

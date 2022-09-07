@@ -24,7 +24,9 @@
 #'  for every row-variable. Name of the vector corresponds to the row variable,
 #'  element is the selection.
 #' @param add_missing If missing number and missing percentage will be
-#'   reported in the summary table, default is `TRUE`.
+#'   reported in the summary table, default is `TRUE`. This will also produce
+#' data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+#' for details.
 #' @param add_obs Add an observation row (default).
 #' @param digits An integer specifying the number of significant digits to keep,
 #' default is 3.
@@ -33,7 +35,6 @@
 #' @param rounding_fn The function to use to do the rounding. Defaults is
 #' \code{\link{signif_pad}}. To round up by digits instead of significant
 #' values, set it to \code{round_pad}.
-#' @param dlu A data.frame of DLU file.
 #' @param subjid_string A character naming the column used to identify subject,
 #' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
@@ -67,28 +68,7 @@
 #' \code{\link{get_missing_report}}
 #' @return A matrix with `cttab` class.
 #'
-#' @examples
-#' dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treat=c("Treated", "Placebo"))
-#' dat$age <- runif(nrow(dat), 10, 50)
-#' dat$age[3] <- NA  # Add a missing value
-#' dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
-#'
-#' var_lab(dat$sex) <- "Sex"
-#' var_lab(dat$age) <- "Age"
-#' var_lab(dat$treat) <- "Treatment Group"
-#' var_lab(dat$wt) <- "Weight"
-#'
-#'
-#' # Something more complicated
-#'
-#' dat$dose <- ifelse(dat$treat=="Placebo", "Placebo",
-#'                    sample(c("5 mg", "10 mg"), nrow(dat), replace=TRUE))
-#' dat$dose <- factor(dat$dose, levels=c("Placebo", "5 mg", "10 mg"))
-#'
-#'
-#' cttab(x = c("age", "sex", "wt"), data = dat, group = "treat")
-#'
-#' cttab(age + sex + wt ~ treat, data = dat, group = "treat")
+#' @example inst/examples/cttab.R
 #'
 #' @export
 #'
@@ -110,7 +90,6 @@ cttab.default <- function(x,
                           digits = getOption("cctu_digits", default = 3),
                           digits_pct = getOption("cctu_digits_pct", default = 0),
                           rounding_fn = signif_pad,
-                          dlu = cctu_env$dlu,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
                           ...) {
@@ -125,7 +104,6 @@ cttab.default <- function(x,
                     digits = digits,
                     digits_pct = digits_pct,
                     rounding_fn = rounding_fn,
-                    dlu = dlu,
                     subjid_string = subjid_string,
                     print_plot =print_plot)
 }
@@ -141,7 +119,6 @@ cttab.formula <- function(x,
                           digits = getOption("cctu_digits", default = 3),
                           digits_pct = getOption("cctu_digits_pct", default = 0),
                           rounding_fn = signif_pad,
-                          dlu = cctu_env$dlu,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
                           ...) {
@@ -179,7 +156,6 @@ cttab.formula <- function(x,
                     digits = digits,
                     digits_pct = digits_pct,
                     rounding_fn = rounding_fn,
-                    dlu = dlu,
                     subjid_string = subjid_string,
                     print_plot =print_plot)
 }
@@ -195,7 +171,6 @@ cttab.formula <- function(x,
                             digits = getOption("cctu_digits", default = 3),
                             digits_pct = getOption("cctu_digits_pct", default = 0),
                             rounding_fn = signif_pad,
-                            dlu = cctu_env$dlu,
                             subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                             print_plot = getOption("cctu_print_plot", default = TRUE)) {
 
@@ -211,9 +186,7 @@ cttab.formula <- function(x,
   }
 
   # Convert to data.table to avoid format lose.
-  #data.table::setDT(data)
-  data <-  data.table::as.data.table(data)
-
+  data <- data.table::as.data.table(data)
 
   # Group variable to factor
   if (!is.null(group)) {
@@ -328,9 +301,9 @@ cttab.formula <- function(x,
     tbody <- calc_tab(data)
 
     # Report missing
-    if(add_missing && !is.null(dlu) && !is.null(subjid_string)){
+    if(add_missing && !is.null(subjid_string)){
       miss_rep <- report_missing(data = data, vars = vars, select = select,
-                               dlu = dlu, subjid_string = subjid_string)
+                                 subjid_string = subjid_string)
 
 
       cctu_env$missing_report_data <- rbind(cctu_env$missing_report_data,
@@ -357,9 +330,9 @@ cttab.formula <- function(x,
       out <- rbind(to_insert, out)
 
       # Report missing
-      if(add_missing && !is.null(dlu) && !is.null(subjid_string)){
+      if(add_missing && !is.null(subjid_string)){
         miss_rep <- report_missing(data = dfm[[x]], vars = vars, select = select,
-                                  dlu = dlu, subjid_string = subjid_string)
+                                   subjid_string = subjid_string)
         if(nrow(miss_rep) != 0){
           miss_rep$visit_var <- row_split
           miss_rep$visit_label <- split_lab

@@ -16,9 +16,9 @@ apply_macro_dict(
 \arguments{
 \item{data}{Data frame to be applied.}
 
-\item{dlu}{Data frame of DLU}
+\item{dlu}{Data frame of DLU, see \code{\link{sep_dlu}} for the requirements of DLU.}
 
-\item{clu}{Data frame of CLU}
+\item{clu}{Data frame of CLU, see details for the requirements of CLU.}
 
 \item{date_format}{Date format to be converted, default is `\%d/\%m/\%Y`.}
 
@@ -38,9 +38,27 @@ A data.table object.
 The variable label attribute will be applied to the data frame from the DLU file.
 }
 \details{
+## Overview  
+
 This function first convert the data to a \code{\link[data.table]{data.table}}.
 This is to avoid the variable attributes dropped by base R functions. Then it will use
-the dlu file to convert the data into corresponding variable types.
+the dlu file to convert the data into corresponding variable types. After the conversion
+of the data, variable and value label attribute will be created for the variable, 
+see \code{\link{var_lab}}) and \code{\link{val_lab}}.   
+
+User can use \code{\link{lab2val}} to conver value labels of the data to values if the 
+value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
+ and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
+will be stored in the \code{cctu} environment. You can change this with \code{\link{set_dlu}}
+function, but it will not have any effect on this function, see \code{\link{set_dlu}} more details. 
+
+Please use \code{\link{get_dlu}} to get the dlu used cleaned by \code{apply_macro_dict} or use 
+\code{\link{sep_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
+to clean the DLU. 
+
+
+## Variable conversion based on DLU type  
+
 \itemize{
   \item{IntegerData}: Convert to numeric.
   \item{Real}: Convert to numeric.
@@ -50,18 +68,40 @@ will be performed, otherwise convert to numeric.
 will be used to feed the \code{\link{as.Date}} function during the conversion.
   \item{Text}: Convert to character.
 }
-After the conversion of the data, variable label attribute will be created for the variable.
-See  \code{\link{var_lab}}.
 
-If the \code{clean_names} is set to \code{TRUE}, the data name and the dl/clu
-will be cleaned, including the question names in the dlu. The cleaned dlu data
-will be stored in the \code{cctu} environment.
+## CLU data requirements  
 
-After this is completed and if the clu file is provided, value label attribute will be
-create for the variables listed in the clu file. See \code{\link{val_lab}}.
+The CLU file contains three columns:
+\itemize{
+  \item{ShortCode}: Variable name of the downloaded data.
+  \item{CatCode}: Category values, it represents the numeric code for an item in the CRF.
+  \item{CatValue}: Label of the category values, for example.
+}
+}
+\examples{
+
+# Read MACRO data
+dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"),
+               colClasses = "character")
+dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
+clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
+
+# Create subjid
+dt$subjid <- substr(dt$USUBJID, 8, 11)
+
+df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
+
+# Following can give you the same dlu file used by apply_macro_dict
+dlu <- sep_dlu(dlu, clean_names = FALSE)
+
+# Extract data from Lab form
+lb <- extract_form(df, "Lab")
+
+# Extract screening visit data from lab form
+lb_base <- extract_form(df, "Lab", visit = "SCREENING")
 }
 \seealso{
-\code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}}
+\code{\link{var_lab}} \code{\link{val_lab}} \code{\link{sep_dlu}} \code{\link{set_dlu}}
  \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
- \code{\link{remove_blank_rows_cols}}
+ \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}} \code{\link{get_dlu}}
 }

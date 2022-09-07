@@ -2,32 +2,51 @@
 % Please edit documentation in R/macro_utils.R
 \name{sep_dlu}
 \alias{sep_dlu}
+\alias{set_dlu}
+\alias{get_dlu}
 \title{Tidy DLU form}
 \usage{
-sep_dlu(x)
+sep_dlu(x, clean_names = TRUE)
+
+set_dlu(x, clean_names = TRUE)
+
+get_dlu()
 }
 \arguments{
-\item{x}{DLU data.frame}
+\item{x}{DLU data}
+
+\item{clean_names}{Conver variable name to lower case (default). See 
+\code{\link{clean_names}} for details.}
 }
 \value{
 A data.frame
 }
 \description{
-Separate Visit, Form and Question into different columns.
+Separate visit, form and question into different columns.
 The DLU file contains four columns:
 \itemize{
-  \item{ShortCode}: Variable name of the downloaded data.
-  \item{Visit/Form/Question}: Contains visit, form and question. It is
-separated by a slash. This function will separate this column into `Visit`,
-`Form` and `Question` column in the output dataset. The `Question` column
+  \item{shortcode}: Variable name of the downloaded data.
+  \item{visit/form/question}: Contains visit, form and question. It is
+separated by a slash. This function will separate this column into `visit`,
+`form` and `question` column in the output dataset. The `question` column
 is the unique variable name for a particular CRF form.
-  \item{Description}: Description of the variable, namely variable label.
+  \item{description}: description of the variable, namely variable label.
 This is will be used by \code{\link{apply_macro_dict}} to create variable label.
- \item{Type}: Type of the variable, it has IntegerData, Text, Date, Real and
+ \item{type}: type of the variable, it has IntegerData, Text, Date, Real and
 Category four categories. This will be used by \code{\link{apply_macro_dict}} to
 convert variables to corresponding type.
 }
+Variable names, NOT the values, of the dlu data will be converted to lower cases.
+
+\code{set_dlu} will set the provided DLU data to package environment,
+ so it can be used for missing data report by \code{\link{cttab}}. It is user's
+ responsibility to make sure values of the short code in the provided DLU data matches
+ the variable names in the dataset. \code{set_dlu} will not have any effect on 
+\code{\link{apply_macro_dict}}
+
+\code{set_dlu} can be used to get a copy of DLU data in stored by \code{set_dlu}.
 }
 \seealso{
-\code{\link{apply_macro_dict}} \code{\link{read_data}}
+\code{\link{apply_macro_dict}} \code{\link{read_data}} \code{\link{cttab}}
+\code{\link{report_missing}} \code{\link{clean_names}}
 }

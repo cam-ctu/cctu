@@ -9,7 +9,6 @@ report_missing(
   vars,
   select,
   row_split = NULL,
-  dlu = cctu_env$dlu,
   subjid_string = getOption("cctu_subjid_string", default = "subjid")
 )
 }
@@ -25,10 +24,11 @@ element of `select` will be used to select the individuals to be analyzed
 \item{row_split}{Variable that used for splitting table rows, rows will be
 splited using this variable. Useful for repeated measures.}
 
-\item{dlu}{A data.frame of DLU file.}
-
 \item{subjid_string}{A character naming the column used to identify subject,
 default is \code{"subjid"}.}
+
+\item{dlu}{A data.frame of DLU file, this will be derived from the package environment
+and should be set using \code{\link{get_dlu}}.}
 }
 \value{
 A data frame

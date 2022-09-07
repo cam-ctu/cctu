@@ -36,6 +36,7 @@ test_that("Test rbind.cttab", {
 })
 
 test_that("Test all_is_numeric", {
-  expect_true(all_is_numeric(c('1','1.2','3')))
+  expect_true(all_is_numeric(c('1','1.2','3', "")))
+  expect_true(all_is_numeric(c('1','1.2', NA)))
   expect_false(all_is_numeric(c('1','1.2','3a')))
 })

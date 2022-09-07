@@ -12,14 +12,14 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 test_that("Apply DLU and CLU files", {
-  df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE)
+  df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
   expect_s3_class(df, "data.table")
   expect_identical(var_lab(df$ARM), "Treatment Arm")
   expect_identical(val_lab(df$ARM), c("Placebo" = 1L, "Research" = 2L))
 
   expect_equal(nrow(cctu_env$dlu), nrow(dlu))
-  expect_identical(names(cctu_env$dlu), c("ShortCode", "Description", "Type",
-                                          "Visit", "Form", "Question"))
+  expect_identical(names(cctu_env$dlu), tolower(c("ShortCode", "Description", "Type",
+                                                  "Visit", "Form", "Question")))
 
   expect_true(is.numeric(df$BMIBL))
 
@@ -44,15 +44,15 @@ test_that("Apply DLU and CLU files", {
 
   dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
   clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
-  colnames(clu)[1] <- tolower(colnames(clu)[1])
+  clu <- clu[, -1]
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
-               "Variable ShortCode not found in the clu data")
+               "Variable shortcode not found in the clu data")
 
   dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
   clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
-  colnames(dlu) <- tolower(colnames(dlu))
+  colnames(dlu) <- paste("var", 1:ncol(dlu))
   expect_error(apply_macro_dict(dt, dlu = dlu, clu = clu),
-               "Variable ShortCode, Description, Type not found in the dlu data")
+               "Variable shortcode, description, type not found in the dlu data")
 
   dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
   clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
@@ -68,12 +68,12 @@ test_that("Extract form", {
   df <- apply_macro_dict(dt, dlu, clu, clean_names = FALSE)
   lb <- extract_form(df, "Lab")
   expect_equal(names(lb)[1:4], toupper(c("avisit", "bili", "alt", "perf")))
-  expect_true(all(unique(lb$FormVisit) %in% c("SCREENING", "TRT", "ENDTRT")))
+  expect_true(all(unique(lb$form_visit) %in% c("SCREENING", "TRT", "ENDTRT")))
 
   expect_true(all(levels(to_factor(lb$AVISIT)) %in% c('Baseline','Week 4','Week 8','Week 16','End of Treatment')))
 
   lb <- extract_form(df, "Lab", visit = "SCREENING")
-  expect_identical(unique(lb$FormVisit), "SCREENING")
+  expect_identical(unique(lb$form_visit), "SCREENING")
 
   expect_error(extract_form(df, "SCREENING"),
                "Form name SCREENING can not be found in the DLU file")
@@ -82,7 +82,7 @@ test_that("Extract form", {
                "Form must be of length 1")
 
   lb <- extract_form(df, "Lab", visit = c("SCREENING", "TRT"))
-  expect_true(all(unique(lb$FormVisit) %in% c("SCREENING", "TRT")))
+  expect_true(all(unique(lb$form_visit) %in% c("SCREENING", "TRT")))
 
   expect_error(extract_form(df, "Lab", visit = c("SCREENING", "TEST")),
                "Visit name TEST can not be found in the DLU file")

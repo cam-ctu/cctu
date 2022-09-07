@@ -5,7 +5,14 @@
 \alias{round_pad}
 \title{Round numbers with 0-padding.}
 \usage{
-signif_pad(x, digits = 3, round.integers = TRUE, round5up = TRUE, ...)
+signif_pad(
+  x,
+  digits = 3,
+  round.integers = TRUE,
+  round5up = TRUE,
+  format = "fg",
+  ...
+)
 
 round_pad(x, digits = 2, round5up = TRUE, ...)
 }
@@ -23,6 +30,9 @@ the decimal point?}
 up? The standard R approach is "go to the even digit" (IEC 60559 standard,
 see \code{\link{round}}), while some other softwares (e.g. SAS, Excel)
 always round up.}
+
+\item{format}{See \code{formatC}. Default is \code{"fg"}, change it to \code{"g"}
+if scientific is preferred.}
 
 \item{...}{Further options, passed to \code{formatC} (which is used
 internally). Not all options will work, but some might be useful (e.g.

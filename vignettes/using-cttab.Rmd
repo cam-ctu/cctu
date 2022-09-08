@@ -192,7 +192,7 @@ X
 
 ## Formula interface
 
-One can use fomula in the `cctab` just like `lm`, but you will not be able to group variables (described in the later section). The left hand side of the formula is the variables to be summarised. Right hand side of the fomula is the grouping and/or row splitting variables. The by visit variable should be separated by `|` with grouping variable, use `1` if there is no grouping variables. No `group` or `row_split` parameters to be used in the formula interface. All the other parameters are the same.
+One can use formula in the `cctab` just like `lm`, but you will not be able to group variables (described in the later section). The left hand side of the formula is the variables to be summarised. Right hand side of the formula is the grouping and/or row splitting variables. The by visit variable should be separated by `|` with grouping variable, use `1` if there is no grouping variables. No `group` or `row_split` parameters to be used in the formula interface. All the other parameters are the same.
 ```{r eval=FALSE}
 # No grouping
 X <- cttab(AGE + SEX + BMIBL  ~ 1, data = df)

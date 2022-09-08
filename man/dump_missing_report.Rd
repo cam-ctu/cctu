@@ -4,7 +4,7 @@
 \alias{dump_missing_report}
 \alias{get_missing_report}
 \alias{reset_missing_report}
-\title{Missing ness report}
+\title{Save/Get/Reset missingness report}
 \usage{
 dump_missing_report(x = "Output/variable_missing_report.csv")
 
@@ -17,13 +17,11 @@ reset_missing_report()
 folder, named as `variable_missing_report.csv`.}
 }
 \description{
-Missing ness report
+\code{dump_missing_report} can be used to save the missingness report to
+a file. 
+\code{get_missing_report} Return the missingness report data.
+\code{reset_missing_report} Reset the internal missingness report data to blank.
 }
-\section{Functions}{
-\itemize{
-\item \code{get_missing_report}: Return the missingness report data.
-
-\item \code{reset_missing_report}: Reset the internal missingness report
-data to blank.
-}}
-
+\seealso{
+\code{\link{cttab}} \code{\link{report_missing}}
+}

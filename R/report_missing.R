@@ -4,13 +4,15 @@
 #' This function use the same method as described in the \code{cctab}, reporting
 #' missingness of the variables. It includes which form is the variable from,
 #' set as `Derived` if not from DLU file. And missing percentage with which subjects
-#' are have missing value for that particular variable.
+#' are have missing value for that particular variable. This is internal function,
+#' not intend to use it directly by user.
 #'
 #' @inheritParams cttab
 #' @param dlu A data.frame of DLU file, this will be derived from the package environment
 #' and should be set using \code{\link{get_dlu}}.
 #'
-#' @seealso \code{\link{cttab}}
+#' @seealso \code{\link{cttab}} \code{\link{dump_missing_report}} 
+#' \code{\link{get_missing_report}} \code{\link{reset_missing_report}}
 #'
 #' @return A data frame
 #'
@@ -81,10 +83,20 @@ report_missing <- function(data,
   res[res$subject_id != "", ]
 }
 
-#' Missing ness report
+#' @name dump_missing_report
+#' @aliases get_missing_report
+#' @aliases reset_missing_report
+#' @title Save/Get/Reset missingness report
+#' 
+#' @description 
+#' \code{dump_missing_report} can be used to save the missingness report to
+#' a file. 
+#' \code{get_missing_report} Return the missingness report data.
+#' \code{reset_missing_report} Reset the internal missingness report data to blank.
 #'
 #' @param x File path the report will be dumped to. Default is under `Output`
 #' folder, named as `variable_missing_report.csv`.
+#' @seealso \code{\link{cttab}} \code{\link{report_missing}}
 #' @export
 #'
 dump_missing_report <- function(x = "Output/variable_missing_report.csv"){
@@ -94,14 +106,13 @@ dump_missing_report <- function(x = "Output/variable_missing_report.csv"){
                   na = "", row.names = FALSE)
 }
 
-#' @describeIn dump_missing_report Return the missingness report data.
+#' @rdname dump_missing_report
 #' @export
 get_missing_report <- function(){
   unique(cctu_env$missing_report_data)
 }
 
-#' @describeIn dump_missing_report Reset the internal missingness report
-#' data to blank.
+#' @rdname dump_missing_report
 #' @export
 reset_missing_report <- function(){
   cctu_env$missing_report_data <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),

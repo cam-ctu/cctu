@@ -8,7 +8,7 @@
 
 order_dewey=function(x){
 
-  if( class(x)!="character"){stop("Must input a character vector")}
+  if(!inherits(x,"character")){stop("Must input a character vector")}
 #split up the string into a list of vectors broken by decimals
   X=strsplit(x,"\\.")
   check_non_numeric <- sapply(X, function(x){any(grepl("\\D",x))})

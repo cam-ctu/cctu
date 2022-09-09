@@ -82,7 +82,7 @@ mtcars[,vars]
 mtcars[,vars, with=FALSE]
 ```
 
-## Table populate function
+## Table function
 
 You might already knew how to use the `sumby` function, but now a new function called `cttab` has been added. The difference between these two functions are the latter can handle variable label and value labels. You can feed the labelled data to this function and it will populate a summary table. Report data by treatment group, stratify tables by visit. Also, you can report variable based on some conditions and group the variable in the report. It generates a missing report internally and you can dump the missing report at the end. No extra step is needed. It will also produce the summary plots of the variables. The produced plots will be arrange to 3 by 3 and new plot will be producd if the variables exceeds 9. The remaining of this document will show you with a working case. 
 
@@ -103,7 +103,7 @@ options(cctu_print_plot = FALSE) # Don't produce plots
 In this section, we will show how to populate tables.
 
 ## Data reading
-
+### Usual case
 You should read the data as before, but you can and should read the data by setting all the columns to character. This will be handled later. Same process can be found in the `Analysis Template` vignette.
 ```{r echo=TRUE}
 # Read example data
@@ -114,6 +114,8 @@ dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
 clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 ```
 
+
+### Vertically splited multiple data
 If you have multiple datasets, you should combine them at this stage. If multiple datasets are given and they have the same variable name, you can use `rbind` function to combine data together. If you have different datasets with different variable names except for some key variables, you can use `merge_data` function to combine them together.
 
 ```{r eval=FALSE, echo=TRUE}
@@ -137,7 +139,9 @@ dlu <- res$dlu # Extract combined DLU data
 clu <- res$clu # Extract combined CLU data
 ```
 
-Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour.
+## Apply macro dictionary
+
+Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour. The `apply_macro_dict` function will clean the variable name in the DLU and CLU, then apply these macro meta data to the target dataset. The cleaned DLU data will be sotred internally and is further used by `cttab` to report missingness. You can use `get_dlu` to extract the internal DLU data after applying `apply_macro_dict` to the dataset for further useage or as a reference. Although you can use `set_dlu` to change the internal DLU data stored by `apply_macro_dict`, this is not recommended unless you know what you are doing. This will have an impact on the missing report. 
 
 ```{r echo=TRUE}
 # Create subjid

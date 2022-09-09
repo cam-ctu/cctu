@@ -71,7 +71,7 @@ test_that( "interaction with apply_macro_dict",{
         # this assume the dlu & clu have teh column names cleaned, as well
         # as cleaning the content of "shortcode". shortcode -> shortcode
         # expect_flase("arm" %in% clu$shortcode)
-        clean_dlu <- sep_dlu(dlu)
+        clean_dlu <- tidy_dlu(dlu)
         expect_true("arm" %in% clean_dlu$shortcode)
 
         expect_type( dt$arm, "double")

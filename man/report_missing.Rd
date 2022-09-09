@@ -37,9 +37,11 @@ A data frame
 This function use the same method as described in the \code{cctab}, reporting
 missingness of the variables. It includes which form is the variable from,
 set as `Derived` if not from DLU file. And missing percentage with which subjects
-are have missing value for that particular variable.
+are have missing value for that particular variable. This is internal function,
+not intend to use it directly by user.
 }
 \seealso{
-\code{\link{cttab}}
+\code{\link{cttab}} \code{\link{dump_missing_report}} 
+\code{\link{get_missing_report}} \code{\link{reset_missing_report}}
 }
 \keyword{internal}

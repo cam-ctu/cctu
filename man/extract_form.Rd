@@ -16,9 +16,9 @@ extract_form(
 \arguments{
 \item{data}{A data.frame from macro dataset.}
 
-\item{form}{Name of the form in the DLU file, see \code{\link{sep_dlu}}.}
+\item{form}{Name of the form in the DLU file, see \code{\link{tidy_dlu}}.}
 
-\item{visit}{A character string or vector of visit name in the DLU file, see \code{\link{sep_dlu}}.}
+\item{visit}{A character string or vector of visit name in the DLU file, see \code{\link{tidy_dlu}}.}
 
 \item{vars_keep}{Parameters to keep in the output data. This is useful if you want to keep
 treatment arm or age variable.}
@@ -51,7 +51,7 @@ dt$subjid <- substr(dt$USUBJID, 8, 11)
 df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
 
 # Following can give you the same dlu file used by apply_macro_dict
-dlu <- sep_dlu(dlu, clean_names = FALSE)
+dlu <- tidy_dlu(dlu, clean_names = FALSE)
 
 # Extract data from Lab form
 lb <- extract_form(df, "Lab")
@@ -60,6 +60,6 @@ lb <- extract_form(df, "Lab")
 lb_base <- extract_form(df, "Lab", visit = "SCREENING")
 }
 \seealso{
-\code{\link{sep_dlu}} \code{\link[data.table]{data.table}}
+\code{\link{tidy_dlu}} \code{\link[data.table]{data.table}}
 \code{\link{read_data}} \code{\link{remove_blank_rows_cols}}
 }

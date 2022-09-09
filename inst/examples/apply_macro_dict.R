@@ -11,7 +11,7 @@ dt$subjid <- substr(dt$USUBJID, 8, 11)
 df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
 
 # Following can give you the same dlu file used by apply_macro_dict
-dlu <- sep_dlu(dlu, clean_names = FALSE)
+dlu <- tidy_dlu(dlu, clean_names = FALSE)
 
 # Extract data from Lab form
 lb <- extract_form(df, "Lab")

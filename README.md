@@ -28,9 +28,9 @@ devtools::install_github("shug0131/cctu")
 
 ## Example
 
-Go and read the vignette
+Go and read the vignettes
 
 ``` r
 browseVignettes("cctu")
-#> No vignettes found by browseVignettes("cctu")
+#> starting httpd help server ... done
 ```

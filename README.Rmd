@@ -36,7 +36,7 @@ devtools::install_github("shug0131/cctu")
 
 ## Example
 
-Go and read the vignette
+Go and read the vignettes
 
 ```{r example}
 browseVignettes("cctu")

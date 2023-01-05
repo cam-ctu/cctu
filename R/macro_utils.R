@@ -14,32 +14,32 @@
 #'  used to clean the empty rows and/or columns. If the data is large, this will
 #'  take a long time, should be set to \code{"none"} in this case. Use
 #' \code{options(cctu_rm_empty = "none")} to set global options.
-#' 
+#'
 #' @details
-#' 
+#'
 #' \subsection{Overview}{
-#' 
+#'
 #' This function first convert the data to a \code{\link[data.table]{data.table}}.
 #' This is to avoid the variable attributes dropped by base R functions. Then it will use
 #' the dlu file to convert the data into corresponding variable types. After the conversion
-#' of the data, variable and value label attribute will be created for the variable, 
-#' see \code{\link{var_lab}}) and \code{\link{val_lab}}.   
-#' 
-#' User can use \code{\link{lab2val}} to conver value labels of the data to values if the 
+#' of the data, variable and value label attribute will be created for the variable,
+#' see \code{\link{var_lab}}) and \code{\link{val_lab}}.
+#'
+#' User can use \code{\link{lab2val}} to conver value labels of the data to values if the
 #' value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
 #'  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
 #' will be stored in the \code{cctu} environment. This will further be used by \code{\link{cttab}}
-#' to populate the missing report, see \code{\link{report_missing}}. You can change this with 
-#' \code{\link{set_dlu}} function, but it will not have any effect on this function, see 
-#' \code{\link{set_dlu}} more details. 
-#' 
-#' Please use \code{\link{get_dlu}} to get the dlu cleaned by \code{apply_macro_dict} or use 
+#' to populate the missing report, see \code{\link{report_missing}}. You can change this with
+#' \code{\link{set_dlu}} function, but it will not have any effect on this function, see
+#' \code{\link{set_dlu}} more details.
+#'
+#' Please use \code{\link{get_dlu}} to get the dlu cleaned by \code{apply_macro_dict} or use
 #' \code{\link{tidy_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
 #' to clean the DLU.
 #' }
-#' 
+#'
 #' \subsection{Variable conversion based on DLU type}{
-#' 
+#'
 #' \itemize{
 #'   \item{IntegerData}: Convert to numeric.
 #'   \item{Real}: Convert to numeric.
@@ -50,9 +50,9 @@
 #'   \item{Text}: Convert to character.
 #' }
 #' }
-#' 
-#' \subsection{CLU data requirements}{ 
-#' 
+#'
+#' \subsection{CLU data requirements}{
+#'
 #' The CLU file contains three columns:
 #' \itemize{
 #'   \item{ShortCode}: Variable name of the downloaded data.
@@ -65,7 +65,7 @@
 #'  \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}} \code{\link{get_dlu}}
 #' @return A data.table object.
 #' @export
-#' 
+#'
 #' @example inst/examples/apply_macro_dict.R
 #'
 apply_macro_dict <- function(data,
@@ -166,9 +166,9 @@ apply_macro_dict <- function(data,
 #' @description Separate visit, form and question into different columns.
 #' Variable names, NOT the values, of the dlu data will be converted to lower cases.
 #' @param x DLU data
-#' @param clean_names Conver variable name to lower case (default). See 
+#' @param clean_names Conver variable name to lower case (default). See
 #' \code{\link{clean_names}} for details.
-#' @details 
+#' @details
 #' The DLU file contains four columns:
 #' \itemize{
 #'   \item{shortcode}: Variable name of the downloaded data.
@@ -208,22 +208,38 @@ tidy_dlu <- function(x, clean_names = TRUE){
   return(dlu)
 }
 
+
+#' @name sep_dlu
+#' @title Separates out visit/form/question from DLU
+#' @description Deprecated so included for back compatibility
+#' @inheritParams tidy_dlu
+#' @returns A data.frame with expanded, separated variables
+#' @seealso \code{\link{tidy_dlu}}
+#' @export
+
+
+sep_dlu <- function(x, clean_names=TRUE){
+  .Deprecated("tidy_dlu")
+  tidy_dlu(x, clean_names = clean_names)
+}
+
+
 #' @name set_dlu
 #' @aliases get_dlu
 #' @title Set/get DLU data
-#' 
-#' @description 
+#'
+#' @description
 #' \code{set_dlu} will set the provided DLU data to package environment, so it can be used
 #'  for missing data report by \code{\link{cttab}}. It is user's responsibility to make
 #'  sure values of the short code in the provided DLU data matches the variable names in
 #'  the dataset. \code{set_dlu} will not have any effect on \code{\link{apply_macro_dict}}.
 #' Instead, the \code{\link{apply_macro_dict}} will override the `DLU` seetings done by
-#' \code{set_dlu}.  
-#' 
+#' \code{set_dlu}.
+#'
 #' \code{get_dlu} can be used to get a copy of DLU data in stored by \code{set_dlu}.
-#' 
+#'
 #' @inheritParams tidy_dlu
-#' @export 
+#' @export
 set_dlu <- function(x, clean_names = TRUE){
   colnames(x) <- tolower(colnames(x))
   if(!all(c("shortcode", "description", "type", "visit", "form", "question") %in% names(x)))
@@ -235,7 +251,7 @@ set_dlu <- function(x, clean_names = TRUE){
 }
 
 #' @rdname set_dlu
-#' @export 
+#' @export
 get_dlu <- function(){
   cctu_env$dlu
 }

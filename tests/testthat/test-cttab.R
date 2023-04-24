@@ -268,6 +268,7 @@ test_that("Check stat_tab", {
   dat$age <- runif(nrow(dat), 10, 50)
   dat$age[3] <- NA  # Add a missing value
   dat$wt <- exp(rnorm(nrow(dat), log(70), 0.2))
+  dat <- data.table::as.data.table(dat)
 
   var_lab(dat$sex) <- "Sex"
   var_lab(dat$age) <- "Age"
@@ -288,18 +289,32 @@ test_that("Check stat_tab", {
                         group = "treat"),
                "The class of variable")
 
+  dat$height <- dat$wt
+  dat$height[dat$treat == 1] <- NA
+  tab1 <- stat_tab("height",
+                   data = dat,
+                   group = "treat")
+  expect_equal(unname(tab1[2, ]), c("0", "40", "40"))
+
   dat$height <- NA
 
-  expect_null(stat_tab("height",
-                       data = dat,
-                       group = "treat"))
+  expect_equal(dim(stat_tab("height",
+                            data = dat,
+                            group = "treat")),
+               c(3, 3))
 
   dat$bmi <- NA
   val_lab(dat$bmi) <- c("Over" = 1, "Under" = 2)
 
   expect_null(stat_tab("bmi",
                        data = dat,
+                       add_missing = F,
                        group = "treat"))
+
+  expect_equal(dim(stat_tab("bmi",
+                            data = dat,
+                            group = "treat")),
+               c(2, 3))
 
   dat$bmi <- factor(dat$bmi, levels = c(1, 2), labels = c("Over", "Under"))
 

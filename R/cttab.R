@@ -38,6 +38,10 @@
 #' @param subjid_string A character naming the column used to identify subject,
 #' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
+#' @param render_numeric_fn A function to render the numeric variable, default is
+#' \code{render_numeric}. see details \code{\link{render_numeric}}.
+#' @param render_categorical_fn A function to render the categorical variable, default
+#'  is \code{render_cat}. See details \code{\link{render_cat}}.
 #' @param ... Not used.
 #' @details
 #' Some of the function parameters can be set with options. This will have an global
@@ -66,6 +70,8 @@
 #' \code{\link{sumby}}
 #' \code{\link{dump_missing_report}}
 #' \code{\link{get_missing_report}}
+#' \code{\link{render_numeric}}
+#' \code{\link{render_cat}}
 #' @return A matrix with `cttab` class.
 #'
 #' @example inst/examples/cttab.R
@@ -92,6 +98,8 @@ cttab.default <- function(x,
                           rounding_fn = signif_pad,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
+                          render_numeric_fn = render_numeric,
+                          render_categorical_fn = render_cat,
                           ...) {
     .cttab.internal(vars = x,
                     data = data,
@@ -105,7 +113,9 @@ cttab.default <- function(x,
                     digits_pct = digits_pct,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
-                    print_plot =print_plot)
+                    print_plot =print_plot,
+                    render_numeric_fn = render_numeric_fn,
+                    render_categorical_fn = render_categorical_fn)
 }
 
 #' @describeIn cttab The formula interface, where \code{x} is a \code{formula}.
@@ -121,6 +131,8 @@ cttab.formula <- function(x,
                           rounding_fn = signif_pad,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
+                          render_numeric_fn = render_numeric,
+                          render_categorical_fn = render_cat,
                           ...) {
 
     f <- split_formula(x)
@@ -157,7 +169,9 @@ cttab.formula <- function(x,
                     digits_pct = digits_pct,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
-                    print_plot =print_plot)
+                    print_plot =print_plot,
+                    render_numeric_fn = render_numeric_fn,
+                    render_categorical_fn = render_categorical_fn)
 }
 
 .cttab.internal <- function(vars,
@@ -172,7 +186,9 @@ cttab.formula <- function(x,
                             digits_pct = getOption("cctu_digits_pct", default = 0),
                             rounding_fn = signif_pad,
                             subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-                            print_plot = getOption("cctu_print_plot", default = TRUE)) {
+                            print_plot = getOption("cctu_print_plot", default = TRUE),
+                            render_numeric_fn = render_numeric,
+                            render_categorical_fn = render_cat) {
 
   tpcall <- match.call()
 
@@ -234,7 +250,9 @@ cttab.formula <- function(x,
                       add_missing = add_missing,
                       digits = digits,
                       digits_pct = digits_pct,
-                      rounding_fn = rounding_fn)
+                      rounding_fn = rounding_fn,
+                      render_numeric_fn = render_numeric_fn,
+                      render_categorical_fn = render_categorical_fn)
 
         # Add grouping
         if(!is_empty(names(vars)[i])){
@@ -268,7 +286,9 @@ cttab.formula <- function(x,
                       add_missing = add_missing,
                       digits = digits,
                       digits_pct = digits_pct,
-                      rounding_fn = rounding_fn)
+                      rounding_fn = rounding_fn,
+                      render_numeric_fn = render_numeric_fn,
+                      render_categorical_fn = render_categorical_fn)
     }
 
     # Add observation row
@@ -379,7 +399,9 @@ stat_tab <- function(vars,
                      add_missing = TRUE,
                      digits = 2,
                      digits_pct = 1,
-                     rounding_fn = signif_pad){
+                     rounding_fn = signif_pad,
+                     render_numeric_fn = render_numeric,
+                     render_categorical_fn = render_cat){
 
   mf <- match.call()
 
@@ -451,7 +473,7 @@ stat_tab <- function(vars,
         z <- to_factor(z, ordered = TRUE)
 
       if(var_class[v] == "category"){
-        r <- c("", render_cat(z, digits_pct = digits_pct))
+        r <- c("", render_categorical_fn(z, digits_pct = digits_pct))
       }
 
       if(var_class[v] == "logical"){
@@ -461,7 +483,7 @@ stat_tab <- function(vars,
       }
 
       if(var_class[v] == "numeric"){
-        r <- c("", render_numeric(z, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
+        r <- c("", render_numeric_fn(z, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
       }
 
       names(r)[1] <- variable

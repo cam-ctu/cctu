@@ -10,12 +10,31 @@
 #' @return A \code{character} vector. Each element is to be displayed in a
 #' separate cell in the table. The \code{\link{names}} of the vector are the
 #' labels to use in the table.
+#' @details 
+#' This function was used by \code{link{cttab}} to render numeric variables.
+#' It essentially uses the values returned by \code{\link{num_stat}} and 
+#' put values to a vector. You can modified this to show any values you 
+#' want, checkout the example below. 
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
+#' \code{\link{num_stat}}
 #' @examples
 #' x <- exp(rnorm(100, 1, 1))
 #' render_numeric(x)
+#' 
+#' # You can create your own rendering function similar to this one.
+#' # Below is how to return Median and IQR
+#' \dontrun{
+#' my_render_numeric <- function(x, ...){
+#'   with(num_stat(x, ...),
+#'        c("Valid Obs." = sprintf("%s", N),
+#'          "Mean (SD)"  = ifelse(is.na(MEAN), "", sprintf("%s (%s)", MEAN, SD)),
+#'          "Median [IQR]" = ifelse(is.na(MEDIAN), "",
+#'                                       sprintf("%s [%s]", MEDIAN, IQR))
+#'        ))
+#' }
+#' }
 #'
 #' @keywords utilities
 #' @export
@@ -39,11 +58,32 @@ render_numeric <- function(x, ...){
 #' @return A \code{character} vector. Each element is to be displayed in a
 #' separate cell in the table. The \code{\link{names}} of the vector are the
 #' labels to use in the table.
-#'
+#' @details 
+#' This function was used by \code{link{cttab}} to render categorical variables.
+#' It essentially uses the values returned by \code{\link{cat_stat}} and 
+#' put values to a vector. You can modified this to show any values you 
+#' want, checkout the example below. 
+#' @seealso
+#' \code{\link{signif_pad}}
+#' \code{\link{round_pad}}
+#' \code{\link{num_stat}}
 #' @examples
 #' y <- factor(sample(0:1, 99, replace=TRUE), labels=c("Female", "Male"))
 #' y[1:10] <- NA
 #' render_cat(y)
+#' 
+#' # You can create your own rendering function similar to this one.
+#' # Below is how to return Median and IQR
+#' \dontrun{
+#' my_render_cat <- function(x, ...){
+#'   sapply(cat_stat(x, ...),
+#'         function(y)
+#'           with(y, ifelse(FREQ %in% c(0, NA), "",
+#'                          sprintf("%s/%s (%s)", FREQ, Nall, PCTnoNA))))
+#'        ))
+#' }
+#' }
+#' 
 #' @keywords utilities
 #' @export
 render_cat <- function(x, ...){
@@ -81,6 +121,10 @@ render_cat <- function(x, ...){
 #'   \item \code{GMEAN}: the geometric mean of the non-missing values if non-negative, or \code{NA}
 #'   \item \code{GCV}: the percent geometric coefficient of variation of the
 #'   non-missing values if non-negative, or \code{NA}
+#'   \item \code{Q1}: the first quartile of the non-missing values (alias \code{q25})
+#'   \item \code{Q2}: the second quartile of the non-missing values (alias \code{q50} or \code{Median})
+#'   \item \code{Q3}: the third quartile of the non-missing values (alias \code{q75})
+#'   \item \code{IQR}: the inter-quartile range of the non-missing values (i.e., \code{Q3 - Q1})
 #' }
 #' If \code{x} is categorical (i.e. factor, character or logical), the list
 #' contains a sublist for each category, where each sublist contains the
@@ -89,6 +133,8 @@ render_cat <- function(x, ...){
 #'   \item \code{FREQ}: the frequency count
 #'   \item \code{PCT}: the percent relative frequency, including NA in the denominator
 #'   \item \code{PCTnoNA}: the percent relative frequency, excluding NA from the denominator
+#'  \item \code{Nall}: total count, including NA from the denominator
+#'  \item \code{N}: total count, excluding NA from the denominator
 #' }
 #' @seealso
 #' \code{\link{signif_pad}}
@@ -116,8 +162,13 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
               CV = NA,
               GMEAN = NA,
               GCV = NA,
+              Q1=NA,
+              Q2=NA,
+              Q3=NA,
+              IQR=NA,
               MEDIAN = NA)
   }else{
+    q <- quantile(x, probs=c(0.25, 0.5, 0.75), na.rm = TRUE)
     y <- list(N = sum(!is.na(x)),
               NMISS = sum(is.na(x)),
               SUM = sum(x, na.rm = TRUE),
@@ -136,6 +187,10 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
                 ) ^ 2) - 1),
               MEDIAN = median(x, na.rm = TRUE),
               MIN = min(x, na.rm = TRUE),
+              Q1=q["25%"],
+              Q2=q["50%"],
+              Q3=q["75%"],
+              IQR=q["75%"] - q["25%"],
               MAX = max(x, na.rm = TRUE))
     cx <- lapply(y, format)
 

@@ -407,6 +407,19 @@ stat_tab <- function(vars,
   # Create value labels for characters variables to avoid missing levels between groups
   convcols <- names(Filter(is.character, data))
 
+  # Get variable class, make sure the class is consistent across data
+  var_class <- sapply(vars, function(v){
+    if(!inherits(data[[v]], c("numeric", "integer", "factor", "character", "logical")))
+        stop(paste("The class of variable", v, "is", class(data[[v]]), "and not supported!"))
+
+    fcase(
+      inherits(data[[v]], c("factor", "character")) | has.labels(data[[v]]), 'category',
+      inherits(data[[v]], c("numeric", "integer")) | all(is.na(data[[v]])), 'numeric',
+      inherits(data[[v]], c("logical")), 'logical'
+    )
+  })
+
+
   if(length(convcols) > 0)
     data[, convcols] <- data[,lapply(.SD, to_character), .SDcols = convcols]
 
@@ -437,21 +450,17 @@ stat_tab <- function(vars,
       if(has.labels(z) | is.character(z))
         z <- to_factor(z, ordered = TRUE)
 
-      if(!inherits(z, c("numeric", "integer", "factor", "character", "logical")))
-        stop(paste("The class of variable", v, "is", class(z), "and not supported!"))
-
-      if(inherits(z, c("factor", "character"))){
+      if(var_class[v] == "category"){
         r <- c("", render_cat(z, digits_pct = digits_pct))
       }
 
-      if(inherits(z, "logical")){
-        r <- miss <- with(cat_stat(z, digits_pct = digits_pct)$Yes,
-                          c(Missing = ifelse(FREQ == 0, "",
-                                             sprintf("%s/%s (%s)", FREQ, Nall, PCT))))
+      if(var_class[v] == "logical"){
+        r <- with(cat_stat(z, digits_pct = digits_pct)$Yes, 
+                  c(Missing = sprintf("%s/%s (%s)", FREQ, Nall, PCT)))
         add_missing <- FALSE
       }
 
-      if(inherits(z, c("numeric", "integer"))){
+      if(var_class[v] == "numeric"){
         r <- c("", render_numeric(z, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
       }
 

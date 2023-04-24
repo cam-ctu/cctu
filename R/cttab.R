@@ -38,10 +38,11 @@
 #' @param subjid_string A character naming the column used to identify subject,
 #' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
-#' @param render_numeric_fn A function to render the numeric variable, default is
-#' \code{render_numeric}. see details \code{\link{render_numeric}}.
-#' @param render_categorical_fn A function to render the categorical variable, default
-#'  is \code{render_cat}. See details \code{\link{render_cat}}.
+#' @param render_num A character or vector indicatin which summary will be reported,
+#'  default is "Median [Min, Max]". You can change this to "Median [IQR]" then the 
+#' median and IQR will be reported instead of "Median [Min, Max]". Use 
+#' \code{options(cctu_render_num = "Median [IQR]")} to set global options. 
+#' See details \code{\link{render_numeric}}.
 #' @param ... Not used.
 #' @details
 #' Some of the function parameters can be set with options. This will have an global
@@ -98,8 +99,7 @@ cttab.default <- function(x,
                           rounding_fn = signif_pad,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
-                          render_numeric_fn = render_numeric,
-                          render_categorical_fn = render_cat,
+                          render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
                           ...) {
     .cttab.internal(vars = x,
                     data = data,
@@ -114,8 +114,7 @@ cttab.default <- function(x,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
                     print_plot =print_plot,
-                    render_numeric_fn = render_numeric_fn,
-                    render_categorical_fn = render_categorical_fn)
+                    render_num = render_num)
 }
 
 #' @describeIn cttab The formula interface, where \code{x} is a \code{formula}.
@@ -131,8 +130,7 @@ cttab.formula <- function(x,
                           rounding_fn = signif_pad,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
-                          render_numeric_fn = render_numeric,
-                          render_categorical_fn = render_cat,
+                          render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
                           ...) {
 
     f <- split_formula(x)
@@ -170,8 +168,7 @@ cttab.formula <- function(x,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
                     print_plot =print_plot,
-                    render_numeric_fn = render_numeric_fn,
-                    render_categorical_fn = render_categorical_fn)
+                    render_num = render_num)
 }
 
 .cttab.internal <- function(vars,
@@ -187,8 +184,7 @@ cttab.formula <- function(x,
                             rounding_fn = signif_pad,
                             subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                             print_plot = getOption("cctu_print_plot", default = TRUE),
-                            render_numeric_fn = render_numeric,
-                            render_categorical_fn = render_cat) {
+                            render_num = getOption("cctu_render_num", default = "Median [Min, Max]")) {
 
   tpcall <- match.call()
 
@@ -251,8 +247,7 @@ cttab.formula <- function(x,
                       digits = digits,
                       digits_pct = digits_pct,
                       rounding_fn = rounding_fn,
-                      render_numeric_fn = render_numeric_fn,
-                      render_categorical_fn = render_categorical_fn)
+                      render_num = render_num)
 
         # Add grouping
         if(!is_empty(names(vars)[i])){
@@ -287,8 +282,7 @@ cttab.formula <- function(x,
                       digits = digits,
                       digits_pct = digits_pct,
                       rounding_fn = rounding_fn,
-                      render_numeric_fn = render_numeric_fn,
-                      render_categorical_fn = render_categorical_fn)
+                      render_num = render_num)
     }
 
     # Add observation row
@@ -400,8 +394,7 @@ stat_tab <- function(vars,
                      digits = 2,
                      digits_pct = 1,
                      rounding_fn = signif_pad,
-                     render_numeric_fn = render_numeric,
-                     render_categorical_fn = render_cat){
+                     render_num = getOption("cctu_render_num", default = "Median [Min, Max]")){
 
   mf <- match.call()
 
@@ -473,7 +466,7 @@ stat_tab <- function(vars,
         z <- to_factor(z, ordered = TRUE)
 
       if(var_class[v] == "category"){
-        r <- c("", render_categorical_fn(z, digits_pct = digits_pct))
+        r <- c("", render_cat(z, digits_pct = digits_pct))
       }
 
       if(var_class[v] == "logical"){
@@ -483,7 +476,7 @@ stat_tab <- function(vars,
       }
 
       if(var_class[v] == "numeric"){
-        r <- c("", render_numeric_fn(z, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
+        r <- c("", render_numeric(z, what = render_num, digits = digits, digits_pct = digits_pct, rounding_fn = rounding_fn))
       }
 
       names(r)[1] <- variable

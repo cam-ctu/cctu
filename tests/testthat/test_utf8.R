@@ -40,7 +40,7 @@ test_that("write_table warning",{
 
   .old_meta <- get_meta_table()
   set_meta_table(cctu::meta_table_example)
-  expect_warning(write_table(ae_df,number="1.10"),
+  expect_error(write_table(ae_df,number="1.10"),
                  "Invalid non-UTF8 characters found")
   set_meta_table(.old_meta)
   rm(.old_meta, .parent)

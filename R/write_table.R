@@ -33,6 +33,15 @@ write_table = function(X,
   }
   add_program(number, CallingProg)
 
+  if(inherits(X, c("data.frame", "matrix"))){
+    utf8_check <- detect_invalid_utf8(X)
+    if(nrow(utf8_check)){
+      stop("Invalid non-UTF8 characters found\n", utf8_check,
+              "\nRemove manually from the xml output, or clean input data at source,
+          or clean using remove__invalid_utf8()")
+    }
+  }
+
   if(inherits(X, "cttab"))
     output_string <- table_cttab(X)
   else
@@ -82,16 +91,6 @@ table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
 
   # Variable values to labels if has value
   X <- lab2val(X)
-
-  if(inherits(X, "data.frame")){
-    utf8_check <- detect_invalid_utf8(X)
-    if( nrow(utf8_check)){
-      warning("Invalid non-UTF8 characters found\n", utf8_check,
-              "\nRemove manually from the xml output, or clean input data at source,
-    or clean using remove__invalid_utf8()")
-    }
-  }
-  
 
   # Table header
   th <- paste0("<th>", remove_xml_specials(heading), "</th>", collapse = "")

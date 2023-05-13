@@ -22,6 +22,7 @@ cttab(x, ...)
   rounding_fn = signif_pad,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
+  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
   ...
 )
 
@@ -37,6 +38,7 @@ cttab(x, ...)
   rounding_fn = signif_pad,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
+  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
   ...
 )
 }
@@ -88,6 +90,12 @@ values, set it to \code{round_pad}.}
 default is \code{"subjid"}.}
 
 \item{print_plot}{A logical value, print summary plot of the variables (default).}
+
+\item{render_num}{A character or vector indicatin which summary will be reported,
+ default is "Median [Min, Max]". You can change this to "Median [IQR]" then the 
+median and IQR will be reported instead of "Median [Min, Max]". Use 
+\code{options(cctu_render_num = "Median [IQR]")} to set global options. 
+See details \code{\link{render_numeric}}.}
 }
 \value{
 A matrix with `cttab` class.
@@ -119,11 +127,11 @@ variable after the grouping variable and then the row split variable. For exampl
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: The default interface, where \code{x} is a \code{data.frame}.
+\item \code{cttab(default)}: The default interface, where \code{x} is a \code{data.frame}.
 
-\item \code{formula}: The formula interface, where \code{x} is a \code{formula}.
+\item \code{cttab(formula)}: The formula interface, where \code{x} is a \code{formula}.
+
 }}
-
 \examples{
 
 # Read data
@@ -203,4 +211,6 @@ X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
 \code{\link{sumby}}
 \code{\link{dump_missing_report}}
 \code{\link{get_missing_report}}
+\code{\link{render_numeric}}
+\code{\link{render_cat}}
 }

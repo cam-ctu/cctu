@@ -28,9 +28,9 @@ You can reset the code_tree or examine it, but not directly edit it. It is reset
 }
 \section{Functions}{
 \itemize{
-\item \code{reset_code_tree}: reset the internal code_tree object to have no entries
-}}
+\item \code{reset_code_tree()}: reset the internal code_tree object to have no entries
 
+}}
 \seealso{
 \code{\link{cctu_initialise}}
 }

@@ -23,8 +23,8 @@ Functions to handle meta_table
 }
 \section{Functions}{
 \itemize{
-\item \code{get_meta_table}: gets a copy of the internal object
+\item \code{get_meta_table()}: gets a copy of the internal object
 
-\item \code{set_meta_table}: sets the internal object to the argument provided, whilst carrying out some cleaning
+\item \code{set_meta_table()}: sets the internal object to the argument provided, whilst carrying out some cleaning
+
 }}
-

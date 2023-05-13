@@ -24,11 +24,11 @@ Functions that attach and detach environments based on which populations are use
 }
 \section{Functions}{
 \itemize{
-\item \code{attach_pop}: attaches a population
+\item \code{attach_pop()}: attaches a population
 
-\item \code{detach_pop}: detaches a populations
+\item \code{detach_pop()}: detaches a populations
+
 }}
-
 \seealso{
 \code{\link{attach}} \code{\link{detach}} \code{\link{rm_envir}}
 }

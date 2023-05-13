@@ -10,10 +10,10 @@ detect_invalid_utf8(data)
 remove_invalid_utf8(data)
 }
 \arguments{
-\item{data}{a data.frame, typically the input to \code{write_table}}
+\item{data}{a data.frame or a matrix, typically the input to \code{write_table}}
 }
 \value{
-\code{detect_invalid_utf8} returns a data.frame that gives the column, row,
+\code{detect_invalid_utf8} returns a data.frame  or a matrix that gives the column, row,
 and value of any dataum points that contain invalid characters, or a zero-length
 data frame if none are present.  \code{remove_invalid_utf8} replaces any invalid characters
 with an empty string.
@@ -23,9 +23,9 @@ Functions to detect and delete non-UTF8 characters, which the XML output will no
 }
 \section{Functions}{
 \itemize{
-\item \code{remove_invalid_utf8}: Function to delete invalid UTF8 charachters
-}}
+\item \code{remove_invalid_utf8()}: Function to delete invalid UTF8 charachters
 
+}}
 \seealso{
 \code{\link{write_table}}
 }

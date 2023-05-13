@@ -13,7 +13,8 @@ stat_tab(
   add_missing = TRUE,
   digits = 2,
   digits_pct = 1,
-  rounding_fn = signif_pad
+  rounding_fn = signif_pad,
+  render_num = getOption("cctu_render_num", default = "Median [Min, Max]")
 )
 }
 \arguments{
@@ -44,6 +45,12 @@ decimal place for percentages, default is 0.}
 \item{rounding_fn}{The function to use to do the rounding. Defaults is
 \code{\link{signif_pad}}. To round up by digits instead of significant
 values, set it to \code{round_pad}.}
+
+\item{render_num}{A character or vector indicatin which summary will be reported,
+ default is "Median [Min, Max]". You can change this to "Median [IQR]" then the 
+median and IQR will be reported instead of "Median [Min, Max]". Use 
+\code{options(cctu_render_num = "Median [IQR]")} to set global options. 
+See details \code{\link{render_numeric}}.}
 }
 \value{
 An object of class "cttab".

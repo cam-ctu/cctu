@@ -20,9 +20,33 @@ labels to use in the table.
 Called from \code{\link{cttab}} by default to render categorical (i.e.
 \code{factor}, \code{character} or \code{logical}) values for displaying in the table.
 }
+\details{
+This function was used by \code{link{cttab}} to render categorical variables.
+It essentially uses the values returned by \code{\link{cat_stat}} and
+put values to a vector. You can modified this to show any values you
+want, checkout the example below.
+}
 \examples{
 y <- factor(sample(0:1, 99, replace=TRUE), labels=c("Female", "Male"))
 y[1:10] <- NA
 render_cat(y)
+
+# You can create your own rendering function similar to this one.
+# Below is how to return Median and IQR
+\dontrun{
+my_render_cat <- function(x, ...){
+  sapply(cat_stat(x, ...),
+        function(y)
+          with(y, ifelse(FREQ \%in\% c(0, NA), "",
+                         sprintf("\%s/\%s (\%s)", FREQ, Nall, PCTnoNA))))
+       ))
+}
+}
+
+}
+\seealso{
+\code{\link{signif_pad}}
+\code{\link{round_pad}}
+\code{\link{num_stat}}
 }
 \keyword{utilities}

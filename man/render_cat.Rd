@@ -31,17 +31,6 @@ y <- factor(sample(0:1, 99, replace=TRUE), labels=c("Female", "Male"))
 y[1:10] <- NA
 render_cat(y)
 
-# You can create your own rendering function similar to this one.
-# Below is how to return Median and IQR
-\dontrun{
-my_render_cat <- function(x, ...){
-  sapply(cat_stat(x, ...),
-        function(y)
-          with(y, ifelse(FREQ \%in\% c(0, NA), "",
-                         sprintf("\%s/\%s (\%s)", FREQ, Nall, PCTnoNA))))
-       ))
-}
-}
 
 }
 \seealso{

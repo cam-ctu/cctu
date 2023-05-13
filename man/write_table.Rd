@@ -12,6 +12,7 @@ write_table(
   na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
   clean_up = TRUE,
   directory = file.path("Output", "Core"),
+  rm_nonutf8 = getOption("cctu_rm_nonutf8", default = FALSE),
   verbose = options()$verbose
 )
 }
@@ -28,6 +29,9 @@ write_table(
 
 \item{directory}{where to save the figures within path or current working directory}
 
+\item{rm_nonutf8}{logicla, auto remove non-UTF-8 characters, defaults to false.
+\code{\link{detect_invalid_utf8}}  will lose the data.frame attributes.}
+
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 }
 \value{
@@ -38,7 +42,8 @@ Function to write a table into xml format in the correct directory, and edit
 TableofTables
 }
 \details{
-Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
+Variable names and values will be replace by variable labels and value labels respectively if available before writing the data. Use \code{options(cctu_rm_nonutf8 = TRUE)} to remove non-UTF-8 characters globally. 
+Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 }
 \seealso{
 \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}} 

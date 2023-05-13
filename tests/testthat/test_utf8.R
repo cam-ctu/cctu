@@ -41,8 +41,20 @@ test_that("write_table warning",{
   .old_meta <- get_meta_table()
   set_meta_table(cctu::meta_table_example)
   expect_error(write_table(ae_df,number="1.10"),
-                 "Invalid non-UTF8 characters*",
+                 "Invalid non-UTF8 characters.*",
                perl = TRUE)
+
+  expect_error(write_table(ae_df, number="1.10", rm_nonutf8 = TRUE), NA)
+
+  # non-UTF-8 characters in the rownames
+  tmp <- ae_df[1:10, ]
+  row.names(tmp) <- paste0(1:10, "\x85papular")
+  expect_error(write_table(tmp,number="1.10"),
+               "Invalid non-UTF8 characters.*",
+               perl = TRUE)
+
+  expect_error(write_table(tmp, number="1.10", rm_nonutf8 = TRUE), NA)
+
   set_meta_table(.old_meta)
   rm(.old_meta, .parent)
 })

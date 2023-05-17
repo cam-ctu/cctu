@@ -25,7 +25,7 @@
 #'  element is the selection.
 #' @param add_missing If missing number and missing percentage will be
 #'   reported in the summary table, default is `TRUE`. This will also produce
-#' data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+#' data missingness report if set \code{TRUE}. See \code{\link{report_missing}}
 #' for details.
 #' @param add_obs Add an observation row (default).
 #' @param digits An integer specifying the number of significant digits to keep,
@@ -39,20 +39,33 @@
 #' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
 #' @param render_num A character or vector indicatin which summary will be reported,
-#'  default is "Median [Min, Max]". You can change this to "Median [IQR]" then the 
-#' median and IQR will be reported instead of "Median [Min, Max]". Use 
-#' \code{options(cctu_render_num = "Median [IQR]")} to set global options. 
+#'  default is "Median [Min, Max]". You can change this to "Median [IQR]" then the
+#' median and IQR will be reported instead of "Median [Min, Max]". Use
+#' \code{options(cctu_render_num = "Median [IQR]")} to set global options.
 #' See details \code{\link{render_numeric}}.
+#' @param logical_na_impute Impute missing values with \code{FALSE} (default),
+#' \code{NA} keep as it is, or \code{TRUE}. The nominator for the logical vector is
+#' the number of \code{TRUE}. For \code{FALSE} or \code{TRUE}, the denominator will
+#'  be all values regardless of missingness, but the non-missing number used as
+#' denominator for \code{NA}. Set it to \code{FALSE} if you want to summarise multiple
+#' choice variables and \code{NA} for Yes/No type logical variables but don't want No
+#' in the summary. You can used a named list in \code{x} and stack multiple
+#'  choice in one category.
+#' @param blinded A logical scalar, if summary table will be report by
+#' \code{group} (default) or not. This will ignore \code{group} if set to \code{TRUE}
+#' and grouping summary will not be reported.
 #' @param ... Not used.
 #' @details
-#' Some of the function parameters can be set with options. This will have an global
-#' @details
+#' \strong{1. Parameter settings with global options}
+#'
 #' Some of the function parameters can be set with options. This will have an global
 #' effect on the \code{cctab} function. It is an ideal way to set a global settings
 #' if you want this to be effctive globally. Currently, you can set \code{digits},
-#' \code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
-#'  prefix in the \code{options}. For example, you can suppress the plot
-#' from printting by setting \code{options(cctu_print_plot = FALSE)}.
+#' \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
+#' \code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
+#'  you can suppress the plot from printting by setting \code{options(cctu_print_plot = FALSE)}.
+#'
+#' \strong{2. Formula interface}
 #'
 #' There are two interfaces, the default, which typically takes a variable vector from
 #' \code{data.frame} for \code{x}, and the formula interface. The formula interface is
@@ -64,6 +77,25 @@
 #' \code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
 #'  variable by default. A value of \code{1} should be provided if there is no grouping variable,
 #'  for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.
+#'
+#' \strong{3. Return}
+#'
+#' A summary table with some attributes will be reutned, a method has been writen for \code{rbind}.
+#' So you can use \code{rbind} to combine two tables without losing any attributes. An attribute
+#' \code{position} will be used to produce a nice table. There are three 4 possible values for each
+#' rows. Row name printed as the first column in the word table. Some styles will be applied to each
+#' row based on the \code{position} attributes.
+#' \tabular{ll}{
+#' \code{0} \tab indicates the row will be bolded, spanned through all columns and a grey background
+#' in the word \cr
+#' \tab \cr
+#' \code{1} \tab indicates the row will be bolded \cr
+#' \tab \cr
+#' \code{2} \tab the row will be bolded and spanned through all columns \cr
+#' \tab \cr
+#' \code{3} \tab indicates the row of the first column will be indented \cr
+#' }
+#'
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
@@ -100,6 +132,8 @@ cttab.default <- function(x,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
                           render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+                          logical_na_impute = c(FALSE, NA, TRUE),
+                          blinded = getOption("cctu_blinded", default = FALSE),
                           ...) {
     .cttab.internal(vars = x,
                     data = data,
@@ -114,7 +148,9 @@ cttab.default <- function(x,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
                     print_plot =print_plot,
-                    render_num = render_num)
+                    render_num = render_num,
+                    logical_na_impute = logical_na_impute,
+                    blinded = blinded)
 }
 
 #' @describeIn cttab The formula interface, where \code{x} is a \code{formula}.
@@ -131,9 +167,13 @@ cttab.formula <- function(x,
                           subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                           print_plot = getOption("cctu_print_plot", default = TRUE),
                           render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+                          logical_na_impute = c(FALSE, NA, TRUE),
+                          blinded = getOption("cctu_blinded", default = FALSE),
                           ...) {
 
     f <- split_formula(x)
+
+    logical_na_impute <- logical_na_impute[1]
 
     if(is.null(f$lhs))
       stop("No variables provided to summarise, please add variable to the left hand side of the formula.")
@@ -168,7 +208,9 @@ cttab.formula <- function(x,
                     rounding_fn = rounding_fn,
                     subjid_string = subjid_string,
                     print_plot =print_plot,
-                    render_num = render_num)
+                    render_num = render_num,
+                    logical_na_impute = logical_na_impute,
+                    blinded = blinded)
 }
 
 .cttab.internal <- function(vars,
@@ -184,9 +226,17 @@ cttab.formula <- function(x,
                             rounding_fn = signif_pad,
                             subjid_string = getOption("cctu_subjid_string", default = "subjid"),
                             print_plot = getOption("cctu_print_plot", default = TRUE),
-                            render_num = getOption("cctu_render_num", default = "Median [Min, Max]")) {
+                            render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+                            logical_na_impute = c(FALSE, NA, TRUE),
+                            blinded = getOption("cctu_blinded", default = FALSE)) {
 
   tpcall <- match.call()
+
+  logical_na_impute <- logical_na_impute[1]
+  stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
+
+  if(blinded)
+    group <- NULL
 
   vars_list <- c(unlist(vars), group, row_split)
   if (!all(vars_list %in% names(data))) {
@@ -247,7 +297,8 @@ cttab.formula <- function(x,
                       digits = digits,
                       digits_pct = digits_pct,
                       rounding_fn = rounding_fn,
-                      render_num = render_num)
+                      render_num = render_num,
+                      logical_na_impute = logical_na_impute)
 
         # Add grouping
         if(!is_empty(names(vars)[i])){
@@ -266,7 +317,7 @@ cttab.formula <- function(x,
       # This is for logical value that has no variable name, use the grouping
       # label as the variable name
       pos <- attr(res, "position")
-      ps <- which(pos == 0 & c(pos[-1], 3) == 3)
+      ps <- which(pos == 0 & c(pos[-1], 3) == 1)
       if(any(!is_empty(ps))){
         pos[ps] <- rep(2, length(ps))
         attr(res, "position") <- pos
@@ -282,7 +333,8 @@ cttab.formula <- function(x,
                       digits = digits,
                       digits_pct = digits_pct,
                       rounding_fn = rounding_fn,
-                      render_num = render_num)
+                      render_num = render_num,
+                      logical_na_impute = logical_na_impute)
     }
 
     # Add observation row
@@ -394,9 +446,14 @@ stat_tab <- function(vars,
                      digits = 2,
                      digits_pct = 1,
                      rounding_fn = signif_pad,
-                     render_num = getOption("cctu_render_num", default = "Median [Min, Max]")){
+                     render_num = "Median [Min, Max]",
+                     logical_na_impute = FALSE,
+                     logic_pos = 3){
 
   mf <- match.call()
+
+  logic_pos <- logic_pos[1]
+  stopifnot(logic_pos %in% c(1, 3))
 
   vars_list <- c(unlist(vars), group)
   if (!all(vars_list %in% names(data))) {
@@ -470,8 +527,11 @@ stat_tab <- function(vars,
       }
 
       if(var_class[v] == "logical"){
-        r <- with(cat_stat(z, digits_pct = digits_pct)$Yes, 
-                  c(Missing = sprintf("%s/%s (%s)", FREQ, Nall, PCT)))
+        # Impute missing data for logical
+        z[is.na(z)] <- logical_na_impute
+
+        r <- with(cat_stat(z, digits_pct = digits_pct)$Yes,
+                  c(Missing = sprintf("%s/%s (%s)", FREQ, N, PCTnoNA)))
         add_missing <- FALSE
       }
 
@@ -509,6 +569,9 @@ stat_tab <- function(vars,
       return(NULL)
 
     fst <- ifelse(nrow(y) == 1, 3, 2)
+
+    if(var_class[v] == "logical")
+      fst <- 1
 
     structure(y,
               position = c(fst, rep(3, nrow(y) - 1)),

@@ -87,7 +87,7 @@ test_that("Variable groups", {
   expect_identical(mis_rp$form[4:5], rep("Derived", 2))
 
   cctu_env$parent <- "test"
-  write_table(X, directory = tmp_dir)
+  write_table(X, directory = tmp_dir, clean_up = FALSE)
 
   expect_true(compare_file_text(test_path("ref", "table_ctab2.xml"),
                                 file.path(tmp_dir, "table_1.1.xml")))
@@ -95,6 +95,23 @@ test_that("Variable groups", {
   dmp_path <- tempfile(fileext = ".csv")
   dump_missing_report(dmp_path)
   expect_true(file.exists(dmp_path))
+
+  # No imputation
+  X1 <- cttab(x = c("ABNORMAST", "ABNORMALT"),
+             data = df,
+             logical_na_impute = NA)
+  expect_equal(unname(X1[,1]), c("30/99 (30.3%)", "20/85 (23.5%)"))
+
+  # Impute with TRUE
+  X <- cttab(x = c("ABNORMAST", "ABNORMALT"),
+             data = df,
+             logical_na_impute = TRUE)
+
+  df$ABNORMALT[is.na(df$ABNORMALT)] <- TRUE
+  df$ABNORMAST[is.na(df$ABNORMAST)] <- TRUE
+  X2 <- cttab(x = c("ABNORMAST", "ABNORMALT"),
+             data = df)
+  expect_identical(X2, X)
 
 })
 
@@ -172,6 +189,16 @@ test_that("By cycle No treatment arm summary", {
 
   expect_true(compare_file_text(test_path("ref", "table_ctab5.xml"),
                                 file.path(tmp_dir, "table_1.10.xml")))
+
+  # Report blinded should be same as no grouping
+  X1 <- cttab(x = list(c("AST", "BILI", "ALT"),
+                      "Abnormal" = c("ABNORMALT", "ABNORMAST")),
+             data = df,
+             group = "ARM",
+             row_split = "AVISIT",
+             select = c("ALT" = "PERF == 1"),
+             blinded = TRUE)
+  expect_identical(X1, X)
 
 })
 

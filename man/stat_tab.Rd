@@ -14,7 +14,9 @@ stat_tab(
   digits = 2,
   digits_pct = 1,
   rounding_fn = signif_pad,
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]")
+  render_num = "Median [Min, Max]",
+  logical_na_impute = FALSE,
+  logic_pos = 3
 )
 }
 \arguments{
@@ -33,7 +35,7 @@ element of `select` will be used to select the individuals to be analyzed
 
 \item{add_missing}{If missing number and missing percentage will be
   reported in the summary table, default is `TRUE`. This will also produce
-data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+data missingness report if set \code{TRUE}. See \code{\link{report_missing}}
 for details.}
 
 \item{digits}{An integer specifying the number of significant digits to keep,
@@ -47,10 +49,19 @@ decimal place for percentages, default is 0.}
 values, set it to \code{round_pad}.}
 
 \item{render_num}{A character or vector indicatin which summary will be reported,
- default is "Median [Min, Max]". You can change this to "Median [IQR]" then the 
-median and IQR will be reported instead of "Median [Min, Max]". Use 
-\code{options(cctu_render_num = "Median [IQR]")} to set global options. 
+ default is "Median [Min, Max]". You can change this to "Median [IQR]" then the
+median and IQR will be reported instead of "Median [Min, Max]". Use
+\code{options(cctu_render_num = "Median [IQR]")} to set global options.
 See details \code{\link{render_numeric}}.}
+
+\item{logical_na_impute}{Impute missing values with \code{FALSE} (default),
+\code{NA} keep as it is, or \code{TRUE}. The nominator for the logical vector is
+the number of \code{TRUE}. For \code{FALSE} or \code{TRUE}, the denominator will
+ be all values regardless of missingness, but the non-missing number used as
+denominator for \code{NA}. Set it to \code{FALSE} if you want to summarise multiple
+choice variables and \code{NA} for Yes/No type logical variables but don't want No
+in the summary. You can used a named list in \code{x} and stack multiple
+ choice in one category.}
 }
 \value{
 An object of class "cttab".

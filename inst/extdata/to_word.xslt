@@ -111,7 +111,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
         <w:tblBorders>
             <w:top w:val="single" w:sz="10" w:space="0" w:color="000000"/>
             <w:bottom w:val="single" w:sz="10" w:space="0" w:color="000000"/>
-        </w:tblBorders> 
+        </w:tblBorders>
         </w:tblPr>
         <xsl:apply-templates select="table/thead/tr">
           <xsl:with-param name="fontsize">
@@ -210,26 +210,29 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:p>
 <w:p>
 	<w:pPr><w:jc w:val="center"/></w:pPr>
-	<w:r>
-		<w:t>
 			<!--<xsl:apply-templates select="subtitle"/>-->
-      <xsl:value-of select="subtitle"/><xsl:apply-templates select="population"/>
-		</w:t>
-	</w:r>
+      <xsl:apply-templates select="subtitle"/><xsl:apply-templates select="population"/>
+
 </w:p>
 </xsl:template>
 
 <!--Population-->
 <xsl:template match="population" name="population">
 <xsl:if test = ". != '' ">
-Population: <xsl:value-of select ="."/>
+	<w:r>
+		<w:t>Population: <xsl:value-of select ="."/></w:t>
+		<w:br/>
+	</w:r>
 </xsl:if>
 </xsl:template>
 
 <!--Subtitle-->
 <xsl:template match="subtitle" name="subtitle">
 <xsl:if test = ". != '' ">
-	Subtitle: <xsl:value-of select ="."/>
+	<w:r>
+		<w:t><xsl:value-of select ="."/></w:t>
+		<w:br/>
+	</w:r>
 </xsl:if>
 </xsl:template>
 
@@ -336,13 +339,13 @@ Population: <xsl:value-of select ="."/>
   <xsl:if test="$span != 0 and position() &lt;= $span">
     <xsl:choose>
       <xsl:when test="position()=1">
-        <w:hmerge w:val="restart"/>  
+        <w:hmerge w:val="restart"/>
       </xsl:when>
       <xsl:when test="position() &lt; $span">
-        <w:hmerge w:val="continue"/>  
+        <w:hmerge w:val="continue"/>
       </xsl:when>
       <xsl:otherwise>
-        <w:hmerge/>  
+        <w:hmerge/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:if>
@@ -365,7 +368,7 @@ Population: <xsl:value-of select ="."/>
 			</xsl:choose>
       <!--Indent-->
       <xsl:if test="@style and contains(@style, 'indent')">
-        <w:ind w:left="200" /> 
+        <w:ind w:left="200" />
       </xsl:if>
 		</w:pPr>
     <w:r>

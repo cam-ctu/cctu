@@ -1,19 +1,18 @@
 ---
 title: "Analysis Template"
 author: "Simon Bond"
-date: "`r Sys.Date()`"
+date: '`r Sys.Date()`'
 output:
-  pdf_document: 
-    latex_engine: xelatex
+  html_document:
+    df_print: paged
   html_vignette:
     keep_md: no
+  pdf_document:
+    latex_engine: xelatex
 header-includes:
 - \usepackage{tikz}
 - \usetikzlibrary{trees,arrows}
-vignette: |
-  %\VignetteIndexEntry{Analysis Template} 
-  %\VignetteEncoding{UTF-8} 
-  %\VignetteEngine{knitr::rmarkdown}
+vignette: "%\\VignetteIndexEntry{Analysis Template} \n%\\VignetteEncoding{UTF-8} \n%\\VignetteEngine{knitr::rmarkdown}\n"
 ---
 
 ```{r setup, include = FALSE}

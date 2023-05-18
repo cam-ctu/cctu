@@ -5,11 +5,9 @@
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
 #' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
-#' @param rm_nonutf8 logicla, auto remove non-UTF-8 characters, defaults to false.
-#'  \code{\link{detect_invalid_utf8}}  will lose the data.frame attributes.
 #' 
 #' @details 
-#' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data. Use \code{options(cctu_rm_nonutf8 = TRUE)} to remove non-UTF-8 characters globally. 
+#' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.  
 #' Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
@@ -24,7 +22,6 @@ write_table = function(X,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
-                      rm_nonutf8 = getOption("cctu_rm_nonutf8", default = FALSE),
                       verbose=options()$verbose
                       ){
 
@@ -35,17 +32,10 @@ write_table = function(X,
   }
   add_program(number, CallingProg)
 
-  if(inherits(X, c("data.frame", "matrix")) & !rm_nonutf8){
+  if(inherits(X, c("data.frame", "matrix"))){
     utf8_check <- detect_invalid_utf8(X)
     if(nrow(utf8_check)){
-      stop("Invalid non-UTF8 characters found\n", utf8_check,
-              "\nRemove manually from the xml output, or clean input data at source,
-          or clean using remove_invalid_utf8() or set `rm_nonutf8 = TRUE`")
-    }
-    if(any(invalid_utf8_(row.names(X)))){
-      stop("Invalid non-UTF8 characters found in the rownames.
-          \nRemove manually from the xml output, or clean input data at source,
-          or clean using remove_invalid_utf8() or set `rm_nonutf8 = TRUE`")
+      warning("Invalid non-UTF8 characters found\n", utf8_check)
     }
   }
 
@@ -54,15 +44,16 @@ write_table = function(X,
   else
     output_string <- table_data(X, heading, na_to_empty)
 
-  if(rm_nonutf8){
-    output_string <- iconv(output_string, "UTF-8", "UTF-8", sub='')
-    output_string <- gsub("\u00A0", "\u0020", output_string)
-  }
     
   #directory %<>% normalizePath %>% final_slash
   file_name <- file.path(directory,paste0("table_",number,".xml"))
 
-  cat(output_string, file = file_name, append = FALSE)
+  # create connection with UTF-8 encoding
+  con <- file(file_name, open = "w+", encoding = "UTF-8")
+  writeLines(enc2utf8(output_string), con = con)
+  close(con)
+
+  # cat(output_string, file = file_name, append = FALSE)
   if(verbose){cat("\n", file_name, "created.\n")}
 
   if(clean_up){

@@ -5,9 +5,11 @@
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
 #' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
+#' @param rm_nonutf8 logical, if true then any non-UTF-8 values will be removed. Defaults to false.
 #' 
 #' @details 
 #' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
+#' Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
@@ -21,7 +23,8 @@ write_table = function(X,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
-                      verbose=options()$verbose
+                      verbose=options()$verbose,
+                      rm_nonutf8 = getOption("cctu_rm_nonutf8", default = TRUE)
                       ){
 
 
@@ -40,6 +43,11 @@ write_table = function(X,
 
   #directory %<>% normalizePath %>% final_slash
   file_name <- file.path(directory,paste0("table_",number,".xml"))
+
+  if(rm_nonutf8){
+    output_string <- iconv(output_string, "UTF-8", "UTF-8",sub='')
+    output_string <- gsub("\u00A0","\u0020",output_string)
+  }
 
   cat(output_string, file = file_name, append = FALSE)
   if(verbose){cat("\n", file_name, "created.\n")}

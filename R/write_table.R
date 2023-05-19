@@ -5,7 +5,6 @@
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
 #' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
-#' @param rm_nonutf8 logical, if true then any non-UTF-8 values will be removed. Defaults to false.
 #' 
 #' @details 
 #' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
@@ -23,8 +22,7 @@ write_table = function(X,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
-                      verbose=options()$verbose,
-                      rm_nonutf8 = getOption("cctu_rm_nonutf8", default = TRUE)
+                      verbose=options()$verbose
                       ){
 
 
@@ -44,11 +42,6 @@ write_table = function(X,
   #directory %<>% normalizePath %>% final_slash
   file_name <- file.path(directory,paste0("table_",number,".xml"))
 
-  if(rm_nonutf8){
-    output_string <- iconv(output_string, "UTF-8", "UTF-8",sub='')
-    output_string <- gsub("\u00A0","\u0020",output_string)
-  }
-
   cat(output_string, file = file_name, append = FALSE)
   if(verbose){cat("\n", file_name, "created.\n")}
 
@@ -61,6 +54,9 @@ write_table = function(X,
 #' @keywords internal
 #'
 remove_xml_specials <- function(x){
+  # Remove non-UTF-8 here or the gsub will fail for non-UTF-8 characters
+  # Ref: https://blog.r-project.org/2022/06/27/why-to-avoid-%5Cx-in-regular-expressions/
+  x <- rm_invalid_utf8_(x) 
   x <- gsub("&(?!#\\d+;)","&amp;\\1", x,perl=TRUE)
   x <-  gsub("<","&lt;", x)
   x <-  gsub(">", "&gt;",x)
@@ -93,10 +89,10 @@ table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
 
   if(inherits(X, "data.frame")){
     utf8_check <- detect_invalid_utf8(X)
+    utf8_check_cap <- capture.output(utf8_check)
+    utf8_check_cap <- paste(utf8_check_cap, "\n", sep="")
     if( nrow(utf8_check)){
-      warning("Invalid non-UTF8 characters found\n", utf8_check,
-              "\nRemove manually from the xml output, or clean input data at source,
-    or clean using remove__invalid_utf8()")
+      warning("Invalid non-UTF8 characters found\n", utf8_check_cap, "\n")
     }
   }
   

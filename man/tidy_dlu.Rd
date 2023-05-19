@@ -9,7 +9,7 @@ tidy_dlu(x, clean_names = TRUE)
 \arguments{
 \item{x}{DLU data}
 
-\item{clean_names}{Conver variable name to lower case (default). See 
+\item{clean_names}{Conver variable name to lower case (default). See
 \code{\link{clean_names}} for details.}
 }
 \value{

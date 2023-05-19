@@ -43,18 +43,18 @@ The variable label attribute will be applied to the data frame from the DLU file
 This function first convert the data to a \code{\link[data.table]{data.table}}.
 This is to avoid the variable attributes dropped by base R functions. Then it will use
 the dlu file to convert the data into corresponding variable types. After the conversion
-of the data, variable and value label attribute will be created for the variable, 
-see \code{\link{var_lab}}) and \code{\link{val_lab}}.   
+of the data, variable and value label attribute will be created for the variable,
+see \code{\link{var_lab}}) and \code{\link{val_lab}}.
 
-User can use \code{\link{lab2val}} to conver value labels of the data to values if the 
+User can use \code{\link{lab2val}} to conver value labels of the data to values if the
 value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
  and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
 will be stored in the \code{cctu} environment. This will further be used by \code{\link{cttab}}
-to populate the missing report, see \code{\link{report_missing}}. You can change this with 
-\code{\link{set_dlu}} function, but it will not have any effect on this function, see 
-\code{\link{set_dlu}} more details. 
+to populate the missing report, see \code{\link{report_missing}}. You can change this with
+\code{\link{set_dlu}} function, but it will not have any effect on this function, see
+\code{\link{set_dlu}} more details.
 
-Please use \code{\link{get_dlu}} to get the dlu cleaned by \code{apply_macro_dict} or use 
+Please use \code{\link{get_dlu}} to get the dlu cleaned by \code{apply_macro_dict} or use
 \code{\link{tidy_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
 to clean the DLU.
 }
@@ -72,7 +72,7 @@ will be used to feed the \code{\link{as.Date}} function during the conversion.
 }
 }
 
-\subsection{CLU data requirements}{ 
+\subsection{CLU data requirements}{
 
 The CLU file contains three columns:
 \itemize{

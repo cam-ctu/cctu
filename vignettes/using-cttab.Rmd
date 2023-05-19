@@ -3,10 +3,9 @@ title: "Use cttab in the Analysis"
 author: "Alimu Dayimu"
 date: "`r Sys.Date()`"
 output:
+  knitr:::html_vignette:
+    toc: true
   pdf_document: 
-    latex_engine: xelatex
-  html_vignette:
-    keep_md: no
 header-includes:
 - \usepackage{tikz}
 - \usetikzlibrary{trees,arrows}

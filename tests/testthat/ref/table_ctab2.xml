@@ -29,7 +29,7 @@
 <tr><td style='indent;firstleft'>Median [Min, Max]</td><td>23.0 [12.0, 54.0]</td><td>21.5 [13.0, 52.0]</td><td>23.0 [12.0, 54.0]</td></tr>
 <tr><td style='indent;firstleft'>Missing</td><td>1 (2.1%)</td><td></td><td>1 (1.0%)</td></tr>
 <tr><td style='bold;span;firstleft'>Patients with Abnormal</td><td></td><td></td><td></td></tr>
-<tr><td style='indent;firstleft'>AST abnormal</td><td>13/48 (27.1%)</td><td>17/52 (32.7%)</td><td>30/100 (30.0%)</td></tr>
-<tr><td style='indent;firstleft'>ALT abnormal</td><td>9/48 (18.8%)</td><td>11/52 (21.2%)</td><td>20/100 (20.0%)</td></tr>
+<tr><td style='bold;firstleft'>AST abnormal</td><td>13/48 (27.1%)</td><td>17/52 (32.7%)</td><td>30/100 (30.0%)</td></tr>
+<tr><td style='bold;firstleft'>ALT abnormal</td><td>9/48 (18.8%)</td><td>11/52 (21.2%)</td><td>20/100 (20.0%)</td></tr>
 </tbody>
  </table>

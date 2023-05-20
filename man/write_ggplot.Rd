@@ -15,7 +15,8 @@ write_ggplot(
   directory = file.path("Output", "Figures"),
   format = c("png", "postscript", "jpeg"),
   graphics_args = NULL,
-  verbose = options()$verbose
+  verbose = options()$verbose,
+  footnote = NULL
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ write_ggplot(
 \item{graphics_args}{a list of named arguments to supply to graphics function (png, postscript, jpeg)}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{footnote}{character vector, can be used to add footnotes.}
 }
 \value{
 writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.

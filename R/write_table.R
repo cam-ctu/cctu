@@ -22,7 +22,8 @@ write_table = function(X,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
-                      verbose=options()$verbose
+                      verbose=options()$verbose,
+                      footnote = NULL
                       ){
 
 
@@ -33,6 +34,14 @@ write_table = function(X,
     CallingProg <- "Missing"
   }
   add_program(number, CallingProg)
+  if(!is.null(footnote))
+    add_footnote(number, footnote)
+
+  if(is.null(dim(X)) || dim(X)[1] == 0 || dim(X)[2] == 0){
+    X <- data.frame(" " = "No Data")
+    colnames(X) <- ""
+  }
+    
 
   if(inherits(X, "cttab"))
     output_string <- table_cttab(X)
@@ -69,7 +78,7 @@ remove_xml_specials <- function(x){
 
 # For normal
 #' @keywords internal
-#'
+#' @importFrom utils capture.output
 table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
 
   check <- as.character(rownames(X)) != as.character(1:nrow(X))

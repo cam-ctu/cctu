@@ -12,6 +12,7 @@
 #'
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
 #' @param graphics_args a list of named arguments to supply to graphics function (png, postscript, jpeg)
+#' @param footnote character vector, can be used to add footnotes.
 #'
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso  \code{\link{write_table}}
@@ -31,7 +32,8 @@ write_ggplot = function(
                        directory=file.path("Output","Figures"),
                        format=c("png","postscript","jpeg"),
                        graphics_args=NULL,
-                       verbose=options()$verbose
+                       verbose=options()$verbose,
+                       footnote = NULL
                        ){
 
 
@@ -53,6 +55,9 @@ write_ggplot = function(
     warning(paste("Unable to identify the code file that created figure", number))
   }
   add_program(number, CallingProg )
+  
+  if(!is.null(footnote))
+    add_footnote(number, footnote)
 
   # deals with non-ggplot objects as well now
 

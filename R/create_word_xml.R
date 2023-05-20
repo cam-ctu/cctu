@@ -81,12 +81,16 @@ create_word_xml <- function(
                         "</fontsize><orientation>", orientation,
                         "</orientation></heading>"))
 
-  footers = with(meta_table,
-                 paste("<footnote>",
-                       ifelse(is.na(footnote1), "", remove_xml_specials(as.character(footnote1))),
-                       "</footnote><footnote>",
-                       ifelse(is.na(footnote2), "", remove_xml_specials(as.character(footnote2))),
-                       "</footnote>"))
+  # Format footers
+  footers <- apply(meta_table, 1, function(x){
+    r <- c(
+      ifelse(is.na(x["footnote1"]), "", remove_xml_specials(as.character(x["footnote1"]))),
+      ifelse(is.na(x["footnote2"]), "", remove_xml_specials(as.character(x["footnote2"])))
+    )
+    r <- r[r!=""]
+    paste(r, collapse = "\n")
+  })
+  footers <- paste("<footnote>", footers, "</footnote>")
 
   program =  paste("<Program>", meta_table$program, "</Program>")
   figure_format <- match.arg(figure_format)

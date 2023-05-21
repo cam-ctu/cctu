@@ -46,7 +46,7 @@ add_footnote <- function(number, footnote){
   if(is_empty(original_footnote))
     meta_table[index, "footnote2"] <- footnote
   else
-    meta_table[index, "footnote2"] <- paste(original_footnote, footnote, sep = "\n")
+    meta_table[index, "footnote2"] <- paste(original_footnote, footnote, collapse = "\n")
   set_meta_table(meta_table)
 }
 

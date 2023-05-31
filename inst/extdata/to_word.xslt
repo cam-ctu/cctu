@@ -210,9 +210,8 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:p>
 <w:p>
 	<w:pPr><w:jc w:val="center"/></w:pPr>
-			<!--<xsl:apply-templates select="subtitle"/>-->
-      <xsl:apply-templates select="subtitle"/><xsl:apply-templates select="population"/>
-
+			<xsl:apply-templates select="subtitle"/>
+      <xsl:apply-templates select="population"/>
 </w:p>
 </xsl:template>
 

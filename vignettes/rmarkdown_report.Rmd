@@ -3,9 +3,8 @@ date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 author: Simon Bond
 title: "Vignette Report HTML"
 output: 
-  html_document:
+  rmarkdown:::html_vignette:
     toc: true
-    toc_float: true
     number_sections: false
 vignette: |
   %\VignetteIndexEntry{Vignette Report HTML} 
@@ -75,7 +74,7 @@ for(sect in sections){
 ```
 
 
-`r knitr::knit_child(text=src)`
+`r knitr::knit_child(text=src, envir=parent.frame())`
 
 
 # Actual implimentation

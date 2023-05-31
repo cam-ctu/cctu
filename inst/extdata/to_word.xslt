@@ -28,7 +28,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <w:spacing w:line="480"/>
 <w:sectPr>
 <w:pgSz w:h="16840" w:w="11900" w:orient="portrait"/>
- w:titlePg/>
+ <w:titlePg/>
 </w:sectPr>
 </w:pPr>
 <w:r>
@@ -210,9 +210,8 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 </w:p>
 <w:p>
 	<w:pPr><w:jc w:val="center"/></w:pPr>
-			<!--<xsl:apply-templates select="subtitle"/>-->
-      <xsl:apply-templates select="subtitle"/><xsl:apply-templates select="population"/>
-
+			<xsl:apply-templates select="subtitle"/>
+      <xsl:apply-templates select="population"/>
 </w:p>
 </xsl:template>
 
@@ -408,8 +407,12 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <xsl:template match="footnote" name="footnote">
 <w:br/>
 <w:r>
-<w:t><xsl:value-of select="."/></w:t></w:r>
+<w:t>
+<xsl:call-template name="insertBreaks" /><!--Convert line break-->
+</w:t></w:r>
 </xsl:template>
+
+<!--Program-->
   <xsl:template match="Program" name="Program">
   <w:ftr>
     <w:p>

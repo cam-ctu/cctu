@@ -23,9 +23,9 @@ Functions to detect and delete non-UTF8 characters, which the XML output will no
 }
 \section{Functions}{
 \itemize{
-\item \code{remove_invalid_utf8}: Function to delete invalid UTF8 charachters
-}}
+\item \code{remove_invalid_utf8()}: Function to delete invalid UTF8 charachters
 
+}}
 \seealso{
 \code{\link{write_table}}
 }

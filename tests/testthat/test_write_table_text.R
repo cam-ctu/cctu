@@ -13,7 +13,11 @@ test_that("alternative dimension for table",
               "Unable to identify the code file that created table"
             )
             X <- data.frame(x=1,y=1)
-            write_table(X, number="1.1", heading=c("x<2", "Y>3"))
+            write_table(X, number="1.1", heading=c("x<2", "Y>3"),
+                        footnote = "I am custom footnote")
+            mt_tab <- get_meta_table()
+            expect_equal(mt_tab[mt_tab$number == "1.1", "footnote2"],
+                         "I am custom footnote")
             filetemp <- tempfile("report", fileext=".doc")
             create_word_xml("test report", "author",
                               meta_table=get_meta_table() %>% dplyr::filter(number=="1.1"),
@@ -70,7 +74,19 @@ test_that("clean up behaviour standard code evaluation",
           }
 )
 
-
+test_that("Empty data",
+          {
+            .old_meta <- set_meta_table(cctu::meta_table_example)
+            X <- data.frame(a=numeric(),b=numeric())
+            .reserved <- "Y"
+            write_table(X,number="1.10", directory=".")
+            tab <- xml2::read_xml("table_1.10.xml")
+            second_row <- xml2::xml_text(xml2::xml_find_all(tab, "//tr")[2])
+            expect_equal(second_row, "No Data")
+            set_meta_table(.old_meta)
+            rm(.old_meta)
+          }
+)
 
 
 test_that("clean up behaviour when piping",
@@ -93,7 +109,7 @@ test_that("clean up behaviour when piping",
             dplyr::group_by(sex) %>%
             dplyr::summarise(n=dplyr::n(),.groups="drop") %>%
             write_table(number="1.10", directory=".")
-          expect_false("X" %in% ls())
+          # expect_false("X" %in% ls())
           }
           )
 

@@ -4,10 +4,20 @@
 \alias{render_numeric}
 \title{Render continuous values for table output.}
 \usage{
-render_numeric(x, ...)
+render_numeric(x, what = "Median [Min, Max]", ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
+
+\item{what}{A character or vector what will be reported for numeric
+variables, default is median and min, max. See \code{\link{num_stat}}
+for the statistics this function support. The provided name will be used
+as statistic names, and the values will be converted to upper to report
+corresponding statistic. If you want to have a fancy name, use a named
+vector with names as the statistics will be printed and values are the
+statistics. For example, \code{c("Geo. Mean (Geo. CV\%)" = "GMean (GCV)",
+"Median [IQR]" = "Median [IQR]")}.
+Separate statistics with comma or a space or any non-letters.}
 
 \item{...}{Further arguments, passed to \code{\link{num_stat}}.}
 }
@@ -20,6 +30,11 @@ labels to use in the table.
 Called from \code{\link{cttab}} by default to render continuous (i.e.
 \code{numeric}) values for displaying in the table.
 }
+\details{
+This function was used by \code{link{cttab}} to render numeric variables.
+It essentially uses the values returned by \code{\link{num_stat}} and
+put values to a vector.
+}
 \examples{
 x <- exp(rnorm(100, 1, 1))
 render_numeric(x)
@@ -28,5 +43,6 @@ render_numeric(x)
 \seealso{
 \code{\link{signif_pad}}
 \code{\link{round_pad}}
+\code{\link{num_stat}}
 }
 \keyword{utilities}

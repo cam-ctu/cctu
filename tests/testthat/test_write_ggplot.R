@@ -18,7 +18,13 @@ test_that("alternative dimension",
                            "units must be ''cm'' or ''inches''"
                            )
             file.remove("fig_1.10.eps")
-            write_ggplot(fig,number="1.10", directory=".", format="postscript", clean_up = FALSE)
+            write_ggplot(fig,number="1.10", directory=".",
+                         format="postscript",
+                         clean_up = FALSE,
+                         footnote = "I am custom footnote")
+            mt_tab <- get_meta_table()
+            expect_equal(mt_tab[mt_tab$number == "1.10", "footnote2"],
+                         "I am custom footnote")
             expect_equal(file.exists("fig_1.10.eps"), TRUE)
             set_meta_table(.old_meta)
             rm(.old_meta, .parent)

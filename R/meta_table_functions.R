@@ -36,7 +36,19 @@ add_program <- function(number, calling_prog){
   set_meta_table(meta_table)
 }
 
+#' @keywords internal
+add_footnote <- function(number, footnote){
 
+  meta_table <- get_meta_table()
+  if( !("number" %in% names(meta_table))){stop("Need to have 'number' column in meta_table")}
+  index <- match(number, meta_table$number)
+  original_footnote <- meta_table[index, "footnote2"]
+  if(is_empty(original_footnote))
+    meta_table[index, "footnote2"] <- paste(footnote, collapse = "\n")
+  else
+    meta_table[index, "footnote2"] <- paste(original_footnote, footnote, collapse = "\n")
+  set_meta_table(meta_table)
+}
 
 
 

@@ -57,11 +57,11 @@ This is a generic method with methods defined for a character string, and a data
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: data.frame method for read_data generic
+\item \code{read_data(data.frame)}: data.frame method for read_data generic
 
-\item \code{character}: character method for read_data generic
+\item \code{read_data(character)}: character method for read_data generic
+
 }}
-
 \examples{
 data_table <- data.frame(name=c("dirtydata","meta"),
                          file=c("dirtydata.csv", "meta_table.xlsx"),

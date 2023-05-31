@@ -12,7 +12,7 @@ get_dlu()
 \arguments{
 \item{x}{DLU data}
 
-\item{clean_names}{Conver variable name to lower case (default). See 
+\item{clean_names}{Conver variable name to lower case (default). See
 \code{\link{clean_names}} for details.}
 }
 \description{
@@ -21,7 +21,7 @@ get_dlu()
  sure values of the short code in the provided DLU data matches the variable names in
  the dataset. \code{set_dlu} will not have any effect on \code{\link{apply_macro_dict}}.
 Instead, the \code{\link{apply_macro_dict}} will override the `DLU` seetings done by
-\code{set_dlu}.  
+\code{set_dlu}.
 
 \code{get_dlu} can be used to get a copy of DLU data in stored by \code{set_dlu}.
 }

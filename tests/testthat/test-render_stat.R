@@ -12,6 +12,23 @@ test_that("Numeric", {
                                         "Mean (SD)"  = "",
                                         "Median [Min, Max]" = ""))
 
+  x <- render_numeric(mtcars$mpg,
+                      what = c("Geo. Mean (Geo. CV%)" = "GMean (GCV)",
+                               "Median [IQR]" = "Median [IQR]"))
+  expect_identical(x, c("Valid Obs." = "32",
+                        "Mean (SD)"  = "20.1 (6.03)",
+                        "Geo. Mean (Geo. CV%)" = "19.3 (30.4%)",
+                        "Median [IQR]" = "19.2 [7.38]"))
+
+  x <- render_numeric(mtcars$mpg,
+                      what = c("GMean (GCV)",
+                               "Median [IQR]" = "Median [IQR]"))
+  expect_identical(x, c("Valid Obs." = "32",
+                        "Mean (SD)"  = "20.1 (6.03)",
+                        "GMean (GCV)" = "19.3 (30.4%)",
+                        "Median [IQR]" = "19.2 [7.38]"))
+  expect_error(render_numeric(mtcars$mpg, what = "Mdian [IQR]"),
+               "Statistics Mdian is not a valid statistics")
 })
 
 

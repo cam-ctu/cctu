@@ -22,6 +22,9 @@ cttab(x, ...)
   rounding_fn = signif_pad,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
+  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+  logical_na_impute = c(FALSE, NA, TRUE),
+  blinded = getOption("cctu_blinded", default = FALSE),
   ...
 )
 
@@ -37,6 +40,9 @@ cttab(x, ...)
   rounding_fn = signif_pad,
   subjid_string = getOption("cctu_subjid_string", default = "subjid"),
   print_plot = getOption("cctu_print_plot", default = TRUE),
+  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+  logical_na_impute = c(FALSE, NA, TRUE),
+  blinded = getOption("cctu_blinded", default = FALSE),
   ...
 )
 }
@@ -88,6 +94,25 @@ values, set it to \code{round_pad}.}
 default is \code{"subjid"}.}
 
 \item{print_plot}{A logical value, print summary plot of the variables (default).}
+
+\item{render_num}{A character or vector indicatin which summary will be reported,
+ default is "Median [Min, Max]". You can change this to "Median [IQR]" then the
+median and IQR will be reported instead of "Median [Min, Max]". Use
+\code{options(cctu_render_num = "Median [IQR]")} to set global options.
+See details \code{\link{render_numeric}}.}
+
+\item{logical_na_impute}{Impute missing values with \code{FALSE} (default),
+\code{NA} keep as it is, or \code{TRUE}. The nominator for the logical vector is
+the number of \code{TRUE}. For \code{FALSE} or \code{TRUE}, the denominator will
+ be all values regardless of missingness, but the non-missing number used as
+denominator for \code{NA}. Set it to \code{FALSE} if you want to summarise multiple
+choice variables and \code{NA} for Yes/No type logical variables but don't want No
+in the summary. You can used a named list in \code{x} and stack multiple
+ choice in one category.}
+
+\item{blinded}{A logical scalar, if summary table will be report by
+\code{group} (default) or not. This will ignore \code{group} if set to \code{TRUE}
+and grouping summary will not be reported.}
 }
 \value{
 A matrix with `cttab` class.
@@ -97,14 +122,16 @@ This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
 split statistics table by `row_split` variable.
 }
 \details{
-Some of the function parameters can be set with options. This will have an global
+\strong{1. Parameter settings with global options}
 
 Some of the function parameters can be set with options. This will have an global
 effect on the \code{cctab} function. It is an ideal way to set a global settings
 if you want this to be effctive globally. Currently, you can set \code{digits},
-\code{digits_pct}, \code{subjid_string} and \code{print_plot}  by adding \code{"cctu_"}
- prefix in the \code{options}. For example, you can suppress the plot
-from printting by setting \code{options(cctu_print_plot = FALSE)}.
+\code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
+\code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
+ you can suppress the plot from printting by setting \code{options(cctu_print_plot = FALSE)}.
+
+\strong{2. Formula interface}
 
 There are two interfaces, the default, which typically takes a variable vector from
 \code{data.frame} for \code{x}, and the formula interface. The formula interface is
@@ -116,14 +143,32 @@ variable after the grouping variable and then the row split variable. For exampl
 \code{age + sex ~ treat|visit}. The right hand side of the formula will be treated as a grouping
  variable by default. A value of \code{1} should be provided if there is no grouping variable,
  for example \code{age + sex ~ 1} or \code{age + sex ~ 1|visit} by visit.
+
+\strong{3. Return}
+
+A summary table with some attributes will be reutned, a method has been writen for \code{rbind}.
+So you can use \code{rbind} to combine two tables without losing any attributes. An attribute
+\code{position} will be used to produce a nice table. There are three 4 possible values for each
+rows. Row name printed as the first column in the word table. Some styles will be applied to each
+row based on the \code{position} attributes.
+\tabular{ll}{
+\code{0} \tab indicates the row will be bolded, spanned through all columns and a grey background
+in the word \cr
+\tab \cr
+\code{1} \tab indicates the row will be bolded \cr
+\tab \cr
+\code{2} \tab the row will be bolded and spanned through all columns \cr
+\tab \cr
+\code{3} \tab indicates the row of the first column will be indented \cr
+}
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: The default interface, where \code{x} is a \code{data.frame}.
+\item \code{cttab(default)}: The default interface, where \code{x} is a \code{data.frame}.
 
-\item \code{formula}: The formula interface, where \code{x} is a \code{formula}.
+\item \code{cttab(formula)}: The formula interface, where \code{x} is a \code{formula}.
+
 }}
-
 \examples{
 
 # Read data
@@ -203,4 +248,6 @@ X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
 \code{\link{sumby}}
 \code{\link{dump_missing_report}}
 \code{\link{get_missing_report}}
+\code{\link{render_numeric}}
+\code{\link{render_cat}}
 }

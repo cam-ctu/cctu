@@ -243,11 +243,11 @@ sep_dlu <- function(x, clean_names=TRUE){
 set_dlu <- function(x, clean_names = TRUE){
   colnames(x) <- tolower(colnames(x))
   if(!all(c("shortcode", "description", "type", "visit", "form", "question") %in% names(x)))
-    dlu <- tidy_dlu(x, clean_names)
+    x <- tidy_dlu(x, clean_names)
 
   # Store DLU file inside the cctu env
-  cctu_env$dlu <- dlu
-  invisible(dlu)
+  cctu_env$dlu <- x
+  invisible(x)
 }
 
 #' @rdname set_dlu

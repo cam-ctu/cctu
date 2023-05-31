@@ -35,6 +35,10 @@ A list. For numeric \code{x}, the list contains the numeric elements:
   \item \code{GMEAN}: the geometric mean of the non-missing values if non-negative, or \code{NA}
   \item \code{GCV}: the percent geometric coefficient of variation of the
   non-missing values if non-negative, or \code{NA}
+  \item \code{Q1}: the first quartile of the non-missing values (alias \code{q25})
+  \item \code{Q2}: the second quartile of the non-missing values (alias \code{q50} or \code{Median})
+  \item \code{Q3}: the third quartile of the non-missing values (alias \code{q75})
+  \item \code{IQR}: the inter-quartile range of the non-missing values (i.e., \code{Q3 - Q1})
 }
 If \code{x} is categorical (i.e. factor, character or logical), the list
 contains a sublist for each category, where each sublist contains the
@@ -43,6 +47,8 @@ numeric elements:
   \item \code{FREQ}: the frequency count
   \item \code{PCT}: the percent relative frequency, including NA in the denominator
   \item \code{PCTnoNA}: the percent relative frequency, excluding NA from the denominator
+ \item \code{Nall}: total count, including NA from the denominator
+ \item \code{N}: total count, excluding NA from the denominator
 }
 }
 \description{

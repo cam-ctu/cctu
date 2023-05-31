@@ -12,7 +12,8 @@ write_table(
   na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
   clean_up = TRUE,
   directory = file.path("Output", "Core"),
-  verbose = options()$verbose
+  verbose = options()$verbose,
+  footnote = NULL
 )
 }
 \arguments{
@@ -29,6 +30,8 @@ write_table(
 \item{directory}{where to save the figures within path or current working directory}
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+
+\item{footnote}{character vector, can be used to add footnotes.}
 }
 \value{
 writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
@@ -39,6 +42,7 @@ TableofTables
 }
 \details{
 Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
+Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 }
 \seealso{
 \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}} 

@@ -8,6 +8,7 @@
 #' 
 #' @details 
 #' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
+#' Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
@@ -21,7 +22,8 @@ write_table = function(X,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
-                      verbose=options()$verbose
+                      verbose=options()$verbose,
+                      footnote = NULL
                       ){
 
 
@@ -32,6 +34,14 @@ write_table = function(X,
     CallingProg <- "Missing"
   }
   add_program(number, CallingProg)
+  if(!is.null(footnote))
+    add_footnote(number, footnote)
+
+  if(is.null(dim(X)) || dim(X)[1] == 0 || dim(X)[2] == 0){
+    X <- data.frame(" " = "No Data")
+    colnames(X) <- ""
+  }
+    
 
   if(inherits(X, "cttab"))
     output_string <- table_cttab(X)
@@ -53,6 +63,9 @@ write_table = function(X,
 #' @keywords internal
 #'
 remove_xml_specials <- function(x){
+  # Remove non-UTF-8 here or the gsub will fail for non-UTF-8 characters
+  # Ref: https://blog.r-project.org/2022/06/27/why-to-avoid-%5Cx-in-regular-expressions/
+  x <- rm_invalid_utf8_(x) 
   x <- gsub("&(?!#\\d+;)","&amp;\\1", x,perl=TRUE)
   x <-  gsub("<","&lt;", x)
   x <-  gsub(">", "&gt;",x)
@@ -65,7 +78,7 @@ remove_xml_specials <- function(x){
 
 # For normal
 #' @keywords internal
-#'
+#' @importFrom utils capture.output
 table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
 
   check <- as.character(rownames(X)) != as.character(1:nrow(X))
@@ -85,10 +98,10 @@ table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
 
   if(inherits(X, "data.frame")){
     utf8_check <- detect_invalid_utf8(X)
+    utf8_check_cap <- capture.output(utf8_check)
+    utf8_check_cap <- paste(utf8_check_cap, "\n", sep="")
     if( nrow(utf8_check)){
-      warning("Invalid non-UTF8 characters found\n", utf8_check,
-              "\nRemove manually from the xml output, or clean input data at source,
-    or clean using remove__invalid_utf8()")
+      warning("Invalid non-UTF8 characters found\n", utf8_check_cap, "\n")
     }
   }
   

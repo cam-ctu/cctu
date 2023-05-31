@@ -51,15 +51,15 @@ initialise  objects for using cctu package
 }
 \section{Functions}{
 \itemize{
-\item \code{cctu_initialise}: create the standard directories for outputs if needed.
+\item \code{cctu_initialise()}: create the standard directories for outputs if needed.
 
-\item \code{cctu_initialize}: identifical function with american spelling
+\item \code{cctu_initialize()}: identifical function with american spelling
 
-\item \code{cctu_check_dir}: Check if the directories exist for cctu
+\item \code{cctu_check_dir()}: Check if the directories exist for cctu
 
-\item \code{rm_output}: function to clear previous output files, but leaves the directories in place
+\item \code{rm_output()}: function to clear previous output files, but leaves the directories in place
+
 }}
-
 \seealso{
 \code{\link{dir.create}} \code{\link{reset_code_tree}}
 }

@@ -3,10 +3,9 @@ title: "Code Tree Document"
 author: "Simon Bond"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: 
-    latex_engine: xelatex
-  html_vignette:
-    keep_md: no
+  knitr:::html_vignette:
+    toc: true
+  pdf_document:
 classoption: landscape
 header-includes:
   - \usepackage{tikz}
@@ -69,7 +68,7 @@ graph
 
 \begin{tikzpicture}[edge from parent fork right, level distance=20em, grow'=right,
   every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}] 
-     `r knit_child(text=graph)`
+     `r knitr::knit_child(text=graph)`
 \end{tikzpicture}
 
 # Real Usage

@@ -32,3 +32,11 @@ test_that("Test is_empty", {
   expect_false(all(is_empty(x, na_empty = FALSE)))
 
 })
+
+
+test_that("text has nasty elements",{
+  x <- "Some patchy proctitis but also inflamed terminal ileum compatible with crohn\x92s."
+  rm_invalid_utf8_(x)
+  iconv(x, "UTF-8", "UTF-8",sub='*')
+  expect_false(is_empty("Some patchy proctitis but also inflamed terminal ileum compatible with crohn\x92s."))
+})

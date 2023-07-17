@@ -63,6 +63,8 @@ is_empty <- function(x, na_empty = TRUE) {
           return(TRUE)
 
         # else, check all elements of x
+        # but now R v4.3.1. nchar() does not work with invalid utf...
+        val <- iconv(val, "UTF-8", "UTF-8",sub='*')
         zero_len <- nchar(val) == 0
         # return result for multiple elements of character vector
         return(unname(zero_len))

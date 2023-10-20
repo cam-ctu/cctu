@@ -196,7 +196,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
           <xsl:if test="$titletype='Figure'">
             <w:instrText> SEQ Figure \* ARABIC</w:instrText>
           </xsl:if>
-          <w:fldChar w:fldCharType="separate" />
+          <w:fldChar w:fldCharType="separate" w:fldLock="true"/>
           <w:t><xsl:value-of select="number"/></w:t>
           <w:t xml:space="preserve"> </w:t>
         <w:fldChar w:fldCharType="end" />
@@ -406,6 +406,9 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <!--Footnote-->
 <xsl:template match="footnote" name="footnote">
 <w:br/>
+<w:pPr>
+  <w:jc w:val="left"/>
+</w:pPr>
 <w:r>
 <w:t>
 <xsl:call-template name="insertBreaks" /><!--Convert line break-->

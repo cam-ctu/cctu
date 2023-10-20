@@ -38,7 +38,7 @@ render_numeric <- function(x, what = "Median [Min, Max]", ...){
   res <- num_stat(x, ...)
 
   # Check if the statistics are supported
-  stat_vals <- gsub("\\s", "", unlist(strsplit(what, '[^a-zA-Z]')))
+  stat_vals <- gsub("\\s", "", unlist(strsplit(what, '[^a-zA-Z0-9]')))
   stat_vals <- stat_vals[stat_vals != ""]
   not_in <- !toupper(stat_vals) %in% names(res)
   if(any(not_in))
@@ -53,7 +53,7 @@ render_numeric <- function(x, what = "Median [Min, Max]", ...){
 
   # Replace the values
   cust_stat <- sapply(what, function(i){
-    stat_vals <- gsub("\\s", "", unlist(strsplit(i, '[^a-zA-Z]')))
+    stat_vals <- gsub("\\s", "", unlist(strsplit(i, '[^a-zA-Z0-9]')))
     stat_vals <- stat_vals[stat_vals != ""]
     for(j in stat_vals){
       i <- gsub(j, res[[toupper(j)]], i)

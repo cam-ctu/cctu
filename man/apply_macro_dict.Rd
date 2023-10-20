@@ -10,7 +10,8 @@ apply_macro_dict(
   clu = NULL,
   date_format = "\%d/\%m/\%Y",
   clean_names = TRUE,
-  rm_empty = getOption("cctu_rm_empty", default = "both")
+  rm_empty = getOption("cctu_rm_empty", default = "both"),
+  check_catvar = FALSE
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ values in the DLU as well. See \code{\link{clean_names}} for details.}
  used to clean the empty rows and/or columns. If the data is large, this will
  take a long time, should be set to \code{"none"} in this case. Use
 \code{options(cctu_rm_empty = "none")} to set global options.}
+
+\item{check_catvar}{Check values of the category variable (defined in the DLU file) 
+contain any non-numeric values before converting variables to numeric.}
 }
 \value{
 A data.table object.

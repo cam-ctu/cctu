@@ -73,6 +73,17 @@ new_plot <- function(x, y, h, v) {
    abline(h = h,v = v, lty=2) # add some lines
 }
 write_plot(plot_fn = new_plot, plot_args = list(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0))
+
+# To draw a KM-plot from survminer package
+library("survival")
+library("survminer")
+fit<- survfit(Surv(time, status) ~ sex, data = lung)
+# Drawing survival curves
+p <- ggsurvplot(fit, data = lung)
+write_plot(plot_fn = survminer:::print.ggsurvplot, plot_args = list(x = p))
+# The code above works because the p is a ggsurvplot object (check it with class(p))
+# There's a printing function print.ggsurvplot to handle the printing of the KM-plot.
+# But this function is not exported by survminer, so we need to use three colons.
 }
 }
 \seealso{

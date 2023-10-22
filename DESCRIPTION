@@ -11,7 +11,7 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, gridExtra, base64enc
+Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, grid, gridExtra, base64enc
 Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr
 VignetteBuilder: knitr
 Repository: local-cran

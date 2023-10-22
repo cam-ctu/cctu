@@ -38,8 +38,17 @@ write_ggplot = function(
 
   # Collect all arguments
   args_list <- as.list(environment())
-  args_list$plot_args <- list(x = ggplot_build(plot)$plot)
+
+  if(!inherits(plot, c("gtable", "gTree", "grob", "ggplot")))
+    stop("The plot is a not supported class of: ", paste(class(plot), collapse = ", "), 
+         ". Use `write_plot` function instead to draw this plot.")
+
+  if(inherits(plot, "ggplot"))
+    plot <- ggplotGrob(plot)
+
+  args_list$plot_args <- list(x = plot)
   args_list$plot <- NULL
+  args_list$plot_fn <- grid::grid.draw
 
   do.call(write_plot, args_list)
 }
@@ -72,6 +81,17 @@ write_ggplot = function(
 #'    abline(h = h,v = v, lty=2) # add some lines
 #' }
 #' write_plot(plot_fn = new_plot, plot_args = list(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0))
+#' 
+#' # To draw a KM-plot from survminer package
+#' library("survival")
+#' library("survminer")
+#' fit<- survfit(Surv(time, status) ~ sex, data = lung)
+#' # Drawing survival curves
+#' p <- ggsurvplot(fit, data = lung)
+#' write_plot(plot_fn = survminer:::print.ggsurvplot, plot_args = list(x = p))
+#' # The code above works because the p is a ggsurvplot object (check it with class(p))
+#' # There's a printing function print.ggsurvplot to handle the printing of the KM-plot.
+#' # But this function is not exported by survminer, so we need to use three colons.
 #' }
 #' @return writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 #' @seealso  \code{\link{write_table}} \code{\link{write_ggplot}}

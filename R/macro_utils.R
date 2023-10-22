@@ -215,21 +215,6 @@ tidy_dlu <- function(x, clean_names = TRUE){
 }
 
 
-#' @name sep_dlu
-#' @title Separates out visit/form/question from DLU
-#' @description Deprecated so included for back compatibility
-#' @inheritParams tidy_dlu
-#' @returns A data.frame with expanded, separated variables
-#' @seealso \code{\link{tidy_dlu}}
-#' @export
-
-
-sep_dlu <- function(x, clean_names=TRUE){
-  .Deprecated("tidy_dlu")
-  tidy_dlu(x, clean_names = clean_names)
-}
-
-
 #' @name set_dlu
 #' @aliases get_dlu
 #' @title Set/get DLU data

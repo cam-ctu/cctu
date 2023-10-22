@@ -3,6 +3,7 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:aml="http://schemas.microsoft.com/aml/2001/core"
 xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
 xmlns:v="urn:schemas-microsoft-com:vml"
 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 >
@@ -458,6 +459,22 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 		<w:jc w:val="center"/>
 	</w:pPr>
 	<w:r>
+    <xsl:variable name="imgpath">
+      <xsl:text>wordml://</xsl:text>
+      <xsl:value-of select="src"/>
+    </xsl:variable>
+    <xsl:variable name="heightwidth">
+      <xsl:value-of select="figuresize"/>
+    </xsl:variable>
+    <w:pict>
+      <w:binData w:name="{$imgpath}">
+        <xsl:value-of select="figBase64"/>
+      </w:binData>
+      <v:shape id="{generate-id()}" style="{$heightwidth}">
+        <v:imagedata src="{$imgpath}"/>
+      </v:shape>
+    </w:pict>
+<!---
 	<w:pict>
 		<v:shape>
 			<xsl:attribute name="style">
@@ -475,6 +492,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			</v:imagedata>
 		</v:shape>
 	</w:pict>
+-->
     </w:r>
 </w:p>
 <w:p>

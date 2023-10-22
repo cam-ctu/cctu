@@ -12,6 +12,7 @@
 #' @param popn_labels alternative text string giving labels used for the population - might want to include the population size... They must match correctly to unique(meta_table$population), excluding rows with a blank, or no, population given
 #' @param  figure_format the format to look for figure files when building the report ("png", "jpeg","ps")
 #' @param xslt_file a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").
+#' @param keep_xml a boolean if the compiled XML should be kept, used for debugging purpose.
 #' @export
 #' @importFrom magrittr %>% %<>%
 #'
@@ -30,15 +31,20 @@ create_word_xml <- function(
   filename=file.path("Output","Reports","Report.doc"),
   table_path=file.path("Output","Core"),
   figure_format=c("png","jpeg","ps"),
-  figure_path=file.path("..","Figures"),
+  figure_path=file.path("Output","Figures"),
   popn_labels=NULL,
   verbose=options()$verbose,
-  xslt_file=system.file("extdata", "to_word.xslt", package="cctu")
+  xslt_file=system.file("extdata", "to_word.xslt", package="cctu"),
+  keep_xml = FALSE
 ){
 
   table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath(., mustWork=FALSE)
-  filename %<>% paste0(.,".xml")
+
+  if(keep_xml)
+    filename %<>% paste0(.,".xml")
+  else
+    filename <- tempfile(fileext = ".xml")
 
   meta_table <- clean_meta_table(meta_table)
 
@@ -48,14 +54,9 @@ create_word_xml <- function(
     meta_table$population <- c("", popn_labels)[index]
   }
 
-
-
-
   file.copy( system.file("extdata", "header.txt", package="cctu") ,
              filename, overwrite=TRUE
   )
-
-
 
   filename_text <- filename
   #create a connection to use in cat and
@@ -106,11 +107,31 @@ create_word_xml <- function(
       cat(footers[i], program[i], "\n </MetaTable> \n", file = filename, append = TRUE)
     }
     if(meta_table[i, "item"] == "figure"){
+      fig_path <- file.path(figure_path,
+                            paste0("fig_", meta_table[i, "number"], ".", figure_format))
+      fig_path <- normalizePath(fig_path)
+
+      # Get image dimension and scale the figure to fit the page
+      img_wh <- get_image_dim(fig_path)
+      page_size <- c(595, 842)
+
+      if(meta_table[i, "orientation"] == "landscape")
+        page_size <- rev(page_size)
+
+      # If the image is larger than page size
+      if(page_size[1] < img_wh[1] | page_size[2] < img_wh[2])
+        img_wh <- img_wh/max(img_wh/page_size + 0.5)
+
       cat("\n <MetaFigure> \n", headers[i], file = filename, append = TRUE)
-      cat("<src>", file.path(figure_path,paste0("fig_", meta_table[i, "number"],
-          ".",figure_format)),"</src>", sep = "", file = filename, append = TRUE)
+      cat(sprintf("<src>%s</src>", basename(fig_path)),
+          file = filename, append = TRUE)
+      cat(sprintf("<figBase64>%s</figBase64>", base64enc::base64encode(fig_path)),
+          file = filename, append = TRUE)
+      cat(sprintf("<figuresize>width:%.2fpx;height:%.2fpx</figuresize>", img_wh[1], img_wh[2]),
+          file = filename, append = TRUE)
       cat(footers[i], program[i], "\n </MetaFigure> \n", file = filename, append = TRUE)
     }
+
     if(meta_table[i, "item"] == "text"){
       cat("\n <MetaText> \n", headers[i], file = filename, append = TRUE)
       table_text <- readLines( con=file.path(table_path,paste0( 'text_', meta_table[i, "number"], '.xml')))
@@ -131,9 +152,7 @@ create_word_xml <- function(
   xml2::write_xml(output, file=long_filename)
 
   if(verbose){
-    cat( long_filename, "created.",
-      "\nAll figures in the word document are links to local files",
-      "\nYou must manually include them with word if you want to move the word document.\n")
+    message(long_filename, " created.")
   }
 }
 
@@ -144,5 +163,23 @@ final_slash <- function(x){
   paste0(gsub("\\\\$","",x),"\\")
 }
 
+#' @keywords internal
+#'
+get_image_dim <- function(path) {
+  # Ensure file exists
+  if(!file.exists(path))
+    stop("No file found", call. = FALSE)
 
+  # Ensure file ends with .png or .jpg or jpeg
+  if (!grepl("\\.(png|jpg|jpeg)$", x = path, ignore.case = TRUE))
+    stop("File must end with .png, .jpg, or .jpeg", call. = FALSE)
+
+  # Get return of file system command
+  s <- system(paste0("file ", path), intern = TRUE)
+
+  # Extract width and height from string
+  width <- regmatches(s, gregexpr("(?<=, )[0-9]+(?=(x| x )[0-9]+,)", s, perl = TRUE))[[1]]
+  height <- regmatches(s, gregexpr(", [0-9]+(x| x )\\K[0-9]+(?=,)", s, perl = TRUE))[[1]]
+  setNames(as.numeric(c(width, height)), c("Width", "Height"))
+}
 

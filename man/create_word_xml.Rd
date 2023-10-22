@@ -12,10 +12,11 @@ create_word_xml(
   filename = file.path("Output", "Reports", "Report.doc"),
   table_path = file.path("Output", "Core"),
   figure_format = c("png", "jpeg", "ps"),
-  figure_path = file.path("..", "Figures"),
+  figure_path = file.path("Output", "Figures"),
   popn_labels = NULL,
   verbose = options()$verbose,
-  xslt_file = system.file("extdata", "to_word.xslt", package = "cctu")
+  xslt_file = system.file("extdata", "to_word.xslt", package = "cctu"),
+  keep_xml = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ create_word_xml(
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
 \item{xslt_file}{a text file containing the xslt document. Default is system.file("extdata", "xml_to_word.xslt", package="cctu").}
+
+\item{keep_xml}{a boolean if the compiled XML should be kept, used for debugging purpose.}
 }
 \value{
 This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.

@@ -18,7 +18,7 @@
 
 write_table = function(X,
                       number=cctu_env$number,
-                      heading  = colnames(X),
+                      heading  = NULL,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
                       directory=file.path("Output","Core"),
@@ -79,7 +79,18 @@ remove_xml_specials <- function(x){
 # For normal
 #' @keywords internal
 #' @importFrom utils capture.output
-table_data <- function(X, heading  = colnames(X), na_to_empty=FALSE){
+table_data <- function(X, heading  = NULL, na_to_empty=FALSE){
+
+  if(!is.null(heading) & ncol(X) != length(heading))
+    stop("Heading should have the same length as the number of columns")
+
+  if(!is.null(heading)){
+    for(i in seq_along(heading)){
+      var_lab(X[[i]]) <- heading[i]
+    }
+  }else {
+    heading <- colnames(X)
+  }
 
   check <- as.character(rownames(X)) != as.character(1:nrow(X))
   if(inherits(X, "matrix") & any(check)){
@@ -153,7 +164,7 @@ table_cttab <- function(x) {
     al <- ""
   }
 
-  x <- apply(x, 2, remove_xml_specials)
+  x[] <- apply(x, 2, remove_xml_specials)
 
   # Table header
   th <- paste0("<th>", remove_xml_specials(hd_nam), "</th>", collapse = "")

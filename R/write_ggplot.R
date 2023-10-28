@@ -143,7 +143,7 @@ write_plot = function(
                         height = height, width = width), graphics_args)
   extra_args <-NULL
   if( format %in% c("png","jpeg")){
-    extra_args <- list(units = "in", res = dpi)
+    extra_args <- list(units = "in", res = dpi, type = "cairo")
   }
   plotting_function <- getExportedValue("grDevices", format)
   do.call(plotting_function, c(args_list, extra_args))

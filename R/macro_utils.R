@@ -135,11 +135,6 @@ apply_macro_dict <- function(data,
   for (j in num_cols)
     set(data, j = j, value = as.numeric(data[[j]]))
 
-  # Convert characters
-  text_cols <- dlu[dlu$type == "Text", "shortcode"]
-  for (j in text_cols)
-    set(data, j = j, value = as.character(data[[j]]))
-
   # Add variable label attributes
   col_list <- dlu$description
   names(col_list) <- dlu$shortcode

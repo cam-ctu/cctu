@@ -40,7 +40,7 @@ write_ggplot = function(
   args_list <- as.list(environment())
 
   if(!inherits(plot, c("gtable", "gTree", "grob", "ggplot")))
-    stop("The plot is a not supported class of: ", paste(class(plot), collapse = ", "), 
+    stop("The plot is a not supported class of: ", paste(class(plot), collapse = ", "),
          ". Use `write_plot` function instead to draw this plot.")
 
   args_list$plot_args <- list(x = plot)
@@ -51,17 +51,17 @@ write_ggplot = function(
 }
 
 #' Function to save plot figures
-#' 
+#'
 #' One may not always use \code{ggplot2} to draw plot, base \code{plot} function for example,
-#' this function is particularly useful in that situation. 
+#' this function is particularly useful in that situation.
 #'
 #' @inheritParams write_ggplot
 #'
 #' @param plot_fn function to draw a plot.
 #' @param plot_args A named list arguments for \code{plot_fn}.
-#' 
+#'
 #' @details
-#' The \code{plot_fn} can be a user defined function to draw plot. All parameters should 
+#' The \code{plot_fn} can be a user defined function to draw plot. All parameters should
 #' be passed with names. Checkout the examples below.
 #' @examples
 #' \dontrun{
@@ -69,16 +69,16 @@ write_ggplot = function(
 #' write_plot(plot_fn = plot, plot_args = list(x = iris[,1], y = iris[,2]))
 #' # This is equivalent drawing the following plot and save it
 #' plot(x = iris[,1], y = iris[,2])
-#' 
+#'
 #' # Below is user defined function plotting
-#' # One can use this method to draw a complicated plot 
+#' # One can use this method to draw a complicated plot
 #' new_plot <- function(x, y, h, v) {
 #'    par(pty = "s", cex = 0.7) # adjust plot style
 #'    plot(x, y)
 #'    abline(h = h,v = v, lty=2) # add some lines
 #' }
 #' write_plot(plot_fn = new_plot, plot_args = list(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0))
-#' 
+#'
 #' # To draw a KM-plot from survminer package
 #' library("survival")
 #' library("survminer")
@@ -126,7 +126,7 @@ write_plot = function(
     warning(paste("Unable to identify the code file that created figure", number))
   }
   add_program(number, CallingProg )
-  
+
   if(!is.null(footnote))
     add_footnote(number, footnote)
 
@@ -140,7 +140,7 @@ write_plot = function(
                         height = height, width = width), graphics_args)
   extra_args <-NULL
   if( format %in% c("png","jpeg")){
-    extra_args <- list(units = "in", res = dpi, type = "cairo")
+    extra_args <- list(units = "in", res = dpi)
   }
   plotting_function <- getExportedValue("grDevices", format)
   do.call(plotting_function, c(args_list, extra_args))

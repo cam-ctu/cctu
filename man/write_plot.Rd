@@ -55,7 +55,7 @@ One may not always use \code{ggplot2} to draw plot, base \code{plot} function fo
 this function is particularly useful in that situation.
 }
 \details{
-The \code{plot_fn} can be a user defined function to draw plot. All parameters should 
+The \code{plot_fn} can be a user defined function to draw plot. All parameters should
 be passed with names. Checkout the examples below.
 }
 \examples{
@@ -66,7 +66,7 @@ write_plot(plot_fn = plot, plot_args = list(x = iris[,1], y = iris[,2]))
 plot(x = iris[,1], y = iris[,2])
 
 # Below is user defined function plotting
-# One can use this method to draw a complicated plot 
+# One can use this method to draw a complicated plot
 new_plot <- function(x, y, h, v) {
    par(pty = "s", cex = 0.7) # adjust plot style
    plot(x, y)

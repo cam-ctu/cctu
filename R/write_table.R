@@ -162,6 +162,7 @@ table_cttab <- function(x) {
     # Variable values to labels if has value
     x <- lab2val(x)
     al <- ""
+    x[is.na(x)] <- ""
   }
 
   x[] <- apply(x, 2, remove_xml_specials)
@@ -185,7 +186,7 @@ table_cttab <- function(x) {
   cls[,1] <- paste0(" style='", paste(rowclass, al, sep = ";"), "'")
   cls[is.na(cls)] <- ""
 
-  td <- paste0("<td", cls, ">", x, "</td>")
+  td <- paste0("<td", cls, ">", as.matrix(x), "</td>")
   dim(td) <- dim(x)
   td <- apply(td, 1, paste0, collapse="")
   td <- paste0("<tr>", td, "</tr>\n", collapse="")

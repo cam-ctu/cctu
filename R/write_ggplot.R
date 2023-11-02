@@ -1,5 +1,5 @@
 #' Function to save ggplot figures.
-#' 
+#'
 #' This is a wrapup function of \code{\link{write_plot}} to print \code{ggplot} object.
 #'
 #' @param number the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.
@@ -42,9 +42,6 @@ write_ggplot = function(
   if(!inherits(plot, c("gtable", "gTree", "grob", "ggplot")))
     stop("The plot is a not supported class of: ", paste(class(plot), collapse = ", "), 
          ". Use `write_plot` function instead to draw this plot.")
-
-  if(inherits(plot, "ggplot"))
-    plot <- ggplotGrob(plot)
 
   args_list$plot_args <- list(x = plot)
   args_list$plot <- NULL

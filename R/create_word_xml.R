@@ -112,7 +112,8 @@ create_word_xml <- function(
       fig_path <- normalizePath(fig_path)
 
       # Get image dimension and scale the figure to fit the page
-      img_wh <- get_image_dim(fig_path)
+      r <- png::readPNG(fig_path, native = TRUE, info = TRUE)
+      img_wh <- attr(r, "info")$dim
       page_size <- c(595, 842)
 
       if(meta_table[i, "orientation"] == "landscape")
@@ -165,6 +166,7 @@ final_slash <- function(x){
 
 #' @keywords internal
 #'
+# This function does not work for UNC path and needs to have Rtools installed.
 get_image_dim <- function(path) {
   # Ensure file exists
   if(!file.exists(path))

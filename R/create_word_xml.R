@@ -164,24 +164,4 @@ final_slash <- function(x){
   paste0(gsub("\\\\$","",x),"\\")
 }
 
-#' @keywords internal
-#'
-# This function does not work for UNC path and needs to have Rtools installed.
-get_image_dim <- function(path) {
-  # Ensure file exists
-  if(!file.exists(path))
-    stop("No file found", call. = FALSE)
-
-  # Ensure file ends with .png or .jpg or jpeg
-  if (!grepl("\\.(png|jpg|jpeg)$", x = path, ignore.case = TRUE))
-    stop("File must end with .png, .jpg, or .jpeg", call. = FALSE)
-
-  # Get return of file system command
-  s <- system(paste0("file ", path), intern = TRUE)
-
-  # Extract width and height from string
-  width <- regmatches(s, gregexpr("(?<=, )[0-9]+(?=(x| x )[0-9]+,)", s, perl = TRUE))[[1]]
-  height <- regmatches(s, gregexpr(", [0-9]+(x| x )\\K[0-9]+(?=,)", s, perl = TRUE))[[1]]
-  setNames(as.numeric(c(width, height)), c("Width", "Height"))
-}
 

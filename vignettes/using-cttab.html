@@ -12,7 +12,7 @@
 
 <meta name="author" content="Alimu Dayimu" />
 
-<meta name="date" content="2023-05-31" />
+<meta name="date" content="2023-11-07" />
 
 <title>Use cttab in the Analysis</title>
 
@@ -378,7 +378,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Use cttab in the Analysis</h1>
 <h4 class="author">Alimu Dayimu</h4>
-<h4 class="date">2023-05-31</h4>
+<h4 class="date">2023-11-07</h4>
 
 
 <div id="TOC">
@@ -454,35 +454,35 @@ attached to it. Which means, you can subset or manipulate it like a
 numerical variable but report the data as a categorical one. It is
 important to understand this, let’s use <code>mtcars</code> dataset and
 demonstrate how it works.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign variable label</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var_lab</span>(mtcars<span class="sc">$</span>am) <span class="ot">&lt;-</span> <span class="st">&quot;Transmission&quot;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign value label with named vector</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">val_lab</span>(mtcars<span class="sc">$</span>am) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Automatic&quot;</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">&quot;Manual&quot;</span><span class="ot">=</span><span class="dv">1</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mtcars<span class="sc">$</span>am)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  num [1:32] 1 1 1 0 0 0 0 0 0 0 ...</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;label&quot;)= chr &quot;Transmission&quot;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;labels&quot;)= Named num [1:2] 0 1</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;Automatic&quot; &quot;Manual&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># Assign variable label</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">var_lab</span>(mtcars<span class="sc">$</span>am) <span class="ot">&lt;-</span> <span class="st">&quot;Transmission&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Assign value label with named vector</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">val_lab</span>(mtcars<span class="sc">$</span>am) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Automatic&quot;</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="st">&quot;Manual&quot;</span><span class="ot">=</span><span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">str</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt;  num [1:32] 1 1 1 0 0 0 0 0 0 0 ...</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;label&quot;)= chr &quot;Transmission&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;labels&quot;)= Named num [1:2] 0 1</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt;   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;Automatic&quot; &quot;Manual&quot;</span></span></code></pre></div>
 <p>As you can above, <code>label</code> and <code>labels</code>
 attributes were added. But the variable is numeric. You can still
 summarize it as numeric variable as below:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>am)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.0000  0.0000  0.0000  0.4062  1.0000  1.0000</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt;  0.0000  0.0000  0.0000  0.4062  1.0000  1.0000</span></span></code></pre></div>
 <p>You can convert the value label to factor just before your final
 analysis. The <code>to_factor</code> function replace the value with
 labels and convert the variable to factor.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract variable label</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var_lab</span>(mtcars<span class="sc">$</span>am)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Transmission&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert variable to factor with labels attached to it</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">to_factor</span>(mtcars<span class="sc">$</span>am))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Automatic    Manual </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        19        13</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Extract variable label</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">var_lab</span>(mtcars<span class="sc">$</span>am)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Transmission&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co"># Convert variable to factor with labels attached to it</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">to_factor</span>(mtcars<span class="sc">$</span>am))</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; Automatic    Manual </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;        19        13</span></span></code></pre></div>
 <p>But be cautious, <strong>some R process might drop the variable or
 value label attributes</strong>. Normally it won’t, but you should check
 it before report if you are not sure. For example,
@@ -519,16 +519,16 @@ the same. It is a great package with lots of data manipulation
 capability, you should seek the <a href="https://CRAN.R-project.org/package=data.table">website</a> for
 more details. But one thing to remember is that all the names in the
 variable selection will be considered as a variable of the data.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;am&quot;</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># You can do this in the normal data.frame</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mtcars[,vars]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># But you can&#39;t do this for the data.table</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(mtcars)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>mtcars[,vars]</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># You need to add with=FALSE to do that</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>mtcars[,vars, with<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;am&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># You can do this in the normal data.frame</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>mtcars[,vars]</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># But you can&#39;t do this for the data.table</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>dat <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(mtcars)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>mtcars[,vars]</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co"># You need to add with=FALSE to do that</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>mtcars[,vars, with<span class="ot">=</span><span class="cn">FALSE</span>]</span></code></pre></div>
 </div>
 <div id="table-function" class="section level2">
 <h2>Table function</h2>
@@ -554,10 +554,10 @@ of the <code>cctab</code> function. But, you can use
 used by <code>cctab</code>. Below is setting some of the options, for
 more details please check out the <code>cctab</code> function
 manuals.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_digits =</span> <span class="dv">3</span>) <span class="co"># keep 3 digits for numerical value</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_digits_pct =</span> <span class="dv">0</span>) <span class="co"># keep 0 digits for percentage </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_subjid_string =</span> <span class="st">&quot;subjid&quot;</span>) <span class="co"># Set subject ID string</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_print_plot =</span> <span class="cn">FALSE</span>) <span class="co"># Don&#39;t produce plots</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_digits =</span> <span class="dv">3</span>) <span class="co"># keep 3 digits for numerical value</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_digits_pct =</span> <span class="dv">0</span>) <span class="co"># keep 0 digits for percentage </span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_subjid_string =</span> <span class="st">&quot;subjid&quot;</span>) <span class="co"># Set subject ID string</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="fu">options</span>(<span class="at">cctu_print_plot =</span> <span class="cn">FALSE</span>) <span class="co"># Don&#39;t produce plots</span></span></code></pre></div>
 </div>
 </div>
 <div id="working-example" class="section level1">
@@ -571,12 +571,12 @@ manuals.</p>
 data by setting all the columns to character. This will be handled
 later. Same process can be found in the <code>Analysis Template</code>
 vignette.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read example data</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>), <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read DLU and CLU</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dlu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata_dlu.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>clu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata_clu.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Read example data</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>), <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Read DLU and CLU</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>dlu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata_dlu.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>clu <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;pilotdata_clu.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span></code></pre></div>
 </div>
 <div id="vertically-splited-multiple-data" class="section level3">
 <h3>Vertically splited multiple data</h3>
@@ -586,24 +586,24 @@ can use <code>rbind</code> function to combine data together. If you
 have different datasets with different variable names except for some
 key variables, you can use <code>merge_data</code> function to combine
 them together.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read example data</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dt_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>),</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>dt_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read DLU and CLU</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>dlu_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A_DLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>dlu_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B_DLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>clu_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A_CLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>clu_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B_CLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge dataset with merge_data function</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(<span class="at">datalist =</span> <span class="fu">list</span>(dt_a, dt_b), <span class="at">dlulist =</span> <span class="fu">list</span>(dlu_a, dlu_b),</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">clulist =</span> <span class="fu">list</span>(clu_a, clu_b))</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> res<span class="sc">$</span>data <span class="co"># Extract combined data</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>dlu <span class="ot">&lt;-</span> res<span class="sc">$</span>dlu <span class="co"># Extract combined DLU data</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>clu <span class="ot">&lt;-</span> res<span class="sc">$</span>clu <span class="co"># Extract combined CLU data</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Read example data</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>dt_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                 <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>dt_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                 <span class="at">colClasses =</span> <span class="st">&quot;character&quot;</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co"># Read DLU and CLU</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>dlu_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A_DLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>dlu_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B_DLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>clu_a <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_A_CLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>clu_b <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;test_B_CLU.csv&quot;</span>, <span class="at">package=</span><span class="st">&quot;cctu&quot;</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co"># Merge dataset with merge_data function</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">merge_data</span>(<span class="at">datalist =</span> <span class="fu">list</span>(dt_a, dt_b), <span class="at">dlulist =</span> <span class="fu">list</span>(dlu_a, dlu_b),</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>                  <span class="at">clulist =</span> <span class="fu">list</span>(clu_a, clu_b))</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>dt <span class="ot">&lt;-</span> res<span class="sc">$</span>data <span class="co"># Extract combined data</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>dlu <span class="ot">&lt;-</span> res<span class="sc">$</span>dlu <span class="co"># Extract combined DLU data</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>clu <span class="ot">&lt;-</span> res<span class="sc">$</span>clu <span class="co"># Extract combined CLU data</span></span></code></pre></div>
 </div>
 </div>
 <div id="apply-macro-dictionary" class="section level2">
@@ -622,14 +622,14 @@ reference. Although you can use <code>set_dlu</code> to change the
 internal DLU data stored by <code>apply_macro_dict</code>, this is not
 recommended unless you know what you are doing. This will have an impact
 on the missing report.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subjid</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dt<span class="sc">$</span>subjid <span class="ot">&lt;-</span> <span class="fu">substr</span>(dt<span class="sc">$</span>USUBJID, <span class="dv">8</span>, <span class="dv">11</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply CLU and DLU files</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">apply_macro_dict</span>(dt, <span class="at">dlu =</span> dlu, <span class="at">clu =</span> clu, <span class="at">clean_names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Give new variable a label</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">var_lab</span>(dt<span class="sc">$</span>subjid) <span class="ot">&lt;-</span> <span class="st">&quot;Subject ID&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Create subjid</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>dt<span class="sc">$</span>subjid <span class="ot">&lt;-</span> <span class="fu">substr</span>(dt<span class="sc">$</span>USUBJID, <span class="dv">8</span>, <span class="dv">11</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># Apply CLU and DLU files</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">apply_macro_dict</span>(dt, <span class="at">dlu =</span> dlu, <span class="at">clu =</span> clu, <span class="at">clean_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co"># Give new variable a label</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="fu">var_lab</span>(dt<span class="sc">$</span>subjid) <span class="ot">&lt;-</span> <span class="st">&quot;Subject ID&quot;</span></span></code></pre></div>
 <p>After this, you should follow the <code>Analysis Template</code>
 vignette and setup the population etc.</p>
 <pre><code>#&gt; safety environment created in R_GlobalEnv 
@@ -643,45 +643,45 @@ is extract a particular form from the data. For the table, assume we are
 reporting age, sex and BMI from the patient registration form by
 treatment arm. For demonstrating the filtering, we only report non-white
 patients’ BMI.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Attach population</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract patient patient registration form and keep subjid variable</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;PatientReg&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Now report Age, Sex and BMI. For BMI, report not white only </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>)) <span class="co"># Filter for variable BMI</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Attach population</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co"># Extract patient patient registration form and keep subjid variable</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;PatientReg&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co"># Now report Age, Sex and BMI. For BMI, report not white only </span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>)) <span class="co"># Filter for variable BMI</span></span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Write table</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>X</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦     Placebo     ¦    Research     ¦      Total      |</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   75.5 (7.86)   ¦   74.8 (8.04)   ¦   75.1 (7.93)   |</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦78.0 [57.0, 88.0]¦77.0 [56.0, 88.0]¦77.0 [56.0, 88.0]|</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Female           ¦   26/48 (54%)   ¦   25/52 (48%)   ¦  51/100 (51%)   |</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Male             ¦   22/48 (46%)   ¦   27/52 (52%)   ¦  49/100 (49%)   |</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦        5        ¦        6        ¦       11        |</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   27.8 (3.98)   ¦   24.6 (3.54)   ¦   26.0 (3.93)   |</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦27.9 [23.4, 32.8]¦23.5 [21.3, 31.4]¦24.3 [21.3, 32.8]|</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># Write table</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>X</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
 </div>
 <div id="formula-interface" class="section level2">
 <h2>Formula interface</h2>
@@ -694,28 +694,28 @@ separated by <code>|</code> with grouping variable, use <code>1</code>
 if there is no grouping variables. No <code>group</code> or
 <code>row_split</code> parameters to be used in the formula interface.
 All the other parameters are the same.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No grouping</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AGE <span class="sc">+</span> SEX <span class="sc">+</span> BMIBL  <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> df)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Group summarise by ARM</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AGE <span class="sc">+</span> SEX <span class="sc">+</span> BMIBL <span class="sc">~</span> ARM, <span class="at">data =</span> df)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Group summarise by ARM and split by visit cycle</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AST <span class="sc">+</span> BILI <span class="sc">~</span> ARM <span class="sc">|</span> AVISIT, <span class="at">data =</span> df)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Split by visit cycle</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AST <span class="sc">+</span> BILI <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> AVISIT, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># No grouping</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AGE <span class="sc">+</span> SEX <span class="sc">+</span> BMIBL  <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> df)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co"># Group summarise by ARM</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AGE <span class="sc">+</span> SEX <span class="sc">+</span> BMIBL <span class="sc">~</span> ARM, <span class="at">data =</span> df)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co"># Group summarise by ARM and split by visit cycle</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AST <span class="sc">+</span> BILI <span class="sc">~</span> ARM <span class="sc">|</span> AVISIT, <span class="at">data =</span> df)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co"># Split by visit cycle</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(AST <span class="sc">+</span> BILI <span class="sc">~</span> <span class="dv">1</span> <span class="sc">|</span> AVISIT, <span class="at">data =</span> df)</span></code></pre></div>
 </div>
 <div id="missing-data-report" class="section level2">
 <h2>Missing data report</h2>
 <p>The <code>cttab</code> function will report the missing internally.
 You can use the following to get the missing report.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will save the missing report under Output folder</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Or you can set the output folder and name</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dump_missing_report</span>()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull out the missing report if you want </span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>miss_rep <span class="ot">&lt;-</span> <span class="fu">get_missing_report</span>()</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reset missing report</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">reset_missing_report</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># This will save the missing report under Output folder</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co"># Or you can set the output folder and name</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">dump_missing_report</span>()</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co"># Pull out the missing report if you want </span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>miss_rep <span class="ot">&lt;-</span> <span class="fu">get_missing_report</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co"># Reset missing report</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="fu">reset_missing_report</span>()</span></code></pre></div>
 <p>After this, you can finish the remaining as in the
 <code>Analysis Template</code> vignette.</p>
 </div>
@@ -728,161 +728,161 @@ easily populate simple tables.</p>
 <h2>Simple table</h2>
 <p>Table only some variables, no treatment arm or variable
 selection.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df)                      <span class="co"># Data</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>           <span class="at">data =</span> df)                      <span class="co"># Data</span></span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------+</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦      Total      |</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Age                                  |</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       100       |</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   75.1 (7.93)   |</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦77.0 [56.0, 88.0]|</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Sex                                  |</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Female           ¦  51/100 (51%)   |</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Male             ¦  49/100 (49%)   |</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                |</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------¦</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       100       |</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   24.5 (4.15)   |</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦24.4 [13.7, 33.6]|</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>X</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┐</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; |                   │      Total      |</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; |Age                                  |</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       100       |</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   75.1 (7.93)   |</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│77.0 [56.0, 88.0]|</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; |Sex                                  |</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; |  Female           │  51/100 (51%)   |</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; |  Male             │  49/100 (49%)   |</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                |</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       100       |</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   24.5 (4.15)   |</span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│24.4 [13.7, 33.6]|</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┘</span></span></code></pre></div>
 </div>
 <div id="by-group-and-filter" class="section level2">
 <h2>By group and filter</h2>
 <p>This is what we have seen before</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>)) <span class="co"># Filter for variable BMI</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>)) <span class="co"># Filter for variable BMI</span></span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>X</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦     Placebo     ¦    Research     ¦      Total      |</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   75.5 (7.86)   ¦   74.8 (8.04)   ¦   75.1 (7.93)   |</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦78.0 [57.0, 88.0]¦77.0 [56.0, 88.0]¦77.0 [56.0, 88.0]|</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Female           ¦   26/48 (54%)   ¦   25/52 (48%)   ¦  51/100 (51%)   |</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Male             ¦   22/48 (46%)   ¦   27/52 (52%)   ¦  49/100 (49%)   |</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦        5        ¦        6        ¦       11        |</span></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   27.8 (3.98)   ¦   24.6 (3.54)   ¦   26.0 (3.93)   |</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦27.9 [23.4, 32.8]¦23.5 [21.3, 31.4]¦24.3 [21.3, 32.8]|</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>X</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
 </div>
 <div id="split-table-row-by-visit" class="section level2">
 <h2>Split table row by visit</h2>
 <p>You can define <code>row_split</code> parameter to the name of visit
 or repeat variable.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; safety detached.</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;Lab&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>, <span class="st">&quot;ARM&quot;</span>))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AST&quot;</span>, <span class="st">&quot;BILI&quot;</span>, <span class="st">&quot;ALT&quot;</span>),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">row_split =</span> <span class="st">&quot;AVISIT&quot;</span>,            <span class="co"># Visit variable</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;ALT&quot;</span> <span class="ot">=</span> <span class="st">&quot;PERF == 1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co">#&gt; safety detached.</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;Lab&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>, <span class="st">&quot;ARM&quot;</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AST&quot;</span>, <span class="st">&quot;BILI&quot;</span>, <span class="st">&quot;ALT&quot;</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>           <span class="at">data =</span> df,</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>           <span class="at">row_split =</span> <span class="st">&quot;AVISIT&quot;</span>,            <span class="co"># Visit variable</span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;ALT&quot;</span> <span class="ot">=</span> <span class="st">&quot;PERF == 1&quot;</span>))</span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>X</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦     Placebo     ¦    Research     ¦      Total      |</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Study Visit = Baseline                                                   |</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       47        ¦       52        ¦       99        |</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   23.4 (7.09)   ¦   23.6 (7.05)   ¦   23.5 (7.04)   |</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦23.0 [12.0, 54.0]¦21.5 [13.0, 52.0]¦23.0 [12.0, 54.0]|</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     1 (2%)      ¦                 ¦     1 (1%)      |</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       46        ¦       51        ¦       97        |</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   10.0 (4.38)   ¦   11.4 (6.01)   ¦   10.8 (5.32)   |</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦8.55 [5.13, 25.7]¦10.3 [5.13, 39.3]¦10.3 [5.13, 39.3]|</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     2 (4%)      ¦     1 (2%)      ¦     3 (3%)      |</span></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       45        ¦       40        ¦       85        |</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   18.1 (8.01)   ¦   22.1 (13.2)   ¦   20.0 (10.9)   |</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦16.0 [7.00, 50.0]¦17.0 [8.00, 64.0]¦16.0 [7.00, 64.0]|</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦                 ¦     2 (5%)      ¦     2 (2%)      |</span></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Study Visit = Week 4                                                     |</span></span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       43        ¦       44        ¦       87        |</span></span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       41        ¦       43        ¦       84        |</span></span>
-<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   25.1 (18.4)   ¦   23.8 (6.39)   ¦   24.4 (13.6)   |</span></span>
-<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦23.0 [12.0, 135] ¦23.0 [12.0, 43.0]¦23.0 [12.0, 135] |</span></span>
-<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     2 (5%)      ¦     1 (2%)      ¦     3 (3%)      |</span></span>
-<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       42        ¦       44        ¦       86        |</span></span>
-<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   12.7 (18.2)   ¦   11.4 (6.51)   ¦   12.0 (13.5)   |</span></span>
-<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦8.55 [5.13, 125] ¦8.55 [5.13, 34.2]¦8.55 [5.13, 125] |</span></span>
-<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     1 (2%)      ¦                 ¦     1 (1%)      |</span></span>
-<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       39        ¦       38        ¦       77        |</span></span>
-<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   18.9 (16.1)   ¦   21.6 (11.0)   ¦   20.2 (13.8)   |</span></span>
-<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦15.0 [7.00, 107] ¦20.0 [8.00, 61.0]¦16.0 [7.00, 107] |</span></span>
-<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦                 ¦     3 (7%)      ¦     3 (4%)      |</span></span>
-<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Study Visit = End of Treatment                                           |</span></span>
-<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       47        ¦       50        ¦       97        |</span></span>
-<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       45        ¦       48        ¦       93        |</span></span>
-<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   27.4 (27.9)   ¦   23.1 (6.04)   ¦   25.2 (19.9)   |</span></span>
-<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦21.0 [14.0, 168] ¦23.0 [12.0, 39.0]¦22.0 [12.0, 168] |</span></span>
-<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     2 (4%)      ¦     2 (4%)      ¦     4 (4%)      |</span></span>
-<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       45        ¦       46        ¦       91        |</span></span>
-<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   12.5 (17.7)   ¦   11.5 (6.39)   ¦   12.0 (13.2)   |</span></span>
-<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦8.55 [5.13, 125] ¦10.3 [3.42, 30.8]¦8.55 [3.42, 125] |</span></span>
-<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     2 (4%)      ¦     4 (8%)      ¦     6 (6%)      |</span></span>
-<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-74"><a href="#cb19-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span id="cb19-75"><a href="#cb19-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb19-76"><a href="#cb19-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       45        ¦       43        ¦       88        |</span></span>
-<span id="cb19-77"><a href="#cb19-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   19.6 (21.8)   ¦   19.7 (8.41)   ¦   19.6 (16.6)   |</span></span>
-<span id="cb19-78"><a href="#cb19-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦14.0 [5.00, 124] ¦17.0 [9.00, 43.0]¦16.0 [5.00, 124] |</span></span>
-<span id="cb19-79"><a href="#cb19-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦                 ¦     1 (2%)      ¦     1 (1%)      |</span></span>
-<span id="cb19-80"><a href="#cb19-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>X</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#&gt; |Study Visit = Baseline                                                   |</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       47        │       52        │       99        |</span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   23.4 (7.09)   │   23.6 (7.05)   │   23.5 (7.04)   |</span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 54.0]│21.5 [13.0, 52.0]│23.0 [12.0, 54.0]|</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       46        │       51        │       97        |</span></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   10.0 (4.38)   │   11.4 (6.01)   │   10.8 (5.32)   |</span></span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 25.7]│10.3 [5.13, 39.3]│10.3 [5.13, 39.3]|</span></span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     2 (4%)      │     1 (2%)      │     3 (3%)      |</span></span>
+<span id="cb19-23"><a href="#cb19-23" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-24"><a href="#cb19-24" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
+<span id="cb19-25"><a href="#cb19-25" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-26"><a href="#cb19-26" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       45        │       40        │       85        |</span></span>
+<span id="cb19-27"><a href="#cb19-27" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   18.1 (8.01)   │   22.1 (13.2)   │   20.0 (10.9)   |</span></span>
+<span id="cb19-28"><a href="#cb19-28" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│16.0 [7.00, 50.0]│17.0 [8.00, 64.0]│16.0 [7.00, 64.0]|</span></span>
+<span id="cb19-29"><a href="#cb19-29" tabindex="-1"></a><span class="co">#&gt; |  Missing          │                 │     2 (5%)      │     2 (2%)      |</span></span>
+<span id="cb19-30"><a href="#cb19-30" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-31"><a href="#cb19-31" tabindex="-1"></a><span class="co">#&gt; |Study Visit = Week 4                                                     |</span></span>
+<span id="cb19-32"><a href="#cb19-32" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-33"><a href="#cb19-33" tabindex="-1"></a><span class="co">#&gt; |Observation        │       43        │       44        │       87        |</span></span>
+<span id="cb19-34"><a href="#cb19-34" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-35"><a href="#cb19-35" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
+<span id="cb19-36"><a href="#cb19-36" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-37"><a href="#cb19-37" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       41        │       43        │       84        |</span></span>
+<span id="cb19-38"><a href="#cb19-38" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   25.1 (18.4)   │   23.8 (6.39)   │   24.4 (13.6)   |</span></span>
+<span id="cb19-39"><a href="#cb19-39" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 135] │23.0 [12.0, 43.0]│23.0 [12.0, 135] |</span></span>
+<span id="cb19-40"><a href="#cb19-40" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     2 (5%)      │     1 (2%)      │     3 (3%)      |</span></span>
+<span id="cb19-41"><a href="#cb19-41" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-42"><a href="#cb19-42" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
+<span id="cb19-43"><a href="#cb19-43" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-44"><a href="#cb19-44" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       42        │       44        │       86        |</span></span>
+<span id="cb19-45"><a href="#cb19-45" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   12.7 (18.2)   │   11.4 (6.51)   │   12.0 (13.5)   |</span></span>
+<span id="cb19-46"><a href="#cb19-46" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 125] │8.55 [5.13, 34.2]│8.55 [5.13, 125] |</span></span>
+<span id="cb19-47"><a href="#cb19-47" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
+<span id="cb19-48"><a href="#cb19-48" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-49"><a href="#cb19-49" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
+<span id="cb19-50"><a href="#cb19-50" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-51"><a href="#cb19-51" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       39        │       38        │       77        |</span></span>
+<span id="cb19-52"><a href="#cb19-52" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   18.9 (16.1)   │   21.6 (11.0)   │   20.2 (13.8)   |</span></span>
+<span id="cb19-53"><a href="#cb19-53" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│15.0 [7.00, 107] │20.0 [8.00, 61.0]│16.0 [7.00, 107] |</span></span>
+<span id="cb19-54"><a href="#cb19-54" tabindex="-1"></a><span class="co">#&gt; |  Missing          │                 │     3 (7%)      │     3 (4%)      |</span></span>
+<span id="cb19-55"><a href="#cb19-55" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-56"><a href="#cb19-56" tabindex="-1"></a><span class="co">#&gt; |Study Visit = End of Treatment                                           |</span></span>
+<span id="cb19-57"><a href="#cb19-57" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-58"><a href="#cb19-58" tabindex="-1"></a><span class="co">#&gt; |Observation        │       47        │       50        │       97        |</span></span>
+<span id="cb19-59"><a href="#cb19-59" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-60"><a href="#cb19-60" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
+<span id="cb19-61"><a href="#cb19-61" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-62"><a href="#cb19-62" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       45        │       48        │       93        |</span></span>
+<span id="cb19-63"><a href="#cb19-63" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   27.4 (27.9)   │   23.1 (6.04)   │   25.2 (19.9)   |</span></span>
+<span id="cb19-64"><a href="#cb19-64" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│21.0 [14.0, 168] │23.0 [12.0, 39.0]│22.0 [12.0, 168] |</span></span>
+<span id="cb19-65"><a href="#cb19-65" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     2 (4%)      │     2 (4%)      │     4 (4%)      |</span></span>
+<span id="cb19-66"><a href="#cb19-66" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-67"><a href="#cb19-67" tabindex="-1"></a><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
+<span id="cb19-68"><a href="#cb19-68" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-69"><a href="#cb19-69" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       45        │       46        │       91        |</span></span>
+<span id="cb19-70"><a href="#cb19-70" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   12.5 (17.7)   │   11.5 (6.39)   │   12.0 (13.2)   |</span></span>
+<span id="cb19-71"><a href="#cb19-71" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 125] │10.3 [3.42, 30.8]│8.55 [3.42, 125] |</span></span>
+<span id="cb19-72"><a href="#cb19-72" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     2 (4%)      │     4 (8%)      │     6 (6%)      |</span></span>
+<span id="cb19-73"><a href="#cb19-73" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb19-74"><a href="#cb19-74" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
+<span id="cb19-75"><a href="#cb19-75" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb19-76"><a href="#cb19-76" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       45        │       43        │       88        |</span></span>
+<span id="cb19-77"><a href="#cb19-77" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   19.6 (21.8)   │   19.7 (8.41)   │   19.6 (16.6)   |</span></span>
+<span id="cb19-78"><a href="#cb19-78" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│14.0 [5.00, 124] │17.0 [9.00, 43.0]│16.0 [5.00, 124] |</span></span>
+<span id="cb19-79"><a href="#cb19-79" tabindex="-1"></a><span class="co">#&gt; |  Missing          │                 │     1 (2%)      │     1 (1%)      |</span></span>
+<span id="cb19-80"><a href="#cb19-80" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
 </div>
 <div id="group-variable" class="section level2">
 <h2>Group variable</h2>
@@ -894,81 +894,81 @@ lab results. The <code>cttab</code> will report the count and percentage
 of <code>TRUE</code>. This is useful if you want to report patient
 numbers for different condition that belong to one category. Below is
 how to do it:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data as before</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; safety detached.</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;PatientReg&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>base_lab <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;Lab&quot;</span>, <span class="at">visit =</span> <span class="st">&quot;SCREENING&quot;</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define abnormal</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>base_lab<span class="sc">$</span>ABNORMALT <span class="ot">&lt;-</span> base_lab<span class="sc">$</span>ALT <span class="sc">&gt;</span> <span class="fl">22.5</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="fu">var_lab</span>(base_lab<span class="sc">$</span>ABNORMALT) <span class="ot">&lt;-</span> <span class="st">&quot;ALT abnormal&quot;</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>base_lab<span class="sc">$</span>ABNORMAST <span class="ot">&lt;-</span> base_lab<span class="sc">$</span>AST <span class="sc">&gt;</span> <span class="fl">25.5</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">var_lab</span>(base_lab<span class="sc">$</span>ABNORMAST) <span class="ot">&lt;-</span> <span class="st">&quot;AST abnormal&quot;</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">merge</span>(df, base_lab, <span class="at">by =</span> <span class="st">&quot;subjid&quot;</span>)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Table</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>),</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># Group lab variable</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;Blood&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ALT&quot;</span>, <span class="st">&quot;AST&quot;</span>),</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># Group abnormal variable</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;Pts with Abnormal&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ABNORMAST&quot;</span>, <span class="st">&quot;ABNORMALT&quot;</span>)),</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Add some filtering</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>,</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;ALT&quot;</span> <span class="ot">=</span> <span class="st">&quot;PERF == 1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Prepare data as before</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">attach_pop</span>(<span class="st">&quot;1.1&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#&gt; safety detached.</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#&gt; safety attached containing: dt</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;PatientReg&quot;</span>, <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>base_lab <span class="ot">&lt;-</span> <span class="fu">extract_form</span>(dt, <span class="st">&quot;Lab&quot;</span>, <span class="at">visit =</span> <span class="st">&quot;SCREENING&quot;</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>                         <span class="at">vars_keep =</span> <span class="fu">c</span>(<span class="st">&quot;subjid&quot;</span>))</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="co"># Define abnormal</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>base_lab<span class="sc">$</span>ABNORMALT <span class="ot">&lt;-</span> base_lab<span class="sc">$</span>ALT <span class="sc">&gt;</span> <span class="fl">22.5</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="fu">var_lab</span>(base_lab<span class="sc">$</span>ABNORMALT) <span class="ot">&lt;-</span> <span class="st">&quot;ALT abnormal&quot;</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>base_lab<span class="sc">$</span>ABNORMAST <span class="ot">&lt;-</span> base_lab<span class="sc">$</span>AST <span class="sc">&gt;</span> <span class="fl">25.5</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="fu">var_lab</span>(base_lab<span class="sc">$</span>ABNORMAST) <span class="ot">&lt;-</span> <span class="st">&quot;AST abnormal&quot;</span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">merge</span>(df, base_lab, <span class="at">by =</span> <span class="st">&quot;subjid&quot;</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co"># Table</span></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>),</span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>                       <span class="co"># Group lab variable</span></span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>                       <span class="st">&quot;Blood&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ALT&quot;</span>, <span class="st">&quot;AST&quot;</span>),</span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>                       <span class="co"># Group abnormal variable</span></span>
+<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a>                       <span class="st">&quot;Pts with Abnormal&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ABNORMAST&quot;</span>, <span class="st">&quot;ABNORMALT&quot;</span>)),</span>
+<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,</span>
+<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a>           <span class="at">data =</span> df,</span>
+<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a>           <span class="co"># Add some filtering</span></span>
+<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a>           <span class="at">select =</span> <span class="fu">c</span>(<span class="st">&quot;BMIBL&quot;</span> <span class="ot">=</span> <span class="st">&quot;RACEN != 1&quot;</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a>                      <span class="st">&quot;ALT&quot;</span> <span class="ot">=</span> <span class="st">&quot;PERF == 1&quot;</span>))</span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>X                     </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦     Placebo     ¦    Research     ¦      Total      |</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       48        ¦       52        ¦       100       |</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   75.5 (7.86)   ¦   74.8 (8.04)   ¦   75.1 (7.93)   |</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦78.0 [57.0, 88.0]¦77.0 [56.0, 88.0]¦77.0 [56.0, 88.0]|</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Female           ¦   26/48 (54%)   ¦   25/52 (48%)   ¦  51/100 (51%)   |</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Male             ¦   22/48 (46%)   ¦   27/52 (52%)   ¦  49/100 (49%)   |</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦        5        ¦        6        ¦       11        |</span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   27.8 (3.98)   ¦   24.6 (3.54)   ¦   26.0 (3.93)   |</span></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦27.9 [23.4, 32.8]¦23.5 [21.3, 31.4]¦24.3 [21.3, 32.8]|</span></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Blood                                                                    |</span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       45        ¦       40        ¦       85        |</span></span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   18.1 (8.01)   ¦   22.1 (13.2)   ¦   20.0 (10.9)   |</span></span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦16.0 [7.00, 50.0]¦17.0 [8.00, 64.0]¦16.0 [7.00, 64.0]|</span></span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦                 ¦     2 (5%)      ¦     2 (2%)      |</span></span>
-<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       47        ¦       52        ¦       99        |</span></span>
-<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦   23.4 (7.09)   ¦   23.6 (7.05)   ¦   23.5 (7.04)   |</span></span>
-<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦23.0 [12.0, 54.0]¦21.5 [13.0, 52.0]¦23.0 [12.0, 54.0]|</span></span>
-<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Missing          ¦     1 (2%)      ¦                 ¦     1 (1%)      |</span></span>
-<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Pts with Abnormal                                                        |</span></span>
-<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------¦</span></span>
-<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |AST abnormal       ¦   13/48 (27%)   ¦   17/52 (33%)   ¦  30/100 (30%)   |</span></span>
-<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |ALT abnormal       ¦   9/48 (19%)    ¦   11/52 (21%)   ¦  20/100 (20%)   |</span></span>
-<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +-------------------------------------------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>X                     </span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; |Age                                                                      |</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                      |</span></span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
+<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
+<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
+<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co">#&gt; |Blood                                                                    |</span></span>
+<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
+<span id="cb21-30"><a href="#cb21-30" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-31"><a href="#cb21-31" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       45        │       40        │       85        |</span></span>
+<span id="cb21-32"><a href="#cb21-32" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   18.1 (8.01)   │   22.1 (13.2)   │   20.0 (10.9)   |</span></span>
+<span id="cb21-33"><a href="#cb21-33" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│16.0 [7.00, 50.0]│17.0 [8.00, 64.0]│16.0 [7.00, 64.0]|</span></span>
+<span id="cb21-34"><a href="#cb21-34" tabindex="-1"></a><span class="co">#&gt; |  Missing          │                 │     2 (5%)      │     2 (2%)      |</span></span>
+<span id="cb21-35"><a href="#cb21-35" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-36"><a href="#cb21-36" tabindex="-1"></a><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
+<span id="cb21-37"><a href="#cb21-37" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-38"><a href="#cb21-38" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       47        │       52        │       99        |</span></span>
+<span id="cb21-39"><a href="#cb21-39" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │   23.4 (7.09)   │   23.6 (7.05)   │   23.5 (7.04)   |</span></span>
+<span id="cb21-40"><a href="#cb21-40" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 54.0]│21.5 [13.0, 52.0]│23.0 [12.0, 54.0]|</span></span>
+<span id="cb21-41"><a href="#cb21-41" tabindex="-1"></a><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
+<span id="cb21-42"><a href="#cb21-42" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
+<span id="cb21-43"><a href="#cb21-43" tabindex="-1"></a><span class="co">#&gt; |Pts with Abnormal                                                        |</span></span>
+<span id="cb21-44"><a href="#cb21-44" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
+<span id="cb21-45"><a href="#cb21-45" tabindex="-1"></a><span class="co">#&gt; |AST abnormal       │   13/48 (27%)   │   17/52 (33%)   │  30/100 (30%)   |</span></span>
+<span id="cb21-46"><a href="#cb21-46" tabindex="-1"></a><span class="co">#&gt; |ALT abnormal       │   9/48 (19%)    │   11/52 (21%)   │  20/100 (20%)   |</span></span>
+<span id="cb21-47"><a href="#cb21-47" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
 </div>
 <div id="rounding" class="section level2">
 <h2>Rounding</h2>
@@ -979,38 +979,38 @@ rounding function is <code>signif_pad</code>, you can also use
 summary. The <code>format_percent</code> function is used to format the
 percentage values. There is <code>format_pval</code> might be useful to
 you.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">digits =</span> <span class="dv">2</span>,                     <span class="co"># Keep 2 digits for numerical </span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">digits_pct =</span> <span class="dv">1</span>,                 <span class="co"># Keep 1 digits for percentage</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">rounding_fn =</span> round)            <span class="co"># Use function round for rounding</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cttab</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="st">&quot;AGE&quot;</span>, <span class="st">&quot;SEX&quot;</span>, <span class="st">&quot;BMIBL&quot;</span>), <span class="co"># Variable to report</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">&quot;ARM&quot;</span>,                  <span class="co"># Group variable</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>           <span class="at">data =</span> df,                      <span class="co"># Data</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>           <span class="at">digits =</span> <span class="dv">2</span>,                     <span class="co"># Keep 2 digits for numerical </span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>           <span class="at">digits_pct =</span> <span class="dv">1</span>,                 <span class="co"># Keep 1 digits for percentage</span></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>           <span class="at">rounding_fn =</span> round)            <span class="co"># Use function round for rounding</span></span></code></pre></div>
 <p><img src="data:text/html; charset=iso-8859-1;charset=utf-8,%3C%21DOCTYPE%20HTML%20PUBLIC%20%22%2D%2F%2FIETF%2F%2FDTD%20HTML%202%2E0%2F%2FEN%22%3E%0A%3Chtml%3E%3Chead%3E%0A%3Ctitle%3E404%20Not%20Found%3C%2Ftitle%3E%0A%3C%2Fhead%3E%3Cbody%3E%0A%3Ch1%3ENot%20Found%3C%2Fh1%3E%0A%3Cp%3EThe%20requested%20URL%20was%20not%20found%20on%20this%20server%2E%3C%2Fp%3E%0A%3C%2Fbody%3E%3C%2Fhtml%3E%0A" width="672" /></p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>X</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |                   ¦     Placebo     ¦     Research     ¦      Total       |</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Observation        ¦       48        ¦        52        ¦       100        |</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Age                                                                        |</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       48        ¦        52        ¦       100        |</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦  75.52 (7.86)   ¦   74.75 (8.04)   ¦   75.12 (7.93)   |</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦   78 [57, 88]   ¦   77 [56, 88]    ¦   77 [56, 88]    |</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                        |</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Female           ¦  26/48 (54.2%)  ¦  25/52 (48.1%)   ¦  51/100 (51.0%)  |</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Male             ¦  22/48 (45.8%)  ¦  27/52 (51.9%)   ¦  49/100 (49.0%)  |</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                      |</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------¦</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       ¦       48        ¦        52        ¦       100        |</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        ¦  23.55 (4.05)   ¦   25.29 (4.1)    ¦   24.45 (4.15)   |</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]¦23.1 [15.1, 33.3]¦25.25 [13.7, 33.6]¦24.35 [13.7, 33.6]|</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +---------------------------------------------------------------------------+</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>X</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt; ┌───────────────────┬─────────────────┬──────────────────┬──────────────────┐</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt; |                   │     Placebo     │     Research     │      Total       |</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">#&gt; |Observation        │       48        │        52        │       100        |</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="co">#&gt; |Age                                                                        |</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       48        │        52        │       100        |</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │  75.52 (7.86)   │   74.75 (8.04)   │   75.12 (7.93)   |</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│   78 [57, 88]   │   77 [56, 88]    │   77 [56, 88]    |</span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co">#&gt; |Sex                                                                        |</span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a><span class="co">#&gt; |  Female           │  26/48 (54.2%)  │  25/52 (48.1%)   │  51/100 (51.0%)  |</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a><span class="co">#&gt; |  Male             │  22/48 (45.8%)  │  27/52 (51.9%)   │  49/100 (49.0%)  |</span></span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                      |</span></span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a><span class="co">#&gt; |  Valid Obs.       │       48        │        52        │       100        |</span></span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a><span class="co">#&gt; |  Mean (SD)        │  23.55 (4.05)   │   25.29 (4.1)    │   24.45 (4.15)   |</span></span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co">#&gt; |  Median [Min, Max]│23.1 [15.1, 33.3]│25.25 [13.7, 33.6]│24.35 [13.7, 33.6]|</span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a><span class="co">#&gt; └───────────────────┴─────────────────┴──────────────────┴──────────────────┘</span></span></code></pre></div>
 </div>
 </div>
 <div id="cross-reference" class="section level1">

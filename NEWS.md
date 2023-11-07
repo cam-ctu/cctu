@@ -1,0 +1,10 @@
+V 0.7.6
+
+-	The apply_macro_dict() function is faster now. By default, evaluating whether a category variable's type is numeric before converting is skipped.
+-	Table and figure numbers are locked, saving Word to PDF will not change the numbers.
+-	Figures are embedded in the document. No need to perform “save picture in document”.
+-	Dynamically add footnotes to the tables and figures in write_table() and write_ggplot().
+-	There’s a new function write_plot() to save figures other than the ggplot family, KM-plot from survminer for example. 
+-	Bug fix: headings will be used if it is provided in the write_table().
+- p_format will round pvalues and convert to <0.001 as a character variable.
+

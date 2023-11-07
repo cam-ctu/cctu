@@ -30,3 +30,21 @@ test_that("alternative dimension",
             rm(.old_meta, .parent)
             }
 )
+
+
+test_that("test write_plot",{
+  .old_meta <- set_meta_table(cctu::meta_table_example)
+  .parent <- cctu_env$parent
+  assign("parent", NULL, envir = cctu_env)
+  new_plot <- function(x, y, h, v) {
+    par(pty = "s", cex = 0.7) # adjust plot style
+    plot(x, y)
+    abline(h = h,v = v, lty=2) # add some lines
+  }
+  write_plot(plot_fn = new_plot,
+             number = "1.10",
+             plot_args = list(x = iris[,1], y = iris[,2],
+                              h = 2.5, v = 6.0))
+
+})
+

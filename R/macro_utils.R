@@ -14,6 +14,8 @@
 #'  used to clean the empty rows and/or columns. If the data is large, this will
 #'  take a long time, should be set to \code{"none"} in this case. Use
 #' \code{options(cctu_rm_empty = "none")} to set global options.
+#' @param check_catvar Check values of the category variable (defined in the DLU file) 
+#' contain any non-numeric values before converting variables to numeric.
 #'
 #' @details
 #'
@@ -73,7 +75,8 @@ apply_macro_dict <- function(data,
                              clu = NULL,
                              date_format = "%d/%m/%Y",
                              clean_names = TRUE,
-                             rm_empty = getOption("cctu_rm_empty", default = "both")){
+                             rm_empty = getOption("cctu_rm_empty", default = "both"),
+                             check_catvar = FALSE){
 
   data <- data.table::as.data.table(data)
 
@@ -123,16 +126,14 @@ apply_macro_dict <- function(data,
   # Convert numeric
   num_cols1 <- dlu[dlu$type %in% c("IntegerData", "Real"), "shortcode"]
   num_cols2 <- dlu[dlu$type %in% c("Category"), "shortcode"]
-  num_cols2 <- num_cols2[which(sapply(data[, num_cols2, with = FALSE], all_is_numeric))] # avoid none-numeric
+
+  if(check_catvar)
+    num_cols2 <- num_cols2[which(sapply(data[, num_cols2, with = FALSE], all_is_numeric))] # avoid none-numeric
+  
   num_cols <- c(num_cols1, num_cols2)
 
   for (j in num_cols)
     set(data, j = j, value = as.numeric(data[[j]]))
-
-  # Convert characters
-  text_cols <- dlu[dlu$type == "Text", "shortcode"]
-  for (j in text_cols)
-    set(data, j = j, value = as.character(data[[j]]))
 
   # Add variable label attributes
   col_list <- dlu$description
@@ -206,21 +207,6 @@ tidy_dlu <- function(x, clean_names = TRUE){
   }
 
   return(dlu)
-}
-
-
-#' @name sep_dlu
-#' @title Separates out visit/form/question from DLU
-#' @description Deprecated so included for back compatibility
-#' @inheritParams tidy_dlu
-#' @returns A data.frame with expanded, separated variables
-#' @seealso \code{\link{tidy_dlu}}
-#' @export
-
-
-sep_dlu <- function(x, clean_names=TRUE){
-  .Deprecated("tidy_dlu")
-  tidy_dlu(x, clean_names = clean_names)
 }
 
 

@@ -13,6 +13,32 @@ test_that("alternative dimension for table",
               "Unable to identify the code file that created table"
             )
             X <- data.frame(x=1,y=1)
+            # Check length
+            expect_error(write_table(X, number="1.1",
+                                     heading=c("x<2", "Y>3", "No")),
+                         "Heading should have the same")
+
+            # Provide heading should be the same as labeling
+            dir1 <- tempdir()
+            write_table(X, number="1.1", directory = dir1,
+                        heading=c("x<2", "Y>3"),
+                        clean_up = FALSE)
+            dir2 <- tempdir()
+            var_lab(X$x) <- "x<2"
+            var_lab(X$y) <- "Y>3"
+            write_table(X, number="1.1", directory = dir2,
+                        clean_up = FALSE)
+            compare_file_text(file.path(dir1, "table_1.1.xml"),
+                              file.path(dir2, "table_1.1.xml"))
+            class(X) <- c(class(X), "cttab")
+            dir3 <- tempdir()
+            write_table(X, number="1.1", directory = dir3,
+                        clean_up = FALSE)
+            compare_file_text(file.path(dir1, "table_1.1.xml"),
+                              file.path(dir3, "table_1.1.xml"))
+
+            X <- data.frame(x=1,y=1)
+            # Test footnote
             write_table(X, number="1.1", heading=c("x<2", "Y>3"),
                         footnote = "I am custom footnote")
             mt_tab <- get_meta_table()

@@ -48,8 +48,8 @@ write_ggplot(
 writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
 }
 \description{
-Function to save ggplot figures.
+This is a wrapup function of \code{\link{write_plot}} to print \code{ggplot} object.
 }
 \seealso{
-\code{\link{write_table}}
+\code{\link{write_table}}  \code{\link{write_plot}}
 }

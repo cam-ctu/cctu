@@ -563,7 +563,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Vignette Report HTML</h1>
 <h4 class="author">Simon Bond</h4>
-<h4 class="date">31 May, 2023, 11:58</h4>
+<h4 class="date">07 November, 2023, 16:18</h4>
 
 
 <div id="TOC">
@@ -902,7 +902,7 @@ dirtydata.csv
 U:/My Documents/R/win-library/4.1/cctu/extdata
 </td>
 <td style="text-align:left;">
-2023-05-31 11:49:03
+2023-11-07 16:15:58
 </td>
 <td style="text-align:left;">
 U:/My Documents/R/win-library/4.1/cctu/extdata/dirtydata.csv
@@ -919,7 +919,7 @@ codes.csv
 U:/My Documents/R/win-library/4.1/cctu/extdata
 </td>
 <td style="text-align:left;">
-2023-05-31 11:49:03
+2023-11-07 16:15:58
 </td>
 <td style="text-align:left;">
 U:/My Documents/R/win-library/4.1/cctu/extdata/codes.csv
@@ -933,11 +933,11 @@ U:/My Documents/R/win-library/4.1/cctu/extdata/codes.csv
 <h1>Actual implimentation</h1>
 <p>This would typically be called from <code>main.R</code> like, to
 achieve a html version of the main report.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="fu">file.path</span>(<span class="st">&quot;Progs&quot;</span>,<span class="st">&quot;rmarkdown_report.Rmd&quot;</span>),</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">output_file =</span><span class="st">&quot;Vignette Report.html&quot;</span>,<span class="at">output_dir =</span> <span class="fu">file.path</span>(<span class="st">&quot;Output&quot;</span>,<span class="st">&quot;Reports&quot;</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">params=</span><span class="fu">list</span>(<span class="at">my_author=</span><span class="st">&quot;Simon Bond&quot;</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">my_title=</span> <span class="st">&quot;Vignette Report&quot;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render</span>(<span class="fu">file.path</span>(<span class="st">&quot;Progs&quot;</span>,<span class="st">&quot;rmarkdown_report.Rmd&quot;</span>),</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>       <span class="at">output_file =</span><span class="st">&quot;Vignette Report.html&quot;</span>,<span class="at">output_dir =</span> <span class="fu">file.path</span>(<span class="st">&quot;Output&quot;</span>,<span class="st">&quot;Reports&quot;</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>       <span class="at">params=</span><span class="fu">list</span>(<span class="at">my_author=</span><span class="st">&quot;Simon Bond&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>                   <span class="at">my_title=</span> <span class="st">&quot;Vignette Report&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>)</span></code></pre></div>
 <p>NB use the file <code>/scripts/Progs/rmarkdown_report.Rmd</code> and
 not the similarly named one within <code>/scripts</code> . Building
 vignettes requires these two slighlty different versions.</p>

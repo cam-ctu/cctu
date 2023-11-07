@@ -8,7 +8,7 @@ TableofTables}
 write_table(
   X,
   number = cctu_env$number,
-  heading = colnames(X),
+  heading = NULL,
   na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
   clean_up = TRUE,
   directory = file.path("Output", "Core"),

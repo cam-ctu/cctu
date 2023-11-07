@@ -14,11 +14,20 @@ test_that("Numeric", {
 
   x <- render_numeric(mtcars$mpg,
                       what = c("Geo. Mean (Geo. CV%)" = "GMean (GCV)",
+                               "Geo. SD" = "GSD",
                                "Median [IQR]" = "Median [IQR]"))
   expect_identical(x, c("Valid Obs." = "32",
                         "Mean (SD)"  = "20.1 (6.03)",
                         "Geo. Mean (Geo. CV%)" = "19.3 (30.4%)",
+                        "Geo. SD" = "1.35",
                         "Median [IQR]" = "19.2 [7.38]"))
+  # Quantile
+  x <- render_numeric(mtcars$mpg,
+                      what = c("Median [Q1, Q3]" = "Median [Q1, Q3]"))
+
+  expect_identical(x, c("Valid Obs." = "32",
+                        "Mean (SD)"  = "20.1 (6.03)",
+                        "Median [Q1, Q3]" = "19.2 [15.4, 22.8]"))
 
   x <- render_numeric(mtcars$mpg,
                       what = c("GMean (GCV)",

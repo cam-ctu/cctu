@@ -34,7 +34,7 @@
 #' is_empty(d)
 #'
 #' # empty list
-#' is_empty(list(NULL))
+#' # is_empty(list(NULL))
 #'
 #' # NA vector
 #' x <- rep(NA,5)

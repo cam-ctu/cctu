@@ -38,7 +38,7 @@ render_numeric <- function(x, what = "Median [Min, Max]", ...){
   res <- num_stat(x, ...)
 
   # Check if the statistics are supported
-  stat_vals <- gsub("\\s", "", unlist(strsplit(what, '[^a-zA-Z]')))
+  stat_vals <- gsub("\\s", "", unlist(strsplit(what, '[^a-zA-Z0-9]')))
   stat_vals <- stat_vals[stat_vals != ""]
   not_in <- !toupper(stat_vals) %in% names(res)
   if(any(not_in))
@@ -53,7 +53,7 @@ render_numeric <- function(x, what = "Median [Min, Max]", ...){
 
   # Replace the values
   cust_stat <- sapply(what, function(i){
-    stat_vals <- gsub("\\s", "", unlist(strsplit(i, '[^a-zA-Z]')))
+    stat_vals <- gsub("\\s", "", unlist(strsplit(i, '[^a-zA-Z0-9]')))
     stat_vals <- stat_vals[stat_vals != ""]
     for(j in stat_vals){
       i <- gsub(j, res[[toupper(j)]], i)
@@ -133,6 +133,7 @@ render_cat <- function(x, ...){
 #'   \item \code{GMEAN}: the geometric mean of the non-missing values if non-negative, or \code{NA}
 #'   \item \code{GCV}: the percent geometric coefficient of variation of the
 #'   non-missing values if non-negative, or \code{NA}
+#'   \item \code{GSD}: the geometric standard deviation of the non-missing values if non-negative, or \code{NA}
 #'   \item \code{Q1}: the first quartile of the non-missing values (alias \code{q25})
 #'   \item \code{Q2}: the second quartile of the non-missing values (alias \code{q50} or \code{Median})
 #'   \item \code{Q3}: the third quartile of the non-missing values (alias \code{q75})
@@ -174,6 +175,7 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
               CV = NA,
               GMEAN = NA,
               GCV = NA,
+              GSD = NA,
               Q1=NA,
               Q2=NA,
               Q3=NA,
@@ -199,6 +201,10 @@ num_stat <- function(x, digits = 3, digits_pct = 1, rounding_fn = signif_pad){
                 sqrt(exp(sd(
                   log(x), na.rm = TRUE
                 ) ^ 2) - 1),
+              GSD = if (any(na.omit(x) <= 0))
+                NA
+              else
+                exp(sd(log(x), na.rm = TRUE)),
               MEDIAN = median(x, na.rm = TRUE),
               MIN = min(x, na.rm = TRUE),
               Q1=q["25%"],

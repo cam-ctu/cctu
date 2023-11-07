@@ -3,6 +3,7 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 xmlns:aml="http://schemas.microsoft.com/aml/2001/core"
 xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
 xmlns:v="urn:schemas-microsoft-com:vml"
 xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 >
@@ -196,7 +197,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
           <xsl:if test="$titletype='Figure'">
             <w:instrText> SEQ Figure \* ARABIC</w:instrText>
           </xsl:if>
-          <w:fldChar w:fldCharType="separate" />
+          <w:fldChar w:fldCharType="separate" w:fldLock="true"/>
           <w:t><xsl:value-of select="number"/></w:t>
           <w:t xml:space="preserve"> </w:t>
         <w:fldChar w:fldCharType="end" />
@@ -406,6 +407,9 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 <!--Footnote-->
 <xsl:template match="footnote" name="footnote">
 <w:br/>
+<w:pPr>
+  <w:jc w:val="left"/>
+</w:pPr>
 <w:r>
 <w:t>
 <xsl:call-template name="insertBreaks" /><!--Convert line break-->
@@ -455,6 +459,22 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 		<w:jc w:val="center"/>
 	</w:pPr>
 	<w:r>
+    <xsl:variable name="imgpath">
+      <xsl:text>wordml://</xsl:text>
+      <xsl:value-of select="src"/>
+    </xsl:variable>
+    <xsl:variable name="heightwidth">
+      <xsl:value-of select="figuresize"/>
+    </xsl:variable>
+    <w:pict>
+      <w:binData w:name="{$imgpath}">
+        <xsl:value-of select="figBase64"/>
+      </w:binData>
+      <v:shape id="{generate-id()}" style="{$heightwidth}">
+        <v:imagedata src="{$imgpath}"/>
+      </v:shape>
+    </w:pict>
+<!---
 	<w:pict>
 		<v:shape>
 			<xsl:attribute name="style">
@@ -472,6 +492,7 @@ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 			</v:imagedata>
 		</v:shape>
 	</w:pict>
+-->
     </w:r>
 </w:p>
 <w:p>

@@ -35,6 +35,7 @@ A list. For numeric \code{x}, the list contains the numeric elements:
   \item \code{GMEAN}: the geometric mean of the non-missing values if non-negative, or \code{NA}
   \item \code{GCV}: the percent geometric coefficient of variation of the
   non-missing values if non-negative, or \code{NA}
+  \item \code{GSD}: the geometric standard deviation of the non-missing values if non-negative, or \code{NA}
   \item \code{Q1}: the first quartile of the non-missing values (alias \code{q25})
   \item \code{Q2}: the second quartile of the non-missing values (alias \code{q50} or \code{Median})
   \item \code{Q3}: the third quartile of the non-missing values (alias \code{q75})

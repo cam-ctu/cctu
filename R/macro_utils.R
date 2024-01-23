@@ -6,7 +6,9 @@
 #' @param data Data frame to be applied.
 #' @param dlu Data frame of DLU, see \code{\link{tidy_dlu}} for the requirements of DLU.
 #' @param clu Data frame of CLU, see details for the requirements of CLU.
-#' @param date_format Date format to be converted, default is `\%d/\%m/\%Y`.
+#' @param date_format Date format that will be tried by \code{\link[base]{as.POSIXct}}, 
+#' default is \code{c("\%d/\%m/\%Y", "\%Y-\%m-\%d", "\%Y/\%m/\%d")}. You can add other formats you
+#' may want to try. The conversion will be skipped if the formating does not succeed.
 #' @param clean_names Conver variable name to lower case (default), this will also change the
 #' values in the DLU as well. See \code{\link{clean_names}} for details.
 #' @param rm_empty Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
@@ -47,8 +49,8 @@
 #'   \item{Real}: Convert to numeric.
 #'   \item{Category}: If there are any non-numeric characters in the variable, no conversion
 #' will be performed, otherwise convert to numeric.
-#'   \item{Date}: Convert data date format with \code{\link{as.Date}}. The \code{date_format}
-#' will be used to feed the \code{\link{as.Date}} function during the conversion.
+#'   \item{Date}: Convert data date format with \code{\link[base]{as.POSIXct}}. The \code{date_format}
+#' will be used to feed the \code{\link[base]{as.POSIXct}} function during the conversion.
 #'   \item{Text}: Convert to character.
 #' }
 #' }
@@ -73,7 +75,7 @@
 apply_macro_dict <- function(data,
                              dlu,
                              clu = NULL,
-                             date_format = "%d/%m/%Y",
+                             date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d"),
                              clean_names = TRUE,
                              rm_empty = getOption("cctu_rm_empty", default = "both"),
                              check_catvar = FALSE){
@@ -98,6 +100,8 @@ apply_macro_dict <- function(data,
 
   if(clean_names){
     colnames(data) <- clean_string(names(data))
+    dlu$shortcode <- clean_string(dlu$shortcode)
+    dlu$question <- clean_string(dlu$question)
   }
 
   # Store DLU file inside the cctu env
@@ -120,8 +124,32 @@ apply_macro_dict <- function(data,
 
   # Convert date
   date_cols <- dlu[dlu$type == "Date", "shortcode"]
-  for (j in date_cols)
-    set(data, j = j, value = as.Date(data[[j]], date_format))
+  for (j in date_cols){
+
+    #if(!all(unique(nchar(data[[j]])) %in% 10)){
+    #  message(paste("Variable", j,"is not a valid date and will be skipped."))
+    #  next
+    #}
+
+    skip_to_next <- FALSE
+    
+    val <- data[[j]]
+    val[val == ""] <- NA
+    val <- tryCatch(as.POSIXct(val, tryFormats = date_format),
+                    error = function(e){
+                      message(paste("An error occurred when converting variable", j,"to date and will be skipped:\n"), 
+                              conditionMessage(e))
+                      skip_to_next <<- TRUE
+                    },
+                    warning = function(w) {
+                      message(paste("A warning occurred when converting variable", j,"to date and will be skipped:\n"), 
+                              conditionMessage(w))
+                      skip_to_next <<- TRUE
+                    })
+    if(skip_to_next) { next }  
+    data[[j]] <- val
+    # set(data, j = j, value = val)
+  }
 
   # Convert numeric
   num_cols1 <- dlu[dlu$type %in% c("IntegerData", "Real"), "shortcode"]

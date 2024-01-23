@@ -126,3 +126,38 @@ test_that("Remove empty cols and rows", {
 
 
 })
+
+
+test_that("Test date conversion", {
+
+  dat <- data.frame(
+    mdy = c("2015/06/28", "2016/11/25", NA),
+    mdy.time = c("2015/06/28 06:13:10", "2016/11/25 18:13:10", NA),
+    dmy.part = c("06/2015", "25/11/2016", NA),
+    dmy = c("28/06/2015", "", "25/11/2016"),
+    time = c("06:13:10", "18:13:10", NA)
+  )
+
+  dlu <- data.frame(
+    shortcode = c("mdy", "mdy.time", "dmy.part", "dmy", "time"),
+    description = c("mdy", "mdy.time", "dmy.part", "dmy", "time"),
+    type = rep("Date", 5),
+    visit = rep("COVER", 5),
+    form = rep("PatientReg", 5),
+    question = c("mdy", "mdy.time", "dmy.part", "dmy", "time")
+  )
+
+  # Remove empty columns and rows
+  df <- apply_macro_dict(dat, dlu)
+
+  # Should not be converted
+  expect_type(df$dmy_part, "character")
+  expect_equivalent(df$dmy_part, dat$dmy.part)
+
+  expect_is(df$mdy_time, "POSIXct")
+  expect_is(df$dmy, "POSIXct")
+
+})
+
+
+

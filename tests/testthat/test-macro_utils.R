@@ -153,8 +153,8 @@ test_that("Test date conversion", {
   expect_type(df$dmy_part, "character")
   expect_equivalent(df$dmy_part, dat$dmy.part)
 
-  expect_is(df$mdy_time, "POSIXct")
-  expect_is(df$dmy, "POSIXct")
+  expect_is(df$mdy_time, "Date")
+  expect_is(df$dmy, "Date")
 
 
   # Test with hour

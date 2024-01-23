@@ -8,7 +8,7 @@ apply_macro_dict(
   data,
   dlu,
   clu = NULL,
-  date_format = "\%d/\%m/\%Y",
+  date_format = c("\%d/\%m/\%Y", "\%Y-\%m-\%d", "\%Y/\%m/\%d"),
   clean_names = TRUE,
   rm_empty = getOption("cctu_rm_empty", default = "both"),
   check_catvar = FALSE
@@ -21,9 +21,11 @@ apply_macro_dict(
 
 \item{clu}{Data frame of CLU, see details for the requirements of CLU.}
 
-\item{date_format}{Date format to be converted, default is `\%d/\%m/\%Y`.}
+\item{date_format}{Date format that will be tried by \code{\link[base]{as.POSIXct}},
+default is \code{c("\%d/\%m/\%Y", "\%Y-\%m-\%d", "\%Y/\%m/\%d")}. You can add other formats you
+may want to try. The conversion will be skipped if the formatting does not succeed.}
 
-\item{clean_names}{Conver variable name to lower case (default), this will also change the
+\item{clean_names}{Convert variable name to lower case (default), this will also change the
 values in the DLU as well. See \code{\link{clean_names}} for details.}
 
 \item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
@@ -32,7 +34,7 @@ values in the DLU as well. See \code{\link{clean_names}} for details.}
  take a long time, should be set to \code{"none"} in this case. Use
 \code{options(cctu_rm_empty = "none")} to set global options.}
 
-\item{check_catvar}{Check values of the category variable (defined in the DLU file) 
+\item{check_catvar}{Check values of the category variable (defined in the DLU file)
 contain any non-numeric values before converting variables to numeric.}
 }
 \value{
@@ -70,8 +72,8 @@ to clean the DLU.
   \item{Real}: Convert to numeric.
   \item{Category}: If there are any non-numeric characters in the variable, no conversion
 will be performed, otherwise convert to numeric.
-  \item{Date}: Convert data date format with \code{\link{as.Date}}. The \code{date_format}
-will be used to feed the \code{\link{as.Date}} function during the conversion.
+  \item{Date}: Convert data date format with \code{\link[base]{as.POSIXct}}. The \code{date_format}
+will be used to feed the \code{\link[base]{as.POSIXct}} function during the conversion.
   \item{Text}: Convert to character.
 }
 }

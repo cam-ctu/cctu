@@ -12,6 +12,12 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 test_that("Apply DLU and CLU files", {
+
+  dlu_t <- tidy_dlu(dlu)
+  set_dlu(dlu)
+
+  expect_identical(get_dlu(), dlu_t)
+
   df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
   expect_s3_class(df, "data.table")
   expect_identical(var_lab(df$ARM), "Treatment Arm")

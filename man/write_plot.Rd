@@ -5,6 +5,7 @@
 \title{Function to save plot figures}
 \usage{
 write_plot(
+  ...,
   plot_fn = plot,
   number = cctu_env$number,
   width = 29.7 * 0.6,
@@ -21,7 +22,11 @@ write_plot(
 )
 }
 \arguments{
-\item{plot_fn}{function to draw a plot.}
+\item{...}{Arguments to be passed to the ploting function \code{plot_fn} below.}
+
+\item{plot_fn}{function to draw a plot. This can be simple \code{print} OR \code{plot} (default)
+OR a custom plot drawing function depending on how the plot was drawn. See the
+\code{details} and \code{examples} below.}
 
 \item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
 
@@ -45,7 +50,7 @@ write_plot(
 
 \item{footnote}{character vector, can be used to add footnotes.}
 
-\item{plot_args}{A named list arguments for \code{plot_fn}.}
+\item{plot_args}{Deprecated, kept here for backcompatibility. A named list arguments for \code{plot_fn}.}
 }
 \value{
 writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
@@ -55,12 +60,19 @@ One may not always use \code{ggplot2} to draw plot, base \code{plot} function fo
 this function is particularly useful in that situation.
 }
 \details{
-The \code{plot_fn} can be a user defined function to draw plot. All parameters should
-be passed with names. Checkout the examples below.
+The \code{plot_fn} can be a user defined function to draw plot. Let us assume the
+object \code{p} is your plot object. If you can see the plot by simply typing
+ \code{p} on the console, then this should be \code{print}. If you can see the plot
+by simply typing \code{plot(p)} on the console, then this should be \code{plot}.
+
+All parameters should be passed with names. Checkout the examples below.
 }
 \examples{
 \dontrun{
-# Below is a simple example.
+#####################################
+# Below is a simple example ========#
+#####################################
+#
 write_plot(plot_fn = plot, plot_args = list(x = iris[,1], y = iris[,2]))
 # This is equivalent drawing the following plot and save it
 plot(x = iris[,1], y = iris[,2])
@@ -72,18 +84,44 @@ new_plot <- function(x, y, h, v) {
    plot(x, y)
    abline(h = h,v = v, lty=2) # add some lines
 }
-write_plot(plot_fn = new_plot, plot_args = list(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0))
+write_plot(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0, plot_fn = new_plot)
 
-# To draw a KM-plot from survminer package
+
+####################################################
+# To draw a KM-plot from survminer package ========#
+####################################################
+
 library("survival")
 library("survminer")
 fit<- survfit(Surv(time, status) ~ sex, data = lung)
 # Drawing survival curves
 p <- ggsurvplot(fit, data = lung)
-write_plot(plot_fn = survminer:::print.ggsurvplot, plot_args = list(x = p))
+write_plot(p, plot_fn = survminer:::print.ggsurvplot)
 # The code above works because the p is a ggsurvplot object (check it with class(p))
 # There's a printing function print.ggsurvplot to handle the printing of the KM-plot.
 # But this function is not exported by survminer, so we need to use three colons.
+
+#####################################
+# Draw a consort diagram ===========#
+#####################################
+
+library(grid)
+# Might want to change some settings
+txt0 <- c("Study 1 (n=160)", "Study 2 (n=140)")
+txt1 <- "Population (n=300)"
+txt1_side <- "Excluded (n=15):\n\u2022 MRI not collected (n=15)"
+
+# supports pipeline operator
+g <- add_box(txt = txt0) |>
+  add_box(txt = txt1) |>
+  add_side_box(txt = txt1_side) |>
+  add_box(txt = "Randomized (n=200)")
+# Since you can draw the plot g with plot(g), the ploting function is plot
+# The plotting function is \code{plot.consort}, so simple plot or plot.consort works
+write_plot(g, plot_fn = plot)
+# Or just
+write_plot(g)
+
 }
 }
 \seealso{

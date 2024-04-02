@@ -126,13 +126,6 @@ apply_macro_dict <- function(data,
   date_cols <- dlu[dlu$type == "Date", "shortcode"]
   for (j in date_cols){
 
-    #if(!all(unique(nchar(data[[j]])) %in% 10)){
-    #  message(paste("Variable", j,"is not a valid date and will be skipped."))
-    #  next
-    #}
-
-    skip_to_next <- FALSE
-
     val <- data[[j]]
     val[val == ""] <- NA
     has_time <- all(grepl(":", na.omit(val)))
@@ -145,14 +138,14 @@ apply_macro_dict <- function(data,
                     error = function(e){
                       message(paste("An error occurred when converting variable", j,"to date and will be skipped:\n"),
                               conditionMessage(e))
-                      skip_to_next <<- TRUE
+                      return("ERROR")
                     },
                     warning = function(w) {
                       message(paste("A warning occurred when converting variable", j,"to date and will be skipped:\n"),
                               conditionMessage(w))
-                      skip_to_next <<- TRUE
+                      return("ERROR")
                     })
-    if(skip_to_next) { next }
+    if("ERROR" %in% val) { next }
 
     data[[j]] <- val
     # set(data, j = j, value = val)

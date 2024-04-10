@@ -1,1 +1,2 @@
-.libPaths(c("U:/My Documents/R/win-library/4.1"))
+source("renv/activate.R")
+#.libPaths(c("U:/My Documents/R/win-library/4.1"))

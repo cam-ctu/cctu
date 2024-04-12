@@ -12,6 +12,12 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package="cctu"))
 dt$subjid <- substr(dt$USUBJID, 8, 11)
 
 test_that("Apply DLU and CLU files", {
+
+  dlu_t <- tidy_dlu(dlu)
+  set_dlu(dlu)
+
+  expect_identical(get_dlu(), dlu_t)
+
   df <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
   expect_s3_class(df, "data.table")
   expect_identical(var_lab(df$ARM), "Treatment Arm")
@@ -126,3 +132,48 @@ test_that("Remove empty cols and rows", {
 
 
 })
+
+
+test_that("Test date conversion", {
+
+  dat <- data.frame(
+    mdy = c("2015/06/28", "2016/11/25", NA),
+    mdy.time = c("2015/06/28 06:13:10", "2016/11/25 18:13:10", NA),
+    dmy.part = c("06/2015", "25/11/2016", NA),
+    dmy = c("28/06/2015", "", "25/11/2016"),
+    time = c("06:13:10", "18:13:10", NA)
+  )
+
+  dlu <- data.frame(
+    shortcode = c("mdy", "mdy.time", "dmy.part", "dmy", "time"),
+    description = c("mdy", "mdy.time", "dmy.part", "dmy", "time"),
+    type = rep("Date", 5),
+    visit = rep("COVER", 5),
+    form = rep("PatientReg", 5),
+    question = c("mdy", "mdy.time", "dmy.part", "dmy", "time")
+  )
+
+  df <- apply_macro_dict(dat, dlu)
+
+  # Should not be converted
+  expect_type(df$dmy_part, "character")
+  expect_equivalent(df$dmy_part, dat$dmy.part)
+
+  expect_is(df$mdy_time, "Date")
+  expect_is(df$dmy, "Date")
+
+
+  # Test with hour
+  df <- apply_macro_dict(dat, dlu,
+                         date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d %H:%M:%S"))
+
+  expect_is(df$mdy_time, "POSIXct")
+  expect_is(df$mdy, "character")
+  expect_equivalent(df$mdy, dat$mdy)
+  expect_is(df$dmy, "Date")
+
+
+})
+
+
+

@@ -1,0 +1,102 @@
+<style>
+.hmisctable291263 {
+border: 1px solid gray;
+border-collapse: collapse;
+font-size: 100%;
+}
+.hmisctable291263 td {
+text-align: right;
+padding: 0 1ex 0 1ex;
+}
+.hmisctable291263 th {
+color: Black;
+text-align: center;
+padding: 0 1ex 0 1ex;
+font-weight: bold;
+}
+</style>
+<table class="hmisctable291263" border="1">
+<tr><td>glm(formula = response ~ sex, family = binomial, data = sex.age.response)</td></tr>
+<tr><td>response ~ sex</td></tr>
+<tr><td>list(family = "binomial", link = "logit", linkfun = function (mu) 
+.Call(C_logit_link, mu), linkinv = function (eta) 
+.Call(C_logit_linkinv, eta), variance = function (mu) 
+mu * (1 - mu), dev.resids = function (y, mu, wt) 
+.Call(C_binomial_dev_resids, y, mu, wt), aic = function (y, n, mu, wt, dev) 
+{
+    m <- if (any(n > 1)) 
+        n
+    else wt
+    -2 * sum(ifelse(m > 0, (wt/m), 0) * dbinom(round(m * y), round(m), mu, log = TRUE))
+}, mu.eta = function (eta) 
+.Call(C_logit_mu_eta, eta), initialize = {
+    if (NCOL(y) == 1) {
+        if (is.factor(y)) 
+            y <- y != levels(y)[1]
+        n <- rep.int(1, nobs)
+        y[weights == 0] <- 0
+        if (any(y < 0 | y > 1)) 
+            stop("y values must be 0 <= y <= 1")
+        mustart <- (weights * y + 0.5)/(weights + 1)
+        m <- weights * y
+        if ("binomial" == "binomial" && any(abs(m - round(m)) > 0.001)) 
+            warning(gettextf("non-integer #successes in a %s glm!", "binomial"), domain = NA)
+    }
+    else if (NCOL(y) == 2) {
+        if ("binomial" == "binomial" && any(abs(y - round(y)) > 0.001)) 
+            warning(gettextf("non-integer counts in a %s glm!", "binomial"), domain = NA)
+        n <- (y1 <- y[, 1]) + y[, 2]
+        y <- y1/n
+        if (any(n0 <- n == 0)) 
+            y[n0] <- 0
+        weights <- weights * n
+        mustart <- (n * y + 0.5)/(n + 1)
+    }
+    else stop(gettextf("for the '%s' family, y must be a vector of 0 and 1's\nor a 2 column matrix where col 1 is no. successes and col 2 is no. failures", "binomial"), domain = NA)
+}, validmu = function (mu) 
+all(is.finite(mu)) && all(mu > 0 & mu < 1), valideta = function (eta) 
+TRUE, simulate = function (object, nsim) 
+{
+    ftd <- fitted(object)
+    n <- length(ftd)
+    ntot <- n * nsim
+    wts <- object$prior.weights
+    if (any(wts%%1 != 0)) 
+        stop("cannot simulate from non-integer prior.weights")
+    if (!is.null(m <- object$model)) {
+        y <- model.response(m)
+        if (is.factor(y)) {
+            yy <- factor(1 + rbinom(ntot, size = 1, prob = ftd), labels = levels(y))
+            split(yy, rep(seq_len(nsim), each = n))
+        }
+        else if (is.matrix(y) && ncol(y) == 2) {
+            yy <- vector("list", nsim)
+            for (i in seq_len(nsim)) {
+                Y <- rbinom(n, size = wts, prob = ftd)
+                YY <- cbind(Y, wts - Y)
+                colnames(YY) <- colnames(y)
+                yy[[i]] <- YY
+            }
+            yy
+        }
+        else rbinom(ntot, size = wts, prob = ftd)/wts
+    }
+    else rbinom(ntot, size = wts, prob = ftd)/wts
+}, dispersion = 1)</td></tr>
+<tr><td>48.8691441643915</td></tr>
+<tr><td>52.8691441643915</td></tr>
+<tr><td>list(sex = "contr.treatment")</td></tr>
+<tr><td>38</td></tr>
+<tr><td>55.4517744447956</td></tr>
+<tr><td>39</td></tr>
+<tr><td>4</td></tr>
+<tr><td>c(`1` = -0.844600430901007, `2` = -0.844600430901007, `3` = -0.844600430901007, `4` = -0.844600430901007, `5` = -0.844600430901007, `6` = -0.844600430901007, `7` = 1.55175565365499, `8` = -0.844600430901007, `9` = -0.844600430901007, `10` = -0.844600430901007, `11` = -0.844600430901007, `12` = -0.844600430901007, `13` = -0.844600430901007, `14` = 1.55175565365499, `15` = -0.844600430901007, `16` = -0.844600430901007, `17` = 1.55175565365499, `18` = 1.55175565365499, `19` = 1.55175565365499, `20` = 1.55175565365499, 
+`21` = 0.844600430901007, `22` = 0.844600430901007, `23` = -1.55175565365499, `24` = -1.55175565365499, `25` = -1.55175565365499, `26` = 0.844600430901007, `27` = 0.844600430901007, `28` = 0.844600430901007, `29` = -1.55175565365499, `30` = -1.55175565365499, `31` = 0.844600430901007, `32` = 0.844600430901007, `33` = 0.844600430901007, `34` = -1.55175565365499, `35` = 0.844600430901007, `36` = 0.844600430901007, `37` = 0.844600430901007, `38` = 0.844600430901007, `39` = 0.844600430901007, `40` = 0.844600430901007
+)</td></tr>
+<tr><td>c(-0.847297860386034, 1.69459572077207, 0.487949800417323, 0.690065225507423, -1.73644473194041, 2.45570369022144, 0.0824852286965525, 0.0140609042055979)</td></tr>
+<tr><td>c(`(Intercept)` = FALSE, sexmale = FALSE)</td></tr>
+<tr><td>1</td></tr>
+<tr><td>c(2, 38, 2)</td></tr>
+<tr><td>c(0.238095007727306, -0.238095007727306, -0.238095007727306, 0.476190015454611)</td></tr>
+<tr><td>c(0.238095007727306, -0.238095007727306, -0.238095007727306, 0.476190015454611)</td></tr>
+</table>

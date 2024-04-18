@@ -30,7 +30,7 @@ coef_table.coxph <- function(x,level=0.95, ...){
 coef_table.lme <- function(x,level=0.95, ...){
   output <- cbind(
     summary(x)$tTable[,c(1,2,5), drop=FALSE],
-    intervals(x, level=level,which="fixed")$fixed[,c(1,3)]
+    nlme::intervals(x, level=level,which="fixed")$fixed[,c(1,3)]
   )
   colnames(output) <- c("beta","se","p","lower","upper")
   output
@@ -39,7 +39,7 @@ coef_table.lme <- function(x,level=0.95, ...){
 coef_table.gls <- function(x, level=0.95,...){
   output <- cbind(
     summary(x)$tTable[,c(1,2,4), drop=FALSE],
-    intervals(x, level=level, which="coef")$coef[,c(1,3)]
+    nlme::intervals(x, level=level, which="coef")$coef[,c(1,3)]
   )
   colnames(output) <- c("beta","se","p","lower","upper")
   output
@@ -97,13 +97,17 @@ covar.lme <- function(x, digits=3,...){
   }
 
 covar.gls <- function(x, digits=3, ...){
-  data.frame(contrasts=c("Number of Observations", "Residual SE"),
-            beta=c(x$dims$N, signif_pad(x$sigma, digits=digits))
+  data.frame(contrasts=c("Number of Observations", "Number of Groups","Residual SE"),
+             beta=c(x$dims$N,
+                    nlevels(nlme::getGroups(x)),
+                    signif_pad(x$sigma, digits=digits))
   )
 }
 
+
+
 regression_table <- function(x,labels=names(coef(x)),
-                             digits=3,p_digits=4,
+                             digits=3,p_digits=digits,
                              trans=if(class(x)[1] %in% c("glm","coxph")){exp}else{NULL},
                              level=0.95,
                              col_names=guess_col_names(x,trans)
@@ -120,7 +124,7 @@ regression_table <- function(x,labels=names(coef(x)),
 
   ci <-   paste0( signif_pad(coef[,"lower"],digits=digits), ", ",
                   signif_pad(coef[,"upper"],digits=digits))
-  p <-  format_pval( coef[,"p"], digits=p_digits)
+  p <-  format_pval( coef[,"p"], digits=p_digits, sig.limit=10^(-p_digits))
   # this works with est_trans as either null (ignores it), or a vector
   var_list <- list(labels, est,est_trans, ci,p)
   X <- data.frame(do.call(cbind, var_list))
@@ -172,58 +176,11 @@ guess_col_names.coxph <- function(x,trans,...){
   c("Parameter", "Log HR (SE)" ,  "HR","Conf. Int." ,"p-value")
 }
 
-
-
-
-
-library(MASS)
-library(survival)
-library(tidyverse)
-data(cats)
-fit_lm <- lm(Hwt~Sex/Bwt-1, data=cats)
-
-
-regression_table(fit_lm,
-                 labels=c("Female","Male", "Female - Bwt","Male - Bwt")
-
-                  )
-
-
-data("birthwt")
-head(birthwt)
-fit_glm <- glm(low~. -bwt , family=binomial, data=birthwt)
-regression_table(fit_glm)
-
-blad1 <- bladder %>% #filter(enum==1) %>%
-  mutate(rx= factor(rx, levels=1:2, labels=c("placebo","thiotepa")),
-         enum=factor(enum)
-  )
-head(blad1)
-summary(blad1)
-
-fit_cox <- coxph(Surv(stop, event)~ enum/(rx+size+number)+cluster(id), data=blad1)
-regression_table(fit_cox)
-
-library(nlme)
-Orthodont
-
-fit_lme <- lme(distance~age, random=~1|Sex/Subject, data=Orthodont)
-regression_table(fit_lme)
-
-fit_lme <- lme(distance~age, random=~age|Subject, data=Orthodont,
-               weights=varIdent(form=~1|Sex)
-               )
-summary(fit_lme)
-regression_table(fit_lme)
-
-
-fit_gls <- gls(distance~age, correlation=corCompSymm(form=~1|Subject), data=Orthodont,
-               weights=varIdent(form=~1|Sex)
-               )
-
-regression_table(fit_gls)
-
-
-# GEE and lmer ,  survreg is rarely used ?
-
+guess_col_names.gls <- function(x,trans,...){
+  if( is.null(trans)){
+    NextMethod()
+  } else{
+    c("Parameter", "Log Est (SE)" ,  "Ratio","Ratio C.I." ,"p-value")
+  }
+}
 

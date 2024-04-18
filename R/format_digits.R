@@ -170,7 +170,7 @@ format_pval <- function(pvals, sig.limit = 10^(-digits), digits = 3) {
     if(is.na(x))
       return(x)
     if (x < sig.limit)
-      return(sprintf('<%s', format(sig.limit, scientific=digits+1)))
+      return(sprintf('<%s', format(sig.limit, scientific=FALSE)))
     else
       return(roundr(x, digits = digits))
   }, sig.limit = sig.limit, simplify = TRUE)

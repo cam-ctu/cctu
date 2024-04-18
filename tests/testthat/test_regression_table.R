@@ -1,64 +1,41 @@
-#load(url("https://hbiostat.org/data/repo/sex.age.response.sav"))
-# if you want to avoid Hmisc library
-library(Hmisc)
-library(rms)
-getHdata(sex.age.response)
 
 
+# Test of logistic regression
+context("Testing the regression table functions")
 
-fit <- glm(response~sex, family=binomial, data=sex.age.response)
-regression_table(fit, digits=3)
+test_that("logisitic compare est, se and pvalue",{
+load(file=test_path("fixtures","logistic.Rdata"))
+  fit <- glm(response~sex, family=binomial, data=sex.age.response)
+  output <- regression_table(fit, digits=4)
 
-f <- lrm(response ~ sex + age, data=sex.age.response)
-ltx <- function(fit) {
-  w <- latex(fit, inline=TRUE, columns=54,
-             after='', digits=3,
-             before='$$X\\hat{\\beta}=$$')
-  rendHTML(w, html=FALSE)
-}
-ltx(f)
+est <- output[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
+expect_true( compare_with_rounding(est[1:2], x_ref[,2]) %>% all )
+se <- output[,2] %>% gsub( ".*\\((.*)\\)","\\1",. ) %>% trimws()
+expect_true( compare_with_rounding(se[1:2],x_ref[,3]) %>% all)
+expect_true( compare_with_rounding(output[2,5],x_ref[2,5]) )
+})
 
-library(rvest)
-html <- read_html("https://hbiostat.org/rmsc/lrm")
-table_list <- html %>% html_elements("table") %>% html_table(convert=FALSE)
-# table 4 is the one to compare with
-x <- table_list[[4]][2,2] %>% as.character
+# test of linear regression
 
-regression_table(fit, digits=5)
 
-# test if have decimal point
+test_that("linear compare est, se and pvalue",{
+  load( file=test_path("fixtures", "linear.Rdata"))
 
-find_dp <- function(x){
-  x <- as.character(x)
-  has_dp <- grepl("\\.", x)
-  if(has_dp){
-    dp <- nchar( strsplit(x, split="\\.")[[1]][2])
-  }else{
-    x <- as.integer(x)
-    x <- abs(x)
-    i <- 0
-    k <- x %>% abs %>% log10 %>% floor
-    while(0<x){
-      x <- x %% 10^k
-      k <- k-1
-      i <- i+1
-    }
-    dp <- -i
-  }
+  fit <- lm( fat ~ rms::rcs(age,4) + log(height) + log(abdomen),
+             data = bodyfat)
+  output <- regression_table(fit, digits = 4)
+  est <- output[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
+  expect_true( compare_with_rounding(est[1:6], x_ref[,2]) %>% all )
+  se <- output[,2] %>% gsub( ".*\\((.*)\\)","\\1",. ) %>% trimws()
+  # there is a rounding error on teh website for the last value
+  se[6] <- substr(se[6],1,6)
+  expect_true( compare_with_rounding(se[1:6],x_ref[,3]) %>% all)
+  expect_true( compare_with_rounding(output[1:6,4],x_ref[,5]) %>% all )
+})
 
-  return(dp)
-}
 
-find_dp_v <- Vectorize(find_dp)
-delta <- find_dp_v(c(x,"1.69")) %>% diff
+# chapter 7 for gls
 
-y <- as.numeric(c(x,"1.69"))
-abs(log(y[1]/y[2]))
-5*10^(-abs(delta))
-#what to do if delta=0
+# chapter 20 for coxph
 
-abs( log(x,y) )  < 5*10^-delta(dp or i)
-as.numeric("10.0")==as.numeric("10")
-log(10/14)
-log(15/20)
-5*10^-2
+

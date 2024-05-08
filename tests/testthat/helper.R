@@ -6,7 +6,7 @@ find_dp <- function(x){
   x <- as.character(x)
   has_dp <- grepl("\\.", x)
   # for dcimal numbers
-  dp_positive <- nchar( strsplit(x, split="\\.")[[1]][2])
+  dp_positive <- sapply( strsplit(x, split="\\."), function(x){nchar(x[2])})
   # for integers - this is not vectorised at all thoguh...
   x <- as.integer(x)
   x <- ifelse(is.na(x),0,x)
@@ -39,12 +39,19 @@ compare_with_rounding <- function(x,y, p_less_than=TRUE){
   dp_x <- find_dp(x)
   dp_y <- find_dp(y)
   k <- pmax(dp_x, dp_y)
+  dp <- pmin(dp_x,dp_y)
   x <- as.numeric(x)
   y <- as.numeric(y)
-  sig_fig_test <- signif(x,-k+1)==signif(y,-k+1)
-  dp <- pmin(dp_x,dp_y)
-  round_test <- round(x,dp)==round(y,dp)
-  ifelse( dp <=0, sig_fig_test, round_test)
+  n <- length(x)
+  sig_fig_test <- round_test <- rep(0,n)
+  for( i in 1:n){
+    # the digits argument is not vectorised.
+    sig_fig_test[i] <- signif(x[i],-k[i]+1)==signif(y[i],-k[i]+1)
+    round_test[i] <- round(x[i],dp[i])==round(y[i],dp[i])
+  }
+  ans <- ifelse( dp <=0, sig_fig_test, round_test)
+  #cbind(x,y,dp_x,dp_y, dp, ans)
+  as.logical(ans)
 }
 
 
@@ -68,3 +75,24 @@ compare_with_rounding <- function(x,y, p_less_than=TRUE){
 # x_ref <- table_list[[3]] %>% as.data.frame
 #
 # save( bodyfat, x_ref, file=test_path("fixtures", "linear.Rdata"))
+
+
+
+# load(url("https://hbiostat.org/data/repo/cdystonia.sav"))
+# data.table::setDT(cdystonia)
+# cdystonia[, uid := paste(site, id)]
+# baseline <- cdystonia[week == 0]
+# baseline[, week := NULL]
+# data.table::setnames(baseline, 'twstrs', 'twstrs0')
+# followup <- cdystonia[week > 0, .(uid, week, twstrs)]
+# data.table::setkey(baseline, uid)
+# data.table::setkey(followup, uid, week)
+# both     <- Hmisc:::Merge(baseline, followup, id = ~ uid)
+# both     <- both[! is.na(week)]
+#
+# html <- rvest::read_html("https://hbiostat.org/rmsc/long#using-generalized-least-squares")
+# table_list <- html %>% rvest::html_elements("table") %>% rvest::html_table(convert=FALSE)
+# x_ref <- table_list[[4]] %>% as.data.frame
+#
+#
+# save(both, x_ref, file=test_path("fixtures", "gls.Rdata") )

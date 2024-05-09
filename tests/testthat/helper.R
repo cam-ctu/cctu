@@ -96,3 +96,44 @@ compare_with_rounding <- function(x,y, p_less_than=TRUE){
 #
 #
 # save(both, x_ref, file=test_path("fixtures", "gls.Rdata") )
+
+
+## Coxph  taking the table on page 44 ( printed as PAge 43) of the vignette
+## "THe Survival Pacakge"
+
+# download.file("https://cran.r-project.org/web/packages/survival/vignettes/survival.pdf",
+#               test_path("fixtures", "surv.pdf"),
+#               mode = "wb"
+#               )
+# library(pdftools)
+# txt <- pdf_text(test_path("fixtures", "surv.pdf"))
+# page44 <- strsplit(txt[44],split="\n")[[1]]
+# X <- sapply( page44[39:41], strsplit,  split="\\s+", simplify="TRUE", USE.NAMES=FALSE)
+# X <- Reduce(rbind, X)
+# varnames <- strsplit(page44[[38]], split="\\s+")[[1]]
+# X <- X[,-1]
+# varnames[1] <- "covariate"
+# colnames(X) <- varnames
+# save(X, file = test_path("fixtures", "survival.Rdata"))
+#
+
+# LMe  use the paper https://www.jstatsoft.org/article/view/v067i01
+# doi 10.18637/jss.v067.i01
+# download.file("https://www.jstatsoft.org/index.php/jss/article/view/v067i01/946",
+#               test_path("fixtures", "v67i01.pdf"),
+#               mode = "wb"
+#               )
+#
+# # library(pdftools)
+# txt <- pdf_text(test_path("fixtures", "v67i01.pdf"))
+# page32 <- strsplit(txt[32],split="\n")[[1]]
+# X <- sapply( page32[13:14], strsplit,  split="\\s+", simplify="TRUE", USE.NAMES=FALSE)
+# X <- Reduce(rbind, X)
+# colnames(X) <- c("covariate","est", "se","t")
+# page31 <- strsplit(txt[31],split="\n")[[1]]
+# Y <- sapply( page31[50:53], strsplit,  split="\\s+", simplify="TRUE", USE.NAMES=FALSE)
+# Y <- Reduce(rbind, Y)
+# varnames <- strsplit(page31[[49]], split="\\s+")[[1]]
+# colnames(Y) <- varnames
+# save(X,Y, file = test_path("fixtures", "lme.Rdata"))
+#

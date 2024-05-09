@@ -63,7 +63,34 @@ test_that("gls compare est, se and pvalue",{
 
 
 # chapter 20 for coxph : doesn't provide any simple tables of HRs - uses normagrams and plots
+# Use the vignette from teh survival package directly
+test_that("coxph regression",{
+  library(survival)
+  load(file=test_path("fixtures","survival.Rdata"))
+  cfit1 <- coxph(Surv(time, status) ~ age + sex + wt.loss, data=lung)
+  output <- regression_table(cfit1, digits=5)
+  hr <- output[1:3,3]
+  expect_true(compare_with_rounding(hr, X[,"exp(coef)"]) %>% all)
+  loghr <- output[1:3,2]%>% gsub( "\\(.*\\)","",. ) %>% trimws()
+  expect_true(compare_with_rounding(loghr, X[,"coef"]) %>% all)
+  se <- output[1:3,2]%>% gsub( ".*\\((.*)\\)","\\1",. ) %>% trimws()
+  compare_with_rounding(se, X[,"se(coef)"]) %>% all %>%  expect_true
+  compare_with_rounding(output[1:3, 5],X[,"p"]) %>% all %>% expect_true
+}
+)
 
 
-# anything for lme??
-
+# lme
+test_that("lme",{
+  fm2 <- nlme::lme(Reaction~Days, random=~Days|Subject, data=lme4::sleepstudy)
+  expect_warning(output <- regression_table(fm2, digits=4),"The variance-correlation structure is not included as it is too general")
+  load(test_path("fixtures","lme.Rdata"))
+  est <- output[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
+  compare_with_rounding(est[1:2], X[,2]) %>% all %>% expect_true
+  se <- output[,2] %>% gsub( ".*\\((.*)\\)","\\1",. ) %>% trimws()
+  compare_with_rounding(se[1:2],X[,3]) %>% all %>% expect_true
+  compare_with_rounding(est[5:7], Y[c(1,2,4),"vcov"]) %>% all %>% expect_true
+  compare_with_rounding(output[5:7,3], Y[c(1,2,4),"sdcor"]) %>% all %>% expect_true
+  # maybe some rounding and then padding with zeroes going on
+  compare_with_rounding(output[6,4] %>% as.numeric, Y[3,"sdcor"]) %>% expect_true
+})

@@ -1,4 +1,11 @@
-V 0.7.6
+# V 0.7.6.1
+
+Added in the regression_table() generic to print a nice tidy table
+to present regression models. 
+
+
+
+# V 0.7.6
 
 -	The apply_macro_dict() function is faster now. By default, evaluating whether a category variable's type is numeric before converting is skipped.
 -	Table and figure numbers are locked, saving Word to PDF will not change the numbers.

@@ -35,7 +35,7 @@ read_data(x, ...)
 
 \item{fun}{the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".}
 
-\item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.}
+\item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignment.}
 
 \item{clean_names_option}{logical to apply the \code{\link{clean_names}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.}
 

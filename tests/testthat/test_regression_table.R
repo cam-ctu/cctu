@@ -94,3 +94,20 @@ test_that("lme",{
   # maybe some rounding and then padding with zeroes going on
   compare_with_rounding(output[6,4] %>% as.numeric, Y[3,"sdcor"]) %>% expect_true
 })
+
+
+
+# Need a test of gee
+test_that("gee",{
+load( file=test_path("fixtures", "linear.Rdata"))
+fm0 <- lm(fat ~ rms::rcs(age,4) + log(height) + log(abdomen),
+          data = bodyfat)
+library(gee)
+fm <- gee( fat ~ rms::rcs(age,4) + log(height) + log(abdomen),
+    data = bodyfat, id=1:nrow(bodyfat), corstr = "exchangeable")
+lin_mod <- regression_table(fm0)
+expect_warning( gee_mod <- regression_table(fm), "The variance-correlation structure is not included as it is too general")
+est1 <- lin_mod[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
+est2 <- gee_mod[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
+compare_with_rounding(est1[1:6], est2[1:6]) %>% all %>% expect_true
+})

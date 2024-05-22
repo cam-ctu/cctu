@@ -4,7 +4,7 @@
 \alias{format_pval}
 \title{Format p-value}
 \usage{
-format_pval(pvals, sig.limit = 0.001, digits = 3)
+format_pval(pvals, sig.limit = 10^(-digits), digits = 3)
 }
 \arguments{
 \item{pvals}{A numeric value or vector of p-values}

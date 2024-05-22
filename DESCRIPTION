@@ -10,8 +10,8 @@ Depends: R (>= 4.1.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, grid, gridExtra, base64enc, png
-Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr, rms, nlme, survival
+Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr, rms, nlme, survival, gee, lme4
 VignetteBuilder: knitr
 Repository: local-cran

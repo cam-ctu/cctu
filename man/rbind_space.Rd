@@ -13,12 +13,12 @@ rbind_space(x, y)
 }
 \value{
 a data.frame or array that is \code{x} stacked vertically above \code{y} with a row
-of blank values imbetween. Useful for formatting
+of blank values in-between. Useful for formatting
 }
 \description{
 Function to bind tables/matrices with a blank row between them
 }
 \details{
 based largely on the \code{\link{rbind}} function.
-Use in conjuction with \code{\link{Reduce}} to join up more than two tables.
+Use in conjunction with \code{\link{Reduce}} to join up more than two tables.
 }

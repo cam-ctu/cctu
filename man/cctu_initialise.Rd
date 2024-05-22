@@ -53,7 +53,7 @@ initialise  objects for using cctu package
 \itemize{
 \item \code{cctu_initialise()}: create the standard directories for outputs if needed.
 
-\item \code{cctu_initialize()}: identifical function with american spelling
+\item \code{cctu_initialize()}: identifical function with American spelling
 
 \item \code{cctu_check_dir()}: Check if the directories exist for cctu
 

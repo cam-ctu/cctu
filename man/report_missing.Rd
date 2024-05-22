@@ -22,7 +22,7 @@ element of `select` will be used to select the individuals to be analyzed
  element is the selection.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
-splited using this variable. Useful for repeated measures.}
+split using this variable. Useful for repeated measures.}
 
 \item{subjid_string}{A character naming the column used to identify subject,
 default is \code{"subjid"}.}

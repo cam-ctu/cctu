@@ -12,8 +12,15 @@ data_table <- data.frame(
 read_data(data_table)
 read_data( data_table[2,])
 
+# take an template meta table and add a new row with edited values.
+meta <- cctu::meta_table_example
+regress <- meta[1,]
+regress$title <- "Regression: Age predicted by Treatment"
+regress$number <- "1.2"
+meta <- rbind(meta, regress)
+set_meta_table( meta)
 
-set_meta_table( cctu::meta_table_example)
+
 write_table(data_table_summary(data_table),number = "9", clean_up = FALSE)
 
 

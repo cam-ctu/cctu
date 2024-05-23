@@ -153,7 +153,9 @@ test_that("Test date conversion", {
     question = c("mdy", "mdy.time", "dmy.part", "dmy", "time")
   )
 
-  df <- apply_macro_dict(dat, dlu)
+  expect_message(df <- apply_macro_dict(dat, dlu),
+                 "The conversion of the following variables to dates failed and no action was taken:
+dmy_part, time")
 
   # Should not be converted
   expect_type(df$dmy_part, "character")

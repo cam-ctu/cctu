@@ -53,6 +53,9 @@ jobs:
 #changed from @v1
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Check build tools
+          run: Rscript -e 'pkgbuild::check_build_tools(debug = TRUE)'
+          
       - uses: r-lib/actions/check-r-package@v2
 
       - name: Show testthat output

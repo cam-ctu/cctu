@@ -1,7 +1,7 @@
-# V 0.7.6.1
+#  0.8.0
 
 Added in the regression_table() generic to print a nice tidy table
-to present regression models. 
+to present regression models. Minor improvements and updates to other functions including cttab and write_plot.
 
 
 

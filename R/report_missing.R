@@ -8,10 +8,10 @@
 #' not intend to use it directly by user.
 #'
 #' @inheritParams cttab
-#' @param dlu A data.frame of DLU file, this will be derived from the package environment
+#' @details This requires access to a data.frame of DLU file, this will be derived from the package environment
 #' and should be set using \code{\link{get_dlu}}.
 #'
-#' @seealso \code{\link{cttab}} \code{\link{dump_missing_report}} 
+#' @seealso \code{\link{cttab}} \code{\link{dump_missing_report}}
 #' \code{\link{get_missing_report}} \code{\link{reset_missing_report}}
 #'
 #' @return A data frame
@@ -87,10 +87,10 @@ report_missing <- function(data,
 #' @aliases get_missing_report
 #' @aliases reset_missing_report
 #' @title Save/Get/Reset missingness report
-#' 
-#' @description 
+#'
+#' @description
 #' \code{dump_missing_report} can be used to save the missingness report to
-#' a file. 
+#' a file.
 #' \code{get_missing_report} Return the missingness report data.
 #' \code{reset_missing_report} Reset the internal missingness report data to blank.
 #'

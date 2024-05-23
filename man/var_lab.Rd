@@ -30,7 +30,7 @@ drop_lab(x)
 \description{
 These functions set/get/drop variable labels. For
 value labels see \link{val_lab}.
-\itemize{
+\describe{
 \item{\code{var_lab}}{ returns variable label or NULL if label doesn't
 exist.}
 \item{\code{var_lab<-}}{ set variable label.}

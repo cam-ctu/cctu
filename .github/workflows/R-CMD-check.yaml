@@ -53,6 +53,7 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v2
 
       - uses: r-lib/actions/check-r-package@v2
+        run: pkgbuild::check_build_tools(debug = TRUE)
 
       - name: Show testthat output
         if: always()

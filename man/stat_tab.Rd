@@ -34,7 +34,7 @@ element of `select` will be used to select the individuals to be analyzed
 
 \item{add_missing}{If missing number and missing percentage will be
   reported in the summary table, default is `TRUE`. This will also produce
-data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+data missingness report if set \code{TRUE}. See \code{\link{report_missing}}
 for details.}
 
 \item{digits}{An integer specifying the number of significant digits to keep,

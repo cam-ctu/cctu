@@ -37,7 +37,7 @@ Further functions and tools have been added, for more streamlined importing of M
 As part of writing the Statistical Analysis Plan (SAP), a structured meta-table with one row per table or figure needs to be produced. This provides titles, subtitles, numbering, populations, etc. See the help page `?meta_table` for more details. The package is very reliant on this being provided by the user. Whilst producing the tables/figures the package will:
 
 * look up which population is to be used for a table/figure and explicitly filter the data sets to the desired population
-* whilst saving the output it will use the numbering to determing file names of xml or graphics files
+* whilst saving the output it will use the numbering to determine file names of xml or graphics files
 * write the name of the code file that produced the output
 
 When producing the final output it will use the meta-table to index all the outputs, and pull out the meta-data needed.
@@ -69,9 +69,11 @@ It is important to call `library(cctu)` before the first use of `source`. The pa
 
 ## XML
 
-The step of transfering table and figures to word is facilitated by xml. The tables are stored as a copy on a local drive (in /Output/Core by default) in semi-readible format with tags similar to html tables. 
+The step of transferring table and figures to word is facilitated by xml. The tables are stored as a copy on a local drive (in /Output/Core by default) in semi-readable format with tags similar to html tables. 
 
-During the analysis, a block of code to produce a table or figure is put between an `attach_pop()` and a `write_table()` or `write_gglot()`. An argument to `write_table` will be a data frame; `write_ggplot` defaults to using the last plot object, or can take a ggplot object as an argument. Both then look up the number of the table called by `attach_pop` (temporarily stored in a private environment); the output is stored on the local drive either an XML file, or graphics file named with a suffix "_X.Y.Z" to identfy the output; the name of the code file that created the output is written to meta-table; by default a final call to `clean_up` removes all objects in the global environment (apart from those named in the vector `.reserved`) and detach the population environment.  
+During the analysis, a block of code to produce a table or figure is put between an `attach_pop()` and a `write_table()` or `write_gglot()`. An argument to `write_table` will be a data frame; `write_ggplot` defaults to using the last plot object, or can take a ggplot object as an argument. A recent addition is `write_plot` which can handle ggplot object or other graphical outputs e.g. a dot_plot from the `eudract` package.
+
+All `write_*` functions then look up the number of the table called by `attach_pop` (temporarily stored in a private environment); the output is stored on the local drive either an XML file, or graphics file named with a suffix "_X.Y.Z" to identify the output; the name of the code file that created the output is written to meta-table; by default a final call to `clean_up` removes all objects in the global environment (apart from those named in the vector `.reserved`) and detach the population environment.  
 
 After the analysis, the function `create_word_xml` glues these files all together along with the meta data into a large xml file. The tables are directly copied, and the figures have links to their file paths. Then xslt technology is used to convert the document into the [schema](http://schemas.microsoft.com/office/word/2003/wordml) used by MS Word, so it can be opened directly. Note though that the links to the graphics files would need to be turned into hard copies within Word if you want to move the document. If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk!
 
@@ -96,6 +98,7 @@ The set of external data files to be read in, along with the names of the corres
 ### Analysis
  * `sumby()` is a work-horse to produce standard summary tables, with additional figures produced as side-effects
  * `cttab` is a recent addition which greatly expands the flexibility and scope from `sumby`
+ * `regression_table` is a function that takes a regression object (lm, glm, lme, gee, coxph, gls)  and produces a summary table suitable for a report, allowing you to provide a character vector to label the parameters meaningfully.
  * `propercase`
  * `rbind_space` : to glue together repeated outputs from `sumby`
  * `clean_up` is called by default within each call of `write_*`. They have arguments to not call `clean_up` if the code is such that you need to re-use the same R objects for multiple outputs.
@@ -143,7 +146,7 @@ rm_output()
 
 If you run just these initial lines, the last command will evoke R CMD BATCH to run the entire set of code and produce a log file "main.Rout", which should be the final step, using the validated server. The `run_batch` line is commented out as the vignette will not work with this though..
 
-This vignette now differs from a standard use, in that the `Main.R` file would now be a sequence of `source()` calls. Here we do run the source files, and then quote the R code they contain. There is a copy of all files and outputs from a standar use starting from [Main.R](Main.R)
+This vignette now differs from a standard use, in that the `Main.R` file would now be a sequence of `source()` calls. Here we do run the source files, and then quote the R code they contain. There is a copy of all files and outputs from a standard use starting from [Main.R](Main.R)
 
 ## Configuration
 
@@ -167,7 +170,7 @@ sourceKnit <- function(path, label){
 
 Next step is to import the meta-table, study data and apply manipulations, and finally create the population environments. 
 
-* Grab data from the "DATA" folder. Always use relative paths, or build absolute paths up from MACRO variables defined once neear the start 'paste0(DATA, "/myfile.csv")'
+* Grab data from the "DATA" folder. Always use relative paths, or build absolute paths up from MACRO variables defined once near the start 'paste0(DATA, "/myfile.csv")'
 * convert the variable names into standard 'lower_case' so you have to remember less
 * remove blank rows and columns
 * give factor variables their levels
@@ -178,7 +181,7 @@ Here we grab a ready prepared 'dirty' raw data typical of MACRO DB and apply som
 `r sourceKnit("Progs/data_import.R", "data_import")`
 
 
-From here one coudl refer to the vignette `using-cttab`, and apply further functions: `apply_macro_dict`, and/or `var_lab`
+From here one could refer to the vignette `using-cttab`, and apply further functions: `apply_macro_dict`, and/or `var_lab`
 
 ## Analysis
 
@@ -214,7 +217,7 @@ unlink("../inst/doc/Output", recursive=TRUE)
 file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
-The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and esnure it is Saved As Type a "Word Document (*.docx)".
+The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
 
 
 ## Other Outputs

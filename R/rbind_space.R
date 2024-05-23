@@ -4,10 +4,10 @@
 #' @param y a data.frame or array, with the same number of columns as \code{x}
 #'
 #' @return a data.frame or array that is \code{x} stacked vertically above \code{y} with a row
-#' of blank values imbetween. Useful for formatting
+#' of blank values in-between. Useful for formatting
 #'
 #' @details based largely on the \code{\link{rbind}} function.
-#' Use in conjuction with \code{\link{Reduce}} to join up more than two tables.
+#' Use in conjunction with \code{\link{Reduce}} to join up more than two tables.
 #'
 #' @export
 

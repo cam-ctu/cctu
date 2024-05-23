@@ -3,7 +3,7 @@
 #' @param data  a data.frame, typically the input to \code{write_table}
 #'
 #' @return \code{detect_invalid_utf8} returns a data.frame that gives the column, row,
-#' and value of any dataum points that contain invalid characters, or a zero-length
+#' and value of any datum points that contain invalid characters, or a zero-length
 #' data frame if none are present.  \code{remove_invalid_utf8} replaces any invalid characters
 #' with an empty string.
 #'
@@ -23,7 +23,7 @@ detect_invalid_utf8 <- function(data){
   data.frame(column=cols, row=rows, value=unlist( data[X_array]), row.names=NULL)
 }
 
-#' @describeIn detect_invalid_utf8 Function to delete invalid UTF8 charachters
+#' @describeIn detect_invalid_utf8 Function to delete invalid UTF8 characters
 #' @export
 remove_invalid_utf8 <- function(data){
   if( !inherits(data, "data.frame")){stop("input a data.frame")}

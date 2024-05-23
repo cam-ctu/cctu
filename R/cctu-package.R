@@ -19,9 +19,12 @@
 #'  \item \code{\link{cttab}}
 #'  \item \code{\link{apply_macro_dict}}
 #'  \item \code{\link{create_word_xml}}
+#'  \item \code{\link{regression_table}}
 #' }
 #'
-#'
-#' @docType package
-#' @name cctu
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+## usethis namespace: end
 NULL

@@ -31,12 +31,13 @@ These functions set/get/drop value labels. Duplicated values are not allowed.
 If argument \code{x} is data.frame or list then labels applied to all
 elements of data.frame/list. To drop value labels, use \code{val_lab(var) <-
 NULL} or \code{unval(var)}. For variable labels see \link{var_lab}.
-\itemize{
+\describe{
 \item{\code{val_lab}}{ returns value labels or NULL if labels doesn't
 exist.}
 \item{\code{val_lab<-}}{ set value labels.}
 \item{\code{unval}}{ drops value labels.}
-\item{\code{has.labels}}{ check if value labels exists.}}
+\item{\code{has.labels}}{ check if value labels exists.}
+}
 }
 \details{
 Value labels are stored in attribute "labels"

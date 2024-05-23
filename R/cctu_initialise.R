@@ -34,7 +34,7 @@ cctu_initialise <- function(root=getwd(), scripts=FALSE, rm=FALSE){
 
 
 # spelling variant
-#' @describeIn cctu_initialise identifical function with american spelling
+#' @describeIn cctu_initialise identifical function with American spelling
 #' @export
 cctu_initialize <- cctu_initialise
 

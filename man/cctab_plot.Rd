@@ -13,7 +13,7 @@ should be taken.}
 \item{group}{Name of the grouping variable.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
-splited using this variable. Useful for repeated measures.}
+split using this variable. Useful for repeated measures.}
 
 \item{select}{a named vector with as many components as row-variables. Every
 element of `select` will be used to select the individuals to be analyzed

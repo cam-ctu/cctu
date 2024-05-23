@@ -21,7 +21,7 @@ p_format <- function(p, digits=3){
   pchar <- round(p, digits=digits)
   fmt <- paste0("%1.",digits,"f")
   ifelse(p<threshold,
-         paste0("<",threshold),
+         paste0("<",format(threshold, scientific=FALSE)),
          paste0(" ",sprintf(fmt,pchar))
   )
 }

@@ -3,7 +3,7 @@
 #' @param x character string or data.frame.  If it is a character then it is the name of the object to be created, and referenced within the data to find the file path. If it is a dataframe then read_data is repeated across all the rows of the data.frame.
 #' @param data_table data frame containing the meta-table of file paths of the external data files, and their desired R object names.
 #' @param fun the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".
-#' @param frame Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignement.
+#' @param frame Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignment.
 #' @param name_variable character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".
 #' @param file_variable character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".
 #' @param clean_names_option logical to apply the \code{\link{clean_names}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.

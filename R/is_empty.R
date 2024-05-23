@@ -43,6 +43,8 @@
 #' @export
 is_empty <- function(x, na_empty = TRUE) {
 
+  if(is.list(x)){x <- unlist(x)}
+
   if(is.null(x))
     return(is.null(x))
 
@@ -51,7 +53,7 @@ is_empty <- function(x, na_empty = TRUE) {
 
   sapply(x, function(val){
 
-    stopifnot(is.atomic(val))
+    #stopifnot(is.atomic(val))
 
     # do we have a valid vector?
     if (!is.null(val)) {

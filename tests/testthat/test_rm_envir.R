@@ -17,9 +17,9 @@ test_that("Basic",
 
 test_that("warning",
           {
-            expect_warning(rm_envir(ignore=c(".GlobalEnv","package:(?!stats)","tools:","Autoloads"), perl=TRUE))
-            expect_false( "package:stats" %in% search())
-            library(stats)
-            expect_true( "package:stats" %in% search())
+            expect_warning(rm_envir(ignore=c(".GlobalEnv","package:(?!datasets)","tools:","Autoloads"), perl=TRUE))
+            expect_false( "package:datasets" %in% search())
+            library(datasets)
+            expect_true( "package:datasets" %in% search())
           }
 )

@@ -157,7 +157,7 @@ format_percent <- function(x, digits = 1, ...) {
 #' pv <- c(-1, 0.00001, 0.0042, 0.0601, 0.1335, 0.4999, 0.51, 0.89, 0.9, 1)
 #' format_pval(pv)
 #'
-format_pval <- function(pvals, sig.limit = .001, digits = 3) {
+format_pval <- function(pvals, sig.limit = 10^(-digits), digits = 3) {
 
   roundr <- function(x, digits = 1) {
     res <- sprintf(paste0('%.', digits, 'f'), x)
@@ -170,7 +170,7 @@ format_pval <- function(pvals, sig.limit = .001, digits = 3) {
     if(is.na(x))
       return(x)
     if (x < sig.limit)
-      return(sprintf('<%s', format(sig.limit)))
+      return(sprintf('<%s', format(sig.limit, scientific=FALSE)))
     else
       return(roundr(x, digits = digits))
   }, sig.limit = sig.limit, simplify = TRUE)

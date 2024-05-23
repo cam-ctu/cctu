@@ -81,7 +81,7 @@ cctab_plot <- function(vars,
 
     # Barplot for logical variable
     if(v == "logic_variables"){
-      p <- ggplot(logic_dt, aes_string(x = "logic_variables", y = "value", fill = group)) +
+      p <- ggplot(logic_dt, aes(x = .data[["logic_variables"]], y = .data[["value"]], fill = group)) +
         geom_bar(stat = "identity", position = "dodge", na.rm=TRUE) +
         labs(x = "Logic variables (count TRUE)", y = "Count") +
         theme(legend.position="top")
@@ -95,14 +95,14 @@ cctab_plot <- function(vars,
     if(inherits(data[[v]], c("factor", "character"))){
 
       if(is.null(group)){
-        p <- ggplot(data, aes_string(x = v)) +
+        p <- ggplot(data, aes(x = .data[[v]])) +
           geom_bar(position = "dodge", na.rm=TRUE) +
           labs(x = v_lab)
 
         return(p)
       }
 
-      p <- ggplot(data, aes_string(x = group, fill = v)) +
+      p <- ggplot(data, aes(x = .data[[group]], fill = .data[[v]])) +
         geom_bar(position = "dodge", na.rm=TRUE) +
         labs(x = gp_lab, fill = v_lab) +
         theme(legend.position="top")
@@ -115,16 +115,36 @@ cctab_plot <- function(vars,
 
     # Boxplot for a numerical variable
     if(inherits(data[[v]], c("numeric", "integer"))){
-      if(is.null(row_split))
-        p <- ggplot(data, aes_string(x = group, y = v)) +
-          geom_boxplot(na.rm=TRUE) +
-          labs(x = gp_lab, y = v_lab) +
-          theme(legend.position="top")
-      else
-        p <- ggplot(data, aes_string(x = row_split, y = v, fill = group)) +
-          geom_boxplot(na.rm=TRUE) +
-          labs(x = rs_lab, y = v_lab, fill = gp_lab) +
-          theme(legend.position="top")
+      if( is.null(group)){
+        if(is.null(row_split))
+          p <- ggplot(data, aes(y = .data[[v]])) +
+            geom_boxplot(na.rm=TRUE) +
+            labs(y = v_lab) +
+            theme(legend.position="top")
+        else
+          p <- ggplot(data, aes(x = .data[[row_split]], y = .data[[v]])) +
+            geom_boxplot(na.rm=TRUE) +
+            labs(x = rs_lab, y = v_lab) +
+            theme(legend.position="top")
+
+
+
+      }else{
+        if(is.null(row_split))
+          p <- ggplot(data, aes(x = .data[[group]], y = .data[[v]])) +
+            geom_boxplot(na.rm=TRUE) +
+            labs(x = gp_lab, y = v_lab) +
+            theme(legend.position="top")
+        else
+          p <- ggplot(data, aes(x = .data[[row_split]], y = .data[[v]], fill = .data[[group]])) +
+            geom_boxplot(na.rm=TRUE) +
+            labs(x = rs_lab, y = v_lab, fill = gp_lab) +
+            theme(legend.position="top")
+
+
+      }
+
+
 
       return(p)
     }

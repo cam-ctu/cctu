@@ -3,7 +3,7 @@
 #'
 #' @description These functions set/get/drop variable labels. For
 #' value labels see \link{val_lab}.
-#' \itemize{
+#' \describe{
 #' \item{\code{var_lab}}{ returns variable label or NULL if label doesn't
 #' exist.}
 #' \item{\code{var_lab<-}}{ set variable label.}
@@ -124,12 +124,13 @@ drop_lab.data.frame <- function(x) {
 #' If argument \code{x} is data.frame or list then labels applied to all
 #' elements of data.frame/list. To drop value labels, use \code{val_lab(var) <-
 #' NULL} or \code{unval(var)}. For variable labels see \link{var_lab}.
-#' \itemize{
+#' \describe{
 #' \item{\code{val_lab}}{ returns value labels or NULL if labels doesn't
 #' exist.}
 #' \item{\code{val_lab<-}}{ set value labels.}
 #' \item{\code{unval}}{ drops value labels.}
-#' \item{\code{has.labels}}{ check if value labels exists.}}
+#' \item{\code{has.labels}}{ check if value labels exists.}
+#' }
 #' @param x Variable(s). Vector/data.frame/list.
 #' @param value Named vector. Names of vector are labels for the
 #'   appropriate values of variable x. Names can be duplicated, but not the value.

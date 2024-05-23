@@ -63,7 +63,7 @@ should be taken.}
 \item{group}{Name of the grouping variable.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
-splited using this variable. Useful for repeated measures.}
+split using this variable. Useful for repeated measures.}
 
 \item{total}{If a "Total" column will be created (default). Specify
 \code{FALSE} to omit the column.}
@@ -75,7 +75,7 @@ element of `select` will be used to select the individuals to be analyzed
 
 \item{add_missing}{If missing number and missing percentage will be
   reported in the summary table, default is `TRUE`. This will also produce
-data missingness report if set \code{TRUE}. See \code{\link{report_missing}} 
+data missingness report if set \code{TRUE}. See \code{\link{report_missing}}
 for details.}
 
 \item{add_obs}{Add an observation row (default).}
@@ -118,7 +118,7 @@ and grouping summary will not be reported.}
 A matrix with `cttab` class.
 }
 \description{
-This is a wrapper function of \code{stat_tab}, allowing for groupped variables,
+This is a wrapper function of \code{stat_tab}, allowing for grouped variables,
 split statistics table by `row_split` variable.
 }
 \details{
@@ -126,10 +126,10 @@ split statistics table by `row_split` variable.
 
 Some of the function parameters can be set with options. This will have an global
 effect on the \code{cctab} function. It is an ideal way to set a global settings
-if you want this to be effctive globally. Currently, you can set \code{digits},
+if you want this to be effective globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
 \code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
- you can suppress the plot from printting by setting \code{options(cctu_print_plot = FALSE)}.
+ you can suppress the plot from printing by setting \code{options(cctu_print_plot = FALSE)}.
 
 \strong{2. Formula interface}
 
@@ -152,12 +152,12 @@ So you can use \code{rbind} to combine two tables without losing any attributes.
 rows. Row name printed as the first column in the word table. Some styles will be applied to each
 row based on the \code{position} attributes.
 \tabular{ll}{
-\code{0} \tab indicates the row will be bolded, spanned through all columns and a grey background
+\code{0} \tab indicates the row will be  in bold, spanned through all columns and a grey background
 in the word \cr
 \tab \cr
-\code{1} \tab indicates the row will be bolded \cr
+\code{1} \tab indicates the row will be in bold \cr
 \tab \cr
-\code{2} \tab the row will be bolded and spanned through all columns \cr
+\code{2} \tab the row will be in bold and spanned through all columns \cr
 \tab \cr
 \code{3} \tab indicates the row of the first column will be indented \cr
 }

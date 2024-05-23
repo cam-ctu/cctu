@@ -18,7 +18,7 @@ folder, named as `variable_missing_report.csv`.}
 }
 \description{
 \code{dump_missing_report} can be used to save the missingness report to
-a file. 
+a file.
 \code{get_missing_report} Return the missingness report data.
 \code{reset_missing_report} Reset the internal missingness report data to blank.
 }

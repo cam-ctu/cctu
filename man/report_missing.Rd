@@ -22,13 +22,10 @@ element of `select` will be used to select the individuals to be analyzed
  element is the selection.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
-splited using this variable. Useful for repeated measures.}
+split using this variable. Useful for repeated measures.}
 
 \item{subjid_string}{A character naming the column used to identify subject,
 default is \code{"subjid"}.}
-
-\item{dlu}{A data.frame of DLU file, this will be derived from the package environment
-and should be set using \code{\link{get_dlu}}.}
 }
 \value{
 A data frame
@@ -40,8 +37,12 @@ set as `Derived` if not from DLU file. And missing percentage with which subject
 are have missing value for that particular variable. This is internal function,
 not intend to use it directly by user.
 }
+\details{
+This requires access to a data.frame of DLU file, this will be derived from the package environment
+and should be set using \code{\link{get_dlu}}.
+}
 \seealso{
-\code{\link{cttab}} \code{\link{dump_missing_report}} 
+\code{\link{cttab}} \code{\link{dump_missing_report}}
 \code{\link{get_missing_report}} \code{\link{reset_missing_report}}
 }
 \keyword{internal}

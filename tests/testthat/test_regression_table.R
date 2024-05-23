@@ -50,7 +50,8 @@ test_that("gls compare est, se and pvalue",{
     output <- regression_table(fit, digits=4),
      "The variance-correlation structure is not included as it is too general"
   )
-
+  expect_warning(output_exp <- regression_table(fit, trans=exp))
+  expect_true("Ratio" %in% names(output_exp) )
 
   est <- output[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
   expect_true( compare_with_rounding(est[1:18], x_ref[,2]) %>% all )
@@ -113,4 +114,15 @@ expect_warning( gee_mod <- regression_table(fm), "The variance-correlation struc
 est1 <- lin_mod[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
 est2 <- gee_mod[,2] %>% gsub( "\\(.*\\)","",. ) %>% trimws()
 compare_with_rounding(est1[1:6], est2[1:6]) %>% all %>% expect_true
+})
+
+
+test_that("poisson",{
+  counts <- c(18,17,15,20,10,20,25,13,12)
+  outcome <- gl(3,1,9)
+  treatment <- gl(3,3)
+  data.frame(treatment, outcome, counts) # showing data
+  glm.D93 <- glm(counts ~ outcome + treatment, family = poisson())
+  X <- regression_table(glm.D93)
+  expect_true( "RR" %in% names(X))
 })

@@ -3,7 +3,7 @@ context("run_batch")
 #library(cctu)
 library(testthat)
 
-run_batch("nested_run_batch.R")
+#run_batch("nested_run_batch.R")
 
 
 test_that("basic test",

@@ -81,7 +81,7 @@ cctab_plot <- function(vars,
 
     # Barplot for logical variable
     if(v == "logic_variables"){
-      p <- ggplot(logic_dt, aes_string(x = "logic_variables", y = "value", fill = group)) +
+      p <- ggplot(logic_dt, aes(x = .data[["logic_variables"]], y = .data[["value"]], fill = group)) +
         geom_bar(stat = "identity", position = "dodge", na.rm=TRUE) +
         labs(x = "Logic variables (count TRUE)", y = "Count") +
         theme(legend.position="top")

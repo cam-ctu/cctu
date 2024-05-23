@@ -97,6 +97,9 @@ test_that("lme",{
 
 
 
+
+
+
 # Need a test of gee
 test_that("gee",{
 load( file=test_path("fixtures", "linear.Rdata"))

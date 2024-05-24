@@ -17,4 +17,7 @@ SPIRO
 
 ^\.github$
 ^codecov\.yml$
-^.Rprofile
+
+^.gitignore$
+^.Rrofile$
+

@@ -48,7 +48,11 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Check build tools
+        shell: Rscript {0}
+        run: |
+          pkgbuild::check_build_tools(debug = TRUE)
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'

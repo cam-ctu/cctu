@@ -89,5 +89,14 @@ test_that( "interaction with apply_macro_dict",{
 }
 )
 
-
+test_that("relative file paths",{
+  df <- data.frame(
+    name=c("check"),
+  file=c("../testthat/test_read_data.R"),
+  folder=test_path()
+  )
+  df_summary <- data_table_summary(df)
+  expect_false(grepl("\\.\\.",df_summary$full_file_path[1]))
+}
+)
 

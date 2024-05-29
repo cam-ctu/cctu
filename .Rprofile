@@ -1,6 +1,4 @@
-if (!is.na(Sys.getenv("RSTUDIO", unset = NA))) {
-  # RStudio specific code
-  # Run renv only if this is Rstudio session
+
+if(Sys.getenv("GITHUB_ACTIONS")!="true"){
   source("renv/activate.R")
 }
-#.libPaths(c("U:/My Documents/R/win-library/4.1"))

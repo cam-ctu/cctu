@@ -124,6 +124,8 @@ apply_macro_dict <- function(data,
 
   # Convert date
   date_cols <- dlu[dlu$type == "Date", "shortcode"]
+  invalid_dates <- NULL
+
   for (j in date_cols){
 
     val <- data[[j]]
@@ -136,20 +138,24 @@ apply_macro_dict <- function(data,
 
     val <- tryCatch(date_fn(val, tryFormats = date_format),
                     error = function(e){
-                      message(paste("An error occurred when converting variable", j,"to date and will be skipped:\n"),
-                              conditionMessage(e))
                       return("ERROR")
                     },
                     warning = function(w) {
-                      message(paste("A warning occurred when converting variable", j,"to date and will be skipped:\n"),
-                              conditionMessage(w))
                       return("ERROR")
                     })
-    if("ERROR" %in% val) { next }
+                    
+    if("ERROR" %in% val) {
+      invalid_dates <- c(invalid_dates, j)
+      next
+    }
 
     data[[j]] <- val
     # set(data, j = j, value = val)
   }
+
+  if(!is.null(invalid_dates))
+    message("The conversion of the following variables to dates failed and no action was taken:\n",
+            paste(invalid_dates, collapse = ", "))
 
   # Convert numeric
   num_cols1 <- dlu[dlu$type %in% c("IntegerData", "Real"), "shortcode"]

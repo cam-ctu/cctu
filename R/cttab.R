@@ -38,11 +38,11 @@
 #' @param subjid_string A character naming the column used to identify subject,
 #' default is \code{"subjid"}.
 #' @param print_plot A logical value, print summary plot of the variables (default).
-#' @param render_num A character or vector indicatin which summary will be reported,
-#'  default is "Median [Min, Max]". You can change this to "Median [IQR]" then the
+#' @param render_num A character or vector indicating which summary will be reported,
+#'  default is "Median [Min, Max]". You can change this to "Median [Q1, Q3]" then the
 #' median and IQR will be reported instead of "Median [Min, Max]". Use
 #' \code{options(cctu_render_num = "Median [IQR]")} to set global options.
-#' See details \code{\link{render_numeric}}.
+#' See details \code{\link{render_numeric}} \code{\link{num_stat}}.
 #' @param logical_na_impute Impute missing values with \code{FALSE} (default),
 #' \code{NA} keep as it is, or \code{TRUE}. The nominator for the logical vector is
 #' the number of \code{TRUE}. For \code{FALSE} or \code{TRUE}, the denominator will

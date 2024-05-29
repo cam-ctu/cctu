@@ -1,2 +1,4 @@
-source("renv/activate.R")
-#.libPaths(c("U:/My Documents/R/win-library/4.1"))
+if(Sys.getenv("GITHUB_ACTIONS")!="true"){
+  source("renv/activate.R")
+}
+

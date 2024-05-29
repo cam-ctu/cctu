@@ -1,12 +1,7 @@
 
-<!-- badges: start 
-[![Travis-CI Build Status](https://travis-ci.com/shug0131/cctu.svg?branch=master)](https://travis-ci.com/shug0131/cctu)-->
-
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/shug0131/cctu?branch=master&svg=true)](https://ci.appveyor.com/project/shug0131/cctu)
-[![R-CMD-check](https://github.com/shug0131/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/shug0131/cctu/actions)
+[![R-CMD-check](https://github.com/cam-ctu/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/cam-ctu/cctu/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/shug0131/cctu/branch/master/graph/badge.svg)](https://codecov.io/gh/shug0131/cctu?branch=master)
+coverage](https://codecov.io/gh/cam-ctu/cctu/branch/master/graph/badge.svg)](https://codecov.io/gh/cam-ctu/cctu?branch=master)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -32,5 +27,5 @@ Go and read the vignettes
 
 ``` r
 browseVignettes("cctu")
-#> starting httpd help server ... done
+#> No vignettes found by browseVignettes("cctu")
 ```

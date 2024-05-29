@@ -1,3 +1,8 @@
+# 0.8.1 
+
+Fixing the github continuous integration. Minor fixes to rbind_space, data_table_summary
+
+
 #  0.8.0
 
 Added in the regression_table() generic to print a nice tidy table

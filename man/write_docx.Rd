@@ -14,7 +14,7 @@ write_docx(
   figure_path = file.path("Output", "Figures"),
   popn_labels = NULL,
   verbose = options()$verbose,
-  debug = FALSE
+  keep_xml = FALSE
 )
 }
 \arguments{
@@ -36,7 +36,7 @@ write_docx(
 
 \item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
 
-\item{debug}{print the folder name of the source files.}
+\item{keep_xml}{a boolean if the compiled XML should be kept, used for debugging purpose.}
 }
 \value{
 This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.

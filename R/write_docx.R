@@ -2,7 +2,6 @@
 #'
 #' @inheritParams create_word_xml
 #' @param  figure_format it only supports \code{png} format.
-#' @param debug print the folder name of the source files.
 #' @export
 #' @import xml2
 #' @importFrom zip zipr
@@ -21,7 +20,7 @@ write_docx <- function(
     figure_path = file.path("Output","Figures"),
     popn_labels = NULL,
     verbose = options()$verbose,
-    debug = FALSE
+    keep_xml = FALSE
 ){
 
   table_path <- normalizePath(table_path)
@@ -32,7 +31,7 @@ write_docx <- function(
   report_title <- remove_xml_specials(report_title)
   author <- remove_xml_specials(author)
 
-  filename <- tempfile(fileext = ".xml")
+
 
   meta_table <- clean_meta_table(meta_table)
 
@@ -42,14 +41,19 @@ write_docx <- function(
     meta_table$population <- c("", popn_labels)[index]
   }
 
+  output_dir <- tempdir(check = TRUE)
+
+  if(keep_xml){
+    cat("Source files are stored at:\n", output_dir)
+    filename <- paste0(filename,".xml")
+  }else{
+    filename <- tempfile(fileext = ".xml")
+  }
+
   filename_text <- filename
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
 
-  output_dir <- tempdir(check = TRUE)
-
-  if(debug)
-    cat("Source files are stored at:\n", output_dir)
 
   # Avoid carrying over old files
   unlink(file.path(output_dir, "doc"), recursive = TRUE)

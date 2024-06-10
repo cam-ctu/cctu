@@ -67,11 +67,3 @@ jobs:
         with:
           name: package_tarball
           path: check/*.tar.gz
-        
-      - name: Release with Notes
-        if: success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-        uses: softprops/action-gh-release@v1
-        with:
-          files: check/*.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

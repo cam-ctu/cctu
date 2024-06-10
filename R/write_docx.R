@@ -31,8 +31,6 @@ write_docx <- function(
   report_title <- remove_xml_specials(report_title)
   author <- remove_xml_specials(author)
 
-
-
   meta_table <- clean_meta_table(meta_table)
 
   if(!is.null(popn_labels)){
@@ -54,9 +52,8 @@ write_docx <- function(
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
 
-
   # Avoid carrying over old files
-  unlink(file.path(output_dir, "doc"), recursive = TRUE)
+  unlink(paste0(output_dir, "doc/*"))
 
   # Copy folders and files
   invisible(

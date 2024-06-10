@@ -40,6 +40,15 @@ write_docx <- function(
   }
 
   output_dir <- tempdir(check = TRUE)
+  # Avoid carrying over old files
+  unlink(paste0(output_dir, "wordfiles/*"))
+
+  sub_dir <- c("wordfiles/word/_rels", "wordfiles/word/image")
+  for(i in file.path(output_dir, sub_dir)){
+    if (!dir.exists(i))
+      dir.create(i, recursive = TRUE)
+  }
+
 
   if(keep_xml){
     cat("Source files are stored at:\n", output_dir)
@@ -51,9 +60,6 @@ write_docx <- function(
   filename_text <- filename
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
-
-  # Avoid carrying over old files
-  unlink(paste0(output_dir, "wordfiles/*"))
 
   # Copy folders and files
   invisible(

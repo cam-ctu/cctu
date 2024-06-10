@@ -39,12 +39,7 @@ write_docx <- function(
     meta_table$population <- c("", popn_labels)[index]
   }
 
-  # output_dir <- tempdir(check = TRUE)
-  output_dir <- file.path(tempdir(check = TRUE), "write_docx")
-  if (!dir.exists(output_dir)) dir.create(output_dir)
-
-  # Avoid carrying over old files
-  unlink(paste0(output_dir, "doc/*"))
+  output_dir <- tempdir(check = TRUE)
 
   if(keep_xml){
     cat("Source files are stored at:\n", output_dir)
@@ -57,9 +52,12 @@ write_docx <- function(
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
 
+  # Avoid carrying over old files
+  unlink(paste0(output_dir, "wordfiles/*"))
+
   # Copy folders and files
   invisible(
-    file.copy(system.file("assets/doc", package="cctu"),
+    file.copy(system.file("assets/wordfiles", package="cctu"),
               output_dir,
               recursive = TRUE)
   )
@@ -77,7 +75,7 @@ write_docx <- function(
   my_node <- xml_find_first(core, xpath = "//dc:title")
   xml_text(my_node) <- report_title
 
-  write_xml(core, file.path(output_dir, "doc/docProps/core.xml"))
+  write_xml(core, file.path(output_dir, "wordfiles/docProps/core.xml"))
 
   # Document content type
   doc_type <- system.file("assets", "[Content_Types].xml", package="cctu")
@@ -157,7 +155,7 @@ write_docx <- function(
       invisible(
         file.copy(fig_path,
                   file.path(output_dir,
-                            sprintf("doc/word/media/%s", new_figname)))
+                            sprintf("wordfiles/word/media/%s", new_figname)))
       )
 
       # Add figure relationships
@@ -207,7 +205,7 @@ write_docx <- function(
     # Write header
     header_xml <- to_wml.header(report_title, meta_table[i, "section"])
     write_xml(header_xml,
-              file = file.path(output_dir, sprintf("doc/word/header%i.xml", i)))
+              file = file.path(output_dir, sprintf("wordfiles/word/header%i.xml", i)))
 
     # Update relationships
     xml_add_child(doc_rels, "Relationship",
@@ -223,7 +221,7 @@ write_docx <- function(
     # write footer
     footer_xml <- to_wml.footer(author, meta_table[i, "program"])
     write_xml(footer_xml,
-              file = file.path(output_dir, sprintf("doc/word/footer%i.xml", i)))
+              file = file.path(output_dir, sprintf("wordfiles/word/footer%i.xml", i)))
 
     # Update relationships
     xml_add_child(doc_rels, "Relationship",
@@ -246,17 +244,17 @@ write_docx <- function(
   doc_xml <- xml2::read_xml(filename_text)
   transform <- xml2::read_xml(xslt_file)
   output <- xslt::xml_xslt(doc_xml, transform)
-  xml2::write_xml(output, file = file.path(output_dir, "doc/word/document.xml"))
+  xml2::write_xml(output, file = file.path(output_dir, "wordfiles/word/document.xml"))
 
   # Write document content
-  write_xml(doc_type, file.path(output_dir, "doc/[Content_Types].xml"))
+  write_xml(doc_type, file.path(output_dir, "wordfiles/[Content_Types].xml"))
 
   # Write document relationships
-  write_xml(doc_rels, file.path(output_dir, "doc/word/_rels/document.xml.rels"))
+  write_xml(doc_rels, file.path(output_dir, "wordfiles/word/_rels/document.xml.rels"))
 
   # zip files and generate DOCX
   curr_wd <- getwd()
-  setwd(file.path(output_dir, "doc"))
+  setwd(file.path(output_dir, "wordfiles"))
   tryCatch(
     zip::zipr(zipfile = long_filename,
               include_directories = FALSE,

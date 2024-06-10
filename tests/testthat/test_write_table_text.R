@@ -58,7 +58,8 @@ test_that("alternative dimension for table",
             write_docx("test report", "author",
                        meta_table=get_meta_table() %>% dplyr::filter(number=="1.1"),
                        popn_labels=c("my population"),
-                       filename = filetemp
+                       filename = filetemp,
+                       keep_xml = TRUE
 
             )
             expect_true(file.exists(filetemp))

@@ -39,7 +39,12 @@ write_docx <- function(
     meta_table$population <- c("", popn_labels)[index]
   }
 
-  output_dir <- tempdir(check = TRUE)
+  # output_dir <- tempdir(check = TRUE)
+  output_dir <- file.path(tempdir(check = TRUE), "write_docx")
+  if (!dir.exists(output_dir)) dir.create(output_dir)
+
+  # Avoid carrying over old files
+  unlink(paste0(output_dir, "doc/*"))
 
   if(keep_xml){
     cat("Source files are stored at:\n", output_dir)
@@ -51,9 +56,6 @@ write_docx <- function(
   filename_text <- filename
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
-
-  # Avoid carrying over old files
-  unlink(paste0(output_dir, "doc/*"))
 
   # Copy folders and files
   invisible(

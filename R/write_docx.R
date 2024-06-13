@@ -41,7 +41,15 @@ write_docx <- function(
 
   output_dir <- tempdir(check = TRUE)
   # Avoid carrying over old files
-  unlink(paste0(output_dir, "wordfiles/*"))
+  unlink(file.path(output_dir, "wordfiles"), recursive = TRUE)
+
+
+  # Copy folders and files
+  invisible(
+    file.copy(system.file("assets/wordfiles", package="cctu"),
+              output_dir,
+              recursive = TRUE)
+  )
 
   sub_dir <- c("wordfiles/word/_rels", "wordfiles/word/image")
   for(i in file.path(output_dir, sub_dir)){
@@ -53,6 +61,8 @@ write_docx <- function(
   if(keep_xml){
     cat("Source files are stored at:\n", output_dir)
     filename <- paste0(filename,".xml")
+    unlink(filename)
+
   }else{
     filename <- tempfile(fileext = ".xml")
   }
@@ -60,13 +70,7 @@ write_docx <- function(
   filename_text <- filename
   #create a connection to use in cat and
   filename <- file(description = filename, open = "a")
-
-  # Copy folders and files
-  invisible(
-    file.copy(system.file("assets/wordfiles", package="cctu"),
-              output_dir,
-              recursive = TRUE)
-  )
+  on.exit(close(filename), add = TRUE)
 
   # Write Core
   core <- system.file("assets", "core.xml", package="cctu")
@@ -76,7 +80,7 @@ write_docx <- function(
   xml_text(my_node) <- author
   ## Date created
   my_node <- xml_find_first(core, xpath = "//dcterms:created")
-  xml_text(my_node) <- format(Sys.time(), format="%Y-%m-%dT%H:%M:%S+01:00")
+  xml_text(my_node) <- format(Sys.time(), format="%Y-%m-%dT%H:%M:%S%z")
   ## Document title
   my_node <- xml_find_first(core, xpath = "//dc:title")
   xml_text(my_node) <- report_title
@@ -153,26 +157,22 @@ write_docx <- function(
                             paste0("fig_", meta_table[i, "number"], ".", figure_format))
       fig_path <- normalizePath(fig_path)
 
-      new_figname <- gsub("[^[:alnum:] ]", "",
-                          tools::file_path_sans_ext(basename(fig_path)))
-      new_figname <- paste0(new_figname, ".", tools::file_ext(fig_path))
-
       # Copy figure to median folder
       invisible(
         file.copy(fig_path,
                   file.path(output_dir,
-                            sprintf("wordfiles/word/media/%s", new_figname)))
+                            sprintf("wordfiles/word/media/%s", basename(fig_path))))
       )
 
       # Add figure relationships
       xml_add_child(doc_rels, "Relationship",
                     Id = sprintf("rId%i", meta_table[i, "figuerid"]),
                     Type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
-                    Target = sprintf("media/%s", new_figname))
+                    Target = sprintf("media/%s", basename(fig_path)))
 
       # Add figure to documents
       xml_add_child(doc_type, "Override",
-                    PartName = sprintf("/word/media/%s", new_figname),
+                    PartName = sprintf("/word/media/%s", basename(fig_path)),
                     ContentType = "image/png")
 
       # Get image dimension and scale the figure to fit the page
@@ -242,8 +242,7 @@ write_docx <- function(
 
   }
 
-  writeLines("\n </Report>", con = filename )
-  close(con = filename)
+  cat("\n </Report>", file = filename, append = TRUE)
 
   #now apply the transform explicitly.
   xslt_file <- system.file("assets", "document.xslt", package="cctu")
@@ -287,7 +286,7 @@ to_wml.header <- function(report_title, section){
   x <- read_xml(con)
   str <- sprintf("Tables Listing and Figures for %s | Section: %s",
                  "Demo report", "Baseline")
-  nd <- xml_find_first(x, xpath = "//w:r")
+  nd <- xml_find_first(x, xpath = "//w:r/w:t")
   xml_text(nd) <- str
   x
 }

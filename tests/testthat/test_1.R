@@ -121,6 +121,13 @@ create_word_xml("Test <Report>",
 
 )
 
+write_docx("Test <Report>",
+                "Simon & Bond's",
+                get_meta_table(),
+                popn_labels = popn_labels,
+                filename=file.path("Output","Reports","Report2.docx")
+)
+
 #setwd("tests/testthat")
 #create_word_xml("Test <Report>",
 #                 "Simon & Bond's",

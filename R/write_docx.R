@@ -57,14 +57,11 @@ write_docx <- function(
       dir.create(i, recursive = TRUE)
   }
 
+  filename <- tempfile(fileext = ".xml")
 
   if(keep_xml){
     cat("Source files are stored at:\n", output_dir)
-    filename <- paste0(filename,".xml")
-    unlink(filename)
-
-  }else{
-    filename <- tempfile(fileext = ".xml")
+    cat("The XML file stored at:\n", filename)
   }
 
   filename_text <- filename

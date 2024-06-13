@@ -122,10 +122,10 @@ create_word_xml("Test <Report>",
 )
 
 write_docx("Test <Report>",
-                "Simon & Bond's",
-                get_meta_table(),
-                popn_labels = popn_labels,
-                filename=file.path("Output","Reports","Report2.docx")
+            "Simon & Bond's",
+            get_meta_table(),
+            popn_labels = popn_labels,
+            filename = "Report_final.docx"
 )
 
 #setwd("tests/testthat")

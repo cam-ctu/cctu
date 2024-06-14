@@ -11,12 +11,14 @@ render_numeric(x, what = "Median [Min, Max]", ...)
 
 \item{what}{A character or vector what will be reported for numeric
 variables, default is median and min, max. See \code{\link{num_stat}}
-for the statistics this function support. The provided name will be used
-as statistic names, and the values will be converted to upper to report
-corresponding statistic. If you want to have a fancy name, use a named
+for the supported statistics. The provided name will be used
+as statistic names (printed in the table), and the values is the statistics
+that will be reported. If you want to have a fancy name, use a named
 vector with names as the statistics will be printed and values are the
 statistics. For example, \code{c("Geo. Mean (Geo. CV\%)" = "GMean (GCV)",
-"Median [IQR]" = "Median [IQR]")}.
+"Median [IQR]" = "Median [Q1, Q3]")}. In the latter case, the user visible
+statistics will be called \code{"Median [IQR]"} and this is the name printed.
+But the underlying summarised statistics are median, Q1 and Q3. 
 Separate statistics with comma or a space or any non-letters.}
 
 \item{...}{Further arguments, passed to \code{\link{num_stat}}.}

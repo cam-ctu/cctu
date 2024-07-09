@@ -263,11 +263,11 @@ write_docx <- function(
               files = list.files(path = ".", all.files = FALSE),
               recurse = TRUE)
     , error = function(e) {
-      stop("Could not write ", shQuote(long_filename), " [", e$message, "]")
-    },
-    finally = {
-      setwd(curr_wd)
-    })
+     stop("Could not write ", shQuote(long_filename), " [", e$message, "]")
+     },
+     finally = {
+       setwd(curr_wd)
+     })
 
   if(verbose){
     message(long_filename, " created.")

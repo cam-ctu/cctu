@@ -19,7 +19,7 @@ library(magrittr)
 options(verbose=TRUE)
 
 test_that("ccti_initialise",
-expect_warning(source("hello_world.R", local=TRUE), "Recommend using cctu_initialise()")
+expect_warning(source(test_path("hello_world.R"), local=TRUE), "Recommend using cctu_initialise()")
 )
 
 cctu_initialize()
@@ -90,7 +90,7 @@ write_ggplot()
 
 file.remove("backup_image.Rdata")
 expect_equal(file.exists("backup_image.Rdata"), FALSE)
-source("analysis.R", local=TRUE, backup="backup_image.Rdata")
+source(test_path("analysis.R"), local=TRUE, backup="backup_image.Rdata")
 expect_equal(file.exists("backup_image.Rdata"), TRUE)
 file.remove("backup_image.Rdata")
 cctu_env$code_tree
@@ -114,7 +114,7 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename=file.path("Output","Reports","Report2.doc")#,
+                filename=test_path("Output","Reports","Report2.doc")#,
                 #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
                 #figure_path="Output/Figures",
@@ -125,7 +125,7 @@ write_docx("Test <Report>",
             "Simon & Bond's",
             get_meta_table(),
             popn_labels = popn_labels,
-            filename = "Report_final.docx"
+            filename = test_path("Output","Reports","Report_final.docx")
 )
 
 #setwd("tests/testthat")
@@ -148,12 +148,12 @@ write_docx("Test <Report>",
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
-  expect_true(file.exists(file.path("Output","Reports","Report2.doc")))
+  expect_true(file.exists(test_path("Output","Reports","Report2.doc")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.1.xml")))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.xml")))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists(file.path("Output","Figures","fig_1.10.png")))
+  expect_true(file.exists(test_path("Output","Figures","fig_1.10.png")))
 })
 
 test_that("get_code_tree",{

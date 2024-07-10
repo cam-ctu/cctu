@@ -19,7 +19,7 @@ library(magrittr)
 options(verbose=TRUE)
 
 test_that("ccti_initialise",
-expect_warning(source("hello_world.R", local=TRUE), "Recommend using cctu_initialise()")
+expect_warning(source(test_path("hello_world.R"), local=TRUE), "Recommend using cctu_initialise()")
 )
 
 cctu_initialize()
@@ -114,7 +114,7 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename=file.path("Output","Reports","Report2.doc")#,
+                filename=test_path("Output","Reports","Report2.doc")#,
                 #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
                 #figure_path="Output/Figures",
@@ -148,17 +148,17 @@ write_docx("Test <Report>",
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
-  expect_true(file.exists(file.path("Output","Reports","Report2.doc")))
+  expect_true(file.exists(test_path("Output","Reports","Report2.doc")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.1.xml")))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.xml")))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists(file.path("Output","Figures","fig_1.10.png")))
+  expect_true(file.exists(test_path("Output","Figures","fig_1.10.png")))
 })
 
 test_that("get_code_tree",{
-  write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-  expect_true(file.exists(file.path("Output","codetree.csv")))
+  write.csv(get_code_tree(), file=test_path("Output","codetree.csv"), row.names = FALSE)
+  expect_true(file.exists(test_path("Output","codetree.csv")))
 })
 
 
@@ -166,8 +166,8 @@ test_that("get_code_tree",{
 
 test_that("Comparison to saved output",{
   library(xml2)
-  test <- read_xml(file.path("Output","Core","table_1.1.xml"))
-  expect_known_output(test %>%as.character, file.path("data","table1.1"), update=TRUE, print=TRUE)
+  test <- read_xml(test_path("Output","Core","table_1.1.xml"))
+  expect_known_output(test %>%as.character, test_path("data","table1.1"), update=TRUE, print=TRUE)
   # Won;t work given the explicit file path in the footnotes
   #test <- read_xml("Output/Reports/Report.doc")
   #expect_known_output(test %>%as.character, "data/Report", update=FALSE, print=TRUE)

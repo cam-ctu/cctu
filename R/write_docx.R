@@ -10,6 +10,10 @@
 #'
 #' @details  suggest that \code{\link{file.path}} is used to create non default file paths, to cope with OS vaguaries.
 
+#TODO CHECK teh file path handling is good..
+# make sure images actually work..
+
+
 write_docx <- function(
     report_title,
     author,

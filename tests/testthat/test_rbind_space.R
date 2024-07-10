@@ -38,3 +38,12 @@ test_that("mixture of matrix and 1-d character",
           }
 
           )
+
+
+test_that("colnames edits",{
+
+  X <- data.frame("Param"=1:2, "Estmate (S.E.)"=c("1 (2)","3 (4)"), check.names = FALSE)
+  Y <- rbind_space(X,X)
+  expect_equal(colnames(Y), colnames(X))
+})
+

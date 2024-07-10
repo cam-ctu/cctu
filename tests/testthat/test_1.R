@@ -157,8 +157,8 @@ test_that("Creation of files",{
 })
 
 test_that("get_code_tree",{
-  write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-  expect_true(file.exists(file.path("Output","codetree.csv")))
+  write.csv(get_code_tree(), file=test_path("Output","codetree.csv"), row.names = FALSE)
+  expect_true(file.exists(test_path("Output","codetree.csv")))
 })
 
 
@@ -166,8 +166,8 @@ test_that("get_code_tree",{
 
 test_that("Comparison to saved output",{
   library(xml2)
-  test <- read_xml(file.path("Output","Core","table_1.1.xml"))
-  expect_known_output(test %>%as.character, file.path("data","table1.1"), update=TRUE, print=TRUE)
+  test <- read_xml(test_path("Output","Core","table_1.1.xml"))
+  expect_known_output(test %>%as.character, test_path("data","table1.1"), update=TRUE, print=TRUE)
   # Won;t work given the explicit file path in the footnotes
   #test <- read_xml("Output/Reports/Report.doc")
   #expect_known_output(test %>%as.character, "data/Report", update=FALSE, print=TRUE)

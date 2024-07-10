@@ -128,6 +128,12 @@ write_docx("Test <Report>",
             filename = test_path("Output","Reports","Report_final.docx")
 )
 
+curdir <- getwd()
+setwd(test_path("Output/Reports/wordfiles"))
+system("zip -r  check.docx *")
+setwd(curdir)
+
+
 #setwd("tests/testthat")
 #create_word_xml("Test <Report>",
 #                 "Simon & Bond's",

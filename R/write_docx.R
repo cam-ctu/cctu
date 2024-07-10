@@ -255,19 +255,25 @@ write_docx <- function(
   write_xml(doc_rels, file.path(output_dir, "wordfiles/word/_rels/document.xml.rels"))
 
   # zip files and generate DOCX
+
+
   curr_wd <- getwd()
   setwd(file.path(output_dir, "wordfiles"))
-  tryCatch(
-    zip::zipr(zipfile = long_filename,
-              include_directories = FALSE,
-              files = list.files(path = ".", all.files = FALSE),
-              recurse = TRUE)
-    , error = function(e) {
-     stop("Could not write ", shQuote(long_filename), " [", e$message, "]")
-     },
-     finally = {
-       setwd(curr_wd)
-     })
+  cmd <- paste0("zip -r tmp.docx *")
+  system(cmd)
+  file.copy( "tmp.docx", file.path(curr_wd,long_filename), overwrite=TRUE)
+  setwd(curr_wd)
+  # tryCatch(
+  #   zip::zipr(zipfile = long_filename,
+  #             include_directories = FALSE,
+  #             files = list.files(path = ".", all.files = FALSE),
+  #             recurse = TRUE)
+  #   , error = function(e) {
+  #    stop("Could not write ", shQuote(long_filename), " [", e$message, "]")
+  #    },
+  #    finally = {
+  #      setwd(curr_wd)
+  #   })
 
   if(verbose){
     message(long_filename, " created.")

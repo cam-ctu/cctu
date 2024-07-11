@@ -4,14 +4,12 @@
 #' @param  figure_format it only supports \code{png} format.
 #' @export
 #' @import xml2
-#' @importFrom zip zipr
 #' @importFrom xslt xml_xslt
 #' @return This function is run for its side-effects: creates an xml document that glues together all the outputs and meta data as per the meta-table argument; a transformation fo this as per the xslt file, the default can be opened as a word document.
 #'
 #' @details  suggest that \code{\link{file.path}} is used to create non default file paths, to cope with OS vaguaries.
 
-#TODO CHECK teh file path handling is good..
-# make sure images actually work..
+
 
 
 write_docx <- function(
@@ -54,8 +52,8 @@ write_docx <- function(
               output_dir,
               recursive = TRUE)
   )
-
-  sub_dir <- c("wordfiles/word/_rels", "wordfiles/word/image")
+# I think the /image is wrong, but does not cause harm. I had to add in /media.
+  sub_dir <- c("wordfiles/word/_rels", "wordfiles/word/image","wordfiles/word/media")
   for(i in file.path(output_dir, sub_dir)){
     if (!dir.exists(i))
       dir.create(i, recursive = TRUE)
@@ -158,7 +156,7 @@ write_docx <- function(
                             paste0("fig_", meta_table[i, "number"], ".", figure_format))
       fig_path <- normalizePath(fig_path)
 
-      # Copy figure to median folder
+      # Copy figure to media folder
       invisible(
         file.copy(fig_path,
                   file.path(output_dir,
@@ -263,10 +261,14 @@ write_docx <- function(
 
   curr_wd <- getwd()
   setwd(file.path(output_dir, "wordfiles"))
-  cmd <- paste0("zip -r tmp.docx *")
-  system(cmd)
-  file.copy( "tmp.docx", file.path(curr_wd,long_filename), overwrite=TRUE)
+  #cmd <- paste0("zip -r tmp.docx *")
+  #system(cmd)
+  utils::zip( "tmp.docx",list.files(path=".", all.files=TRUE, full.names=FALSE, recursive=TRUE),
+              flags="-r9Xq"
+              )
   setwd(curr_wd)
+  file.copy( file.path(output_dir,"wordfiles/tmp.docx"), long_filename, overwrite=TRUE)
+
   # tryCatch(
   #   zip::zipr(zipfile = long_filename,
   #             include_directories = FALSE,

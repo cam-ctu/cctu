@@ -18,11 +18,13 @@ library(magrittr)
 
 options(verbose=TRUE)
 
-test_that("ccti_initialise",
-expect_warning(source(test_path("hello_world.R"), local=TRUE), "Recommend using cctu_initialise()")
+test_that("ccti_initialise",{
+  unlink(test_path("Output"), recursive = TRUE)
+  expect_warning(source(test_path("hello_world.R"), local=TRUE), "Recommend using cctu_initialise()")
+}
 )
 
-cctu_initialize()
+cctu_initialize(root=test_path())
 
 #PATH <- paste0(getwd(),"/tests/testthat/")
 #PATH <- paste0(getwd(),"/")
@@ -56,12 +58,12 @@ create_popn_envir(c("data"), popn)
 
 
 if(TRUE){attach_pop(1.1)
-X <- sumby(endpoint, rx, data=data )
-write_table(X)#, directory="tests/testthat/Output/Core/")
+X <- sumby(endpoint, rx, data=data ,directory=test_path("Output/Figures"))
+write_table(X, directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
 
 attach_pop("1.1.1")
-X <- sumby(endpoint, rx, data=data )
-write_table(X)#, directory="tests/testthat/Output/Core/")
+X <- sumby(endpoint, rx, data=data,directory=test_path("Output/Figures") )
+write_table(X,directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
 #meta_table[1,"subtitle"] <- ""
 
 #meta_table <- meta_table[c(1:3,2),]
@@ -72,10 +74,10 @@ write_table(X)#, directory="tests/testthat/Output/Core/")
 
 
 attach_pop("1.10")
-sumby(response, rx, data=data )
+sumby(response, rx, data=data ,directory=test_path("Output/Figures"))
 #could actually just call the write_ggplot() now, but the line below is clearer
-fig <- sumby(response, rx, data=data ) %>% attr("fig")
-write_ggplot()
+fig <- sumby(response, rx, data=data ,directory=test_path("Output/Figures")) %>% attr("fig")
+write_ggplot(directory=test_path("Output/Figures"))
 }
 
 
@@ -114,7 +116,9 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename=test_path("Output","Reports","Report2.doc")#,
+                filename=test_path("Output","Reports","Report2.doc"),
+                table_path=test_path("Output/Core"),
+                figure_path=test_path("Output/Figures")
                 #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
                 #figure_path="Output/Figures",
@@ -125,13 +129,11 @@ write_docx("Test <Report>",
             "Simon & Bond's",
             get_meta_table(),
             popn_labels = popn_labels,
-            filename = test_path("Output","Reports","Report_final.docx")
+            filename = test_path("Output","Reports","Report_final.docx"),
+           table_path=test_path("Output/Core"),
+           figure_path=test_path("Output/Figures")
 )
 
-curdir <- getwd()
-setwd(test_path("Output/Reports/wordfiles"))
-system("zip -r  check.docx *")
-setwd(curdir)
 
 
 #setwd("tests/testthat")
@@ -155,6 +157,7 @@ setwd(curdir)
 
 test_that("Creation of files",{
   expect_true(file.exists(test_path("Output","Reports","Report2.doc")))
+  expect_true(file.exists(test_path("Output","Reports","Report_final.docx")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists(test_path("Output","Core","table_1.1.1.xml")))
   expect_true(file.exists(test_path("Output","Core","table_1.1.xml")))

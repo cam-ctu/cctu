@@ -75,7 +75,11 @@ During the analysis, a block of code to produce a table or figure is put between
 
 All `write_*` functions then look up the number of the table called by `attach_pop` (temporarily stored in a private environment); the output is stored on the local drive either an XML file, or graphics file named with a suffix "_X.Y.Z" to identify the output; the name of the code file that created the output is written to meta-table; by default a final call to `clean_up` removes all objects in the global environment (apart from those named in the vector `.reserved`) and detach the population environment.  
 
-After the analysis, the function `create_word_xml` glues these files all together along with the meta data into a large xml file. The tables are directly copied, and the figures have links to their file paths. Then xslt technology is used to convert the document into the [schema](http://schemas.microsoft.com/office/word/2003/wordml) used by MS Word, so it can be opened directly. Note though that the links to the graphics files would need to be turned into hard copies within Word if you want to move the document. If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk!
+After the analysis, the function `write_docx`  glues these files all together along with the meta data into a large xml file. The tables are directly copied, and the figures have links to their file paths. Then xslt technology is used to convert the document into the [schema](http://schemas.microsoft.com/office/word/2003/wordml) used by MS Word, so it can be opened directly. 
+
+Previously the command `create_word_xml` was used, which then needed subsequent steps to convert to a fully compliant docx with figures. Included for back compatibility now.
+
+If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk!
 
 ## Pointers
 
@@ -201,7 +205,7 @@ popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
 write.csv(get_meta_table(), file=file.path("Output","meta_table.csv"), row.names = FALSE)
 write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-create_word_xml(report_title="Vignette Report",
+write_docx(report_title="Vignette Report",
                 author="Simon Bond",
                 filename=file.path("Output","Reports","Vignette_Report.doc"),
                 popn_labels=popn_labels

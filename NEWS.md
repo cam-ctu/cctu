@@ -1,3 +1,9 @@
+# 0.8.2
+
+Added write_docx() which creates directly a fully compliant OfficeOpen docx file,
+no subsequent steps needed, and it does open on the online office/word tools.
+
+
 # 0.8.1 
 
 Fixing the github continuous integration. Minor fixes to rbind_space, data_table_summary

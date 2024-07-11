@@ -18,11 +18,13 @@ library(magrittr)
 
 options(verbose=TRUE)
 
-test_that("ccti_initialise",
-expect_warning(source("hello_world.R", local=TRUE), "Recommend using cctu_initialise()")
+test_that("ccti_initialise",{
+  unlink(test_path("Output"), recursive = TRUE)
+  expect_warning(source(test_path("hello_world.R"), local=TRUE), "Recommend using cctu_initialise()")
+}
 )
 
-cctu_initialize()
+cctu_initialize(root=test_path())
 
 #PATH <- paste0(getwd(),"/tests/testthat/")
 #PATH <- paste0(getwd(),"/")
@@ -56,12 +58,12 @@ create_popn_envir(c("data"), popn)
 
 
 if(TRUE){attach_pop(1.1)
-X <- sumby(endpoint, rx, data=data )
-write_table(X)#, directory="tests/testthat/Output/Core/")
+X <- sumby(endpoint, rx, data=data ,directory=test_path("Output/Figures"))
+write_table(X, directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
 
 attach_pop("1.1.1")
-X <- sumby(endpoint, rx, data=data )
-write_table(X)#, directory="tests/testthat/Output/Core/")
+X <- sumby(endpoint, rx, data=data,directory=test_path("Output/Figures") )
+write_table(X,directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
 #meta_table[1,"subtitle"] <- ""
 
 #meta_table <- meta_table[c(1:3,2),]
@@ -72,10 +74,10 @@ write_table(X)#, directory="tests/testthat/Output/Core/")
 
 
 attach_pop("1.10")
-sumby(response, rx, data=data )
+sumby(response, rx, data=data ,directory=test_path("Output/Figures"))
 #could actually just call the write_ggplot() now, but the line below is clearer
-fig <- sumby(response, rx, data=data ) %>% attr("fig")
-write_ggplot()
+fig <- sumby(response, rx, data=data ,directory=test_path("Output/Figures")) %>% attr("fig")
+write_ggplot(directory=test_path("Output/Figures"))
 }
 
 
@@ -90,7 +92,7 @@ write_ggplot()
 
 file.remove("backup_image.Rdata")
 expect_equal(file.exists("backup_image.Rdata"), FALSE)
-source("analysis.R", local=TRUE, backup="backup_image.Rdata")
+source(test_path("analysis.R"), local=TRUE, backup="backup_image.Rdata")
 expect_equal(file.exists("backup_image.Rdata"), TRUE)
 file.remove("backup_image.Rdata")
 cctu_env$code_tree
@@ -114,12 +116,25 @@ create_word_xml("Test <Report>",
                 get_meta_table(),
                 datestamp="Test Date",
                 popn_labels = popn_labels,
-                filename=file.path("Output","Reports","Report2.doc")#,
+                filename=test_path("Output","Reports","Report2.doc"),
+                table_path=test_path("Output/Core"),
+                figure_path=test_path("Output/Figures")
                 #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
                 #figure_path="Output/Figures",
 
 )
+
+write_docx("Test <Report>",
+            "Simon & Bond's",
+            get_meta_table(),
+            popn_labels = popn_labels,
+            filename = test_path("Output","Reports","Report_final.docx"),
+           table_path=test_path("Output/Core"),
+           figure_path=test_path("Output/Figures")
+)
+
+
 
 #setwd("tests/testthat")
 #create_word_xml("Test <Report>",
@@ -141,17 +156,18 @@ create_word_xml("Test <Report>",
 #out to write.csv(meta_table) to record the final version post code.
 
 test_that("Creation of files",{
-  expect_true(file.exists(file.path("Output","Reports","Report2.doc")))
+  expect_true(file.exists(test_path("Output","Reports","Report2.doc")))
+  expect_true(file.exists(test_path("Output","Reports","Report_final.docx")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.1.xml")))
-  expect_true(file.exists(file.path("Output","Core","table_1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.1.xml")))
+  expect_true(file.exists(test_path("Output","Core","table_1.1.xml")))
   #expect_true(file.exists("Output/Figures/fig_1.3.png"))
-  expect_true(file.exists(file.path("Output","Figures","fig_1.10.png")))
+  expect_true(file.exists(test_path("Output","Figures","fig_1.10.png")))
 })
 
 test_that("get_code_tree",{
-  write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-  expect_true(file.exists(file.path("Output","codetree.csv")))
+  write.csv(get_code_tree(), file=test_path("Output","codetree.csv"), row.names = FALSE)
+  expect_true(file.exists(test_path("Output","codetree.csv")))
 })
 
 
@@ -159,8 +175,8 @@ test_that("get_code_tree",{
 
 test_that("Comparison to saved output",{
   library(xml2)
-  test <- read_xml(file.path("Output","Core","table_1.1.xml"))
-  expect_known_output(test %>%as.character, file.path("data","table1.1"), update=TRUE, print=TRUE)
+  test <- read_xml(test_path("Output","Core","table_1.1.xml"))
+  expect_known_output(test %>%as.character, test_path("data","table1.1"), update=TRUE, print=TRUE)
   # Won;t work given the explicit file path in the footnotes
   #test <- read_xml("Output/Reports/Report.doc")
   #expect_known_output(test %>%as.character, "data/Report", update=FALSE, print=TRUE)

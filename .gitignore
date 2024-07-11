@@ -13,3 +13,4 @@ cctu_package_wishlist.xlsx
 build_dashboard.R
 /doc/
 *.zip
+!/inst/assets/*

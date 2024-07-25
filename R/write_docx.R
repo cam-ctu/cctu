@@ -294,7 +294,7 @@ to_wml.header <- function(report_title, section){
 
   x <- read_xml(con)
   str <- sprintf("Tables Listing and Figures for %s | Section: %s",
-                 "Demo report", "Baseline")
+                 report_title, section)
   nd <- xml_find_first(x, xpath = "//w:r/w:t")
   xml_text(nd) <- str
   x

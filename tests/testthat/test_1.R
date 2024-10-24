@@ -59,11 +59,13 @@ create_popn_envir(c("data"), popn)
 
 if(TRUE){attach_pop(1.1)
 X <- sumby(endpoint, rx, data=data ,directory=test_path("Output/Figures"))
-write_table(X, directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
+write_table(X, directory=test_path("Output/Core"))
+#, directory="tests/testthat/Output/Core/")
 
 attach_pop("1.1.1")
 X <- sumby(endpoint, rx, data=data,directory=test_path("Output/Figures") )
-write_table(X,directory=test_path("Output/Core"))#, directory="tests/testthat/Output/Core/")
+write_table(X,directory=test_path("Output/Core")
+            )#, directory="tests/testthat/Output/Core/")
 #meta_table[1,"subtitle"] <- ""
 
 #meta_table <- meta_table[c(1:3,2),]
@@ -111,7 +113,17 @@ popn_size <- apply(popn[,names(popn)!="subjid"],2,sum)
 popn_labels <- paste0(c("Safety (N = ","Full Analysis (N = "), popn_size,c(")", ")"))
 
 #setwd(PATH)
-create_word_xml("Test <Report>",
+
+# override Sys.time() to always return a fixed time to use in snapshots
+local_mocked_bindings(
+  Sys.time = function() as.POSIXct("1987-05-16 16:18:00 BST")
+)
+
+# now use snapshots...
+
+test_that("create snapshots",{
+expect_warning(
+  create_word_xml("Test <Report>",
                 "Simon & Bond's",
                 get_meta_table(),
                 datestamp="Test Date",
@@ -122,8 +134,10 @@ create_word_xml("Test <Report>",
                 #xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
                 #table_path = "Output/Core",
                 #figure_path="Output/Figures",
+                ), "This function is no longer being maintained")
 
-)
+
+expect_snapshot_file( test_path("Output","Reports","Report2.doc"), "Report2.doc")
 
 write_docx("Test <Report>",
             "Simon & Bond's",
@@ -134,7 +148,7 @@ write_docx("Test <Report>",
            figure_path=test_path("Output/Figures")
 )
 
-
+expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 
 #setwd("tests/testthat")
 #create_word_xml("Test <Report>",
@@ -154,6 +168,8 @@ write_docx("Test <Report>",
 #                 popn_labels = popn_labels)
 
 #out to write.csv(meta_table) to record the final version post code.
+})
+
 
 test_that("Creation of files",{
   expect_true(file.exists(test_path("Output","Reports","Report2.doc")))

@@ -12,8 +12,9 @@
 #' @seealso  \code{\link[base]{source}}
 #' @export
 
-source <- function(file, local=FALSE, backup=NULL
-                   #code_tree_string="code_tree", frame=parent.frame()
+source <- function(file,
+                   local=getOption("cctu_source_local", default = FALSE),
+                   backup=NULL
                    ){
   parent_frame <- parent.frame()
   if(!is.null(backup)){save.image(file=backup)}

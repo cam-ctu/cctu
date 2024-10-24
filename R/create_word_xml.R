@@ -38,6 +38,10 @@ create_word_xml <- function(
   keep_xml = FALSE
 ){
 
+  warning("This function is no longer being maintained. Use write_docx() instead",
+          immediate. = TRUE
+          )
+
   table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath(., mustWork=FALSE)
 

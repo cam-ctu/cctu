@@ -7,7 +7,9 @@ write_table(X,directory=test_path("Output/Core"))
 
 attach_pop("1.1.1",verbose=TRUE)
 X <- sumby(endpoint, rx, data=data ,directory=test_path("Output/Figures"))
-write_table(X, clean_up = FALSE,directory=test_path("Output/Core"))
+write_table(X, clean_up = FALSE,directory=test_path("Output/Core"),
+            heading = c("Variable","Statistics with a long line of text to check folding","A","B","Total")
+)
 
 meta_table <- get_meta_table()
 

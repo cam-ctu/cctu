@@ -8,6 +8,8 @@ source(test_path("increment.R"))
 expect_equal(x,2)
 
 
+#
+
 # if we drop the parent_frame line in cctu::source then this also fails
 # can't udnerstand what it does
 source(test_path("increment.R"), local=TRUE)
@@ -17,10 +19,17 @@ expect_equal(x,3)
 # FAILS on auto testing-  not sure why
 # inside a function env, but using global
 #  changing gloablenv or test_env has no effect.
-assign("x",3, envir=globalenv())
+
+
+#withr::local_options(testthat_topenv = test_env())
+
+
+opts <- options(topLevelEnvironment=topenv(environment(cttab)))
+assign("x",3, envir = topenv())
 y <- run(1)
-expect_equal(x,4)
+expect_equal(topenv()$x,4)
 expect_equal(y,1)
+
 
 
 # inside a function env, but using local
@@ -33,17 +42,17 @@ expect_equal(y,2)
 
 # using options
 options(cctu_source_local=FALSE)
-assign("x",3, envir=globalenv())
+assign("x",3, envir = topenv())
 y <- run(1)
-expect_equal(x,4)
+expect_equal(topenv()$x,4)
 expect_equal(y,1)
 
 options(cctu_source_local=TRUE)
-assign("x",3, envir=globalenv())
+assign("x",3, envir=topenv())
 y <- run(1)
-expect_equal(x,3)
+expect_equal(topenv()$x,3)
 expect_equal(y,2)
 
 options(cctu_source_local=NULL)
-
+options(opts)
 })

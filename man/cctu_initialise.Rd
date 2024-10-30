@@ -53,8 +53,6 @@ rm_output(
 \item{reports}{logical delete the files in /Reports}
 
 \item{top}{logical delete top level files that are not in core/figures/reports.}
-
-\item{root_output}{character giving the output directory path}
 }
 \value{
 cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".

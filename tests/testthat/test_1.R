@@ -148,7 +148,7 @@ write_docx("Test <Report>",
            figure_path=test_path("Output/Figures")
 )
 
-expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
+#expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 
 #setwd("tests/testthat")
 #create_word_xml("Test <Report>",

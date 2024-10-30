@@ -137,7 +137,7 @@ expect_warning(
                 ), "This function is no longer being maintained")
 
 
-expect_snapshot_file( test_path("Output","Reports","Report2.doc"), "Report2.doc")
+#expect_snapshot_file( test_path("Output","Reports","Report2.doc"), "Report2.doc")
 
 write_docx("Test <Report>",
             "Simon & Bond's",

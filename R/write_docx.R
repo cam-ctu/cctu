@@ -16,10 +16,10 @@ write_docx <- function(
     report_title,
     author,
     meta_table = get_meta_table(),
-    filename = file.path("Output","Reports","Report.docx"),
-    table_path = file.path("Output","Core"),
+    filename = file.path(getOption("cctu_output", default = "Output"),"Reports","Report.docx"),
+    table_path = file.path(getOption("cctu_output", default = "Output"),"Core"),
     figure_format = "png",
-    figure_path = file.path("Output","Figures"),
+    figure_path = file.path(getOption("cctu_output", default = "Output"),"Figures"),
     popn_labels = NULL,
     verbose = options()$verbose,
     keep_xml = FALSE

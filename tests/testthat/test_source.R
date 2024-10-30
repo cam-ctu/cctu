@@ -24,7 +24,17 @@ expect_equal(x,3)
 #withr::local_options(testthat_topenv = test_env())
 
 
-opts <- options(topLevelEnvironment=topenv(environment(cttab)))
+#opts <- options(topLevelEnvironment=topenv(environment(cttab)))
+
+run <- function(x, ...){
+  print(environment())
+  print(search())
+  source(test_path("increment.R"),...)
+  x
+}
+
+
+
 assign("x",3, envir = topenv())
 y <- run(1)
 expect_equal(topenv()$x,4)
@@ -41,7 +51,7 @@ expect_equal(y,2)
 
 
 # using options
-options(cctu_source_local=FALSE)
+opts <- options(cctu_source_local=FALSE)
 assign("x",3, envir = topenv())
 y <- run(1)
 expect_equal(topenv()$x,4)

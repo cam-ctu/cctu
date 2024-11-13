@@ -149,9 +149,12 @@ expect_warning(
   extract_xml <- function(x){
     tpdir <- tempdir()
     unzip(x, exdir = tpdir)
-    return(list.files(path = file.path(tpdir, "word"), # pattern = "*.xml",
-                      recursive = TRUE,
-                      full.names = TRUE))
+    files_list <- list.files(path = file.path(tpdir, "word"), # pattern = "*.xml",
+                             recursive = TRUE,
+                             full.names = TRUE)
+    # No media files as different system produce it differently
+    files_list <- files_list[!grepl("media", files_list)]
+    return(files_list)
   }
 
 write_docx("Test <Report>",

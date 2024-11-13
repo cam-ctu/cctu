@@ -168,7 +168,10 @@ write_docx("Test <Report>",
 
 # Compare everything inside the word folder
 for(i in extract_xml(test_path("Output","Reports","Report_final.docx"))){
-  expect_snapshot_file(i)
+  # expect_snapshot_file(i)
+  announce_snapshot_file(name = basename(i))
+  compare_file_text(file.path("_snaps/1", basename(i)),
+                    i)
 }
 
 #expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")

@@ -122,10 +122,16 @@ local_mocked_bindings(
 # now use snapshots...
 
 test_that("create snapshots",{
+
+  meta_tbl <- get_meta_table()
+  # Convert backslash to slash and remove current dir
+  meta_tbl$program <- gsub("\\\\", "/", meta_tbl$program)
+  meta_tbl$program <- gsub(getwd(), "", meta_tbl$program)
+
 expect_warning(
   create_word_xml("Test <Report>",
                 "Simon & Bond's",
-                get_meta_table(),
+                meta_table = meta_tbl,
                 datestamp="Test Date",
                 popn_labels = popn_labels,
                 filename=test_path("Output","Reports","Report2.doc"),
@@ -139,14 +145,28 @@ expect_warning(
 
 #expect_snapshot_file( test_path("Output","Reports","Report2.doc"), "Report2.doc")
 
+  # Extract the xml files under the word folder and return the path
+  extract_xml <- function(x){
+    tpdir <- tempdir()
+    unzip(x, exdir = tpdir)
+    return(list.files(path = file.path(tpdir, "word"), # pattern = "*.xml",
+                      recursive = TRUE,
+                      full.names = TRUE))
+  }
+
 write_docx("Test <Report>",
             "Simon & Bond's",
-            get_meta_table(),
+           meta_table = meta_tbl,
             popn_labels = popn_labels,
             filename = test_path("Output","Reports","Report_final.docx"),
            table_path=test_path("Output/Core"),
            figure_path=test_path("Output/Figures")
 )
+
+# Compare everything inside the word folder
+for(i in extract_xml(test_path("Output","Reports","Report_final.docx"))){
+  expect_snapshot_file(i)
+}
 
 #expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 

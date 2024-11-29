@@ -59,6 +59,12 @@ write_docx <- function(
       dir.create(i, recursive = TRUE)
   }
 
+  # Rename the file text.rels
+  invisible(
+    file.rename(file.path(output_dir, "wordfiles/_rels/removeme.rels"),
+                file.path(output_dir, "wordfiles/_rels/.rels"))
+  )
+
   filename <- tempfile(fileext = ".xml")
 
   if(keep_xml){

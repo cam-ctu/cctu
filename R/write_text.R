@@ -12,7 +12,7 @@
 write_text <- function(X,
                        number=cctu_env$number,
                        clean_up = TRUE,
-                       directory=file.path("Output","Core"),
+                       directory=file.path(getOption("cctu_output", default = "Output"),"Core"),
                        verbose=options()$verbose
 ){
 

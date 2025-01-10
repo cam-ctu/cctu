@@ -25,10 +25,11 @@
 
 
 run_batch <- function(filename, ...){
-  if( !interactive()){
+  if( !rlang::is_interactive()){
     warning("run_batch() only works in interactive mode")
   } else {
     warning("Make certain you only have the project open on one computer", immediate. = TRUE)
+    warning("If using renv for package management, you have to have renv::load() in your script at the start", immediate. = TRUE)
     # belt and braces approach to use full filepaths with quotes.
     # It did work  with just "R CMD BATCH --vanilla filename", in a simple example.
     command <- paste0( '"',R.home("bin"),

@@ -9,7 +9,7 @@
 #' @param dpi the resolution setting
 #' @param units either "cm" (the default) or "inches"
 #' @param clean_up logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE
-#' @param directory where to save the figures within path or current working directory
+#' @param directory where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").
 #' @inheritParams clean_up
 #'
 #' @param format either "jpg", "postscript", or "png" to determine the file type to use
@@ -29,7 +29,7 @@ write_ggplot = function(
                        dpi      = 300,
                        units    = "cm",
                        clean_up = TRUE,
-                       directory=file.path("Output","Figures"),
+                       directory=file.path(getOption("cctu_output", default = "Output"),"Figures"),
                        format = c("png","postscript","jpeg"),
                        graphics_args=NULL,
                        verbose=options()$verbose,
@@ -137,7 +137,7 @@ write_plot = function(...,
                       dpi      = 300,
                       units    = "cm",
                       clean_up = TRUE,
-                      directory=file.path("Output","Figures"),
+                      directory=file.path(getOption("cctu_output", default = "Output"),"Figures"),
                       format=c("png","postscript","jpeg"),
                       graphics_args=NULL,
                       verbose=options()$verbose,

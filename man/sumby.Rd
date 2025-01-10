@@ -11,7 +11,7 @@ sumby(
   data = parent.frame(),
   total = TRUE,
   fig = TRUE,
-  directory = file.path("Output", "Figures"),
+  directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
   verbose = options()$verbose,
   text_clean = propercase,
   pct_digits = 0,

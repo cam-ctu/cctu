@@ -28,15 +28,19 @@ create_word_xml <- function(
   author,
   meta_table=get_meta_table(),
   datestamp=format(Sys.time(),format="%H:%M %d %b %Y"),
-  filename=file.path("Output","Reports","Report.doc"),
-  table_path=file.path("Output","Core"),
+  filename=file.path(getOption("cctu_output", default = "Output"),"Reports","Report.doc"),
+  table_path=file.path(getOption("cctu_output", default = "Output"),"Core"),
   figure_format=c("png","jpeg","ps"),
-  figure_path=file.path("Output","Figures"),
+  figure_path=file.path(getOption("cctu_output", default = "Output"),"Figures"),
   popn_labels=NULL,
   verbose=options()$verbose,
   xslt_file=system.file("extdata", "to_word.xslt", package="cctu"),
   keep_xml = FALSE
 ){
+
+  warning("This function is no longer being maintained. Use write_docx() instead",
+          immediate. = TRUE
+          )
 
   table_path %<>% normalizePath #%>% final_slash
   long_filename <-  filename %>% normalizePath(., mustWork=FALSE)

@@ -12,7 +12,7 @@ write_ggplot(
   dpi = 300,
   units = "cm",
   clean_up = TRUE,
-  directory = file.path("Output", "Figures"),
+  directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
   format = c("png", "postscript", "jpeg"),
   graphics_args = NULL,
   verbose = options()$verbose,
@@ -34,7 +34,7 @@ write_ggplot(
 
 \item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
 
-\item{directory}{where to save the figures within path or current working directory}
+\item{directory}{where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").}
 
 \item{format}{either "jpg", "postscript", or "png" to determine the file type to use}
 

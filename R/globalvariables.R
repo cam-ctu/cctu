@@ -8,11 +8,17 @@ cctu_env$nested_run_batch <- FALSE
 
 # Missing data report
 cctu_env$missing_report_data <- setNames(data.frame(matrix(ncol = 8, nrow = 0)),
-                                         c("form", "visit_var", "visit_label", 
+                                         c("form", "visit_var", "visit_label",
                                            "visit", "variable", "label", "missing_pct",
                                            "subject_ID"))
-# Setup DLU file                                           
+# Setup DLU file
 cctu_env$dlu <- NULL
 
 #.reserved <- character(0)
+
+# This is done to create a binding within the package namespace, so that
+# it can be mocked as per
+# https://testthat.r-lib.org/reference/local_mocked_bindings.html#base-functions
+# in the testing
+Sys.time <- NULL
 

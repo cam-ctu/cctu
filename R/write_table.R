@@ -5,14 +5,14 @@
 #' @param X the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames of X
 #' @param na_to_empty logical, if true then any NA values will be written as empty strings. Defaults to false.
-#' 
-#' @details 
+#'
+#' @details
 #' Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
 #' Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
 #'
 #' @return writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
 #' @export
-#' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}} 
+#' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}
 #' \code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{apply_macro_dict}}
 #' @importFrom magrittr %>% %<>%
 
@@ -21,7 +21,7 @@ write_table = function(X,
                       heading  = NULL,
                       na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
                       clean_up = TRUE,
-                      directory=file.path("Output","Core"),
+                      directory=file.path(getOption("cctu_output", default = "Output"),"Core"),
                       verbose=options()$verbose,
                       footnote = NULL
                       ){
@@ -41,7 +41,7 @@ write_table = function(X,
     X <- data.frame(" " = "No Data")
     colnames(X) <- ""
   }
-    
+
 
   if(inherits(X, "cttab"))
     output_string <- table_cttab(X)
@@ -65,7 +65,7 @@ write_table = function(X,
 remove_xml_specials <- function(x){
   # Remove non-UTF-8 here or the gsub will fail for non-UTF-8 characters
   # Ref: https://blog.r-project.org/2022/06/27/why-to-avoid-%5Cx-in-regular-expressions/
-  x <- rm_invalid_utf8_(x) 
+  x <- rm_invalid_utf8_(x)
   x <- gsub("&(?!#\\d+;)","&amp;\\1", x,perl=TRUE)
   x <-  gsub("<","&lt;", x)
   x <-  gsub(">", "&gt;",x)
@@ -115,7 +115,7 @@ table_data <- function(X, heading  = NULL, na_to_empty=FALSE){
       warning("Invalid non-UTF8 characters found\n", utf8_check_cap, "\n")
     }
   }
-  
+
 
   # Table header
   th <- paste0("<th>", remove_xml_specials(heading), "</th>", collapse = "")

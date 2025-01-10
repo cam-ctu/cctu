@@ -1,3 +1,14 @@
+###  for testing the source()
+
+run <- function(x, ...){
+  print(environment())
+  print(search())
+  source(test_path("increment.R"),...)
+  x
+}
+
+
+
 
 # This works out how many sig figures (for integers), or how many dp
 # a character representation of a number is written to.

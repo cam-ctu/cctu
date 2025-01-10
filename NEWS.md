@@ -1,3 +1,12 @@
+# 0.8.3
+
+Fixed a bug with write_docx() in the multi-line headers are now completely visible. Testing added of docx outputs.
+
+Added in options(cctu_output) and optinos(cctu_source_local) to change the default arguents for write_xx() and source()
+
+Updated Vignette
+
+
 # 0.8.2
 
 Added write_docx() which creates directly a fully compliant OfficeOpen docx file,

@@ -168,6 +168,11 @@ sourceKnit <- function(path, label){
 
 ```
 
+### Library management
+
+The code below is rather outdated regarding library management, although it will still work fine.  If you use the Docker image `shug0131/cctu` then it should be a rare event that you need to install any extra packages.  But if you do then it preferable to manage this using `renv` package. Best practice is to write a list of the  packages needed, including any extra ones, in a DESCRIPTION file at the top level, listing them under the `Imports:` heading. Then you modify the script in `config.R` to read this file and workout which packages to load.  If you do need to use `renv` for installing extra packages, then adding them to DESCRIPTION will make this all very explicit, and will help create the `renv.lock` file correctly to get the package versions of everything that you need. 
+
+
 `r sourceKnit(file.path("Progs","config.R"), "config")`
 
 ## Data Import
@@ -222,6 +227,19 @@ file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
 The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
+
+
+## Multiple Versions of Reports
+
+Often you may need to produce slight variations on the same report, such as a closed and open versions. We provide various options() to overwrite the default arguments in `write_**()`  with `options(cctu_output="Other_Output_Folder")`, although you would still need to create this directory and the required sub directories first. Also you can provide `source(file, local=TRUE)` to allow scripts to be run inside a function, rather than in the global environment;  `options(cctu_source_local=TRUE)` overrides the default.  But then your code will need to branch to produce different outputs (e.g. pooling arms or not), depending which version.  You can select subsets of the meta table to remove/include tables or figures in a similar branching logic. 
+
+The idea is to be able to set some differing options  and/or other R objects in a single script that produces all versions of the report with a repeated `source("main.R")`.
+
+Alternative approaches have been found, code-to-write-code,  using `knitr::knit_expand`. Creating functions to modifying the meta-table automatically.  But not without complexity! 
+
+You will still need to produce the log of all the commands with `run_batch()` or just `system("R CMD BATCH --vanilla main.R")` (N.B if you have extra packages managed with `renv()` then you need to add a line `renv::load()` at the start of your top-level script ). You still need to produce the output of cctu_env$code_tree for all versions of the reports.
+
+We'd recommend using a master script approach for simplicity and readability, unless good reason not.
 
 
 ## Other Outputs

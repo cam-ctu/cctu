@@ -272,7 +272,6 @@
         </w:tblBorders>
       </w:tblPrEx>
       <w:trPr>
-        <w:trHeight w:val="300" w:hRule="exact" />
         <w:tblHeader />
       </w:trPr>
       <xsl:apply-templates select="th">

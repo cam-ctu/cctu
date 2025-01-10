@@ -16,10 +16,10 @@ write_docx <- function(
     report_title,
     author,
     meta_table = get_meta_table(),
-    filename = file.path("Output","Reports","Report.docx"),
-    table_path = file.path("Output","Core"),
+    filename = file.path(getOption("cctu_output", default = "Output"),"Reports","Report.docx"),
+    table_path = file.path(getOption("cctu_output", default = "Output"),"Core"),
     figure_format = "png",
-    figure_path = file.path("Output","Figures"),
+    figure_path = file.path(getOption("cctu_output", default = "Output"),"Figures"),
     popn_labels = NULL,
     verbose = options()$verbose,
     keep_xml = FALSE
@@ -58,6 +58,12 @@ write_docx <- function(
     if (!dir.exists(i))
       dir.create(i, recursive = TRUE)
   }
+
+  # Rename the file text.rels
+  invisible(
+    file.rename(file.path(output_dir, "wordfiles/_rels/removeme.rels"),
+                file.path(output_dir, "wordfiles/_rels/.rels"))
+  )
 
   filename <- tempfile(fileext = ".xml")
 
@@ -294,7 +300,7 @@ to_wml.header <- function(report_title, section){
 
   x <- read_xml(con)
   str <- sprintf("Tables Listing and Figures for %s | Section: %s",
-                 "Demo report", "Baseline")
+                 report_title, section)
   nd <- xml_find_first(x, xpath = "//w:r/w:t")
   xml_text(nd) <- str
   x

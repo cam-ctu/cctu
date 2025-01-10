@@ -20,4 +20,4 @@ SPIRO
 
 ^.gitignore$
 ^.Rrofile$
-
+^sysdata.rda$

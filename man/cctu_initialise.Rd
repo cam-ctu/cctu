@@ -7,18 +7,32 @@
 \alias{rm_output}
 \title{initialise  objects for using cctu package}
 \usage{
-cctu_initialise(root = getwd(), scripts = FALSE, rm = FALSE)
+cctu_initialise(
+  root = getwd(),
+  scripts = FALSE,
+  rm = FALSE,
+  output = getOption("cctu_output", default = "Output")
+)
 
-cctu_initialize(root = getwd(), scripts = FALSE, rm = FALSE)
+cctu_initialize(
+  root = getwd(),
+  scripts = FALSE,
+  rm = FALSE,
+  output = getOption("cctu_output", default = "Output")
+)
 
-cctu_check_dir(root = getwd(), warnings = FALSE)
+cctu_check_dir(
+  root = getwd(),
+  warnings = FALSE,
+  output = getOption("cctu_output", default = "Output")
+)
 
 rm_output(
-  root_output = "Output",
+  output = getOption("cctu_output", default = "Output"),
   core = TRUE,
   figures = TRUE,
   reports = TRUE,
-  output = TRUE
+  top = TRUE
 )
 }
 \arguments{
@@ -28,9 +42,9 @@ rm_output(
 
 \item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.}
 
-\item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
+\item{output}{character string giving the name of the output folder. Can be overriden by setting the option("cctu_output").}
 
-\item{root_output}{character giving the output directory path}
+\item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
 
 \item{core}{logical delete the files in /Core}
 
@@ -38,7 +52,7 @@ rm_output(
 
 \item{reports}{logical delete the files in /Reports}
 
-\item{output}{logical delete top level files in}
+\item{top}{logical delete top level files that are not in core/figures/reports.}
 }
 \value{
 cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".

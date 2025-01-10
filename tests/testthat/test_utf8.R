@@ -5,6 +5,7 @@ rm(list=ls())
 
 library(cctu)
 
+load(test_path("fixtures", "sysdata.rda"))
 
 test_that(
  "check inputs for detection", {

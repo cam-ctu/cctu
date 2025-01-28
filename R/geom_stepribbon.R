@@ -4,15 +4,15 @@
 #'
 #' \code{geom_stepribbon} is an extension of the \code{geom_ribbon}, and
 #' is optimized for Kaplan-Meier plots with pointwise confidence intervals
-#' or a confidence band. The default \code{direction}-argument \code{"hv"} is 
-#' appropriate for right-continuous step functions like the hazard rates etc 
+#' or a confidence band. The default \code{direction}-argument \code{"hv"} is
+#' appropriate for right-continuous step functions like the hazard rates etc
 #' returned by \code{pammtools}.
 #'
 #' @seealso
 #'   \code{\link[ggplot2]{geom_ribbon}} \code{geom_stepribbon}
 #'   inherits from \code{geom_ribbon}.
-#' @inheritParams ggplot2:::geom_ribbon
-#' @inheritParams ggplot2:::geom_step
+#' @inheritParams ggplot2::geom_ribbon
+#' @inheritParams ggplot2::geom_step
 #' @examples
 #' library(ggplot2)
 #' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
@@ -29,7 +29,7 @@ geom_stepribbon <- function(
   data        = NULL,
   stat        = "identity",
   position    = "identity",
-  direction   = "hv", 
+  direction   = "hv",
   na.rm       = FALSE,
   show.legend = NA,
   inherit.aes = TRUE, ...) {
@@ -62,7 +62,7 @@ GeomStepribbon <- ggproto(
     if (na.rm) data <- data[complete.cases(data[c("x", "ymin", "ymax")]), ]
     data   <- rbind(data, data)
     data   <- data[order(data$x), ]
-    data   <- ggplot2_stairstep(data[complete.cases(data["x"]), ], 
+    data   <- ggplot2_stairstep(data[complete.cases(data["x"]), ],
                                direction = direction)
     GeomRibbon$draw_group(data, panel_scales, coord, na.rm = na.rm)
   }
@@ -70,7 +70,7 @@ GeomStepribbon <- ggproto(
 )
 
 
-# code adapted from 
+# code adapted from
 # https://github.com/tidyverse/ggplot2/blob/9741da5050f81b7b5c012c56d02f45fc93d68f89/R/geom-path.r#L320
 ggplot2_stairstep <- function(data, direction =  c("hv", "vh", "mid")) {
   direction <- match.arg(direction)
@@ -91,14 +91,14 @@ ggplot2_stairstep <- function(data, direction =  c("hv", "vh", "mid")) {
     xs <- rep(1:(n - 1), each = 2)
     ys <- rep(1:n, each = 2)
   }
-  
+
   ymin <- c(data$ymin[ys])
   ymax <- c(data$ymax[ys])
   if (direction == "mid") {
     gaps <- data$x[-1] - data$x[-n]
     mid_x <- data$x[-n] + gaps/2
     x <- c(data$x[1], mid_x[xs], data$x[n])
-    data_attr <- data[c(1, xs, n), 
+    data_attr <- data[c(1, xs, n),
                       setdiff(names(data), c("x", "ymin", "ymax"))]
   } else {
     x <- data$x[xs]

@@ -64,7 +64,14 @@ test_that("test write_plot",{
 
   X <- data.frame(x=1,y=1)
   fig <- ggplot(X, aes(x=x,y=y))+geom_point()
-  write_plot(fig, number = "1.10")
+  write_plot(fig, number = "1.10", clean_up=FALSE)
+
+
+  library(survival)
+  fit <- survfit(Surv(time,status)~rx, data=colon)
+  fig0 <- km_ggplot(fit)
+  write_plot(fig0, number="1.10")
+
 
 })
 

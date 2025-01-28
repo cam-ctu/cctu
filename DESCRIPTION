@@ -1,8 +1,8 @@
 Package: cctu
 Type: Package
 Title: In-House Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.8.3
-Date: 2025-01-10
+Version: 0.8.4
+Date: 2025-01-28
 Author: Simon Bond, Alimu Dayimu
 Maintainer: Simon Bond <simon.bond7@nhs.net>
 Description: Several useful functions and a vignette to explain how to put it all together. Notably, it produces word documents via xml, and deals with ensuring the correct population is used.
@@ -11,8 +11,8 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
-Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, grid, gridExtra, base64enc, png, rlang
-Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr, rms, nlme, survival, gee, lme4
+Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, grid, gridExtra, base64enc, png, rlang, lifecycle, survival, patchwork
+Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr, rms, nlme, gee, lme4, vdiffr
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3

@@ -18,6 +18,12 @@ regress <- meta[1,]
 regress$title <- "Regression: Age predicted by Treatment"
 regress$number <- "1.2"
 meta <- rbind(meta, regress)
+
+km <- meta[1,]
+km$title <- "Kaplan-Meier Plot"
+km$number <- "1.3"
+km$item <- "figure"
+meta <- rbind(meta, km)
 set_meta_table( meta)
 
 

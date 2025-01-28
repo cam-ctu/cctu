@@ -29,7 +29,9 @@ fig6 <- km_ggplot(fit_sex)
 vdiffr::expect_doppelganger("strata", fig6)
 expect_warning(km_ggplot(fit_sex, ystratalabs = names(fit_sex$strata)), "deprecated")
 
-fig7 <- km_ggplot(fit, xlabs = "Days", ylabs="Survival", strata_labs=c("A","B","C"))
+fig7 <- km_ggplot(fit, xlabs = "Days", ylabs="Survival", strata_labs=c("A","B","C"),
+                  ylims=c(0.5,1), xlims=c(0,2000)
+                  )
 vdiffr::expect_doppelganger("labs", fig7)
 
 }

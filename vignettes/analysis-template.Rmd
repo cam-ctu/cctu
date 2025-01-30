@@ -162,7 +162,7 @@ It is recommended to set up a config.R file that
 
 ```{r, echo=FALSE}
 sourceKnit <- function(path, label){
-  cmd <- knitr::knit_expand(file.path("Progs","templ.Rmd"))
+  cmd <- knitr::knit_expand(file.path("Progs","_templ.Rmd"))
   knitr::knit_child(text=unlist(cmd))
 }
 

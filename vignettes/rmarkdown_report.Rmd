@@ -39,7 +39,7 @@ for(sect in sections){
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
           src <- c(src, 
-               knitr::knit_expand(file=file.path("Progs","table.Rmd") %>% normalizePath(),
+               knitr::knit_expand(file=file.path("Progs","_table.Rmd") %>% normalizePath(),
                            chunk_name=paste0("table",subtab[row,"number"]),
                            file_name=file_name 
                            )
@@ -52,7 +52,7 @@ for(sect in sections){
         # knit exapnd really doesn't like absolute paths or \ or \\
         if( file.exists(file_name)){
           src <- c(src, 
-               knitr::knit_expand(file="Progs/text.Rmd" %>% normalizePath(),
+               knitr::knit_expand(file="Progs/_text.Rmd" %>% normalizePath(),
                            chunk_name=paste0("text",subtab[row,"number"]),
                            file_name=file_name 
                            )

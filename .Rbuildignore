@@ -21,3 +21,6 @@ SPIRO
 ^.gitignore$
 ^.Rrofile$
 ^sysdata.rda$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

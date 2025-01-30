@@ -13,6 +13,13 @@ vignette: |
   %\VignetteIndexEntry{Analysis Template} 
   %\VignetteEncoding{UTF-8} 
   %\VignetteEngine{knitr::rmarkdown}
+pkgdown:
+  as_is: true
+resource_files:
+  - ^Progs$
+  - ^output$
+  - ^main.R$
+  - vignettes/Output/.*
 ---
 
 ```{r setup, include = FALSE}

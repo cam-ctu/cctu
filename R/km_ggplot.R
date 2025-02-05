@@ -226,9 +226,6 @@ build_kmplot <- function(x, ...){
     grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
   }
 
-  # grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
-  # grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
-
   # Set the combined figure width to the largest one
   grob_combined$widths <- grid::unit.pmax(grob_plot$widths, grob_tbl$widths)
 

@@ -13,6 +13,7 @@ a dataset with 10 columns and 3 example rows
  \item{number}{the tem number, to use for link up with \code{\link{attach_pop}}, \code{\link{write_table}}, \code{\link{write_ggplot}}.}
  \item{population}{the name of the population to use for the item. See \code{\link{create_popn_envir}}.}
  \item{orientation}{takes values "portrait" or "landscape" to determine the page orientation for each item}
+ \item{margin}{takes values "normal" or "narrow" to determine the page margin for each item}
  \item{item}{takes values "table", "figure", or far more rarely "text". \code{\link{create_word_xml}} will expect there to exist 'table_XX.xml', 'figure_XX.png' or 'text_XX.xml' as appropriate where 'XX' is the number value.}
  \item{footnote1}{optional footnote. Use the empty string if no subtitle wanted.}
  \item{footnote2}{optional footnote. Use the empty string if no subtitle wanted.}

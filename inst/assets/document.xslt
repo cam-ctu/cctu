@@ -25,6 +25,7 @@
 
         <xsl:call-template name="PageSection">
           <xsl:with-param name="orientation" select="Report/*[last()]/pagesection/orientation" />
+          <xsl:with-param name="margin" select="Report/*[last()]/pagesection/margin" />
           <xsl:with-param name="headerid" select="Report/*[last()]/pagesection/headerid" />
           <xsl:with-param name="footerid" select="Report/*[last()]/pagesection/footerid" />
         </xsl:call-template>
@@ -86,6 +87,7 @@
         <xsl:if test="not(position() = last())">
           <xsl:call-template name="PageSection">
             <xsl:with-param name="orientation" select="pagesection/orientation" />
+            <xsl:with-param name="margin" select="pagesection/margin" />
             <xsl:with-param name="headerid" select="pagesection/headerid" />
             <xsl:with-param name="footerid" select="pagesection/footerid" />
           </xsl:call-template>
@@ -152,6 +154,7 @@
         <xsl:if test="not(position() = last())">
           <xsl:call-template name="PageSection">
             <xsl:with-param name="orientation" select="pagesection/orientation" />
+            <xsl:with-param name="margin" select="pagesection/margin" />
             <xsl:with-param name="headerid" select="pagesection/headerid" />
             <xsl:with-param name="footerid" select="pagesection/footerid" />
           </xsl:call-template>
@@ -506,6 +509,7 @@
         <xsl:if test="not(position() = last())">
           <xsl:call-template name="PageSection">
             <xsl:with-param name="orientation" select="pagesection/orientation" />
+            <xsl:with-param name="margin" select="pagesection/margin" />
             <xsl:with-param name="headerid" select="pagesection/headerid" />
             <xsl:with-param name="footerid" select="pagesection/footerid" />
           </xsl:call-template>
@@ -518,6 +522,7 @@
     <xsl:param name="orientation" />
     <xsl:param name="footerid" />
     <xsl:param name="headerid" />
+    <xsl:param name="margin" />
     <xsl:variable name="lower_case_orientation">
       <xsl:value-of
         select="translate($orientation,'ABCDEFGHIJKLYMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
@@ -539,8 +544,14 @@
           <w:pgSz w:w="16840" w:h="11900" w:orient="landscape" />
         </xsl:otherwise>
       </xsl:choose>
-      <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720"
-        w:footer="720" w:gutter="0" />
+      <xsl:choose>
+        <xsl:when test="$margin !='narrow'">
+          <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0" />
+        </xsl:when>
+        <xsl:otherwise>
+          <w:pgMar w:top="720" w:right="720" w:bottom="720" w:left="720" w:header="720" w:footer="720" w:gutter="0"/>
+        </xsl:otherwise>  
+      </xsl:choose>
       <w:cols w:space="720" />
     </w:sectPr>
   </xsl:template>

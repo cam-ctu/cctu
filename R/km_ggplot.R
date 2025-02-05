@@ -163,9 +163,12 @@ km_ggplot <- function(sfit,
             panel.grid.minor = element_blank()
       )
   ### modify
-output <- list(top=p, bottom=data.table)
-class(output) <- "km_ggplot"
-output
+    output <- list(top=p, bottom=data.table)
+    class(output) <- "km_ggplot"
+
+    attr(output, "nstrata") <- length(unique(strata))
+
+    return(output)
 }
 
 
@@ -199,6 +202,8 @@ build_kmplot <- function(x, ...){
 
   stopifnot(inherits(x, "km_ggplot"))
 
+  nstrata <- attr(x, "nstrata")
+
   grob_plot <- ggplot2::ggplotGrob(x$top)
   grob_tbl <- ggplot2::ggplotGrob(x$bottom)
 
@@ -213,8 +218,16 @@ build_kmplot <- function(x, ...){
   plt_height <- grid::convertHeight(grid::grobHeight(grob_plot), "npc", valueOnly = TRUE)
   tbl_height <- grid::convertHeight(grid::grobHeight(grob_tbl), "npc", valueOnly = TRUE)
 
-  grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
-  grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
+  if(nstrata == 1){
+    grob_combined$heights[panels[1]] <- grid::unit(1-tbl_height/1.2, "null")
+    grob_combined$heights[panels[2]] <- grid::unit(tbl_height/1.2, "null")
+  }else{
+    grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
+    grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
+  }
+
+  # grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
+  # grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
 
   # Set the combined figure width to the largest one
   grob_combined$widths <- grid::unit.pmax(grob_plot$widths, grob_tbl$widths)

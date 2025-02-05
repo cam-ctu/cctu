@@ -5,16 +5,24 @@
 #' @param ylabs y-axis label
 #' @param timeby numeric: Default is NULL to use ggplot defaults, but allows user to specify the gaps between x-axis ticks
 #' @param strata_labs The strata labels. If left as NULL it defaults to \code{levels(summary(sfit)$strata)} with minor prettification.
-#' @param ystratalabs deprecated and only for backcompatibility. use strata_labs argument.
-#' @param pval logical: add the pvalue to the plot?
+#' @param ystratalabs deprecated and only for back compatibility. use strata_labs argument.
+#' @param pval logical: add the p-value to the plot?
 #' @param  p_digits integer: the number of decimal places to use for a p-value.
-#' @param ... option parameters include xlims and ylims to set the axes' ranges,
+#' @param ... option parameters include `xlims` and `ylims` to set the axes' ranges,
 #' where defaults are derived from the data: both are vectors of length two giving the min and max.
 #' @return a list of ggplot objects is made: the top figure and a table of counts.
-#' The object has a print and plot method that uses \code{patchwork} to glue together.
-#' The user can access and modify the ggplot components as desired.
-
-#' @author Originall taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+#' The object has a print and plot method that uses  \code{\link[gtable]{rbind}}
+#'  to glue together. The user can access and modify the ggplot components as desired.
+#'
+#' @details
+#' This function will return a list of `ggplot2` object. The KM-plot will stored
+#' at `top` and risktable will stored at `bottom`. You can modifies those as you
+#' normally draw a plot with `ggplot2`. You can modify anything you want except
+#' the x-axis scale of the plot, otherwise the x-axis of KM-plot and the risk
+#' table will not align. There are other packages, like `ggsurvfit`,
+#' you can use to draw a KM-plot with more options.
+#'
+#' @author Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_step scale_y_continuous scale_x_continuous theme  element_text layer_scales  labs xlab ylab unit element_blank geom_text annotate
 #' @importFrom survival survdiff
@@ -23,6 +31,16 @@
 #' library(survival)
 #'  fit <- survfit(Surv(time,status)~rx, data=colon)
 #'  km_ggplot(fit)
+#'  ## Change theme of the KM-plot
+#'  p <- km_ggplot(fit)
+#'  p$top <- p$top +
+#'     theme_classic()
+#'  # Change the theme of the risktable
+#'  p$bottom <- p$bottom +
+#'     theme_void()
+#'
+#'  plot(p)
+#'
 
 km_ggplot <- function(sfit,
                       xlabs = "Time", ylabs="",
@@ -98,7 +116,7 @@ km_ggplot <- function(sfit,
   if(pval) {
     sdiff <- survival::survdiff(eval(sfit$call$formula), data = eval(sfit$call$data))
     pval <- sdiff$pvalue
-    pvaltxt <-   p_format(pval, digits=p_digits)
+    pvaltxt <-   format_pval(pval, digits=p_digits) # There are two p-value formats
     if( substr(pvaltxt,1,1)=="<"){ sep=" "}else{ sep=" ="}
     pvaltxt <- paste0("p",sep, pvaltxt)
     x_pos <- layer_scales(p)$x$get_limits() %*% c(0.9,0.1)
@@ -158,9 +176,7 @@ output
 #' @importFrom patchwork plot_layout
 #' @export
 print.km_ggplot <- function(x,...){
-  print(
-  x$top/x$bottom + plot_layout(heights=c(3,1))
-  )
+  plot(build_kmplot(x))
   invisible(x)
 }
 
@@ -171,4 +187,39 @@ print.km_ggplot <- function(x,...){
 
 #' @export
 plot.km_ggplot <-   print.km_ggplot
+
+
+#' Combine KM-plot with risk table
+#'
+#' @param x km_ggplot object
+#' @param ... other arguments not used
+#' @import grid gtable
+#' @keywords internal
+build_kmplot <- function(x, ...){
+
+  stopifnot(inherits(x, "km_ggplot"))
+
+  grob_plot <- ggplot2::ggplotGrob(x$top)
+  grob_tbl <- ggplot2::ggplotGrob(x$bottom)
+
+  # Combine plot grobs
+  grob_combined <- rbind(grob_plot,
+                         grob_tbl,
+                         size = 'first')
+
+  panels <- grob_combined$layout$t[grep("panel", grob_combined$layout$name)]
+
+  # Set plot and table height
+  plt_height <- grid::convertHeight(grid::grobHeight(grob_plot), "npc", valueOnly = TRUE)
+  tbl_height <- grid::convertHeight(grid::grobHeight(grob_tbl), "npc", valueOnly = TRUE)
+
+  grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
+  grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
+
+  # Set the combined figure width to the largest one
+  grob_combined$widths <- grid::unit.pmax(grob_plot$widths, grob_tbl$widths)
+
+  return(grob_combined)
+}
+
 

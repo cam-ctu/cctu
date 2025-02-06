@@ -149,7 +149,9 @@ expect_warning(
   extract_xml <- function(x){
     tpdir <- tempdir()
     unzip(x, exdir = tpdir)
-    files_list <- list.files(path = file.path(tpdir, "word"), # pattern = "*.xml",
+    files_list <- list.files(path = file.path(tpdir, "word"),
+                             # Limit tests to xml files
+                             # pattern = "*.xml",
                              recursive = TRUE,
                              full.names = TRUE)
     # No media files as different system produce it differently
@@ -170,8 +172,9 @@ write_docx("Test <Report>",
 for(i in extract_xml(test_path("Output","Reports","Report_final.docx"))){
   # expect_snapshot_file(i)
   announce_snapshot_file(name = basename(i))
-  compare_file_text(file.path("_snaps/1", basename(i)),
-                    i)
+  # compare_file_text(file.path("_snaps/1", basename(i)), i)
+  # This will enable review the changes with a browser
+  expect_snapshot_file(i, basename(i))
 }
 
 #expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")

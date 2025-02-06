@@ -25,30 +25,48 @@ km_ggplot(
 
 \item{strata_labs}{The strata labels. If left as NULL it defaults to \code{levels(summary(sfit)$strata)} with minor prettification.}
 
-\item{ystratalabs}{deprecated and only for backcompatibility. use strata_labs argument.}
+\item{ystratalabs}{deprecated and only for back compatibility. use strata_labs argument.}
 
 \item{timeby}{numeric: Default is NULL to use ggplot defaults, but allows user to specify the gaps between x-axis ticks}
 
-\item{pval}{logical: add the pvalue to the plot?}
+\item{pval}{logical: add the p-value to the plot?}
 
 \item{p_digits}{integer: the number of decimal places to use for a p-value.}
 
-\item{...}{option parameters include xlims and ylims to set the axes' ranges,
+\item{...}{option parameters include `xlims` and `ylims` to set the axes' ranges,
 where defaults are derived from the data: both are vectors of length two giving the min and max.}
 }
 \value{
 a list of ggplot objects is made: the top figure and a table of counts.
-The object has a print and plot method that uses \code{patchwork} to glue together.
-The user can access and modify the ggplot components as desired.
+The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
+ to glue together, internal function \code{\link{build_kmplot.}} The user can access and modify the ggplot components as desired.
 }
 \description{
 Create a Kaplan-Meier plot using ggplot2
+}
+\details{
+This function will return a list of `ggplot2` object. The KM-plot will stored
+at `top` and risktable will stored at `bottom`. You can modifies those as you
+normally draw a plot with `ggplot2`. You can modify anything you want except
+the x-axis scale of the plot, otherwise the x-axis of KM-plot and the risk
+table will not align. There are other packages, like `ggsurvfit`,
+you can use to draw a KM-plot with more options.
 }
 \examples{
 library(survival)
  fit <- survfit(Surv(time,status)~rx, data=colon)
  km_ggplot(fit)
+ ## Change theme of the KM-plot
+ p <- km_ggplot(fit)
+ p$top <- p$top +
+    theme_classic()
+ # Change the theme of the risktable
+ p$bottom <- p$bottom +
+    theme_void()
+
+ plot(p)
+
 }
 \author{
-Originall taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
 }

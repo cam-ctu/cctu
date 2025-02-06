@@ -11,8 +11,8 @@
 #' @param ... option parameters include `xlims` and `ylims` to set the axes' ranges,
 #' where defaults are derived from the data: both are vectors of length two giving the min and max.
 #' @return a list of ggplot objects is made: the top figure and a table of counts.
-#' The object has a print and plot method that uses  \code{\link[gtable]{rbind}}
-#'  to glue together. The user can access and modify the ggplot components as desired.
+#' The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
+#'  to glue together, internal function \code{\link{build_kmplot.}} The user can access and modify the ggplot components as desired.
 #'
 #' @details
 #' This function will return a list of `ggplot2` object. The KM-plot will stored
@@ -176,7 +176,6 @@ km_ggplot <- function(sfit,
 #'
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
-#' @importFrom patchwork plot_layout
 #' @export
 print.km_ggplot <- function(x,...){
   plot(build_kmplot(x))
@@ -188,6 +187,7 @@ print.km_ggplot <- function(x,...){
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
 
+
 #' @export
 plot.km_ggplot <-   print.km_ggplot
 
@@ -196,40 +196,18 @@ plot.km_ggplot <-   print.km_ggplot
 #'
 #' @param x km_ggplot object
 #' @param ... other arguments not used
-#' @import grid gtable
+#' @importFrom patchwork wrap_plots
 #' @keywords internal
 build_kmplot <- function(x, ...){
 
   stopifnot(inherits(x, "km_ggplot"))
 
   nstrata <- attr(x, "nstrata")
+  tbl_height <- 0.03067 + 0.03466 * nstrata
 
-  grob_plot <- ggplot2::ggplotGrob(x$top)
-  grob_tbl <- ggplot2::ggplotGrob(x$bottom)
+  p_combined <- wrap_plots(x$top, x$bottom,
+                           ncol = 1,
+                           heights = c(1 - tbl_height, tbl_height))
 
-  # Combine plot grobs
-  grob_combined <- rbind(grob_plot,
-                         grob_tbl,
-                         size = 'first')
-
-  panels <- grob_combined$layout$t[grep("panel", grob_combined$layout$name)]
-
-  # Set plot and table height
-  plt_height <- grid::convertHeight(grid::grobHeight(grob_plot), "npc", valueOnly = TRUE)
-  tbl_height <- grid::convertHeight(grid::grobHeight(grob_tbl), "npc", valueOnly = TRUE)
-
-  if(nstrata == 1){
-    grob_combined$heights[panels[1]] <- grid::unit(1 - tbl_height, "null")
-    grob_combined$heights[panels[2]] <- grid::unit(tbl_height, "null")
-  }else{
-    grob_combined$heights[panels[1]] <- grid::unit(plt_height/sum(plt_height + tbl_height), "null")
-    grob_combined$heights[panels[2]] <- grid::unit(tbl_height/sum(plt_height + tbl_height), "null")
-  }
-
-  # Set the combined figure width to the largest one
-  grob_combined$widths <- grid::unit.pmax(grob_plot$widths, grob_tbl$widths)
-
-  return(grob_combined)
+  return(p_combined)
 }
-
-

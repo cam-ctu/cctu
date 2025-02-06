@@ -38,8 +38,8 @@ where defaults are derived from the data: both are vectors of length two giving 
 }
 \value{
 a list of ggplot objects is made: the top figure and a table of counts.
-The object has a print and plot method that uses  \code{\link[gtable]{rbind}}
- to glue together. The user can access and modify the ggplot components as desired.
+The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
+ to glue together, internal function \code{\link{build_kmplot.}} The user can access and modify the ggplot components as desired.
 }
 \description{
 Create a Kaplan-Meier plot using ggplot2

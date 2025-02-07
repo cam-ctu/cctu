@@ -5,16 +5,24 @@
 #' @param ylabs y-axis label
 #' @param timeby numeric: Default is NULL to use ggplot defaults, but allows user to specify the gaps between x-axis ticks
 #' @param strata_labs The strata labels. If left as NULL it defaults to \code{levels(summary(sfit)$strata)} with minor prettification.
-#' @param ystratalabs deprecated and only for backcompatibility. use strata_labs argument.
-#' @param pval logical: add the pvalue to the plot?
+#' @param ystratalabs deprecated and only for back compatibility. use strata_labs argument.
+#' @param pval logical: add the p-value to the plot?
 #' @param  p_digits integer: the number of decimal places to use for a p-value.
-#' @param ... option parameters include xlims and ylims to set the axes' ranges,
+#' @param ... option parameters include `xlims` and `ylims` to set the axes' ranges,
 #' where defaults are derived from the data: both are vectors of length two giving the min and max.
 #' @return a list of ggplot objects is made: the top figure and a table of counts.
-#' The object has a print and plot method that uses \code{patchwork} to glue together.
-#' The user can access and modify the ggplot components as desired.
-
-#' @author Originall taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+#' The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
+#'  to glue together. The user can access and modify the ggplot components as desired.
+#'
+#' @details
+#' This function will return a list of `ggplot2` object. The KM-plot will stored
+#' at `top` and risktable will stored at `bottom`. You can modifies those as you
+#' normally draw a plot with `ggplot2`. You can modify anything you want except
+#' the x-axis scale of the plot, otherwise the x-axis of KM-plot and the risk
+#' table will not align. There are other packages, like `ggsurvfit`,
+#' you can use to draw a KM-plot with more options.
+#'
+#' @author Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_step scale_y_continuous scale_x_continuous theme  element_text layer_scales  labs xlab ylab unit element_blank geom_text annotate
 #' @importFrom survival survdiff
@@ -23,6 +31,16 @@
 #' library(survival)
 #'  fit <- survfit(Surv(time,status)~rx, data=colon)
 #'  km_ggplot(fit)
+#'  ## Change theme of the KM-plot
+#'  p <- km_ggplot(fit)
+#'  p$top <- p$top +
+#'     ggplot2::theme_classic()
+#'  # Change the theme of the risktable
+#'  p$bottom <- p$bottom +
+#'     ggplot2::theme_void()
+#'
+#'  plot(p)
+#'
 
 km_ggplot <- function(sfit,
                       xlabs = "Time", ylabs="",
@@ -98,7 +116,7 @@ km_ggplot <- function(sfit,
   if(pval) {
     sdiff <- survival::survdiff(eval(sfit$call$formula), data = eval(sfit$call$data))
     pval <- sdiff$pvalue
-    pvaltxt <-   p_format(pval, digits=p_digits)
+    pvaltxt <-   format_pval(pval, digits=p_digits) # There are two p-value formats
     if( substr(pvaltxt,1,1)=="<"){ sep=" "}else{ sep=" ="}
     pvaltxt <- paste0("p",sep, pvaltxt)
     x_pos <- layer_scales(p)$x$get_limits() %*% c(0.9,0.1)
@@ -145,30 +163,37 @@ km_ggplot <- function(sfit,
             panel.grid.minor = element_blank()
       )
   ### modify
-output <- list(top=p, bottom=data.table)
-class(output) <- "km_ggplot"
-output
+    output <- list(top=p, bottom=data.table)
+    class(output) <- "km_ggplot"
+
+    attr(output, "nstrata") <- length(unique(strata))
+
+    return(output)
 }
 
 
 #' print methods for km_ggplot object
 #'
+#' @importFrom patchwork wrap_plots
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
-#' @importFrom patchwork plot_layout
 #' @export
 print.km_ggplot <- function(x,...){
-  print(
-  x$top/x$bottom + plot_layout(heights=c(3,1))
-  )
+  nstrata <- attr(x, "nstrata")
+  tbl_height <- 0.03067 + 0.03466 * nstrata
+
+  wrap_plots(x$top, x$bottom,
+             ncol = 1,
+             heights = c(1 - tbl_height, tbl_height)
+             )|> plot()
   invisible(x)
 }
 
 #' plot methods for km_ggplot object
 #'
+#'
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
-
 #' @export
 plot.km_ggplot <-   print.km_ggplot
 

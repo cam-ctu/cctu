@@ -119,6 +119,12 @@ write_docx <- function(
   <author>", author,"</author><datestamp>",
     datestamp, "</datestamp>\n</frontpage>",
     file = filename, append = TRUE)
+  
+  if(!"margin" %in% colnames(meta_table)){
+    meta_table$margin <- "normal"
+  }else {
+    meta_table$margin <- tolower(meta_table$margin)
+  }
 
   headers <- with(meta_table,
                  paste0("<heading><section>",  remove_xml_specials(as.character(section)),
@@ -131,8 +137,8 @@ write_docx <- function(
                         "</number><fontsize>",
                         ifelse(is.na(fontsize), "", remove_xml_specials(as.character(fontsize))),
                         "</fontsize></heading>\n",
-                        sprintf("<pagesection><orientation>%s</orientation><headerid>rId%i</headerid><footerid>rId%i</footerid></pagesection>\n",
-                                orientation, headerid, footerid)))
+                        sprintf("<pagesection><orientation>%s</orientation><headerid>rId%i</headerid><footerid>rId%i</footerid><margin>%s</margin></pagesection>\n",
+                                orientation, headerid, footerid, margin)))
 
   # Format footnote
   footnote <- apply(meta_table, 1, function(x){

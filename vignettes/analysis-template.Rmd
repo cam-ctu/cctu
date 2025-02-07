@@ -1,14 +1,11 @@
 ---
 title: "Analysis Template"
 author: "Simon Bond"
-date: '`r Sys.Date()`'
+date: "`r Sys.Date()`"
 output:
-  knitr:::html_vignette:
+  rmarkdown::html_vignette:
     toc: true
   pdf_document:
-header-includes:
-- \usepackage{tikz}
-- \usetikzlibrary{trees,arrows}
 vignette: |
   %\VignetteIndexEntry{Analysis Template} 
   %\VignetteEncoding{UTF-8} 
@@ -16,10 +13,10 @@ vignette: |
 pkgdown:
   as_is: true
 resource_files:
-  - ^Progs$
-  - ^output$
-  - ^main.R$
-  - vignettes/Output/.*
+  - Progs
+  - Output
+  - main.R
+  - vignettes/Output
 ---
 
 ```{r setup, include = FALSE}
@@ -41,7 +38,7 @@ Further functions and tools have been added, for more streamlined importing of M
 
 ## Meta Table
 
-As part of writing the Statistical Analysis Plan (SAP), a structured meta-table with one row per table or figure needs to be produced. This provides titles, subtitles, numbering, populations, etc. See the help page `?meta_table` for more details. The package is very reliant on this being provided by the user. Whilst producing the tables/figures the package will:
+As part of writing the Statistical Analysis Plan (SAP), a structured meta-table with one row per table or figure needs to be produced. This provides titles, subtitles, numbering, populations, etc. See the help page `meta_table` for more details. The package is very reliant on this being provided by the user. Whilst producing the tables/figures the package will:
 
 * look up which population is to be used for a table/figure and explicitly filter the data sets to the desired population
 * whilst saving the output it will use the numbering to determine file names of xml or graphics files
@@ -182,6 +179,7 @@ The code below is rather outdated regarding library management, although it will
 
 `r sourceKnit(file.path("Progs","config.R"), "config")`
 
+
 ## Data Import
 
 Next step is to import the meta-table, study data and apply manipulations, and finally create the population environments. 
@@ -228,9 +226,9 @@ date()
 ```
 
 ```{r,  include=FALSE}
-if(!dir.exists("../inst/doc")){dir.create("../inst/doc")}
-unlink("../inst/doc/Output", recursive=TRUE)
-file.copy("Output", "../inst/doc", recursive=TRUE)
+#if(!dir.exists("../inst/doc")){dir.create("../inst/doc")}
+#unlink("../inst/doc/Output", recursive=TRUE)
+#file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
 The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".

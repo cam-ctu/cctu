@@ -8,7 +8,7 @@ Added in options("cctu_p_digits") with default of 4 for regression_table()  and 
 
 Fixed a bug with write_docx() in the multi-line headers are now completely visible. Testing added of docx outputs.
 
-Added in options(cctu_output) and optinos(cctu_source_local) to change the default arguents for write_xx() and source()
+Added in options(cctu_output) and optinos(cctu_source_local) to change the default arguments for write_xx() and source()
 
 Updated Vignette
 

@@ -1,3 +1,9 @@
+# 0.8.4
+
+Added in km_ggplot() function to produce publication-quality Kaplan-Meier figures with error bands and table underneath.
+
+Added in options("cctu_p_digits") with default of 4 for regression_table()  and km_ggplot()
+
 # 0.8.3
 
 Fixed a bug with write_docx() in the multi-line headers are now completely visible. Testing added of docx outputs.

@@ -30,7 +30,8 @@
 
 
 regression_table <- function(x,labels=names(coef(x)),
-                             digits=3,p_digits=digits,
+                             digits= getOption("cctu_digits", default = 3),
+                             p_digits=getOption("cctu_p_digits", default = 4),
                              trans=if(class(x)[1] %in% c("glm","coxph")){exp}else{NULL},
                              level=0.95,
                              col_names=guess_col_names(x,trans)

@@ -107,6 +107,7 @@ The set of external data files to be read in, along with the names of the corres
  * `sumby()` is a work-horse to produce standard summary tables, with additional figures produced as side-effects
  * `cttab` is a recent addition which greatly expands the flexibility and scope from `sumby`
  * `regression_table` is a function that takes a regression object (lm, glm, lme, gee, coxph, gls)  and produces a summary table suitable for a report, allowing you to provide a character vector to label the parameters meaningfully.
+ * `km_ggplot` is a function that takes a `survfit` object and produces a publication-quality fig of the Kaplan-Meier plot with error-bands plus a table counting numbers at risk and with events. 
  * `propercase`
  * `rbind_space` : to glue together repeated outputs from `sumby`
  * `clean_up` is called by default within each call of `write_*`. They have arguments to not call `clean_up` if the code is such that you need to re-use the same R objects for multiple outputs.
@@ -242,7 +243,7 @@ The idea is to be able to set some differing options  and/or other R objects in 
 
 Alternative approaches have been found, code-to-write-code,  using `knitr::knit_expand`. Creating functions to modifying the meta-table automatically.  But not without complexity! 
 
-You will still need to produce the log of all the commands with `run_batch()` or just `system("R CMD BATCH --vanilla main.R")` (N.B if you have extra packages managed with `renv()` then you need to add a line `renv::load()` at the start of your top-level script ). You still need to produce the output of cctu_env$code_tree for all versions of the reports.
+You will still need to produce the log of all the commands with `run_batch()` or just `system("R CMD BATCH main.R")` (N.B if you have extra packages managed with `renv()` then you need to add a line `renv::load()` at the start of your top-level script; don't use `--vanilla` as this stops the `renv` setup working ). You still need to produce the output of cctu_env$code_tree for all versions of the reports.
 
 We'd recommend using a master script approach for simplicity and readability, unless good reason not.
 

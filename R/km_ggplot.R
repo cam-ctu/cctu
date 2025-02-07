@@ -12,7 +12,7 @@
 #' where defaults are derived from the data: both are vectors of length two giving the min and max.
 #' @return a list of ggplot objects is made: the top figure and a table of counts.
 #' The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
-#'  to glue together, internal function \code{\link{build_kmplot.}} The user can access and modify the ggplot components as desired.
+#'  to glue together. The user can access and modify the ggplot components as desired.
 #'
 #' @details
 #' This function will return a list of `ggplot2` object. The KM-plot will stored
@@ -34,10 +34,10 @@
 #'  ## Change theme of the KM-plot
 #'  p <- km_ggplot(fit)
 #'  p$top <- p$top +
-#'     theme_classic()
+#'     ggplot2::theme_classic()
 #'  # Change the theme of the risktable
 #'  p$bottom <- p$bottom +
-#'     theme_void()
+#'     ggplot2::theme_void()
 #'
 #'  plot(p)
 #'
@@ -174,40 +174,26 @@ km_ggplot <- function(sfit,
 
 #' print methods for km_ggplot object
 #'
+#' @importFrom patchwork wrap_plots
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
 #' @export
 print.km_ggplot <- function(x,...){
-  plot(build_kmplot(x))
+  nstrata <- attr(x, "nstrata")
+  tbl_height <- 0.03067 + 0.03466 * nstrata
+
+  wrap_plots(x$top, x$bottom,
+             ncol = 1,
+             heights = c(1 - tbl_height, tbl_height)
+             )|> plot()
   invisible(x)
 }
 
 #' plot methods for km_ggplot object
 #'
+#'
 #' @param x km_ggplot object
 #' @param ... other arguments for generic methods
-
-
 #' @export
 plot.km_ggplot <-   print.km_ggplot
 
-
-#' Combine KM-plot with risk table
-#'
-#' @param x km_ggplot object
-#' @param ... other arguments not used
-#' @importFrom patchwork wrap_plots
-#' @keywords internal
-build_kmplot <- function(x, ...){
-
-  stopifnot(inherits(x, "km_ggplot"))
-
-  nstrata <- attr(x, "nstrata")
-  tbl_height <- 0.03067 + 0.03466 * nstrata
-
-  p_combined <- wrap_plots(x$top, x$bottom,
-                           ncol = 1,
-                           heights = c(1 - tbl_height, tbl_height))
-
-  return(p_combined)
-}

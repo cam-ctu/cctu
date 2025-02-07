@@ -21,3 +21,5 @@ SPIRO
 ^.gitignore$
 ^.Rrofile$
 ^sysdata.rda$
+docs
+

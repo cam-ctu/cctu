@@ -1,3 +1,5 @@
 analysis-template.R
 analysis-template.html
 archive
+*.html
+*.R

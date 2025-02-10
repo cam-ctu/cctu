@@ -16,3 +16,4 @@ Suggests: testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, c
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3
+URL: https://cam-ctu.github.io/cctu/

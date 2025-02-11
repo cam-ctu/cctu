@@ -13,19 +13,19 @@ clean_up <- function(number,
                      reserved_string=".reserved",
                      verbose=options()$verbose
                      ){
-  RESERVED <- get_obj(reserved_string, frame=frame)
-  if(is.null(RESERVED)){
+  RESERVED <- get_obj(reserved_string, frame = frame)
+  if (is.null(RESERVED)) {
     warning(
       paste0("'",reserved_string,
              "' does not exist. All objects in ",
              format(frame)," will be removed by clean_up().")
     )}
   obj_list <- ls(frame, all.names = FALSE)
-  keep     <- match(RESERVED, obj_list, nomatch=0)
-  if(length(keep)>1 || ( length(keep==1) & all(keep!=0) ) ){obj_list <- obj_list[-keep]}
+  keep     <- match(RESERVED, obj_list, nomatch = 0)
+  if (length(keep) > 1 || ( length(keep == 1) & all(keep != 0) )) { obj_list <- obj_list[-keep]}
   rm(list = obj_list, envir = frame)
-  if(verbose){cat("\nObjects removed:", obj_list,"\n")}
-  detach_pop(number,verbose=verbose)
+  if (verbose) { cat("\nObjects removed:", obj_list,"\n") }
+  detach_pop(number,verbose = verbose)
   cctu_env$number <- "0"
   cctu_env$sumby_count <- 0
 }

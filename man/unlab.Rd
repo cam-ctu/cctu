@@ -10,17 +10,18 @@ unlab(x)
 \item{x}{Variable(s). Vector/data.frame/list.}
 }
 \value{
-\code{unlab} returns original variable x without variable label, value labels.
+\code{unlab} returns original variable x without variable label,
+value labels.
 }
 \description{
 \code{unlab} returns variable x without variable labels and value labels
 }
 \examples{
-raw_var <- rep(1:2,5)
+raw_var <- rep(1:2, 5)
 var_with_lab <- raw_var
 var_lab(var_with_lab) <- "Income"
-val_lab(var_with_lab) <- c("Low"=1,"High"=2)
-identical(raw_var,unlab(var_with_lab)) # should be TRUE
+val_lab(var_with_lab) <- c("Low" = 1, "High" = 2)
+identical(raw_var, unlab(var_with_lab)) # should be TRUE
 
 }
 \references{

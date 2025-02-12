@@ -20,7 +20,8 @@ folder, named as `variable_missing_report.csv`.}
 \code{dump_missing_report} can be used to save the missingness report to
 a file.
 \code{get_missing_report} Return the missingness report data.
-\code{reset_missing_report} Reset the internal missingness report data to blank.
+\code{reset_missing_report} Reset the internal missingness report data to
+ blank.
 }
 \seealso{
 \code{\link{cttab}} \code{\link{report_missing}}

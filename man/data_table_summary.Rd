@@ -13,18 +13,27 @@ data_table_summary(
 )
 }
 \arguments{
-\item{data_table}{data frame containing the meta-table of file paths of the external data files, and their desired R object names.}
+\item{data_table}{data frame containing the meta-table of file paths of the
+external data files, and their desired R object names.}
 
-\item{name_variable}{character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".}
+\item{name_variable}{character string giving the variable name within
+\code{data} that has the object names to be referenced. Defaults to "name".}
 
-\item{file_variable}{character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".}
+\item{file_variable}{character string giving the variable name within
+\code{data} that has the file names to be referenced. Defaults to "file".}
 
-\item{folder_variable}{character string giving the variable name within \code{data} that contains the folder to find the external file. \code{data_table_summary} Looks up \code{getwd()} if empty.}
+\item{folder_variable}{character string giving the variable name within
+\code{data} that contains the folder to find the external file.
+\code{data_table_summary} Looks up \code{getwd()} if empty.}
 
-\item{mod_time_variable}{character string given the variable name to be created in \code{data_table_summary} that records the time stamp of when the external file was last modified.}
+\item{mod_time_variable}{character string given the variable name to be
+created in \code{data_table_summary} that records the time stamp of when
+the external file was last modified.}
 }
 \value{
-\code{data_table_summary} returns a data frame sumarising the meta-table and the associated information about time of last modification and full file paths.
+\code{data_table_summary} returns a data frame sumarising the
+meta-table and the associated information about time of last modification
+and full file paths.
 }
 \description{
 Provides a summary with date stamps of external data files.

@@ -22,13 +22,16 @@ write_plot(
 )
 }
 \arguments{
-\item{...}{Arguments to be passed to the ploting function \code{plot_fn} below.}
+\item{...}{Arguments to be passed to the ploting function \code{plot_fn}
+below.}
 
-\item{plot_fn}{function to draw a plot. This can be simple \code{print} OR \code{plot} (default)
-OR a custom plot drawing function depending on how the plot was drawn. See the
-\code{details} and \code{examples} below.}
+\item{plot_fn}{function to draw a plot. This can be simple \code{print}
+OR \code{plot} (default) OR a custom plot drawing function depending on how
+the plot was drawn. See the \code{details} and \code{examples} below.}
 
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used to as a suffix in the output filename, and to
+link to TableofTables. Default is to use the value in the cctu_env package
+ environment that is set within \code{\link{attach_pop}}.}
 
 \item{width}{the width to save as}
 
@@ -38,32 +41,41 @@ OR a custom plot drawing function depending on how the plot was drawn. See the
 
 \item{units}{either "cm" (the default) or "inches"}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
+end. Defaults to TRUE}
 
-\item{directory}{where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").}
+\item{directory}{where to save the figures within path or current working
+directory. The Output directory can be over-riden with
+options("cctu_output").}
 
-\item{format}{either "jpg", "postscript", or "png" to determine the file type to use}
+\item{format}{either "jpg", "postscript", or "png" to determine the file
+type to use}
 
-\item{graphics_args}{a list of named arguments to supply to graphics function (png, postscript, jpeg)}
+\item{graphics_args}{a list of named arguments to supply to graphics
+function (png, postscript, jpeg)}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
 \item{footnote}{character vector, can be used to add footnotes.}
 
-\item{plot_args}{Deprecated, kept here for backcompatibility. A named list arguments for \code{plot_fn}.}
+\item{plot_args}{Deprecated, kept here for backcompatibility. A named list
+arguments for \code{plot_fn}.}
 }
 \value{
-writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
+writes a copy of a plot to file fig_number.. edits the TableofTables
+ object with the calling programe No return object.
 }
 \description{
 One may not always use \code{ggplot2} to draw plot, base \code{plot} function for example,
 this function is particularly useful in that situation.
 }
 \details{
-The \code{plot_fn} can be a user defined function to draw plot. Let us assume the
-object \code{p} is your plot object. If you can see the plot by simply typing
- \code{p} on the console, then this should be \code{print}. If you can see the plot
-by simply typing \code{plot(p)} on the console, then this should be \code{plot}.
+The \code{plot_fn} can be a user defined function to draw plot. Let us
+assume the object \code{p} is your plot object. If you can see the plot by
+simply typing \code{p} on the console, then this should be \code{print}.
+If you can see the plot by simply typing \code{plot(p)} on the console,
+then this should be \code{plot}.
 
 All parameters should be passed with names. Checkout the examples below.
 }
@@ -73,18 +85,21 @@ All parameters should be passed with names. Checkout the examples below.
 # Below is a simple example ========#
 #####################################
 #
-write_plot(plot_fn = plot, plot_args = list(x = iris[,1], y = iris[,2]))
+write_plot(plot_fn = plot, plot_args = list(x = iris[, 1], y = iris[, 2]))
 # This is equivalent drawing the following plot and save it
-plot(x = iris[,1], y = iris[,2])
+plot(x = iris[, 1], y = iris[, 2])
 
 # Below is user defined function plotting
 # One can use this method to draw a complicated plot
 new_plot <- function(x, y, h, v) {
-   par(pty = "s", cex = 0.7) # adjust plot style
-   plot(x, y)
-   abline(h = h,v = v, lty=2) # add some lines
+  par(pty = "s", cex = 0.7) # adjust plot style
+  plot(x, y)
+  abline(h = h, v = v, lty = 2) # add some lines
 }
-write_plot(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0, plot_fn = new_plot)
+write_plot(
+  x = iris[, 1], y = iris[, 2], h = 2.5, v = 6.0,
+  plot_fn = new_plot
+)
 
 
 ####################################################
@@ -93,7 +108,7 @@ write_plot(x = iris[,1], y = iris[,2], h = 2.5, v = 6.0, plot_fn = new_plot)
 
 library("survival")
 library("survminer")
-fit<- survfit(Surv(time, status) ~ sex, data = lung)
+fit <- survfit(Surv(time, status) ~ sex, data = lung)
 # Drawing survival curves
 p <- ggsurvplot(fit, data = lung)
 write_plot(p, plot_fn = survminer:::print.ggsurvplot)
@@ -121,7 +136,6 @@ g <- add_box(txt = txt0) |>
 write_plot(g, plot_fn = plot)
 # Or just
 write_plot(g)
-
 }
 }
 \seealso{

@@ -10,7 +10,8 @@ order_dewey(x)
 \item{x}{a vector of character strings}
 }
 \value{
-a numeric vector that sorts the input as per dewey decimal system, without confusing 10.2, vs 10.10
+a numeric vector that sorts the input as per dewey decimal system,
+without confusing 10.2, vs 10.10
 }
 \description{
 sorts inputs that look like Dewey decimal numbering

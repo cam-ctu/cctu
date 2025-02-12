@@ -23,37 +23,62 @@ read_data(x, ...)
 )
 }
 \arguments{
-\item{x}{character string or data.frame.  If it is a character then it is the name of the object to be created, and referenced within the data to find the file path. If it is a dataframe then read_data is repeated across all the rows of the data.frame.}
+\item{x}{character string or data.frame.  If it is a character then it is
+the name of the object to be created, and referenced within the data to find
+ the file path. If it is a dataframe then read_data is repeated across all
+ the rows of the data.frame.}
 
 \item{...}{other arguments to supply to \code{fun}.}
 
-\item{name_variable}{character string giving the variable name within \code{data} that has the object names to be referenced. Defaults to "name".}
+\item{name_variable}{character string giving the variable name within
+\code{data} that has the object names to be referenced. Defaults to "name".}
 
-\item{file_variable}{character string giving the variable name within \code{data} that has the file names to be referenced. Defaults to "file".}
+\item{file_variable}{character string giving the variable name within
+\code{data} that has the file names to be referenced. Defaults to "file".}
 
-\item{data_table}{data frame containing the meta-table of file paths of the external data files, and their desired R object names.}
+\item{data_table}{data frame containing the meta-table of file paths of the
+external data files, and their desired R object names.}
 
-\item{fun}{the function to be used to read in the data file. If unspecified it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls} and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could actually be any function applied to the file path character string that is extracted from \code{data_table}, but a warning is issued if the function name does not contain "read".}
+\item{fun}{the function to be used to read in the data file. If unspecified
+it picks up file extensions ".xsl" and ".xslx" to use \code{readxl::read_xls}
+ and \code{readxl::read_xlsx}, otherwise uses \code{read.csv}. This could
+ actually be any function applied to the file path character string that is
+  extracted from \code{data_table}, but a warning is issued if the function
+   name does not contain "read".}
 
-\item{frame}{Environment in which an object with name given by \code{x} is created. Default is parent.frame(). Or if NULL the data read in is returned with no assignment.}
+\item{frame}{Environment in which an object with name given by \code{x} is
+created. Default is parent.frame(). Or if NULL the data read in is returned
+ with no assignment.}
 
-\item{clean_names_option}{logical to apply the \code{\link{clean_names}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.}
+\item{clean_names_option}{logical to apply the \code{\link{clean_names}}
+function internally. Defaults to \code{FALSE} for compatibility with
+\code{\link{apply_macro_dict}}.}
 
-\item{remove_blank_rows_cols_option}{logical to apply the \code{\link{remove_blank_rows_cols}} function internally. Defaults to FALSE for compatibility with \code{\link{apply_macro_dict}}.}
+\item{remove_blank_rows_cols_option}{logical to apply the
+\code{\link{remove_blank_rows_cols}} function internally. Defaults to
+\code{FALSE} for compatibility with \code{\link{apply_macro_dict}}.}
 }
 \value{
-\code{read_data} assigns or returns a data frame reading in data from an external file
+\code{read_data} assigns or returns a data frame reading in data
+from an external file
 }
 \description{
 Automatic reading in data from a meta-table of external data sets.
 }
 \details{
 The idea is to improve the tracibility of reading in external data.
-This should be used in two steps: create a meta-table in R that has a minimum of 2 columns, one with the name of the R data.frame
-to be created, and the other giving the file path to the external data; use \code{read_data} as a wrapper to read in the data as specified. This ends up with less code, and allows an table of extenral data and associated meta-data to
-be easily produced using \code{data_table_summary}. If options("verbose") is TRUE then \code{read_data} will display messages describing what objects have been created.
+This should be used in two steps: create a meta-table in R that has a minimum
+ of 2 columns, one with the name of the R data.frame to be created, and the
+ other giving the file path to the external data; use \code{read_data} as a
+ wrapper to read in the data as specified. This ends up with less code, and
+ allows an table of extenral data and associated meta-data to
+be easily produced using \code{data_table_summary}. If options("verbose") is
+ \code{TRUE} then \code{read_data} will display messages describing what
+ objects have been created.
 
-This is a generic method with methods defined for a character string, and a data.frame. The former just reads in one data.frame, the latter reads in all the data.frames specified.
+This is a generic method with methods defined for a character string, and a
+data.frame. The former just reads in one data.frame, the latter reads in all
+ the data.frames specified.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -63,13 +88,14 @@ This is a generic method with methods defined for a character string, and a data
 
 }}
 \examples{
-data_table <- data.frame(name=c("dirtydata","meta"),
-                         file=c("dirtydata.csv", "meta_table.xlsx"),
-                         folder=system.file("extdata", package="cctu"),
-                         stringsAsFactors=FALSE
-                         )
+data_table <- data.frame(
+  name = c("dirtydata", "meta"),
+  file = c("dirtydata.csv", "meta_table.xlsx"),
+  folder = system.file("extdata", package = "cctu"),
+  stringsAsFactors = FALSE
+)
 data_table_summary(data_table)
-options("verbose"=TRUE)
+options("verbose" = TRUE)
 read_data(data_table)
 summary(dirtydata)
 summary(meta)

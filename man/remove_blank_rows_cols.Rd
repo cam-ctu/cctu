@@ -14,15 +14,18 @@ remove_blank_rows_cols(
 \arguments{
 \item{df}{a data.frame}
 
-\item{convert}{a logical to indicate if you want to modify \code{df} in the parent environment,
-or if not simply return a modified version of \code{df}}
+\item{convert}{a logical to indicate if you want to modify \code{df} in the
+parent environment, or if not simply return a modified version of \code{df}}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
-\item{which}{one of \code{"rows"}, \code{"cols"}, or \code{"both"}. Default is \code{"both"} to removing both empty rows and empty columns.}
+\item{which}{one of \code{"rows"}, \code{"cols"}, or \code{"both"}. Default
+is \code{"both"} to removing both empty rows and empty columns.}
 }
 \value{
-this removes columns and rows that are totally empty (either "" or NA).
+this removes columns and rows that are totally
+empty (either "" or NA).
 }
 \description{
 Function to remove blank rows/columns from a df

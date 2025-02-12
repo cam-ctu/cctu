@@ -17,52 +17,60 @@ apply_macro_dict(
 \arguments{
 \item{data}{Data frame to be applied.}
 
-\item{dlu}{Data frame of DLU, see \code{\link{tidy_dlu}} for the requirements of DLU.}
+\item{dlu}{Data frame of DLU, see \code{\link{tidy_dlu}} for the
+requirements of DLU.}
 
 \item{clu}{Data frame of CLU, see details for the requirements of CLU.}
 
-\item{date_format}{Date format that will be tried by \code{\link[base]{as.POSIXct}},
-default is \code{c("\%d/\%m/\%Y", "\%Y-\%m-\%d", "\%Y/\%m/\%d")}. You can add other formats you
-may want to try. The conversion will be skipped if the formatting does not succeed.}
+\item{date_format}{Date format that will be tried by
+\code{\link[base]{as.POSIXct}}, default is \code{c("\%d/\%m/\%Y",
+"\%Y-\%m-\%d", "\%Y/\%m/\%d")}. You can add other formats you may want to try.
+ The conversion will be skipped if the formatting does not succeed.}
 
-\item{clean_names}{Convert variable name to lower case (default), this will also change the
-values in the DLU as well. See \code{\link{clean_names}} for details.}
+\item{clean_names}{Convert variable name to lower case (default), this will
+also change the values in the DLU as well. See \code{\link{clean_names}}
+for details.}
 
-\item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or \code{"both"} (default),
- or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will be
- used to clean the empty rows and/or columns. If the data is large, this will
- take a long time, should be set to \code{"none"} in this case. Use
+\item{rm_empty}{Remove empty \code{"rows"}, \code{"cols"}, or
+\code{"both"} (default),
+ or not \code{"none"}. The \code{\link{remove_blank_rows_cols}} function will
+  be used to clean the empty rows and/or columns. If the data is large, this
+   will take a long time, should be set to \code{"none"} in this case. Use
 \code{options(cctu_rm_empty = "none")} to set global options.}
 
-\item{check_catvar}{Check values of the category variable (defined in the DLU file)
-contain any non-numeric values before converting variables to numeric.}
+\item{check_catvar}{Check values of the category variable (defined in the
+DLU file) contain any non-numeric values before converting variables to
+numeric.}
 }
 \value{
 A data.table object.
 }
 \description{
-The variable label attribute will be applied to the data frame from the DLU file.
+The variable label attribute will be applied to the data frame from the DLU
+file.
 }
 \details{
 \subsection{Overview}{
 
 This function first convert the data to a \code{\link[data.table]{data.table}}.
-This is to avoid the variable attributes dropped by base R functions. Then it will use
-the dlu file to convert the data into corresponding variable types. After the conversion
-of the data, variable and value label attribute will be created for the variable,
+This is to avoid the variable attributes dropped by base R functions. Then
+ it will use the dlu file to convert the data into corresponding variable
+ types. After the conversion of the data, variable and value label attribute
+  will be created for the variable,
 see \code{\link{var_lab}}) and \code{\link{val_lab}}.
 
-User can use \code{\link{lab2val}} to conver value labels of the data to values if the
-value label is desired. If the \code{clean_names} is set to \code{TRUE}, the data name
- and the dl/clu will be cleaned, including the question names in the dlu. The cleaned dlu data
-will be stored in the \code{cctu} environment. This will further be used by \code{\link{cttab}}
-to populate the missing report, see \code{\link{report_missing}}. You can change this with
-\code{\link{set_dlu}} function, but it will not have any effect on this function, see
-\code{\link{set_dlu}} more details.
+User can use \code{\link{lab2val}} to conver value labels of the data to
+values if the value label is desired. If the \code{clean_names} is set to
+ \code{TRUE}, the data name and the dl/clu will be cleaned, including the
+ question names in the dlu. The cleaned dlu data will be stored in the
+ \code{cctu} environment. This will further be used by \code{\link{cttab}}
+to populate the missing report, see \code{\link{report_missing}}. You can
+change this with \code{\link{set_dlu}} function, but it will not have any
+effect on this function, see \code{\link{set_dlu}} more details.
 
-Please use \code{\link{get_dlu}} to get the dlu cleaned by \code{apply_macro_dict} or use
-\code{\link{tidy_dlu}} to clean it, which is the same function used by \code{apply_macro_dict}
-to clean the DLU.
+Please use \code{\link{get_dlu}} to get the dlu cleaned by
+\code{apply_macro_dict} or use \code{\link{tidy_dlu}} to clean it, which is
+the same function used by \code{apply_macro_dict} to clean the DLU.
 }
 
 \subsection{Variable conversion based on DLU type}{
@@ -70,10 +78,11 @@ to clean the DLU.
 \itemize{
   \item{IntegerData}: Convert to numeric.
   \item{Real}: Convert to numeric.
-  \item{Category}: If there are any non-numeric characters in the variable, no conversion
-will be performed, otherwise convert to numeric.
-  \item{Date}: Convert data date format with \code{\link[base]{as.POSIXct}}. The \code{date_format}
-will be used to feed the \code{\link[base]{as.POSIXct}} function during the conversion.
+  \item{Category}: If there are any non-numeric characters in the variable,
+   no conversion  will be performed, otherwise convert to numeric.
+  \item{Date}: Convert data date format with \code{\link[base]{as.POSIXct}}.
+   The \code{date_format} will be used to feed the
+   \code{\link[base]{as.POSIXct}} function during the conversion.
   \item{Text}: Convert to character.
 }
 }
@@ -83,7 +92,8 @@ will be used to feed the \code{\link[base]{as.POSIXct}} function during the conv
 The CLU file contains three columns:
 \itemize{
   \item{ShortCode}: Variable name of the downloaded data.
-  \item{CatCode}: Category values, it represents the numeric code for an item in the CRF.
+  \item{CatCode}: Category values, it represents the numeric code for an
+   item in the CRF.
   \item{CatValue}: Label of the category values, for example.
 }
 }
@@ -111,7 +121,9 @@ lb <- extract_form(df, "Lab")
 lb_base <- extract_form(df, "Lab", visit = "SCREENING")
 }
 \seealso{
-\code{\link{var_lab}} \code{\link{val_lab}} \code{\link{tidy_dlu}} \code{\link{set_dlu}}
- \code{\link[data.table]{data.table}} \code{\link{clean_names}} \code{\link{read_data}}
- \code{\link{remove_blank_rows_cols}} \code{\link{lab2val}} \code{\link{get_dlu}}
+\code{\link{var_lab}} \code{\link{val_lab}} \code{\link{tidy_dlu}}
+\code{\link{set_dlu}} \code{\link[data.table]{data.table}}
+\code{\link{clean_names}} \code{\link{read_data}}
+\code{\link{remove_blank_rows_cols}} \code{\link{lab2val}}
+ \code{\link{get_dlu}}
 }

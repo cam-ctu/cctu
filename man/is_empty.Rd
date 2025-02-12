@@ -7,9 +7,11 @@
 is_empty(x, na_empty = TRUE)
 }
 \arguments{
-\item{x}{String, character vector, list, data.frame or numeric vector or factor.}
+\item{x}{String, character vector, list, data.frame or numeric vector
+or factor.}
 
-\item{na_empty}{Logical, if \code{NA} is considered as empty (default is \code{TRUE}).}
+\item{na_empty}{Logical, if \code{NA} is considered as empty
+(default is \code{TRUE}).}
 }
 \value{
 Logical vector.
@@ -47,7 +49,7 @@ is_empty(d)
 # is_empty(list(NULL))
 
 # NA vector
-x <- rep(NA,5)
+x <- rep(NA, 5)
 is_empty(x)
 is_empty(x, na_empty = FALSE)
 }

@@ -31,14 +31,15 @@ default is \code{"subjid"}.}
 A data frame
 }
 \description{
-This function use the same method as described in the \code{cctab}, reporting
-missingness of the variables. It includes which form is the variable from,
-set as `Derived` if not from DLU file. And missing percentage with which subjects
-are have missing value for that particular variable. This is internal function,
-not intend to use it directly by user.
+This function use the same method as described in the \code{cctab},
+reporting missingness of the variables. It includes which form is the
+variable from,  set as `Derived` if not from DLU file. And missing percentage
+ with which subjects are have missing value for that particular variable.
+ This is internal function, not intend to use it directly by user.
 }
 \details{
-This requires access to a data.frame of DLU file, this will be derived from the package environment
+This requires access to a data.frame of DLU file, this will be
+derived from the package environment
 and should be set using \code{\link{get_dlu}}.
 }
 \seealso{

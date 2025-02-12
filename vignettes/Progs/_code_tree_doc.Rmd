@@ -1,32 +1,28 @@
 ---
-title: "Code Tree Document"
-author: "Simon Bond"
-date: "`r Sys.Date()`"
-output:
-  knitr:::html_vignette:
-    toc: true
-  pdf_document:
-classoption: landscape
+date: "`r format(Sys.time(), '%d %B, %Y, %H:%M')`"
 header-includes:
   - \usepackage{tikz}
   - \usetikzlibrary{trees,arrows}
-vignette: |
-  %\VignetteIndexEntry{Code Tree Document} 
-  %\VignetteEncoding{UTF-8} 
-  %\VignetteEngine{knitr::rmarkdown}
+output: pdf_document
+classoption: landscape
+params:
+  my_title: "You only live twice"
+  my_author: "Ian Flemming"
+title: "`r params$my_title`"
+author: "`r params$my_author`"
 ---
 
-
-```{r include=FALSE}
+```{r code_tree_chunk, include=FALSE}
 library(magrittr)
 library(knitr)
 
-code_tree <- read.csv(file.path("Output", "codetree.csv"), stringsAsFactors = FALSE)
 
 
+code_tree <- cctu:::cctu_env$code_tree
 root <- code_tree[1, 1]
 
 PATH <- gsub("\\\\ROOT$", "", root, perl = TRUE)
+
 
 code_tree %<>% within({
   parent %<>% gsub("\\\\", "/", ., fixed = TRUE) %>% gsub(PATH, "", ., fixed = TRUE)
@@ -70,24 +66,6 @@ graph
 ```
 
 \begin{tikzpicture}[edge from parent fork right, level distance=20em, grow'=right,
-  every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}] 
-     `r knitr::knit_child(text=graph)`
+                    every node/.style = {shape=rectangle, rounded corners,draw, align=center, fill=white}]
+                    `r knit_child(text=graph)`
 \end{tikzpicture}
-
-# Real Usage
-
-This is generated a stand alone vignette, but really it woudl be called from a call in `main.R` like
-
-
-```{r, eval=FALSE}
-render("Progs/_code_tree_doc.Rmd",
-  output_file = "Vignette Code Tree.pdf", output_dir = "Output/Reports",
-  params = list(
-    my_author = "Simon Bond",
-    my_title = "Vignette Code Tree"
-  )
-)
-```
-
-NB use the file `/doc/Progs/code_tree_docs.Rmd` and not the similarly named one within `/doc` . Building vignettes requires these two slightly different versions. 
-

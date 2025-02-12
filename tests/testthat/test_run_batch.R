@@ -1,26 +1,26 @@
-rm(list=ls())
+rm(list = ls())
 context("run_batch")
-#library(cctu)
+# library(cctu)
 library(testthat)
 
-#run_batch("nested_run_batch.R")
+# run_batch("nested_run_batch.R")
 
 
-test_that("basic test",
-          {
-            #skip()
-            # Not yet fixed, and might never get fixed!
-            expect_warning(run_batch("script_to_test_run_batch.R"),
-                           "run_batch\\(\\) only works in interactive mode")
-            file.remove("batch_test.csv")
-            expect_equal(file.exists("batch_test.csv"), FALSE)
-            rlang::local_interactive()
-            expect_warning(
-            run_batch(normalizePath("script_to_test_run_batch.R")),
-            "If using renv for package management"
-            )
-            expect_equal(file.exists("batch_test.csv"), TRUE)
-
+test_that("basic test", {
+  # skip()
+  # Not yet fixed, and might never get fixed!
+  expect_warning(
+    run_batch("script_to_test_run_batch.R"),
+    "run_batch\\(\\) only works in interactive mode"
+  )
+  file.remove("batch_test.csv")
+  expect_equal(file.exists("batch_test.csv"), FALSE)
+  rlang::local_interactive()
+  expect_warning(
+    run_batch(normalizePath("script_to_test_run_batch.R")),
+    "If using renv for package management"
+  )
+  expect_equal(file.exists("batch_test.csv"), TRUE)
 })
 #             print(Sys.info()["sysname"])
 #             #need this to fool it into being interactive

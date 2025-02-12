@@ -13,7 +13,8 @@ set_meta_table(meta_table)
 \item{meta_table}{a data.frame to be  set as the meta_table internal object}
 }
 \value{
-get_table returns the global object, set_table invisibly returns the previous version
+get_table returns the global object, set_table invisibly returns
+the previous version
 }
 \description{
 Functions to handle meta_table
@@ -25,6 +26,7 @@ Functions to handle meta_table
 \itemize{
 \item \code{get_meta_table()}: gets a copy of the internal object
 
-\item \code{set_meta_table()}: sets the internal object to the argument provided, whilst carrying out some cleaning
+\item \code{set_meta_table()}: sets the internal object to the argument provided,
+whilst carrying out some cleaning
 
 }}

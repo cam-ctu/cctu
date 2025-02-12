@@ -1,4 +1,3 @@
-
 #' Print
 #'
 #' Print method for `cttab`
@@ -8,20 +7,20 @@
 #' @param ... Not used.
 #'
 #' @export
-print.cttab <- function(x, indent = "  ", ...){
-
+print.cttab <- function(x, indent = "  ", ...) {
   # Extract the span positions
   rowclass <- attr(x, "position")
 
   # Extract align
-  if(is.null(attr(x, "align")))
+  if (is.null(attr(x, "align"))) {
     align <- rep("l", ncol(x))
+  }
 
-  if(inherits(x, "matrix")){
+  if (inherits(x, "matrix")) {
     align <- c("l", rep("c", ncol(x))) # Row names left align
     # Row names to column
     col.names <- colnames(x)
-    x <- cbind(' ' = rownames(x), x)
+    x <- cbind(" " = rownames(x), x)
     colnames(x) <- c("", col.names)
   }
 
@@ -29,25 +28,34 @@ print.cttab <- function(x, indent = "  ", ...){
   x[rowclass == 3, 1] <- paste0(indent, x[rowclass == 3, 1])
 
   # Calculate the widths of the column with colnames excluding the span rows
-  l_h <- nchar(colnames(x), type = 'width')
-  l <- vapply(as.data.frame(x[!rowclass %in% c(0, 2), ]), 
-              function(z) max(c(nchar(z, type = 'width'), 0), na.rm = TRUE), numeric(1))
+  l_h <- nchar(colnames(x), type = "width")
+  l <- vapply(
+    as.data.frame(x[!rowclass %in% c(0, 2), ]),
+    function(z) max(c(nchar(z, type = "width"), 0), na.rm = TRUE), numeric(1)
+  )
 
   l <- apply(rbind(l_h, l), 2, max)
 
   # If span row larger than all combined, expand width
-  l_row <- vapply(as.data.frame(x[rowclass %in% c(0, 2), ]), 
-                 function(z) max(c(nchar(z, type = 'width'), 0), na.rm = TRUE), numeric(1))
-  if(l_row[1] > sum(l)){
-    add_l <- ceiling((l_row[1] - sum(l))/length(l))
+  l_row <- vapply(
+    as.data.frame(x[rowclass %in% c(0, 2), ]),
+    function(z) max(c(nchar(z, type = "width"), 0), na.rm = TRUE), numeric(1)
+  )
+  if (l_row[1] > sum(l)) {
+    add_l <- ceiling((l_row[1] - sum(l)) / length(l))
     l <- l + add_l
   }
 
 
   # Create heading
-  th <- mapply(FUN = pad_width, x = colnames(x), width = l, align = rep("c", ncol(x)))
+  th <- mapply(
+    FUN = pad_width,
+    x = colnames(x),
+    width = l,
+    align = rep("c", ncol(x))
+  )
   th <- paste(th, collapse = "\u2502")
-  th <- sprintf('|%s|', th)
+  th <- sprintf("|%s|", th)
 
   # Create borders
   th0 <- paste(strrep("\u2500", l), collapse = "\u252c")
@@ -61,34 +69,35 @@ print.cttab <- function(x, indent = "  ", ...){
 
   # Tabel body
   tb <- rep("", nrow(x))
-  for(i in seq_len(nrow(x))){
-    if(rowclass[i] %in% c(0, 2)){
+  for (i in seq_len(nrow(x))) {
+    if (rowclass[i] %in% c(0, 2)) {
       tb[i] <- pad_width(x[i, 1], sum(l) + ncol(x) - 1, "l")
-    }else{
+    } else {
       tb[i] <- paste(pad_width(x[i, ], l, align), collapse = "\u2502")
     }
   }
-  tb <- sprintf('|%s|', tb)
-  tb <- unname(split(tb, cumsum(seq_along(tb) %in% which(rowclass %in% c(0, 2)))))
-  tb <- lapply(tb, function(x)c(x, tb_umd))
-  tb <- lapply(tb, function(x)c(x[1], tb_lmd, x[2:length(x)]))
+  tb <- sprintf("|%s|", tb)
+  tb <- unname(split(
+    tb,
+    cumsum(seq_along(tb) %in% which(rowclass %in% c(0, 2)))
+  ))
+  tb <- lapply(tb, function(x) c(x, tb_umd))
+  tb <- lapply(tb, function(x) c(x[1], tb_lmd, x[2:length(x)]))
   tb <- unlist(tb)
   tb[length(tb)] <- tb_bt
 
   tab <- c(tb_tp, th, tb_umd, tb)
 
-  cat(tab, sep = '\n')
+  cat(tab, sep = "\n")
 }
 
 # pad a character vector to width
 #' @keywords internal
 pad_width <- function(x, width, align) {
-  side <- c(l = 'right', c = 'both', r = 'left')[align]
-  w <- width - nchar(x, 'width')
+  side <- c(l = "right", c = "both", r = "left")[align]
+  w <- width - nchar(x, "width")
   w1 <- floor(w / 2)
-  s1 <- strrep(" ", w * (side == 'left') + w1 * (side == 'both'))
-  s2 <- strrep(" ", w * (side == 'right') + (w - w1) * (side == 'both'))
+  s1 <- strrep(" ", w * (side == "left") + w1 * (side == "both"))
+  s2 <- strrep(" ", w * (side == "right") + (w - w1) * (side == "both"))
   paste0(s1, x, s2)
 }
-
-

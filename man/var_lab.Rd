@@ -24,8 +24,9 @@ drop_lab(x)
 \item{value}{A character scalar - label for the variable x.}
 }
 \value{
-\code{var_lab} return variable label. If label doesn't exist it return
-  NULL . \code{var_lab<-} return variable (vector x) with attribute "label" which equals submitted value.
+\code{var_lab} return variable label. If label doesn't exist
+it return NULL . \code{var_lab<-} return variable (vector x) with attribute
+"label" which equals submitted value.
 }
 \description{
 These functions set/get/drop variable labels. For
@@ -39,29 +40,29 @@ exist.}
 }
 }
 \details{
-Variable label is stored in attribute "label" (\code{attr(x,"label")}).
-To drop variable label use \code{var_lab(var) <- NULL} or \code{drop_lab(var)}.
+Variable label is stored in attribute "label"
+(\code{attr(x,"label")}). To drop variable label use
+\code{var_lab(var) <- NULL} or \code{drop_lab(var)}.
 }
 \examples{
 data(mtcars)
-mtcars = within(mtcars,{
-                var_lab(mpg) = "Miles/(US) gallon"
-                var_lab(cyl) = "Number of cylinders"
-                var_lab(disp) = "Displacement (cu.in.)"
-                var_lab(hp) = "Gross horsepower"
-                var_lab(drat) = "Rear axle ratio"
-                var_lab(wt) = "Weight (lb/1000)"
-                var_lab(qsec) = "1/4 mile time"
-                var_lab(vs) = "V/S"
-                val_lab(vs) = c("V-shaped" = 0, "straight"=1)
-                var_lab(am) = "Transmission"
-                val_lab(am) = c(automatic = 0, manual=1)
-                var_lab(gear) = "Number of forward gears"
-                var_lab(carb) = "Number of carburetors"
+mtcars <- within(mtcars, {
+  var_lab(mpg) <- "Miles/(US) gallon"
+  var_lab(cyl) <- "Number of cylinders"
+  var_lab(disp) <- "Displacement (cu.in.)"
+  var_lab(hp) <- "Gross horsepower"
+  var_lab(drat) <- "Rear axle ratio"
+  var_lab(wt) <- "Weight (lb/1000)"
+  var_lab(qsec) <- "1/4 mile time"
+  var_lab(vs) <- "V/S"
+  val_lab(vs) <- c("V-shaped" = 0, "straight" = 1)
+  var_lab(am) <- "Transmission"
+  val_lab(am) <- c(automatic = 0, manual = 1)
+  var_lab(gear) <- "Number of forward gears"
+  var_lab(carb) <- "Number of carburetors"
 })
 
 table(mtcars$am)
-
 
 }
 \references{

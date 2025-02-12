@@ -142,12 +142,12 @@ In the the top level this is a file called "main.R"
 ## Initial lines
 
 ```{r initial}
-rm(list=ls())
-#set to the library folder
+rm(list = ls())
+# set to the library folder
 .libPaths()
 library(cctu)
-options(verbose=TRUE)
-#run_batch("main.R")
+options(verbose = TRUE)
+# run_batch("main.R")
 DATA <- "PATH_TO_DATA"
 cctu_initialise()
 rm_output()
@@ -166,11 +166,10 @@ It is recommended to set up a config.R file that
 * maybe reads in some bespoke functions you want to define
 
 ```{r, echo=FALSE}
-sourceKnit <- function(path, label){
-  cmd <- knitr::knit_expand(file.path("Progs","_templ.Rmd"))
-  knitr::knit_child(text=unlist(cmd))
+sourceKnit <- function(path, label) {
+  cmd <- knitr::knit_expand(file.path("Progs", "_templ.Rmd"))
+  knitr::knit_child(text = unlist(cmd))
 }
-
 ```
 
 ### Library management
@@ -209,27 +208,28 @@ Need to create names for the population labels, including the number of subjects
 
 
 ```{r report}
-pop_size <- sapply( popn[,names(popn)!="subjid"], sum)
+pop_size <- sapply(popn[, names(popn) != "subjid"], sum)
 pop_name <- unique(get_meta_table()$population)
 index <- match(pop_name, names(pop_size))
-popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
+popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index], ")")
 
-write.csv(get_meta_table(), file=file.path("Output","meta_table.csv"), row.names = FALSE)
-write.csv(get_code_tree(), file=file.path("Output","codetree.csv"), row.names = FALSE)
-write_docx(report_title="Vignette Report",
-                author="Simon Bond",
-                filename=file.path("Output","Reports","Vignette_Report.doc"),
-                popn_labels=popn_labels
-            )
+write.csv(get_meta_table(), file = file.path("Output", "meta_table.csv"), row.names = FALSE)
+write.csv(get_code_tree(), file = file.path("Output", "codetree.csv"), row.names = FALSE)
+write_docx(
+  report_title = "Vignette Report",
+  author = "Simon Bond",
+  filename = file.path("Output", "Reports", "Vignette_Report.doc"),
+  popn_labels = popn_labels
+)
 Sys.info()
 sessionInfo()
 date()
 ```
 
 ```{r,  include=FALSE}
-#if(!dir.exists("../inst/doc")){dir.create("../inst/doc")}
-#unlink("../inst/doc/Output", recursive=TRUE)
-#file.copy("Output", "../inst/doc", recursive=TRUE)
+# if(!dir.exists("../inst/doc")){dir.create("../inst/doc")}
+# unlink("../inst/doc/Output", recursive=TRUE)
+# file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
 The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".

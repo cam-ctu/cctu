@@ -12,10 +12,12 @@ clean_string(x)
 \arguments{
 \item{df}{a data frame}
 
-\item{convert}{a logical to indicate if you want to modify \code{df} in the parent environment,
+\item{convert}{a logical to indicate if you want to modify \code{df} in the
+parent environment,
 or if not simply return a character vector of the revised variable names.}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
 \item{x}{a character string to be cleaned.}
 }
@@ -28,10 +30,12 @@ or if not simply return a character vector of the revised variable names.}
 }
 so a variable called "Nasty/Var+Name " gets turned into "nasty_var_name" .
 
-\code{clean_names} returns either a vector of cleaned names is return directly,
-or the input object is modified in the parent envirnoment (the default) and an invisible copy of the modified input returned
+\code{clean_names} returns either a vector of cleaned names is return
+directly, or the input object is modified in the parent envirnoment
+(the default) and an invisible copy of the modified input returned
 
-\code{clean_string} returns an individual vector with the contents cleaned.
+\code{clean_string} returns an individual vector with the contents
+cleaned.
 }
 \description{
 Tidies up names of a data frame within certain rules

@@ -13,12 +13,13 @@ tidy_dlu(x, clean_names = TRUE)
 \code{\link{clean_names}} for details.}
 }
 \value{
-A data.frame with `visit/form/question` column separated into `visit`,
-`form` and `question` column.
+A data.frame with `visit/form/question` column separated into
+`visit`, `form` and `question` column.
 }
 \description{
 Separate visit, form and question into different columns.
-Variable names, NOT the values, of the dlu data will be converted to lower cases.
+Variable names, NOT the values, of the dlu data will be converted to lower
+ cases.
 }
 \details{
 The DLU file contains four columns:
@@ -29,13 +30,15 @@ separated by a slash. This function will separate this column into `visit`,
 `form` and `question` column in the output dataset. The `question` column
 is the unique variable name for a particular CRF form.
   \item{description}: description of the variable, namely variable label.
-This is will be used by \code{\link{apply_macro_dict}} to create variable label.
+This is will be used by \code{\link{apply_macro_dict}} to create variable
+ label.
  \item{type}: type of the variable, it has IntegerData, Text, Date, Real and
-Category four categories. This will be used by \code{\link{apply_macro_dict}} to
-convert variables to corresponding type.
+Category four categories. This will be used by \code{\link{apply_macro_dict}}
+ to convert variables to corresponding type.
 }
 }
 \seealso{
-\code{\link{apply_macro_dict}} \code{\link{read_data}} \code{\link{cttab}}
+\code{\link{apply_macro_dict}} \code{\link{read_data}}
+ \code{\link{cttab}}
 \code{\link{report_missing}} \code{\link{clean_names}}
 }

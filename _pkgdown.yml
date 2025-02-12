@@ -126,11 +126,4 @@ reference:
   - remove_invalid_utf8
 
 
-articles:
-- title: Vignettes
-  navbar: ~
-  contents:
-  - analysis-template
-  - using-cttab
-
 

@@ -216,10 +216,11 @@ test_that("Creation of files", {
 })
 
 test_that("get_code_tree", {
-  write.csv(get_code_tree(), file = test_path("Output", "codetree.csv"), row.names = FALSE)
+  write.csv(get_code_tree(), file = test_path("Output", "codetree.csv"),
+            row.names = FALSE)
+  vdiffr::expect_doppelganger("plot_code_tree", plot(get_code_tree()))
   expect_true(file.exists(test_path("Output", "codetree.csv")))
 })
-
 
 
 

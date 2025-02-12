@@ -26,6 +26,8 @@ reference:
   - set_meta_table
   - reset_code_tree
   - get_code_tree
+  - print.code_tree
+  - plot.code_tree
   - create_popn_envir
   - rm_envir
   - rm_output
@@ -130,10 +132,5 @@ articles:
   contents:
   - analysis-template
   - using-cttab
-  - code_tree_doc
-  - code_tree_doc_pdf
-  - rmarkdown_report
-
-
 
 

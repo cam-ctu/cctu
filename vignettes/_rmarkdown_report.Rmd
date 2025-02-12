@@ -17,10 +17,12 @@ vignette: |
 ```{r  html_report , include=FALSE, message=TRUE, warning=FALSE}
 library(cctu)
 library(magrittr)
+library(knitr)
 
 PATH_figure <- file.path(getwd(), "Output", "Figures")
 
-meta_table <- read.csv(file = file.path("Output", "meta_table.csv"), stringsAsFactors = FALSE)
+meta_table <- read.csv(file = file.path("Output", "meta_table.csv"),
+                       stringsAsFactors = FALSE)
 index <- order_dewey(meta_table$number)
 meta_table <- meta_table[index, ]
 rm(index)
@@ -31,13 +33,16 @@ for (sect in sections) {
   src <- c(src, paste("\n#", sect))
   subtab <- subset(meta_table, section == sect)
   for (row in 1:nrow(subtab)) {
-    src <- c(src, paste("\n##", subtab[row, "number"], subtab[row, "title"], "\nPopulation:", subtab[row, "population"]))
+    src <- c(src, paste("\n##", subtab[row, "number"], 
+                        subtab[row, "title"], "\nPopulation:",
+                        subtab[row, "population"]))
     if (!is.na(subtab[row, "subtitle"])) {
       src <- c(src, paste("\nSubtitle:", subtab[row, "subtitle"]))
     }
 
     if (subtab[row, "item"] %>% tolower() == "table") {
-      file_name <- file.path("Output", "Core", paste0("table_", subtab[row, "number"], ".xml"))
+      file_name <- file.path("Output", "Core", 
+                             paste0("table_", subtab[row, "number"], ".xml"))
       # knit exapnd really doesn't like absolute paths or \ or \\
       if (file.exists(file_name)) {
         src <- c(
@@ -69,8 +74,10 @@ for (sect in sections) {
 
 
     if (subtab[row, "item"] %>% tolower() == "figure") {
-      file_name <- file.path(PATH_figure, paste0("fig_", subtab[row, "number"], ".png"))
-      if (file.exists(file_name)) src <- c(src, paste0("![](", file_name, ") \n"))
+      file_name <- file.path(PATH_figure,
+                             paste0("fig_", subtab[row, "number"], ".png"))
+      if (file.exists(file_name)) 
+        src <- c(src, paste0("![](", file_name, ") \n"))
     }
     if (!is.na(subtab[row, "footnote1"])) {
       src <- c(src, paste("\n", subtab[row, "footnote1"]))
@@ -83,7 +90,7 @@ for (sect in sections) {
 ```
 
 
-`r knitr::knit_child(text=src, envir=parent.frame())`
+`r knitr::knit_child(text = src, envir = parent.frame())`
 
 
 # Actual implimentation

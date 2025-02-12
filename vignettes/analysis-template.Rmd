@@ -256,7 +256,15 @@ We can use rmarkdown to create other versions of the main report or a graphical 
 Numerous other outputs can be obtained from rmarkdown: slide show of the figures, reformatting of output as desired...
 
 ### Code Tree
- See the vignette `Code Tree Document` for an example that produces a seperate pdf document. 
+You can use the following example to produces a code tree pdf.
+```{r eval=FALSE}
+ctfile <- get_code_tree()
+pdf("codetree.pdf", width=13, height=7)
+plot(ctfile)
+dev.off()
+```
+You can also use `write_plot` function to include the code tree plot in your report.
+
 
 ### HTML version of the report
 

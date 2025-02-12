@@ -8,7 +8,8 @@ file was called and from which file}
 source(
   file,
   local = getOption("cctu_source_local", default = FALSE),
-  backup = NULL
+  backup = NULL,
+  ...
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ source(
 \item{backup}{A character string giving the file path to which to save an
 image of the R environment before sourcing any code.
 Default is NULL, which does not save any image.}
+
+\item{...}{other parameters to be passed to \code{\link[base]{source}}.}
 }
 \value{
 no return value

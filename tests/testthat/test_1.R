@@ -218,11 +218,14 @@ test_that("Creation of files", {
 test_that("get_code_tree", {
   write.csv(get_code_tree(), file = test_path("Output", "codetree.csv"),
             row.names = FALSE)
-  vdiffr::expect_doppelganger("plot_code_tree", plot(get_code_tree()))
   expect_true(file.exists(test_path("Output", "codetree.csv")))
+
+  # Remove root path to avoid any problem
+  ctd <- get_code_tree()
+  ctd$parent <- gsub(getwd(), "", gsub("\\\\", "/", ctd$parent))
+  ctd$child <- gsub(getwd(), "", gsub("\\\\", "/", ctd$child))
+  vdiffr::expect_doppelganger("plot_code_tree", plot(ctd))
 })
-
-
 
 test_that("Comparison to saved output", {
   library(xml2)

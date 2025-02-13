@@ -38,13 +38,17 @@ rm_output(
 \arguments{
 \item{root}{the root directory to start in}
 
-\item{scripts}{logical create the standard set of scripts. Intended to be used once interactively at the start of coding for an analysis.}
+\item{scripts}{logical create the standard set of scripts. Intended to be
+used once interactively at the start of coding for an analysis.}
 
-\item{rm}{logical whether to also run \code{\link{rm_output}} with its default values, to delete all the files in the output directory.}
+\item{rm}{logical whether to also run \code{\link{rm_output}} with its
+default values, to delete all the files in the output directory.}
 
-\item{output}{character string giving the name of the output folder. Can be overriden by setting the option("cctu_output").}
+\item{output}{character string giving the name of the output folder. Can be
+overriden by setting the option("cctu_output").}
 
-\item{warnings}{logical indicator to issue warning if the directories do not exist. Default FALSE.}
+\item{warnings}{logical indicator to issue warning if the directories do not
+exist. Default FALSE.}
 
 \item{core}{logical delete the files in /Core}
 
@@ -55,7 +59,9 @@ rm_output(
 \item{top}{logical delete top level files that are not in core/figures/reports.}
 }
 \value{
-cctu_initialise gives an invisible return of logical indicating if the directories have been created. The directories needed are "Output", and within "Output", "Core", "Figures", "Reports".
+cctu_initialise gives an invisible return of logical indicating if
+the directories have been created. The directories needed are "Output", and
+within "Output", "Core", "Figures", "Reports".
 It also runs \code{reset_code_tree(root)} automatically.
 
 cctu_check_dir gives a logical indicating if the directories exist,
@@ -65,13 +71,15 @@ initialise  objects for using cctu package
 }
 \section{Functions}{
 \itemize{
-\item \code{cctu_initialise()}: create the standard directories for outputs if needed.
+\item \code{cctu_initialise()}: create the standard directories for outputs
+if needed.
 
 \item \code{cctu_initialize()}: identifical function with American spelling
 
 \item \code{cctu_check_dir()}: Check if the directories exist for cctu
 
-\item \code{rm_output()}: function to clear previous output files, but leaves the directories in place
+\item \code{rm_output()}: function to clear previous output files, but
+leaves the directories in place
 
 }}
 \seealso{

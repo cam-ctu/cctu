@@ -2,12 +2,14 @@
 % Please edit documentation in R/source.R
 \name{source}
 \alias{source}
-\title{A modified version of the source() function to capture in a data.frame what file was called and from which file}
+\title{A modified version of the source() function to capture in a data.frame what
+file was called and from which file}
 \usage{
 source(
   file,
   local = getOption("cctu_source_local", default = FALSE),
-  backup = NULL
+  backup = NULL,
+  ...
 )
 }
 \arguments{
@@ -21,18 +23,24 @@ source(
     environment) and \code{TRUE} to the environment from which
     \code{source} is called.}
 
-\item{backup}{A character string giving the file path to which to save an image of the R environment before sourcing any code.
+\item{backup}{A character string giving the file path to which to save an
+image of the R environment before sourcing any code.
 Default is NULL, which does not save any image.}
+
+\item{...}{other parameters to be passed to \code{\link[base]{source}}.}
 }
 \value{
 no return value
 }
 \description{
-A modified version of the source() function to capture in a data.frame what file was called and from which file
+A modified version of the source() function to capture in a data.frame what
+file was called and from which file
 }
 \details{
-evaluates code in the file argument, and also augments or creates a dataframe with two variables (parent, child).
-The intention is to record the architecture of a sequenece of code files run using nested source() statements. To override this function use
+evaluates code in the file argument, and also augments or creates a
+ dataframe with two variables (parent, child). The intention is to record
+ the architecture of a sequenece of code files run using nested source()
+ statements. To override this function use
 \code{source <- base::source}.
 }
 \seealso{

@@ -18,8 +18,8 @@ unval(x)
 \arguments{
 \item{x}{Variable(s). Vector/data.frame/list.}
 
-\item{value}{Named vector. Names of vector are labels for the
-appropriate values of variable x. Names can be duplicated, but not the value.}
+\item{value}{Named vector. Names of vector are labels for the appropriate
+values of variable x. Names can be duplicated, but not the value.}
 }
 \value{
 \code{val_lab} return value labels (named vector). If labels doesn't
@@ -27,10 +27,12 @@ appropriate values of variable x. Names can be duplicated, but not the value.}
   contains value labels.
 }
 \description{
-These functions set/get/drop value labels. Duplicated values are not allowed.
-If argument \code{x} is data.frame or list then labels applied to all
-elements of data.frame/list. To drop value labels, use \code{val_lab(var) <-
-NULL} or \code{unval(var)}. For variable labels see \link{var_lab}.
+These functions set/get/drop value labels. Duplicated values
+are not allowed. If argument \code{x} is data.frame or list then labels
+applied to all
+elements of data.frame/list. To drop value labels, use
+\code{val_lab(var) <- NULL} or \code{unval(var)}. For variable labels see
+ \link{var_lab}.
 \describe{
 \item{\code{val_lab}}{ returns value labels or NULL if labels doesn't
 exist.}
@@ -48,13 +50,13 @@ Value labels are stored in attribute "labels"
 set.seed(123)
 # score - evaluation of tested product
 
-score = sample(-1:1,20,replace = TRUE)
-var_lab(score) = "Evaluation of tested brand"
-val_lab(score) = c("Dislike it" = -1,
-                   "So-so" = 0,
-                   "Like it" = 1
-                   )
-
+score <- sample(-1:1, 20, replace = TRUE)
+var_lab(score) <- "Evaluation of tested brand"
+val_lab(score) <- c(
+  "Dislike it" = -1,
+  "So-so" = 0,
+  "Like it" = 1
+)
 
 }
 \references{

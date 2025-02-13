@@ -10,7 +10,8 @@ get_code_tree()
 reset_code_tree(root_file = "main.R")
 }
 \arguments{
-\item{root_file}{the name of the code file you want to use as the initial root for code tree}
+\item{root_file}{the name of the code file you want to use as the initial
+root for code tree}
 }
 \value{
 the data file containing two variables: parent ; child.
@@ -20,15 +21,17 @@ track which files of code are called by which oher files
 }
 \details{
 each time the \code{cctu} function \code{\link{source}} is called,
-an internal data frame is appended with the parent file that called \code{\link{source}},
-and the child file that was sourced.
+an internal data frame is appended with the parent file that called
+\code{\link{source}}, and the child file that was sourced.
 
-You can reset the code_tree or examine it, but not directly edit it. It is reset automatically if
+You can reset the code_tree or examine it, but not directly edit it. It is
+reset automatically if
 \code{\link{cctu_initialise}} is called.
 }
 \section{Functions}{
 \itemize{
-\item \code{reset_code_tree()}: reset the internal code_tree object to have no entries
+\item \code{reset_code_tree()}: reset the internal code_tree object to have no
+entries
 
 }}
 \seealso{

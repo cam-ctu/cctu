@@ -9,7 +9,8 @@ format_pval(pvals, sig.limit = 10^(-digits), digits = 3)
 \arguments{
 \item{pvals}{A numeric value or vector of p-values}
 
-\item{sig.limit}{Lower bound for precision; smaller values will be shown as < sig.limit}
+\item{sig.limit}{Lower bound for precision; smaller values will be shown
+as < sig.limit}
 
 \item{digits}{Number of digits past the decimal point to keep}
 }

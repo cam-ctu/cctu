@@ -22,7 +22,9 @@ write_ggplot(
 \arguments{
 \item{plot}{the plot object to save. defaults to \code{last_plot}}
 
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used to as a suffix in the output filename, and to
+link to TableofTables. Default is to use the value in the cctu_env package
+ environment that is set within \code{\link{attach_pop}}.}
 
 \item{width}{the width to save as}
 
@@ -32,23 +34,31 @@ write_ggplot(
 
 \item{units}{either "cm" (the default) or "inches"}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
+end. Defaults to TRUE}
 
-\item{directory}{where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").}
+\item{directory}{where to save the figures within path or current working
+directory. The Output directory can be over-riden with
+options("cctu_output").}
 
-\item{format}{either "jpg", "postscript", or "png" to determine the file type to use}
+\item{format}{either "jpg", "postscript", or "png" to determine the file
+type to use}
 
-\item{graphics_args}{a list of named arguments to supply to graphics function (png, postscript, jpeg)}
+\item{graphics_args}{a list of named arguments to supply to graphics
+function (png, postscript, jpeg)}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
 \item{footnote}{character vector, can be used to add footnotes.}
 }
 \value{
-writes a copy of a plot to file fig_number.. edits the TableofTables object with the calling programe No return object.
+writes a copy of a plot to file fig_number.. edits the TableofTables
+ object with the calling programe No return object.
 }
 \description{
-This is a wrapup function of \code{\link{write_plot}} to print \code{ggplot} object.
+This is a wrapup function of \code{\link{write_plot}} to print \code{ggplot}
+ object.
 }
 \seealso{
 \code{\link{write_table}}  \code{\link{write_plot}}

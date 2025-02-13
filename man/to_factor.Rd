@@ -18,10 +18,11 @@ to_logical(x)
 \arguments{
 \item{x}{vector}
 
-\item{ordered}{logical flag to determine if the levels should be regarded as ordered.}
+\item{ordered}{logical flag to determine if the levels should be regarded
+as ordered.}
 
-\item{drop.levels}{If `TRUE`, drop unused levels from the converted factor, default
-is `FALSE`.}
+\item{drop.levels}{If `TRUE`, drop unused levels from the converted factor,
+default is `FALSE`.}
 }
 \value{
 Factor/character of the same form as x but with value labels instead
@@ -31,25 +32,26 @@ of values. For numeric and logical vectors with corresponding type.
 Convert vector but keep value/value labels.
 
 \code{to_factor} convert vector to factor with corresponding value labels or
-unique values in the vector. Note that the `NA` or blank values will be excluded
-from converting. It will return a factor with original values if there's no
-value label.
+unique values in the vector. Note that the `NA` or blank values will be
+excluded  from converting. It will return a factor with original values if
+ there's no value label.
 
 \code{to_character} Convert vector to character vector and keep the variable
-labels. The generic function `as.character` will lost the label attributes. If
-you want to convert the value label to value itself, use \code{lab2val} instead.
+labels. The generic function `as.character` will lost the label attributes.
+If you want to convert the value label to value itself, use \code{lab2val}
+ instead.
 
-\code{to_numeric} Convert vector to numeric vector and keep the variable labels.
-The generic function `as.numeric` will lost the label attributes.
+\code{to_numeric} Convert vector to numeric vector and keep the variable
+labels. The generic function `as.numeric` will lost the label attributes.
 
-\code{to_logical} Convert vector to logical vector and keep the variable labels.
-The generic function `as.logical` will lost the label attributes.
+\code{to_logical} Convert vector to logical vector and keep the variable
+labels. The generic function `as.logical` will lost the label attributes.
 }
 \examples{
 data(mtcars)
-mtcars = within(mtcars,{
-                var_lab(am) = "Transmission"
-                val_lab(am) = c(" automatic" = 0, " manual" =  1)
+mtcars <- within(mtcars, {
+  var_lab(am) <- "Transmission"
+  val_lab(am) <- c(" automatic" = 0, " manual" = 1)
 })
 
 mtcars$am <- to_factor(mtcars$am)

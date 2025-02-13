@@ -21,7 +21,7 @@ vector are legal numeric values, or optionally converts the vector to
  a numeric vector. Leading and trailing blanks in x are ignored.
 }
 \examples{
-all_is_numeric(c('1','1.2','3'))
-all_is_numeric(c('1','1.2','3a'))
+all_is_numeric(c("1", "1.2", "3"))
+all_is_numeric(c("1", "1.2", "3a"))
 
 }

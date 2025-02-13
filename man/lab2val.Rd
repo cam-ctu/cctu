@@ -20,14 +20,14 @@ variable it remains unchanged.
 }
 \examples{
 data(mtcars)
-mtcars = within(mtcars,{
-                var_lab(mpg) = NULL
-                val_lab(am) = c(" automatic" = 0, " manual" =  1)
+mtcars <- within(mtcars, {
+  var_lab(mpg) <- NULL
+  val_lab(am) <- c(" automatic" = 0, " manual" = 1)
 })
 
 table(lab2val(mtcars$am))
 
-summary(lm(mpg ~ ., data = lab2val(mtcars[,c("mpg","am")])))
+summary(lm(mpg ~ ., data = lab2val(mtcars[, c("mpg", "am")])))
 }
 \references{
 This is a modified version from `expss` package.

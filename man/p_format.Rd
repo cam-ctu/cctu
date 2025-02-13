@@ -9,7 +9,8 @@ p_format(p, digits = 3)
 \arguments{
 \item{p}{vector of numeric p-values}
 
-\item{digits}{the number of digits to round to, and define the threshold to use the < symbol}
+\item{digits}{the number of digits to round to, and define the threshold to
+use the < symbol}
 }
 \value{
 character vector of formated p-values
@@ -18,5 +19,5 @@ character vector of formated p-values
 formats p values with rounding and <0.001
 }
 \examples{
- p_format(c(0.000001,0.451234))
+p_format(c(0.000001, 0.451234))
 }

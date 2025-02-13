@@ -2,7 +2,8 @@
 % Please edit documentation in R/rm_envir.R
 \name{rm_envir}
 \alias{rm_envir}
-\title{A function to remove all attached objects from the search path with any exceptions specified}
+\title{A function to remove all attached objects from the search path with any
+exceptions specified}
 \usage{
 rm_envir(
   ignore = c(".GlobalEnv", "package:", "tools:", "Autoloads"),
@@ -11,17 +12,21 @@ rm_envir(
 )
 }
 \arguments{
-\item{ignore}{a character vector of regular expression search terms  within the output from \code{search()} as to which should be retained.}
+\item{ignore}{a character vector of regular expression search terms  within
+the output from \code{search()} as to which should be retained.}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
 \item{perl}{logical.  Should Perl-compatible regexps be used?}
 }
 \description{
-A function to remove all attached objects from the search path with any exceptions specified
+A function to remove all attached objects from the search path with any
+exceptions specified
 }
 \details{
-it detaches anything not ignored. It is called by default wihin \code{\link{attach_pop}} .
+it detaches anything not ignored. It is called by default within
+ \code{\link{attach_pop}} .
 }
 \seealso{
 \code{\link{search}} \code{\link{attach_pop}}

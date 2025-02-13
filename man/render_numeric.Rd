@@ -18,7 +18,7 @@ vector with names as the statistics will be printed and values are the
 statistics. For example, \code{c("Geo. Mean (Geo. CV\%)" = "GMean (GCV)",
 "Median [IQR]" = "Median [Q1, Q3]")}. In the latter case, the user visible
 statistics will be called \code{"Median [IQR]"} and this is the name printed.
-But the underlying summarised statistics are median, Q1 and Q3. 
+But the underlying summarised statistics are median, Q1 and Q3.
 Separate statistics with comma or a space or any non-letters.}
 
 \item{...}{Further arguments, passed to \code{\link{num_stat}}.}

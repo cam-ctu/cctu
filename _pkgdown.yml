@@ -1,4 +1,129 @@
 url: https://cam-ctu.github.io/cctu/
+
 template:
   bootstrap: 5
+  math-rendering: mathjax
+  light-switch: true
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+    danger: "#A6081A"
+
+reference:
+- title: "Study related function"
+  desc: >
+    Functions to setup studies
+  contents:
+  - cctu_check_dir
+  - cctu_initialise
+  - cctu_initialize
+  - attach_pop
+  - clean_up
+  - detach_pop
+  - data_table_summary
+  - order_dewey
+  - set_meta_table
+  - reset_code_tree
+  - get_code_tree
+  - print.code_tree
+  - plot.code_tree
+  - create_popn_envir
+  - rm_envir
+  - rm_output
+  - run_batch
+  - source
+  - read_data
+  - get_meta_table
+  - meta_table_example
+
+- title: "Macro utility functions"
+  desc: >
+    Functions manipulating MACRO data
+  contents:
+  - apply_macro_dict
+  - extract_form
+  - merge_data
+  - set_dlu
+  - tidy_dlu
+  - get_dlu
+  - reset_missing_report
+  - get_missing_report
+  - dump_missing_report
+
+- title: "Formating/conversion function"
+  desc: "Functions to format digits, convert characters."
+  contents:
+  - format_percent
+  - format_pval
+  - round_pad
+  - signif_pad
+  - p_format
+  - to_character
+  - to_factor
+  - to_logical
+  - to_numeric
+  - propercase
+
+- title: "Summry data"
+  desc: "Functions to create summary statistics"
+  contents:
+  - cttab
+  - print.cttab
+  - rbind.cttab
+  - render_cat
+  - render_numeric
+  - cat_stat
+  - num_stat
+  - sumby
+  - sumfig
+  - regression_table
+
+- title: "Plotting"
+  desc: "Functions to create plots"
+  contents:
+  - GeomStepribbon
+  - geom_stepribbon
+  - km_ggplot
+  - plot.km_ggplot
+  - print.km_ggplot
+
+- title: "Writing outputs"
+  desc: "Functions to write tables, figures and report"
+  contents:
+  - write_docx
+  - write_ggplot
+  - write_manual
+  - write_plot
+  - write_table
+  - write_text
+  - create_word_xml
+
+- title: "Variable and value labels"
+  desc: "Functions for labels"
+  contents:
+  - "val_lab<-"
+  - "var_lab<-"
+  - unlab
+  - unval
+  - val_lab
+  - var_lab
+  - copy_lab
+  - has.label
+  - has.labels
+  - lab2val
+  - drop_lab
+
+- title: "Miscellaneous"
+  contents:
+  - all_is_numeric
+  - clean_names
+  - clean_string
+  - detect_invalid_utf8
+  - is_empty
+  - rbind_space
+  - remove_blank_rows_cols
+  - remove_invalid_utf8
+
+
 

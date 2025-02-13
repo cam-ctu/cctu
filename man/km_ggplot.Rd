@@ -23,23 +23,29 @@ km_ggplot(
 
 \item{ylabs}{y-axis label}
 
-\item{strata_labs}{The strata labels. If left as NULL it defaults to \code{levels(summary(sfit)$strata)} with minor prettification.}
+\item{strata_labs}{The strata labels. If left as NULL it defaults to
+\code{levels(summary(sfit)$strata)} with minor prettification.}
 
-\item{ystratalabs}{deprecated and only for back compatibility. use strata_labs argument.}
+\item{ystratalabs}{deprecated and only for back compatibility.
+use strata_labs argument.}
 
-\item{timeby}{numeric: Default is NULL to use ggplot defaults, but allows user to specify the gaps between x-axis ticks}
+\item{timeby}{numeric: Default is NULL to use ggplot defaults, but allows
+user to specify the gaps between x-axis ticks}
 
 \item{pval}{logical: add the p-value to the plot?}
 
 \item{p_digits}{integer: the number of decimal places to use for a p-value.}
 
-\item{...}{option parameters include `xlims` and `ylims` to set the axes' ranges,
-where defaults are derived from the data: both are vectors of length two giving the min and max.}
+\item{...}{option parameters include `xlims` and `ylims` to set the axes'
+ranges, where defaults are derived from the data: both are vectors of
+length two giving the min and max.}
 }
 \value{
-a list of ggplot objects is made: the top figure and a table of counts.
-The object has a print and plot method that uses  \code{\link[patchwork]{wrap_plots}}
- to glue together. The user can access and modify the ggplot components as desired.
+a list of ggplot objects is made: the top figure and a table of
+counts.
+The object has a print and plot method that uses
+\code{\link[patchwork]{wrap_plots}} to glue together. The user can access
+ and modify the ggplot components as desired.
 }
 \description{
 Create a Kaplan-Meier plot using ggplot2
@@ -54,17 +60,17 @@ you can use to draw a KM-plot with more options.
 }
 \examples{
 library(survival)
- fit <- survfit(Surv(time,status)~rx, data=colon)
- km_ggplot(fit)
- ## Change theme of the KM-plot
- p <- km_ggplot(fit)
- p$top <- p$top +
-    ggplot2::theme_classic()
- # Change the theme of the risktable
- p$bottom <- p$bottom +
-    ggplot2::theme_void()
+fit <- survfit(Surv(time, status) ~ rx, data = colon)
+km_ggplot(fit)
+## Change theme of the KM-plot
+p <- km_ggplot(fit)
+p$top <- p$top +
+  ggplot2::theme_classic()
+# Change the theme of the risktable
+p$bottom <- p$bottom +
+  ggplot2::theme_void()
 
- plot(p)
+plot(p)
 
 }
 \author{

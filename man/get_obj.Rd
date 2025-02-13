@@ -2,7 +2,8 @@
 % Please edit documentation in R/get_obj.R
 \name{get_obj}
 \alias{get_obj}
-\title{Gets copies of objects from parent environments, or returns alternative if not found}
+\title{Gets copies of objects from parent environments, or returns alternative if
+not found}
 \usage{
 get_obj(name, frame = parent.frame(), alt = NULL)
 }
@@ -12,22 +13,25 @@ get_obj(name, frame = parent.frame(), alt = NULL)
 \item{alt}{an alternative to return if the object is not found}
 }
 \value{
-either a copy of the object \code{name} or an alternative if it does not exist
+either a copy of the object \code{name} or an alternative if it does
+ not exist
 }
 \description{
-Gets copies of objects from parent environments, or returns alternative if not found
+Gets copies of objects from parent environments, or returns alternative if
+not found
 }
 \details{
-this is designed to use within functions in the library to access global objects,
-but provide a route to avoid hard-coding specific variable names in. It is not exported.
+this is designed to use within functions in the library to access
+ global objects, but provide a route to avoid hard-coding specific variable
+ names in. It is not exported.
 }
 \examples{
 library(cctu)
 rm(PATH)
 cctu:::get_obj("PATH")
-cctu:::get_obj("PATH", alt=getwd())
+cctu:::get_obj("PATH", alt = getwd())
 PATH <- "C:/MyFile"
 cctu:::get_obj("PATH")
-cctu:::get_obj("PATH", alt=getwd())
+cctu:::get_obj("PATH", alt = getwd())
 }
 \keyword{internal}

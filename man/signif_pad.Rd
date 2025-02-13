@@ -31,8 +31,8 @@ up? The standard R approach is "go to the even digit" (IEC 60559 standard,
 see \code{\link{round}}), while some other softwares (e.g. SAS, Excel)
 always round up.}
 
-\item{format}{See \code{formatC}. Default is \code{"fg"}, change it to \code{"g"}
-if scientific is preferred.}
+\item{format}{See \code{formatC}. Default is \code{"fg"}, change it to
+\code{"g"} if scientific is preferred.}
 
 \item{...}{Further options, passed to \code{formatC} (which is used
 internally). Not all options will work, but some might be useful (e.g.
@@ -42,28 +42,28 @@ internally). Not all options will work, but some might be useful (e.g.
 A character vector containing the rounded numbers.
 }
 \description{
-Utility functions to round numbers, similar the the base functions \code{signif}
-and \code{round}, but resulting in character representations that keep zeros at
-the right edge if they are significant.
+Utility functions to round numbers, similar the the base functions
+ \code{signif} and \code{round}, but resulting in character representations
+  that keep zeros at the right edge if they are significant.
 }
 \examples{
-x <- c(0.9001, 12345, 1.2, 1., 0.1, 0.00001 , 1e5)
-signif_pad(x, digits=3)
-signif_pad(x, digits=3, round.integers=TRUE)
-round_pad(x, digits=2)
+x <- c(0.9001, 12345, 1.2, 1., 0.1, 0.00001, 1e5)
+signif_pad(x, digits = 3)
+signif_pad(x, digits = 3, round.integers = TRUE)
+round_pad(x, digits = 2)
 
 # Compare:
-as.character(signif(x, digits=3))
-format(x, digits=3, nsmall=3)
-prettyNum(x, digits=3, drop0trailing=TRUE)
-prettyNum(x, digits=3, drop0trailing=FALSE)
+as.character(signif(x, digits = 3))
+format(x, digits = 3, nsmall = 3)
+prettyNum(x, digits = 3, drop0trailing = TRUE)
+prettyNum(x, digits = 3, drop0trailing = FALSE)
 
 # This is very close.
-formatC(x, format="fg", flag="#", digits=3)
-formatC(signif(x, 3), format="fg", flag="#", digits=3)
+formatC(x, format = "fg", flag = "#", digits = 3)
+formatC(signif(x, 3), format = "fg", flag = "#", digits = 3)
 
 # Could always remove the trailing "."
-sub("[.]$", "", formatC(x, format="fg", flag="#", digits=3))
+sub("[.]$", "", formatC(x, format = "fg", flag = "#", digits = 3))
 
 }
 \references{

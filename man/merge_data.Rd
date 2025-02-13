@@ -23,11 +23,11 @@ A list of three data.frame
 }
 \description{
 This function can be used when the MACRO dataset is \strong{vertically} split,
-and must not be used to combine horizontally split data which has same variable
-names. It will rename the variable of the dataset, including
+and must not be used to combine horizontally split data which has same
+variable names. It will rename the variable of the dataset, including
 shortcode of dlu and clu files with underscore and number, and combine them
-to single dataset. Returns a list with merged dataset, DLU and CLU. Data, DLU 
-and CLU should be in same order. The merged dataset, dlu and clu can further 
+to single dataset. Returns a list with merged dataset, DLU and CLU. Data, DLU
+and CLU should be in same order. The merged dataset, dlu and clu can further
 be passed to \code{\link{apply_macro_dict}}.
 }
 \examples{

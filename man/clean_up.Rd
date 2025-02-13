@@ -2,7 +2,9 @@
 % Please edit documentation in R/clean_up.R
 \name{clean_up}
 \alias{clean_up}
-\title{removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number}
+\title{removes all the objects in the environment, apart from those listed in
+reserved and detaches the environment used to create tables or figures
+corresponding to the number}
 \usage{
 clean_up(
   number,
@@ -16,13 +18,18 @@ clean_up(
 
 \item{frame}{an environment in which to clean up}
 
-\item{reserved_string}{a character giving the name of a global variable that names gloabl objects that should generally be preserved globally when tidying up.}
+\item{reserved_string}{a character giving the name of a global variable that
+names gloabl objects that should generally be preserved globally when
+tidying up.}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 }
 \value{
 NULL, but removes objects
 }
 \description{
-removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number
+removes all the objects in the environment, apart from those listed in
+reserved and detaches the environment used to create tables or figures
+corresponding to the number
 }

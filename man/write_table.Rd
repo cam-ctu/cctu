@@ -19,32 +19,45 @@ write_table(
 \arguments{
 \item{X}{the data.frame or table to be saved in xml format}
 
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used to as a suffix in the output filename, and to
+link to TableofTables. Default is to use the value in the cctu_env package
+ environment that is set within \code{\link{attach_pop}}.}
 
-\item{heading}{character vector of column titles. Defaults to the colnames of X}
+\item{heading}{character vector of column titles. Defaults to the colnames
+of X}
 
-\item{na_to_empty}{logical, if true then any NA values will be written as empty strings. Defaults to false.}
+\item{na_to_empty}{logical, if true then any NA values will be written as
+empty strings. Defaults to false.}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
+end. Defaults to TRUE}
 
-\item{directory}{where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").}
+\item{directory}{where to save the figures within path or current working
+directory. The Output directory can be over-riden with
+options("cctu_output").}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 
 \item{footnote}{character vector, can be used to add footnotes.}
 }
 \value{
-writes an xml version of the input data to file table_number.xml . Edits the TableofTables object with the calling programe. No return object.
+writes an xml version of the input data to file table_number.xml.
+ Edits the TableofTables object with the calling programe. No return object.
 }
 \description{
 Function to write a table into xml format in the correct directory, and edit
 TableofTables
 }
 \details{
-Variable names and values will be replace by variable labels and value labels respectively if available before writing the data.
-Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be written as empty strings globally.
+Variable names and values will be replace by variable labels and value
+labels respectively if available before writing the data.
+Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be
+written as empty strings globally.
 }
 \seealso{
-\code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}} \code{\link{remove_invalid_utf8}}
-\code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}} \code{\link{apply_macro_dict}}
+\code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}}
+\code{\link{remove_invalid_utf8}}
+\code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}}
+ \code{\link{apply_macro_dict}}
 }

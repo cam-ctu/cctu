@@ -2,7 +2,8 @@
 % Please edit documentation in R/write_text.R
 \name{write_text}
 \alias{write_text}
-\title{Function to write a text into xml format in the correct directory, and edit TableofTables}
+\title{Function to write a text into xml format in the correct directory, and edit
+TableofTables}
 \usage{
 write_text(
   X,
@@ -15,19 +16,27 @@ write_text(
 \arguments{
 \item{X}{the character string to be saved in xml format}
 
-\item{number}{the number used to as a suffix in the output filename, and to link to TableofTables. Default is to use the value in the cctu_env package environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used to as a suffix in the output filename, and to
+link to TableofTables. Default is to use the value in the cctu_env package
+ environment that is set within \code{\link{attach_pop}}.}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
+end. Defaults to TRUE}
 
-\item{directory}{where to save the figures within path or current working directory. The Output directory can be over-riden with options("cctu_output").}
+\item{directory}{where to save the figures within path or current working
+directory. The Output directory can be over-riden with
+options("cctu_output").}
 
-\item{verbose}{logical to print information on changes to the global environment or external files. Defaults to options()$verbose.}
+\item{verbose}{logical to print information on changes to the global
+environment or external files. Defaults to options()$verbose.}
 }
 \value{
-writes an xml version of the input data to file text_number.xml . Edits the TableofTables object with the calling programe. No return object.
+writes an xml version of the input data to file text_number.xml .
+Edits the TableofTables object with the calling programe. No return object.
 }
 \description{
-Function to write a text into xml format in the correct directory, and edit TableofTables
+Function to write a text into xml format in the correct directory, and edit
+TableofTables
 }
 \seealso{
 \code{\link{write_ggplot}} \code{\link{write_table}}

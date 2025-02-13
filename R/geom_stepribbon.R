@@ -17,23 +17,28 @@
 #' library(ggplot2)
 #' huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
 #' h <- ggplot(huron, aes(year))
-#' h + geom_stepribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
-#'     geom_step(aes(y = level))
+#' h + geom_stepribbon(
+#'   aes(
+#'     ymin = level - 1,
+#'     ymax = level + 1
+#'   ),
+#'   fill = "grey70"
+#' ) +
+#'   geom_step(aes(y = level))
 #' h + geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
-#'     geom_line(aes(y = level))
+#'   geom_line(aes(y = level))
 #' @rdname geom_stepribbon
 #' @importFrom ggplot2 layer GeomRibbon
 #' @export
 geom_stepribbon <- function(
-  mapping     = NULL,
-  data        = NULL,
-  stat        = "identity",
-  position    = "identity",
-  direction   = "hv",
-  na.rm       = FALSE,
-  show.legend = NA,
-  inherit.aes = TRUE, ...) {
-
+    mapping = NULL,
+    data = NULL,
+    stat = "identity",
+    position = "identity",
+    direction = "hv",
+    na.rm = FALSE,
+    show.legend = NA,
+    inherit.aes = TRUE, ...) {
   layer(
     data        = data,
     mapping     = mapping,
@@ -42,9 +47,8 @@ geom_stepribbon <- function(
     position    = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params      = list(na.rm = na.rm, direction = direction, ... )
+    params      = list(na.rm = na.rm, direction = direction, ...)
   )
-
 }
 
 #' @rdname geom_stepribbon
@@ -54,25 +58,26 @@ geom_stepribbon <- function(
 #' @export
 GeomStepribbon <- ggproto(
   "GeomStepribbon", GeomRibbon,
-
   extra_params = c("na.rm"),
-
-  draw_group = function(data, panel_scales, coord, na.rm = FALSE, direction = "hv") {
-
+  draw_group = function(data,
+                        panel_scales,
+                        coord,
+                        na.rm = FALSE,
+                        direction = "hv") {
     if (na.rm) data <- data[complete.cases(data[c("x", "ymin", "ymax")]), ]
-    data   <- rbind(data, data)
-    data   <- data[order(data$x), ]
-    data   <- ggplot2_stairstep(data[complete.cases(data["x"]), ],
-                               direction = direction)
+    data <- rbind(data, data)
+    data <- data[order(data$x), ]
+    data <- ggplot2_stairstep(data[complete.cases(data["x"]), ],
+      direction = direction
+    )
     GeomRibbon$draw_group(data, panel_scales, coord, na.rm = na.rm)
   }
-
 )
 
 
 # code adapted from
 # https://github.com/tidyverse/ggplot2/blob/9741da5050f81b7b5c012c56d02f45fc93d68f89/R/geom-path.r#L320
-ggplot2_stairstep <- function(data, direction =  c("hv", "vh", "mid")) {
+ggplot2_stairstep <- function(data, direction = c("hv", "vh", "mid")) {
   direction <- match.arg(direction)
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
@@ -96,10 +101,12 @@ ggplot2_stairstep <- function(data, direction =  c("hv", "vh", "mid")) {
   ymax <- c(data$ymax[ys])
   if (direction == "mid") {
     gaps <- data$x[-1] - data$x[-n]
-    mid_x <- data$x[-n] + gaps/2
+    mid_x <- data$x[-n] + gaps / 2
     x <- c(data$x[1], mid_x[xs], data$x[n])
-    data_attr <- data[c(1, xs, n),
-                      setdiff(names(data), c("x", "ymin", "ymax"))]
+    data_attr <- data[
+      c(1, xs, n),
+      setdiff(names(data), c("x", "ymin", "ymax"))
+    ]
   } else {
     x <- data$x[xs]
     ymin <- data$ymin[ys]

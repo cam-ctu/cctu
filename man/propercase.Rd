@@ -2,7 +2,7 @@
 % Please edit documentation in R/propercase.R
 \name{propercase}
 \alias{propercase}
-\title{Function to convert text to propercase}
+\title{Function to convert text to proper case}
 \usage{
 propercase(text)
 }
@@ -10,9 +10,9 @@ propercase(text)
 \item{text}{a character vector}
 }
 \value{
-a character vector converted to "proper" case, where each word starts with a capital,
-and all subsequent letters are lower caser
+a character vector converted to "proper" case, where each word
+starts with a capital, and all subsequent letters are lower case
 }
 \description{
-Function to convert text to propercase
+Function to convert text to proper case
 }

@@ -1,4 +1,4 @@
-# cctu 0.8.5
+# cctu 0.8.6
 
 Applied testing and edits with `lintr` and `styler` to meet tidyverse style with the r code.  
 

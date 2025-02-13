@@ -1,0 +1,13 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  analysis-template: analysis-template.html
+  code_tree_doc_pdf: code_tree_doc_pdf.html
+  code_tree_doc: code_tree_doc.html
+  rmarkdown_report: rmarkdown_report.html
+  using-cttab: using-cttab.html
+last_built: 2025-02-13T09:10Z
+urls:
+  reference: https://cam-ctu.github.io/cctu/reference
+  article: https://cam-ctu.github.io/cctu/articles

@@ -1,3 +1,11 @@
+# cctu 0.8.5
+
+Applied testing and edits with `lintr` and `styler` to meet tidyverse style with the r code.  
+
+Fixed issue with `source()` so it now should work with the rstudio button. 
+
+Partially set up pkdwon website version of the docs- but not currently able to include the vignettes.
+
 # cctu 0.8.4
 
 Added in km_ggplot() function to produce publication-quality Kaplan-Meier figures with error bands and table underneath.

@@ -1,0 +1,114 @@
+---
+date: "`r format(Sys.time(), format = '%H:%M %d %b %Y')`"
+author: "`r params$author`"
+title: "`r params$title`"
+format:
+  html:
+    toc: true
+    toc_float: true
+    df-print: kable
+    embed-resources: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    toc-title: "Table of contents"
+    number-sections: true
+    number-depth: 2
+    papersize: a4
+    geometry:
+      - inner=1cm
+      - outer=1cm
+      - top=2cm
+      - bottom=1cm
+execute:
+  echo: false
+  message: false
+  warning: false
+params:
+  meta_tbfl: "Final meta table"
+  title: "Title of the report"
+  author: "Author"
+  table_path: "Table path"
+  figure_path: "Figure path"
+---
+
+```{r}
+#| echo: false
+#| output: asis
+#| label: report
+
+library(xml2)
+
+meta_tbl <- readRDS(params$meta_tbfl)
+
+cat("{{< pagebreak >}}")
+
+for(j in unique(meta_tbl$section)){
+  meta_table <- meta_tbl[meta_tbl$section == j,]
+  meta_table$program <- normalizePath(meta_table$program, winslash = "/")
+  
+  for(i in seq_len(nrow(meta_table))){
+
+    if(meta_table$orientation[i] %in% "landscape")
+      cat("\n::: {.landscape}")
+    
+    if(i == 1)
+      cat(sprintf("\n\n# %s\n", j))
+
+    item_num <- meta_table$number[i]
+    cat(sprintf("\n\n## %s %s\n", item_num, meta_table$title[i]))
+
+    # Table
+    if(meta_table$item[i] %in% "table"){
+      e1 <- new.env()
+      e1$params$file_name<- file.path(params$table_path,
+                                      sprintf("table_%s.xml", meta_table$number[i]))
+      e1$params$title <- sprintf("%s\n%s\n%s",
+                                  meta_table$title[i],
+                                  meta_table$subtitle[i],
+                                  meta_table$population[i])
+      a <- knitr::knit_child('table.qmd', envir = e1, quiet = TRUE)
+      cat(a, sep="\n")
+    }
+
+    # Table
+    if(meta_table$item[i] %in% "text"){
+      file_path <- file.path(params$table_path,
+                             sprintf("text_%s.xml", meta_table$number[i]))
+      xml_file <- read_xml(file_path)
+      text <- xml_find_all(xml_file, ".//text")
+      cat("\n",xml_text(text), "\n")
+    }
+
+    # Figure
+    if(meta_table$item[i] %in% "figure"){
+      file_path <- file.path(params$figure_path, 
+                             sprintf("fig_%s.png", meta_table$number[i]))
+      cat(sprintf("\n![%s %s %s](%s)\n", 
+                  meta_table$title[i],
+                  meta_table$subtitle[i],
+                  meta_table$population[i],
+                  file_path))
+    }
+
+    ftn <- c(meta_table$footnote1[i], meta_table$footnote2[i])
+    ftn <- ftn[!ftn %in% c("", NA)]
+    ftn <- gsub("\n", "\n\n", paste(ftn, collapse = "\n"))
+    cat(ftn)
+    cat(sprintf("\n\n[Program: %s]{style='color:grey;'}\n\n", meta_table$program[i]))
+    if(meta_table$orientation[i] %in% "landscape")
+      cat(":::\n")
+    else
+      cat("{{< pagebreak >}}")
+  }
+}
+
+# Session information
+sessionInfo()
+
+```
+
+
+
+
+

@@ -65,6 +65,8 @@ plot.code_tree <- function(x,
                                 x$child,
                                 gsub(com_prefix, "", x$child))
 
+  x$parent[x$parent == "ROOT"] <- com_prefix
+
   g <- igraph::graph_from_data_frame(x, directed=TRUE)
 
   igraph::plot.igraph(g,

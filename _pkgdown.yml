@@ -65,7 +65,7 @@ reference:
   - to_numeric
   - propercase
 
-- title: "Summry data"
+- title: "Summarise data"
   desc: "Functions to create summary statistics"
   contents:
   - cttab
@@ -97,6 +97,7 @@ reference:
   - write_plot
   - write_table
   - write_text
+  - write_quarto
   - create_word_xml
 
 - title: "Variable and value labels"

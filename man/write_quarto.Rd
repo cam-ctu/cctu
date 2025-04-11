@@ -15,7 +15,8 @@ write_quarto(
   output_format = c("html", "pdf", "docx"),
   popn_labels = NULL,
   verbose = options()$verbose,
-  quiet = TRUE
+  quiet = TRUE,
+  ...
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ environment or external files. Defaults to options()$verbose.}
 
 \item{quiet}{Suppress warning and other messages from quarto,
 see \code{\link[quarto]{quarto_render}}}
+
+\item{...}{Other parameters passed to \code{\link[quarto]{quarto_render}}.}
 }
 \value{
 This function is run for its side-effects: creates an HTML document.

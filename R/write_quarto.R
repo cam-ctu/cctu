@@ -13,6 +13,7 @@
 #' \code{"pdf"} or \code{"docx"}.
 #' @param quiet Suppress warning and other messages from quarto,
 #' see \code{\link[quarto]{quarto_render}}
+#' @param ... Other parameters passed to \code{\link[quarto]{quarto_render}}.
 #' @export
 #' @import xml2
 #' @importFrom xslt xml_xslt
@@ -41,7 +42,8 @@ write_quarto <- function(
     output_format = c("html", "pdf", "docx"),
     popn_labels = NULL,
     verbose = options()$verbose,
-    quiet = TRUE) {
+    quiet = TRUE,
+    ...) {
 
   output_format <- match.arg(output_format)
 
@@ -83,7 +85,8 @@ write_quarto <- function(
                           author = author,
                           table_path = table_path,
                           figure_path = figure_path),
-    quiet = quiet
+    quiet = quiet,
+    ...
   )
 
   unlink(file.path(qmd_files))

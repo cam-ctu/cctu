@@ -34,6 +34,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: ${{ matrix.config.quarto || 'release' }}
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -49,11 +51,6 @@ jobs:
           needs: check
 
       - uses: r-lib/actions/setup-tinytex@v2
-
-      - name: Debug Quarto CLI
-        run: |
-          quarto check install
-          quarto --version
 
       - name: Check
         env:

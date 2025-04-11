@@ -50,6 +50,11 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Debug Quarto CLI
+        run: |
+          quarto check install
+          quarto --version
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false

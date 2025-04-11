@@ -172,20 +172,6 @@ test_that("create snapshots", {
     figure_path = test_path("Output/Figures")
   )
 
-  # withr::with_dir(test_path(), {
-  #   write_quarto("Test <Report>",
-  #                "Simon & Bond's",
-  #                meta_table = meta_tbl,
-  #                popn_labels = popn_labels,
-  #                filename = file.path("Output", "Reports", "Report_final.html"),
-  #                table_path = file.path("Output/Core"),
-  #                figure_path = file.path("Output/Figures"),
-  #                quiet = FALSE
-  #   )
-  #   expect_true(file.exists(file.path("Output", "Reports", "Report_final.html")))
-  # })
-
-
   # Compare everything inside the word folder
   for (i in extract_xml(test_path("Output", "Reports", "Report_final.docx"))) {
     # expect_snapshot_file(i)
@@ -196,16 +182,23 @@ test_that("create snapshots", {
     # expect_snapshot_file(i, basename(i))
   }
 
-  write_quarto("Test <Report>",
-               "Simon & Bond's",
-               meta_table = meta_tbl,
-               popn_labels = popn_labels,
-               filename = test_path("Output", "Reports", "Report_final.html"),
-               table_path = test_path("Output/Core"),
-               figure_path = test_path("Output/Figures"),
-               quiet = FALSE
-  )
-  expect_true(file.exists(test_path("Output", "Reports", "Report_final.html")))
+  skip_if(is.null(quarto::quarto_path()),
+          message = "Quarto is not available")
+
+  quarto::quarto_path()
+
+  withr::with_dir(test_path(), {
+    write_quarto("Test <Report>",
+                 "Simon & Bond's",
+                 meta_table = meta_tbl,
+                 popn_labels = popn_labels,
+                 filename = file.path("Output", "Reports", "Report_final.html"),
+                 table_path = file.path("Output/Core"),
+                 figure_path = file.path("Output/Figures"),
+                 quiet = FALSE
+    )
+    expect_true(file.exists(file.path("Output", "Reports", "Report_final.html")))
+  })
 
   # expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 

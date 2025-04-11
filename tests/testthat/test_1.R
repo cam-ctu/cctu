@@ -187,18 +187,15 @@ test_that("create snapshots", {
 
   quarto::quarto_path()
 
-  withr::with_dir(test_path(), {
-    write_quarto("Test <Report>",
-                 "Simon & Bond's",
-                 meta_table = meta_tbl,
-                 popn_labels = popn_labels,
-                 filename = file.path("Output", "Reports", "Report_final.html"),
-                 table_path = file.path("Output/Core"),
-                 figure_path = file.path("Output/Figures"),
-                 quiet = FALSE
-    )
-    expect_true(file.exists(file.path("Output", "Reports", "Report_final.html")))
-  })
+  write_quarto("Test <Report>",
+             "Simon & Bond's",
+             meta_table = meta_tbl,
+             popn_labels = popn_labels,
+             filename = test_path("Output", "Reports", "Report_final.html"),
+             table_path = test_path("Output/Core"),
+             figure_path = test_path("Output/Figures")
+  )
+  expect_true(file.exists(test_path("Output", "Reports", "Report_final.html")))
 
   # expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 

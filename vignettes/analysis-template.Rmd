@@ -83,7 +83,7 @@ After the analysis, the function `write_docx`  glues these files all together al
 
 Previously the command `create_word_xml` was used, which then needed subsequent steps to convert to a fully compliant docx with figures. Included for back compatibility now.
 
-If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk!
+If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk! This is not the case with `write_docx` anymore. You are not allowed to eidit this file as the Docx file is complicated. 
 
 ## Pointers
 
@@ -232,7 +232,7 @@ date()
 # file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
-The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.doc).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
+The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.docx).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
 
 
 ## Multiple Versions of Reports
@@ -255,18 +255,6 @@ We can use rmarkdown to create other versions of the main report or a graphical 
 
 Numerous other outputs can be obtained from rmarkdown: slide show of the figures, reformatting of output as desired...
 
-### HTML and PDF
-There is a function `write_quarto()` you can use to produce an HTML, DOCX or PDF file and this should cover main reporting formats. This function will use some predefined templates to build the report with [Quarto](https://cran.r-project.org/package=quarto). The parameters of this function works in a similar way of `write_docx()`. Although you can use this function to create DOCX file, you should stick to the `write_docx()` to get a pretty Word document, you can also convert this document to PDF with Word. 
-```{r eval=FALSE}
-write_quarto(
-  report_title = "Vignette Report",
-  author = "Simon Bond",
-  filename = file.path("Output", "Reports", "Vignette_Report.html"),
-  popn_labels = popn_labels,
-  output_format = "html"
-)
-```
-
 
 ### Code Tree
 You can use the following example to produces a code tree pdf.
@@ -278,6 +266,9 @@ dev.off()
 ```
 You can also use `write_plot` function to include the code tree plot in your report.
 
+### Cross reference with Docx
+
+Tables can be cross-referenced in the word. This is very convenient if you are writing narratives and want to reference tables or figures. You can find how to cross reference tables or figures [here](https://erinwrightwriting.com/cross-reference-tables-and-figures-in-microsoft-word/). If you can changed the order of the tables by cut and paste or by dragging the headings in the navigation pane of the word the reference will still be there. You can press `Ctrl+A` select all, and press `F9`. This will change numbering of the table and figure, this change will also be applied to the references you made in the narratives.
 
 ### HTML version of the report
 

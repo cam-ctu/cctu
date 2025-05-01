@@ -97,7 +97,6 @@ reference:
   - write_plot
   - write_table
   - write_text
-  - write_quarto
   - create_word_xml
 
 - title: "Variable and value labels"

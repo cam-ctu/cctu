@@ -334,10 +334,6 @@ X
 ```
 
 
-# Cross reference
-
-Tables can be cross-referenced in the word. This is very convenient if you are writing narratives and want to reference tables or figures. You can find how to cross reference tables or figures [here](https://erinwrightwriting.com/cross-reference-tables-and-figures-in-microsoft-word/). If you can changed the order of the tables by cut and paste or by dragging the headings in the navigation pane of the word the reference will still be there. You can press `Ctrl+A` select all, and press `F9`. This will change numbering of the table and figure, this change will also be applied to the references you made in the narratives.
-
 
 
 

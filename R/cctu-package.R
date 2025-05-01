@@ -18,10 +18,10 @@
 #'  \item \code{\link{attach_pop}}
 #'  \item \code{\link{sumby}}
 #'  \item \code{\link{write_table}}
-#'  \item \code{\link{write_ggplot}}
+#'  \item \code{\link{write_plot}}
+#'  \item \code{\link{write_docx}}
 #'  \item \code{\link{cttab}}
 #'  \item \code{\link{apply_macro_dict}}
-#'  \item \code{\link{create_word_xml}}
 #'  \item \code{\link{regression_table}}
 #' }
 #'

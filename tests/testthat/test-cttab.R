@@ -446,8 +446,8 @@ test_that("Check for all missing", {
     data = df,
     group = "ARM"
   )
-  x3_out <- c("", "100 (100%)", "", "0", "100 (100%)")
-  names(x3_out) <- c("Sex", "Missing", "Age",
+  x3_out <- c("48", "", "48 (100%)", "", "0", "48 (100%)")
+  names(x3_out) <- c("Observation", "Sex", "Missing", "Age",
                      "Valid Obs.", "Missing")
 
   expect_identical(X3[,1], x3_out)

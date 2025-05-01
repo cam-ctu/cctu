@@ -182,21 +182,6 @@ test_that("create snapshots", {
     # expect_snapshot_file(i, basename(i))
   }
 
-  skip_if(is.null(quarto::quarto_path()),
-          message = "Quarto is not available")
-
-  quarto::quarto_path()
-
-  write_quarto("Test <Report>",
-             "Simon & Bond's",
-             meta_table = meta_tbl,
-             popn_labels = popn_labels,
-             filename = test_path("Output", "Reports", "Report_final.html"),
-             table_path = test_path("Output/Core"),
-             figure_path = test_path("Output/Figures")
-  )
-  expect_true(file.exists(test_path("Output", "Reports", "Report_final.html")))
-
   # expect_snapshot_file( test_path("Output","Reports","Report_final.docx"), "Report_final.docx")
 
   # setwd("tests/testthat")

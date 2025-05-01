@@ -129,6 +129,7 @@ test_that("Variable groups", {
     data = df
   )
   expect_identical(X2, X)
+
 })
 
 
@@ -430,3 +431,26 @@ test_that("Check stat_tab", {
     add_missing = FALSE
   ))
 })
+
+
+
+test_that("Check for all missing", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+
+  # All variables are missing
+  df$SEX <- NA
+  df$AGE <- NA
+  X3 <- cttab(
+    x = c("SEX", "AGE"),
+    data = df,
+    group = "ARM"
+  )
+  x3_out <- c("", "100 (100%)", "", "0", "100 (100%)")
+  names(x3_out) <- c("Sex", "Missing", "Age",
+                     "Valid Obs.", "Missing")
+
+  expect_identical(X3[,1], x3_out)
+})
+
+

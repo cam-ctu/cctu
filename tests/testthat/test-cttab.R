@@ -452,5 +452,6 @@ test_that("Check for all missing", {
   )
 
   expect_identical(X3[, 1], x3_out)
+  cctu_initialise(output = test_path("Output"))
   expect_no_error( write_table(X3, directory = test_path("Output/Core")))
 })

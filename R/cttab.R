@@ -539,7 +539,7 @@ stat_tab <- function(vars,
 
 
       if (var_class[v] == "category") {
-        r <- c("", render_cat(z, digits_pct = digits_pct))
+        r <- c("", unlist(render_cat(z, digits_pct = digits_pct)))
       }
 
       if (var_class[v] == "logical") {
@@ -554,9 +554,11 @@ stat_tab <- function(vars,
       }
 
       if (var_class[v] == "numeric") {
-        r <- c("", render_numeric(z,
-          what = render_num, digits = digits,
-          digits_pct = digits_pct, rounding_fn = rounding_fn
+        r <- c("", unlist(
+          render_numeric(z,
+                         what = render_num, digits = digits,
+                         digits_pct = digits_pct, rounding_fn = rounding_fn
+          )
         ))
       }
 

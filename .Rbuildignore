@@ -17,7 +17,7 @@ SPIRO
 
 ^\.github$
 ^codecov\.yml$
-
+^.lintr$
 ^.gitignore$
 ^.Rrofile$
 ^sysdata.rda$

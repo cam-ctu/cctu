@@ -38,6 +38,17 @@ See the vignette \code{vignette("analysis-template", package="cctu")} for an
 Useful links:
 \itemize{
   \item \url{https://cam-ctu.github.io/cctu/}
+  \item \url{https://github.com/cam-ctu/cctu}
+  \item Report bugs at \url{https://github.com/cam-ctu/cctu/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Simon Bond \email{simon.bond7@nhs.net}
+
+Authors:
+\itemize{
+  \item Alimu Dayimu
 }
 
 }

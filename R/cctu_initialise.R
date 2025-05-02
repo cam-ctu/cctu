@@ -5,6 +5,7 @@
 #' used once interactively at the start of coding for an analysis.
 #' @param rm logical whether to also run \code{\link{rm_output}} with its
 #' default values, to delete all the files in the output directory.
+#' @param description logical,  whether to create a DESCRIPTION file if one does not exist.
 #' @param output character string giving the name of the output folder. Can be
 #' overriden by setting the option("cctu_output").
 #' @return cctu_initialise gives an invisible return of logical indicating if
@@ -20,6 +21,7 @@
 #' @describeIn cctu_initialise create the standard directories for outputs
 #'  if needed.
 cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
+                            description = TRUE,
                             output = getOption("cctu_output",
                               default = "Output"
                             )) {
@@ -44,6 +46,17 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
     dir.create(file.path(root, "library"))
     print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
   }
+
+  if (!file.exists("DESCRIPTION")) {
+    if (description) {
+      usethis::use_description(fields = list(Imports = "tidyverse,\n    eudract,\n    consort"))
+      message("Edit DESCRIPTION Imports: to add the packages you want to load.\nUse  library_description()  to load them all automatically")
+    } else {
+      message("Recommend to create and edit a DESCRIPTION file")
+    }
+  }
+
+
   if (rm) {
     rm_output()
   }

@@ -16,6 +16,7 @@ RoxygenNote: 7.3.2
 Imports: 
   ggplot2, 
   stats, 
+  desc,
   magrittr, 
   grDevices, 
   utils, 

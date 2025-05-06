@@ -80,7 +80,9 @@ plot.code_tree <- function(x,
 #' Print methods for code_tree object
 #' @inheritParams plot.code_tree
 #' @export
-print.code_tree <- plot.code_tree
+print.code_tree <- function(x,...){
+  print.data.frame(x,...)
+}
 
 
 # Find common prefix

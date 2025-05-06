@@ -4,13 +4,10 @@
 \alias{print.code_tree}
 \title{Print methods for code_tree object}
 \usage{
-\method{print}{code_tree}(x, root_file = "main.R", ...)
+\method{print}{code_tree}(x, ...)
 }
 \arguments{
 \item{x}{code tree object from \code{\link{get_code_tree}}.}
-
-\item{root_file}{the name of the code file you want to use as the initial
-root for code tree}
 
 \item{...}{other parameters to be passed to \code{\link[igraph]{plot.igraph}}}
 }

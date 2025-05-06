@@ -1,10 +1,11 @@
 
 test_that("cctu_initialise warning", {
-  dir <- tempdir()
-  withr::defer(fs::dir_delete(dir))
-  usethis::create_project(dir)
-  usethis::local_project(path = dir)
+  # dir <- tempdir()
+  # withr::defer(fs::dir_delete(dir))
+  # usethis::create_project(dir)
+  # usethis::local_project(path = dir)
 #  options(verbose = TRUE)
+  local_create_project()
   expect_warning(cctu::cctu_initialise(description = FALSE),
                  #"test the warning"#
                  "Recommend to create and edit a DESCRIPTION file"

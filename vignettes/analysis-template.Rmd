@@ -143,8 +143,8 @@ In the the top level this is a file called "main.R"
 
 ```{r initial}
 rm(list = ls())
-# set to the library folder
-.libPaths()
+# if using renv for extra packages need this line for R CMD BATCH
+# renv::load()
 library(cctu)
 options(verbose = TRUE)
 # run_batch("main.R")
@@ -174,7 +174,12 @@ sourceKnit <- function(path, label) {
 
 ### Library management
 
-The code below is rather outdated regarding library management, although it will still work fine.  If you use the Docker image `shug0131/cctu` then it should be a rare event that you need to install any extra packages.  But if you do then it preferable to manage this using `renv` package. Best practice is to write a list of the  packages needed, including any extra ones, in a DESCRIPTION file at the top level, listing them under the `Imports:` heading. Then you modify the script in `config.R` to read this file and workout which packages to load.  If you do need to use `renv` for installing extra packages, then adding them to DESCRIPTION will make this all very explicit, and will help create the `renv.lock` file correctly to get the package versions of everything that you need. 
+If you use the Docker image `shug0131/cctu` then it should be a rare event that you need to install any extra packages.  But if you do then it preferable to manage this using `renv` package. Best practice is to write a list of the  packages needed, including any extra ones, in a DESCRIPTION file at the top level, listing them under the `Imports:` heading.  Running `cctu::initialise()` will by default create this DESCRITPTION file and remind you to edit it.
+
+Then you modify the script in `config.R` to read this file and workout which packages to load.
+The function `library_description()` will do this step for you. 
+
+If you do need to use `renv` for installing extra packages, then adding them to DESCRIPTION will make this all very explicit, and will help create the `renv.lock` file correctly to get the package versions of everything that you need. 
 
 
 `r sourceKnit(file.path("Progs","config.R"), "config")`

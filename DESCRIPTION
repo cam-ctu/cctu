@@ -47,7 +47,10 @@ Suggests:
   vdiffr,
   usethis,
   fs,
-  withr
+  withr,
+  tidyverse,
+  consort,
+  eudract
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3

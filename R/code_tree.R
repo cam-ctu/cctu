@@ -36,7 +36,7 @@ reset_code_tree <- function(root_file = "main.R") {
 }
 
 
-#' Print/plot the code tree.
+#' plot the code tree.
 #' @param x code tree object from \code{\link{get_code_tree}}.
 #' @inheritParams reset_code_tree
 #' @param ... other parameters to be passed to \code{\link[igraph]{plot.igraph}}
@@ -78,11 +78,11 @@ plot.code_tree <- function(x,
 }
 
 #' Print methods for code_tree object
-#' @inheritParams plot.code_tree
-#' @export
-print.code_tree <- function(x,...){
-  print.data.frame(x,...)
-}
+#'  S3 class inheritance means we dont' need this at all
+#'  it will default to print.data.frame
+# print.code_tree <- function(x,...){
+#   print.data.frame(x,...)
+# }
 
 
 # Find common prefix

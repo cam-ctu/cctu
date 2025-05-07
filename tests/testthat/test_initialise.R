@@ -25,9 +25,11 @@ test_that("cctu_initialise warning", {
 #   usethis::create_project(dir)
 #   usethis::local_project(path = dir)
 #   #  options(verbose = TRUE)
-#   expect_warning(cctu::source(
-#     system.file("tests/testthat/hello_world.R", package = "cctu")
-#   ),
+#   expect_warning(
+cctu::source(
+     system.file("tests/testthat/hello_world.R", package = "cctu")
+   )
+#,
 #                  #"test the warning"#
 #                  "Recommend using cctu_initialise()"
 #   )

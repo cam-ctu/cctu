@@ -7,7 +7,7 @@
 library_description()
 }
 \value{
-a list of the packages
+a list of the packages found in DESCRIPTION
 }
 \description{
 loads all the packages listed in the DESCRIPTION file

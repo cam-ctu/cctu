@@ -26,10 +26,10 @@ See the vignette \code{vignette("analysis-template", package="cctu")} for an
  \item \code{\link{attach_pop}}
  \item \code{\link{sumby}}
  \item \code{\link{write_table}}
- \item \code{\link{write_ggplot}}
+ \item \code{\link{write_plot}}
+ \item \code{\link{write_docx}}
  \item \code{\link{cttab}}
  \item \code{\link{apply_macro_dict}}
- \item \code{\link{create_word_xml}}
  \item \code{\link{regression_table}}
 }
 }
@@ -38,6 +38,17 @@ See the vignette \code{vignette("analysis-template", package="cctu")} for an
 Useful links:
 \itemize{
   \item \url{https://cam-ctu.github.io/cctu/}
+  \item \url{https://github.com/cam-ctu/cctu}
+  \item Report bugs at \url{https://github.com/cam-ctu/cctu/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Simon Bond \email{simon.bond7@nhs.net}
+
+Authors:
+\itemize{
+  \item Alimu Dayimu
 }
 
 }

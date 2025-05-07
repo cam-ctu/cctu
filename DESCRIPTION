@@ -1,19 +1,58 @@
 Package: cctu
-Type: Package
 Title: In-House Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.8.6
-Date: 2025-02-13
-Author: Simon Bond, Alimu Dayimu
-Maintainer: Simon Bond <simon.bond7@nhs.net>
+Version: 0.8.7
+Date: 2025-05-07
+Authors@R: c(
+  person("Simon", "Bond", email = "simon.bond7@nhs.net", role = c("aut", "cre")),
+  person("Alimu", "Dayimu", role = "aut")
+  )
 Description: Several useful functions and a vignette to explain how to put it all together. Notably, it produces word documents via xml, and deals with ensuring the correct population is used.
-Depends: R (>= 4.1.0)
+Depends: 
+  R (>= 4.1.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
-Imports: ggplot2, stats, magrittr, grDevices, utils, xml2, xslt, data.table, grid, gridExtra, base64enc, png, rlang, lifecycle, survival, patchwork
-Suggests: igraph, testthat, readxl, dplyr, knitr, tidyr, rvest, rmarkdown, kableExtra, covr, rms, nlme, gee, lme4, vdiffr
+Imports: 
+  ggplot2, 
+  stats, 
+  magrittr, 
+  grDevices, 
+  utils, 
+  xml2, 
+  xslt, 
+  data.table, 
+  grid, 
+  gridExtra, 
+  base64enc, 
+  png, 
+  rlang, 
+  lifecycle, 
+  survival, 
+  patchwork
+Suggests: 
+  igraph, 
+  testthat, 
+  readxl, 
+  dplyr, 
+  knitr, 
+  tidyr, 
+  rvest, 
+  rmarkdown, 
+  covr, 
+  rms, 
+  nlme, 
+  gee, 
+  lme4, 
+  vdiffr,
+  usethis,
+  fs,
+  withr,
+  tidyverse,
+  consort,
+  eudract
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3
-URL: https://cam-ctu.github.io/cctu/
+URL: https://cam-ctu.github.io/cctu/, https://github.com/cam-ctu/cctu
+BugReports: https://github.com/cam-ctu/cctu/issues

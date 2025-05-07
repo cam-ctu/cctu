@@ -1,0 +1,9 @@
+```{r {{chunk_name}}, echo=FALSE, results='asis', message=FALSE}
+tab <- xml2::read_html("{{file_name}}") %>%
+  # tab <- read_html(paste0(PATH_table,"table_",2.1,".xml")) %>%
+  rvest::html_nodes("text") %>%
+  rvest::html_text()
+# Remove blank rows -Pandoc can't deal with them
+
+cat("<p>", tab, "</p>")
+```

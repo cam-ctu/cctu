@@ -65,7 +65,7 @@ reference:
   - to_numeric
   - propercase
 
-- title: "Summry data"
+- title: "Summarise data"
   desc: "Functions to create summary statistics"
   contents:
   - cttab

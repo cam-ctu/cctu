@@ -2,7 +2,7 @@
 % Please edit documentation in R/code_tree.R
 \name{plot.code_tree}
 \alias{plot.code_tree}
-\title{Print/plot the code tree.}
+\title{plot the code tree.}
 \usage{
 \method{plot}{code_tree}(x, root_file = "main.R", ...)
 }
@@ -15,7 +15,7 @@ root for code tree}
 \item{...}{other parameters to be passed to \code{\link[igraph]{plot.igraph}}}
 }
 \description{
-Print/plot the code tree.
+plot the code tree.
 }
 \examples{
 \dontrun{

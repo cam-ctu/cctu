@@ -430,3 +430,28 @@ test_that("Check stat_tab", {
     add_missing = FALSE
   ))
 })
+
+
+
+test_that("Check for all missing", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+
+  # All variables are missing
+  df$SEX <- NA
+  df$AGE <- NA
+  X3 <- cttab(
+    x = c("SEX", "AGE"),
+    data = df,
+    group = "ARM"
+  )
+  x3_out <- c("48", "", "48 (100%)", "", "0", "48 (100%)")
+  names(x3_out) <- c(
+    "Observation", "Sex", "Missing", "Age",
+    "Valid Obs.", "Missing"
+  )
+
+  expect_identical(X3[, 1], x3_out)
+  cctu_initialise(root = test_path("Output"))
+  expect_no_error( write_table(X3, directory = test_path("Output/Core")))
+})

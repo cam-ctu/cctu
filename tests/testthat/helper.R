@@ -1,3 +1,24 @@
+## create a local project
+local_create_project <- function(dir = tempdir(), env = parent.frame()) {
+  old_project <- usethis::proj_get()
+
+  # create new folder and package
+  usethis::create_project(dir, open = FALSE) # A
+  withr::defer(fs::dir_delete(dir), envir = env) # -A
+
+  # change working directory
+  setwd(dir) # B
+  withr::defer(setwd(old_project), envir = env) # -B
+
+  # switch to new usethis project
+  usethis::proj_set(dir) # C
+  withr::defer(usethis::proj_set(old_project, force = TRUE), envir = env) # -C
+
+  dir
+}
+
+
+
 ###  for testing the source()
 
 run <- function(x, ...) {

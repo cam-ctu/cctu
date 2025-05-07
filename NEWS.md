@@ -1,3 +1,15 @@
+# cctu 0.8.7
+
+Tools with `cctu_initialise` and `library_description` to record and load packages using a 
+DESCRIPTION file. 
+
+Better code_tree plotting. 
+
+Fixes to `cttab` when a variable is totally missing. 
+
+Updates to vignettes to give pointers and advice on using Quarto.
+
+
 # cctu 0.8.6
 
 Applied testing and edits with `lintr` and `styler` to meet tidyverse style with the r code.  

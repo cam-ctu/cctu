@@ -51,6 +51,7 @@ Suggests:
   withr,
   tidyverse,
   consort,
+  ragg,
   eudract
 VignetteBuilder: knitr
 Repository: local-cran

@@ -129,7 +129,6 @@ test_that("Variable groups", {
     data = df
   )
   expect_identical(X2, X)
-
 })
 
 
@@ -447,10 +446,12 @@ test_that("Check for all missing", {
     group = "ARM"
   )
   x3_out <- c("48", "", "48 (100%)", "", "0", "48 (100%)")
-  names(x3_out) <- c("Observation", "Sex", "Missing", "Age",
-                     "Valid Obs.", "Missing")
+  names(x3_out) <- c(
+    "Observation", "Sex", "Missing", "Age",
+    "Valid Obs.", "Missing"
+  )
 
-  expect_identical(X3[,1], x3_out)
+  expect_identical(X3[, 1], x3_out)
+  cctu_initialise(root = test_path("Output"))
+  expect_no_error( write_table(X3, directory = test_path("Output/Core")))
 })
-
-

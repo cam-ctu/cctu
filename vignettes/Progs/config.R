@@ -2,11 +2,14 @@
 
 options(verbose = TRUE)
 
-mylibs <- c("readxl", "dplyr", "ggplot2", "magrittr","tidyr","rmarkdown","knitr","xml2","rvest")
+library_description()
 
-for(package in mylibs){
-  library(package, character.only = TRUE)
-}
+# mylibs <- c("readxl", "dplyr", "ggplot2", "magrittr","tidyr","rmarkdown","knitr","xml2","rvest")
+#
+# for(package in mylibs){
+#   library(package, character.only = TRUE)
+# }
+
 
 # read in all function files
 my_functions <- list.files("Progs\\functions")

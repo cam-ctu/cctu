@@ -13,7 +13,7 @@ write_ggplot(
   units = "cm",
   clean_up = TRUE,
   directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
-  format = c("png", "postscript", "jpeg"),
+  format = getOption("cctu_fig_format", default = "png"),
   graphics_args = NULL,
   verbose = options()$verbose,
   footnote = NULL
@@ -41,8 +41,13 @@ end. Defaults to TRUE}
 directory. The Output directory can be over-riden with
 options("cctu_output").}
 
-\item{format}{either "jpg", "postscript", or "png" to determine the file
-type to use}
+\item{format}{either \code{"png"} (default), \code{"eps"}, \code{"ps"},
+\code{"pdf"}, \code{"svg"}, \code{"jpg"} or \code{"jpeg"} to determine the
+ file type to use. You can request multiple file types by providing a vector.
+ The \code{"png"} format will always be produced and saved under
+ \code{directory}, typically this is \code{Output/Figures}. All other formats
+ will be saved under a sub-folder with the format name. See details for more
+ information.}
 
 \item{graphics_args}{a list of named arguments to supply to graphics
 function (png, postscript, jpeg)}
@@ -53,8 +58,8 @@ environment or external files. Defaults to options()$verbose.}
 \item{footnote}{character vector, can be used to add footnotes.}
 }
 \value{
-writes a copy of a plot to file fig_number.. edits the TableofTables
- object with the calling programe No return object.
+writes a copy of a plot to file fig_number. edits the TableofTables
+ object with the calling program No return object.
 }
 \description{
 This is a wrapup function of \code{\link{write_plot}} to print \code{ggplot}

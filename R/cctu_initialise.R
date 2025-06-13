@@ -101,8 +101,6 @@ cctu_check_dir <- function(root = getwd(), warnings = FALSE,
 #' @param top logical delete top level files that are not in core/figures/reports.
 #' @export
 
-
-
 rm_output <- function(output = getOption("cctu_output", default = "Output"),
                       core = TRUE, figures = TRUE, reports = TRUE, top = TRUE) {
   if (top) {
@@ -123,7 +121,7 @@ rm_output <- function(output = getOption("cctu_output", default = "Output"),
     }
   }
   if (figures) {
-    files <- list.files(file.path(output, "Figures"))
+    files <- list.files(file.path(output, "Figures"), recursive = TRUE)
     for (file in files) {
       print(file)
       file.remove(file.path(output, "Figures", file))

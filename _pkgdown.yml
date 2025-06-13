@@ -18,6 +18,7 @@ reference:
   - cctu_check_dir
   - cctu_initialise
   - cctu_initialize
+  - library_description
   - attach_pop
   - clean_up
   - detach_pop
@@ -26,7 +27,6 @@ reference:
   - set_meta_table
   - reset_code_tree
   - get_code_tree
-  - print.code_tree
   - plot.code_tree
   - create_popn_envir
   - rm_envir

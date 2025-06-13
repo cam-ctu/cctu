@@ -28,6 +28,7 @@ Imports:
   png, 
   rlang, 
   lifecycle, 
+  patchwork,
   survival, 
   svglite
 Suggests: 

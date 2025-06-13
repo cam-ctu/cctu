@@ -29,7 +29,6 @@ Imports:
   rlang, 
   lifecycle, 
   survival, 
-  patchwork,
   svglite
 Suggests: 
   igraph, 

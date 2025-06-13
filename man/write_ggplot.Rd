@@ -50,7 +50,12 @@ options("cctu_output").}
  information.}
 
 \item{graphics_args}{a list of named arguments to supply to graphics
-function (png, postscript, jpeg)}
+function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
+for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and 
+\code{"jpeg"}, \link[grDevices]{pdf} for \code{"pdf"}). If you have the \code{ragg}
+package installed, it will use \link[ragg]{agg_png} for \code{"png"} and 
+\link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
+The \link[svglite]{svglite} is used for \code{"svg"} file.}
 
 \item{verbose}{logical to print information on changes to the global
 environment or external files. Defaults to options()$verbose.}

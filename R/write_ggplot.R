@@ -36,7 +36,12 @@
 #'  will be saved under a sub-folder with the format name. See details for more
 #'  information.
 #' @param graphics_args a list of named arguments to supply to graphics
-#' function (png, postscript, jpeg)
+#' function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
+#' for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and 
+#' \code{"jpeg"}, \link[grDevices]{pdf} for \code{"pdf"}). If you have the \code{ragg}
+#' package installed, it will use \link[ragg]{agg_png} for \code{"png"} and 
+#' \link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
+#' The \link[svglite]{svglite} is used for \code{"svg"} file.
 #' @param footnote character vector, can be used to add footnotes.
 #'
 #' @details
@@ -59,8 +64,10 @@
 #' format will always be produced to produce final Word report. The \code{"eps"},
 #'  \code{"ps"}, \code{"pdf"} and \code{"svg"} are vector figures and you can
 #'  post edit figures with tools like \href{https://inkscape.org/}{Inkscape}.
-#'  The \code{"svg"} is recommended if you want to modify the plots. The
-#'  \link[svglite]{svglite} is used to generate \code{"svg"} file.
+#'  The \code{"svg"} is recommended if you want to modify the plots. You can then
+#' easily export \code{"svg"} to other formats, including \code{"eps"} and
+#'  \code{"ps"}, \code{"pdf"}. The \link[svglite]{svglite} is used to generate 
+#' \code{"svg"} file.
 #'
 #' @examples
 #' \dontrun{

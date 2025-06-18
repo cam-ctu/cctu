@@ -13,7 +13,7 @@ write_ggplot(
   units = "cm",
   clean_up = TRUE,
   directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
-  format = getOption("cctu_fig_format", default = "png"),
+  format = getOption("cctu_fig_format", default = c("png", "eps")),
   graphics_args = NULL,
   verbose = options()$verbose,
   footnote = NULL

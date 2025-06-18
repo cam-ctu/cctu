@@ -5,6 +5,8 @@ on:
     branches: [main, master, dev, adayim-master]
   pull_request:
     branches: [main, master, dev]
+  workflow_dispatch:
+    branches: [main, master, dev]
 
 name: R-CMD-check
 
@@ -48,11 +50,18 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-multiarch"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snapshot_archive
+          path: tests/testthat/_snaps/**/**/*
 
       - name: Upload check results
         if: failure()

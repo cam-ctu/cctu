@@ -28,6 +28,8 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
 
+
+
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
@@ -37,6 +39,11 @@ jobs:
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: snapshot_archive
+          path: tests/testthat/_snaps/**/**/*
 
       - uses: codecov/codecov-action@v4
         with:

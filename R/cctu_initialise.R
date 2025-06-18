@@ -49,7 +49,10 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
 
   if (!file.exists("DESCRIPTION")) {
     if (description) {
-      usethis::use_description(fields = list(Imports = "tidyverse,\n    eudract,\n    consort"))
+      usethis::use_description(
+        fields = list(Imports = "tidyverse,\n    eudract,\n    consort"),
+        check_name = FALSE
+        )
       message("Edit DESCRIPTION Imports: to add the packages you want to load.\nUse  library_description()  to load them all automatically")
     } else {
       warning("Recommend to create and edit a DESCRIPTION file")

@@ -1,4 +1,3 @@
-
 #' Function to save plot figures
 #'
 #' One may not always use \code{ggplot2} to draw plot, base \code{plot} function for example,
@@ -151,9 +150,23 @@ write_plot <- function(...,
                        verbose = options()$verbose,
                        footnote = NULL,
                        plot_args = NULL) {
-
   dot_args <- list(...)
   plot_args <- c(plot_args, dot_args)
+
+  # warnings
+
+  if (!("png" %in% format)) {
+    rlang::warn("png file will be created to produce docx file",
+      .frequency = "once", .frequency_id = "png_warning"
+    )
+  }
+  if (!("eps" %in% format)) {
+    rlang::warn("eps files are created by default to meet journal requirements",
+      .frequency = "once", .frequency_id = "eps_warning"
+    )
+  }
+
+
 
   # postscript() only takes units in inches
   if (units == "cm") {
@@ -184,13 +197,15 @@ write_plot <- function(...,
 
   # Output device for different formats
   eps <- function(filename, ...) {
-    grDevices::postscript(file = filename, ...,
-                          onefile = FALSE,
-                          horizontal = FALSE,
-                          paper = "special")
+    grDevices::postscript(
+      file = filename, ...,
+      onefile = FALSE,
+      horizontal = FALSE,
+      paper = "special"
+    )
   }
 
-  if (requireNamespace('ragg', quietly = TRUE)) {
+  if (requireNamespace("ragg", quietly = TRUE)) {
     # Better figure output
     png_dev <- ragg::agg_png
     jpeg_dev <- ragg::agg_jpeg
@@ -202,16 +217,16 @@ write_plot <- function(...,
   }
 
   devices <- list(
-    eps =  eps,
-    ps =   eps,
-    pdf =  function(filename, ...) grDevices::pdf(file = filename, ...),
-    svg =  function(filename, ...)  svglite::svglite(file = filename, ...),
-    png =  function(...) png_dev(..., res = dpi, units = "in"),
-    jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
+    eps = eps,
+    ps = eps,
+    pdf = function(filename, ...) grDevices::pdf(file = filename, ...),
+    svg = function(filename, ...) svglite::svglite(file = filename, ...),
+    png = function(...) png_dev(..., res = dpi, units = "in"),
+    jpg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in")
   )
 
-  if(any(!format %in% names(devices))){
+  if (any(!format %in% names(devices))) {
     not_support <- format[!format %in% names(devices)]
     stop("Format(s) ", paste(not_support, collapse = ", "), " not supported!")
   }
@@ -220,18 +235,19 @@ write_plot <- function(...,
   format <- unique(c("png", format))
 
   # Create sub-folder if does not exist
-  if(any(!format %in% "png")){
-    for(i in format[!format %in% "png"]){
-      if(!dir.exists(file.path(directory, i)))
-         dir.create(file.path(directory, i))
+  if (any(!format %in% "png")) {
+    for (i in format[!format %in% "png"]) {
+      if (!dir.exists(file.path(directory, i))) {
+        dir.create(file.path(directory, i))
+      }
     }
   }
 
   # directory %<>% normalizePath %>% final_slash
-  for(i in format){
-    if(i == "png"){
+  for (i in format) {
+    if (i == "png") {
       file_name <- file.path(directory, paste0("fig_", number))
-    }else{
+    } else {
       file_name <- file.path(directory, i, paste0("fig_", number))
     }
 
@@ -280,11 +296,11 @@ write_ggplot <- function(plot = last_plot(),
                          clean_up = TRUE,
                          directory = file.path(
                            getOption("cctu_output",
-                                     default = "Output"
+                             default = "Output"
                            ),
                            "Figures"
                          ),
-                         format = getOption("cctu_fig_format", default = "png"),
+                         format = getOption("cctu_fig_format", default = c("png", "eps")),
                          graphics_args = NULL,
                          verbose = options()$verbose,
                          footnote = NULL) {
@@ -304,5 +320,3 @@ write_ggplot <- function(plot = last_plot(),
 
   do.call(write_plot, args_list)
 }
-
-

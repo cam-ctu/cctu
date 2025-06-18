@@ -21,12 +21,25 @@ test_that("alternative dimension", {
     "units must be ''cm'' or ''inches''"
   )
   file.remove("fig_1.10.eps")
-  write_ggplot(fig,
+  expect_warning(
+  write_plot(fig,
     number = "1.10", directory = ".",
     format = "postscript",
     clean_up = FALSE,
     footnote = "I am custom footnote"
+  ),
+  "png"
   )
+  rlang::reset_warning_verbosity("eps_warning")
+  expect_warning(
+    write_plot(fig,
+               number = "1.10", directory = ".",
+               format = "postscript",
+               clean_up = FALSE
+    ),
+    "eps"
+  )
+
   mt_tab <- get_meta_table()
   expect_equal(
     mt_tab[mt_tab$number == "1.10", "footnote2"],
@@ -86,9 +99,9 @@ test_that("test write_plot", {
   file.remove("Output/Figures/fig_1.10.pdf")
 
   write_plot(fig, number = "1.10", format = c("pdf"), clean_up = FALSE)
+
   expect_true(file.exists("Output/Figures/pdf/fig_1.10.pdf"))
   expect_true(file.exists("Output/Figures/fig_1.10.png"))
-
   expect_error(
     write_plot(fig, number = "1.10", format = "tiff", clean_up = FALSE)
   )

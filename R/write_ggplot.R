@@ -28,13 +28,14 @@
 #' options("cctu_output").
 #' @inheritParams clean_up
 #'
-#' @param format either \code{"png"} (default), \code{"eps"}, \code{"ps"},
+#' @param format either \code{"png"}, \code{"eps"}, \code{"ps"},
 #' \code{"pdf"}, \code{"svg"}, \code{"jpg"} or \code{"jpeg"} to determine the
 #'  file type to use. You can request multiple file types by providing a vector.
 #'  The \code{"png"} format will always be produced and saved under
 #'  \code{directory}, typically this is \code{Output/Figures}. All other formats
 #'  will be saved under a sub-folder with the format name. See details for more
-#'  information.
+#'  information. You can set the default figure format by setting
+#'  \code{options(cctu_fig_format = c("png", "eps"))} (default). 
 #' @param graphics_args a list of named arguments to supply to graphics
 #' function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
 #' for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and 
@@ -145,7 +146,7 @@ write_plot <- function(...,
                          ),
                          "Figures"
                        ),
-                       format = getOption("cctu_fig_format", default = "png"),
+                       format = getOption("cctu_fig_format", default = c("png", "eps")),
                        graphics_args = NULL,
                        verbose = options()$verbose,
                        footnote = NULL,

@@ -41,19 +41,20 @@ end. Defaults to TRUE}
 directory. The Output directory can be over-riden with
 options("cctu_output").}
 
-\item{format}{either \code{"png"} (default), \code{"eps"}, \code{"ps"},
+\item{format}{either \code{"png"}, \code{"eps"}, \code{"ps"},
 \code{"pdf"}, \code{"svg"}, \code{"jpg"} or \code{"jpeg"} to determine the
  file type to use. You can request multiple file types by providing a vector.
  The \code{"png"} format will always be produced and saved under
  \code{directory}, typically this is \code{Output/Figures}. All other formats
  will be saved under a sub-folder with the format name. See details for more
- information.}
+ information. You can set the default figure format by setting
+ \code{options(cctu_fig_format = c("png", "eps"))} (default).}
 
 \item{graphics_args}{a list of named arguments to supply to graphics
 function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
-for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and 
+for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and
 \code{"jpeg"}, \link[grDevices]{pdf} for \code{"pdf"}). If you have the \code{ragg}
-package installed, it will use \link[ragg]{agg_png} for \code{"png"} and 
+package installed, it will use \link[ragg]{agg_png} for \code{"png"} and
 \link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
 The \link[svglite]{svglite} is used for \code{"svg"} file.}
 

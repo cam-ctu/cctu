@@ -57,10 +57,16 @@ jobs:
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran", "--no-multiarch"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
+      - name: commit back the snapdir
+        run: |
+          git add test/testthat/_snaps/*
+          git commit -m "snapfiles CI ${{ matrix.config.os }}-${{ matrix.config.r }"
+          git push
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: snapshot_archive
+          name: snapshot_archive-${{ matrix.config.os }}-${{ matrix.config.r }}
           path: tests/testthat/_snaps/**/**/*
 
       - name: Upload check results

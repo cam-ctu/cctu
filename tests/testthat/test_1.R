@@ -174,7 +174,7 @@ test_that("create snapshots", {
 
   # Compare everything inside the word folder
   for (i in extract_xml(test_path("Output", "Reports", "Report_final.docx"))) {
-    # expect_snapshot_file(i)
+     expect_snapshot_file(i)
     announce_snapshot_file(name = basename(i))
     compare_file_text(file.path("_snaps/1", basename(i)), i)
     # This will enable review the changes with a browser

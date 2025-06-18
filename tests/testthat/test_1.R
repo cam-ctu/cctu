@@ -172,11 +172,13 @@ test_that("create snapshots", {
     figure_path = test_path("Output/Figures")
   )
 
+operating_system <-    Sys.info()["sysname"]
+
   # Compare everything inside the word folder
   for (i in extract_xml(test_path("Output", "Reports", "Report_final.docx"))) {
-     expect_snapshot_file(i)
+     expect_snapshot_file(i, variant=operating_system)
     announce_snapshot_file(name = basename(i))
-    compare_file_text(file.path("_snaps/1", basename(i)), i)
+    compare_file_text(file.path("_snaps",operating_system,"1", basename(i)), i)
     # This will enable review the changes with a browser
     # announce_snapshot_file(name = name)
     # expect_snapshot_file(i, basename(i))

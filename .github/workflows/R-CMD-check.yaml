@@ -60,7 +60,7 @@ jobs:
       - name: commit back the snapdir
         run: |
           git add test/testthat/_snaps/*
-          git commit -m "snapfiles CI ${{ matrix.config.os }}-${{ matrix.config.r }"
+          git commit -m "snapfiles CI ${{ matrix.config.os }}-${{ matrix.config.r }}"
           git push
 
       - uses: actions/upload-artifact@v4

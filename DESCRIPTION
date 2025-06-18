@@ -28,8 +28,9 @@ Imports:
   png, 
   rlang, 
   lifecycle, 
+  patchwork,
   survival, 
-  patchwork
+  svglite
 Suggests: 
   igraph, 
   testthat, 
@@ -50,6 +51,7 @@ Suggests:
   withr,
   tidyverse,
   consort,
+  ragg,
   eudract
 VignetteBuilder: knitr
 Repository: local-cran

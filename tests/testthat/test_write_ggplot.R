@@ -32,7 +32,7 @@ test_that("alternative dimension", {
     mt_tab[mt_tab$number == "1.10", "footnote2"],
     "I am custom footnote"
   )
-  expect_equal(file.exists("fig_1.10.eps"), TRUE)
+  expect_equal(file.exists("eps/fig_1.10.eps"), TRUE)
   set_meta_table(.old_meta)
   rm(.old_meta, .parent)
 })
@@ -81,6 +81,17 @@ test_that("test write_plot", {
     geom_point()
   write_plot(fig, number = "1.10", clean_up = FALSE)
 
+  file.remove("fig_1.10.png")
+  file.remove("Output/Figures/fig_1.10.png")
+  file.remove("Output/Figures/fig_1.10.pdf")
+
+  write_plot(fig, number = "1.10", format = c("pdf"), clean_up = FALSE)
+  expect_true(file.exists("Output/Figures/pdf/fig_1.10.pdf"))
+  expect_true(file.exists("Output/Figures/fig_1.10.png"))
+
+  expect_error(
+    write_plot(fig, number = "1.10", format = "tiff", clean_up = FALSE)
+  )
 
   library(survival)
   fit <- survfit(Surv(time, status) ~ rx, data = colon)

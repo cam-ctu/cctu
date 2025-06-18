@@ -35,12 +35,12 @@
 #'  \code{directory}, typically this is \code{Output/Figures}. All other formats
 #'  will be saved under a sub-folder with the format name. See details for more
 #'  information. You can set the default figure format by setting
-#'  \code{options(cctu_fig_format = c("png", "eps"))} (default). 
+#'  \code{options(cctu_fig_format = c("png", "eps"))} (default).
 #' @param graphics_args a list of named arguments to supply to graphics
 #' function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
-#' for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and 
+#' for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and
 #' \code{"jpeg"}, \link[grDevices]{pdf} for \code{"pdf"}). If you have the \code{ragg}
-#' package installed, it will use \link[ragg]{agg_png} for \code{"png"} and 
+#' package installed, it will use \link[ragg]{agg_png} for \code{"png"} and
 #' \link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
 #' The \link[svglite]{svglite} is used for \code{"svg"} file.
 #' @param footnote character vector, can be used to add footnotes.
@@ -67,7 +67,7 @@
 #'  post edit figures with tools like \href{https://inkscape.org/}{Inkscape}.
 #'  The \code{"svg"} is recommended if you want to modify the plots. You can then
 #' easily export \code{"svg"} to other formats, including \code{"eps"} and
-#'  \code{"ps"}, \code{"pdf"}. The \link[svglite]{svglite} is used to generate 
+#'  \code{"ps"}, \code{"pdf"}. The \link[svglite]{svglite} is used to generate
 #' \code{"svg"} file.
 #'
 #' @examples
@@ -236,18 +236,16 @@ write_plot <- function(...,
     }
 
     args_list <- c(list(
-      file = paste0(file_name, ".", i),
+      filename = paste0(file_name, ".", i),
       height = height, width = width
     ), graphics_args)
 
     do.call(devices[[i]], args_list)
-    on.exit({
-      utils::capture.output(grDevices::dev.off())
-      if (verbose) {
-        cat("\n", args_list$file, "created.\n")
-      }
-    })
     do.call(plot_fn, plot_args)
+    utils::capture.output(grDevices::dev.off())
+    if (verbose) {
+      cat("\n", args_list$filename, "created.\n")
+    }
   }
 
   # this links in with using environments to define the correct population

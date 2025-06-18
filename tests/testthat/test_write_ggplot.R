@@ -82,6 +82,8 @@ test_that("test write_plot", {
   write_plot(fig, number = "1.10", clean_up = FALSE)
 
   file.remove("fig_1.10.png")
+  file.remove("Output/Figures/fig_1.10.png")
+  file.remove("Output/Figures/fig_1.10.pdf")
 
   write_plot(fig, number = "1.10", format = c("pdf"), clean_up = FALSE)
   expect_true(file.exists("Output/Figures/pdf/fig_1.10.pdf"))

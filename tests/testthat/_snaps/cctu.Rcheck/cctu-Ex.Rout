@@ -65,14 +65,14 @@ The following object is masked from ‘package:base’:
 > base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
 > base::cat("all_is_numeric", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
 > cleanEx()
-> nameEx("apply_macro_dict")
+> nameEx("appro_dict")
 > ### * apply_macro_dict
 > 
 > flush(stderr()); flush(stdout())
 > 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 > ### Name: apply_macro_dict
-> ### Title: Apply DLU/CLU file to the data frame
+> ### Title: Apply DLU/CLU file to th to the data frame
 > ### Aliases: apply_macro_dict
 > 
 > ### ** Examples
@@ -750,8 +750,8 @@ $No$N
 1 /home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu/extdata
 2 /home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu/extdata
              mod_time
-1 2025-06-19 12:43:49
-2 2025-06-19 12:43:49
+1 2025-06-19 13:16:24
+2 2025-06-19 13:16:24
                                                               full_file_path
 1   /home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu/extdata/dirtydata.csv
 2 /home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu/extdata/meta_table.xlsx
@@ -996,7 +996,7 @@ Garbage collection 68 = 40+4+24 (level 2) ...
 Warning in find.package(package, lib.loc, verbose = verbose) :
   package ‘cctu’ found more than once, using the first from
   “/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu”,
-  “/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu”
+  “/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu”
 name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
 	meta_table_example
 
@@ -1094,7 +1094,7 @@ Garbage collection 71 = 40+4+27 (level 2) ...
 Warning in find.package(package, lib.loc, verbose = verbose) :
   package ‘cctu’ found more than once, using the first from
   “/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu”,
-  “/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu”
+  “/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu”
 name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
 	meta_table_example
 
@@ -1211,7 +1211,7 @@ Garbage collection 73 = 40+4+29 (level 2) ...
 35.4 Mbytes of vectors used (46%)
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.068 0.129 9.191 0 0 
+Time elapsed:  8.674 0.138 8.806 0 0 
 > grDevices::dev.off()
 null device 
           1 
@@ -1219,7 +1219,5 @@ null device
 > ### Local variables: ***
 > ### mode: outline-minor ***
 > ### outline-regexp: "\\(> \\)?### [*]+" ***
-> ### End: ***
-> quit('no')
 > ### End: ***
 > quit('no')

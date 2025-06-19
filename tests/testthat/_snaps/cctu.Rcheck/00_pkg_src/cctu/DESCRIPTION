@@ -25,7 +25,7 @@ Config/testthat/edition: 3
 URL: https://cam-ctu.github.io/cctu/, https://github.com/cam-ctu/cctu
 BugReports: https://github.com/cam-ctu/cctu/issues
 NeedsCompilation: no
-Packaged: 2025-06-19 12:44:08 UTC; runner
+Packaged: 2025-06-19 13:16:17 UTC; runner
 Author: Simon Bond [aut, cre],
   Alimu Dayimu [aut]
 Maintainer: Simon Bond <simon.bond7@nhs.net>

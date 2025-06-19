@@ -10,7 +10,10 @@
 * checking for file ‘cctu/DESCRIPTION’ ... OK
 * this is package ‘cctu’ version ‘0.8.7’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... OK
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Simon Bond <simon.bond7@nhs.net>’
+
+Size of tarball: 5753961 bytes
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -60,23 +63,23 @@
 * checking files in ‘vignettes’ ... OK
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... [38s/36s] ERROR
-  Running ‘testthat.R’ [38s/36s]
+* checking tests ... [37s/35s] ERROR
+  Running ‘testthat.R’ [37s/35s]
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-  * Run `testthat::snapshot_review('1/')` to review changes
+      ▆
+   1. └─cctu::write_table(...) at test_write_table_text.R:150:3
+   2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+   3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+  
+  ══ Failed tests ════════════════════════════════════════════════════════════════
   ── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-  Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/styles.xml" to '1/styles.xml' has changed
+  Snapshot of "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/word/_rels/document.xml.rels" to '1/document.xml.rels' has changed
   * Download and unzip run artifact
-  * Copy 'tests/testthat/_snaps/1/styles.new.xml' to local test directory
-  * Run `testthat::snapshot_review('1/')` to review changes
-  ── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-  Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/theme/theme1.xml" to '1/theme1.xml' has changed
-  * Download and unzip run artifact
-  * Copy 'tests/testthat/_snaps/1/theme1.new.xml' to local test directory
+  * Copy 'tests/testthat/_snaps/1/document.new.xml.rels' to local test directory
   * Run `testthat::snapshot_review('1/')` to review changes
   
-  [ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+  [ FAIL 1 | WARN 278 | SKIP 1 | PASS 402 ]
   Error: Test failures
   Execution halted
 * checking for unstated dependencies in vignettes ... OK
@@ -85,4 +88,4 @@ Last 13 lines of output:
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR
+Status: 1 ERROR, 1 NOTE

@@ -51,7 +51,7 @@ The following objects are masked from 'package:base':
     intersect, setdiff, setequal, union
 
 > test_check("cctu")
-'envir' chosen:<environment: 0x565152b57f60>
+'envir' chosen:<environment: 0x556b8e4a7f50>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -120,7 +120,7 @@ Output/Figures/sumby_fig_1.10_2.png created.
 
 Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
 safety detached containing: data 
-'envir' chosen:<environment: 0x5651505d9290>
+'envir' chosen:<environment: 0x556b8bf32430>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -507,29 +507,29 @@ safety attached containing: dt
 |  Missing          │                 │    1 (16.7%)    │    1 (9.1%)     |
 └───────────────────┴─────────────────┴─────────────────┴─────────────────┘
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 
 Objects removed:  
 safety detached containing: dt 
 safety attached containing: dt 
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 safety detached.
 safety attached containing: dt 
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.10.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.10.xml created.
 
 Objects removed:  
 safety detached containing: dt 
 safety attached containing: dt 
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.10.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.10.xml created.
 
 Objects removed:  
 safety detached containing: dt 
 safety attached containing: dt 
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 
 Objects removed:  
 safety detached containing: dt 
@@ -559,15 +559,15 @@ Use  library_description()  to load them all automatically
 
 Objects removed:  
 safety detached containing: dt 
-v Setting active project to "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx".
+v Setting active project to "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok".
 v Creating 'R/'.
 v Writing a sentinel file '.here'.
 [ ] Build robust paths within your project via `here::here()`.
 i Learn more at <https://here.r-lib.org>.
 v Setting active project to "/home/runner/work/cctu/cctu".
-v Setting active project to "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx".
+v Setting active project to "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok".
 v Writing 'DESCRIPTION'.
-Package: RtmpHQtNJx
+Package: Rtmp7ok2ok
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R (parsed):
@@ -606,15 +606,15 @@ name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
 	meta_table_example
 
 name=mtcars:	 found in Rdata.rds
-v Setting active project to "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx".
+v Setting active project to "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok".
 v Creating 'R/'.
 v Writing a sentinel file '.here'.
 [ ] Build robust paths within your project via `here::here()`.
 i Learn more at <https://here.r-lib.org>.
 v Setting active project to "/home/runner/work/cctu/cctu".
-v Setting active project to "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx".
+v Setting active project to "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok".
 v Writing 'DESCRIPTION'.
-Package: RtmpHQtNJx
+Package: Rtmp7ok2ok
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R (parsed):
@@ -708,7 +708,7 @@ Output_other/Figures/sumby_fig_1.10_2.png created.
 
 Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
 safety detached containing: data 
-'envir' chosen:<environment: 0x56515d9bf2f8>
+'envir' chosen:<environment: 0x556b91919d18>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -998,7 +998,7 @@ name=mtcars:	 found in Rdata.rds
 newenvir detached.
 package:datasets detached.
 [1] "test1"
-'envir' chosen:<environment: 0x5651627696b8>
+'envir' chosen:<environment: 0x556b92d436a0>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -1008,7 +1008,7 @@ encoding = "native.enc" chosen
 		 =================
 
 > print(environment())
-<environment: 0x5651627696b8>
+<environment: 0x556b92d436a0>
 curr.fun: symbol print
  .. after 'expression(print(environment()))'
 
@@ -1027,7 +1027,7 @@ curr.fun: symbol print
 curr.fun: symbol <-
  .. after 'expression(x <- x + 1)'
 [1] "test2"
-'envir' chosen:<environment: 0x5651627696b8>
+'envir' chosen:<environment: 0x556b92d436a0>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -1037,7 +1037,7 @@ encoding = "native.enc" chosen
 		 =================
 
 > print(environment())
-<environment: 0x5651627696b8>
+<environment: 0x556b92d436a0>
 curr.fun: symbol print
  .. after 'expression(print(environment()))'
 
@@ -1058,8 +1058,8 @@ curr.fun: symbol <-
 [1] "test3"
 [1] "test4"
 [1] "test4"
-<environment: 0x5651623607c0>
-'envir' chosen:<environment: 0x5651627696b8>
+<environment: 0x556b91e78c40>
+'envir' chosen:<environment: 0x556b92d436a0>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -1069,7 +1069,7 @@ encoding = "native.enc" chosen
 		 =================
 
 > print(environment())
-<environment: 0x5651627696b8>
+<environment: 0x556b92d436a0>
 curr.fun: symbol print
  .. after 'expression(print(environment()))'
 
@@ -1088,8 +1088,8 @@ curr.fun: symbol print
 curr.fun: symbol <-
  .. after 'expression(x <- x + 1)'
 [1] "test5"
-<environment: 0x56516206fcc0>
-'envir' chosen:<environment: 0x56516206fcc0>
+<environment: 0x556b916b6110>
+'envir' chosen:<environment: 0x556b916b6110>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -1099,7 +1099,7 @@ encoding = "native.enc" chosen
 		 =================
 
 > print(environment())
-<environment: 0x56516206fcc0>
+<environment: 0x556b916b6110>
 curr.fun: symbol print
  .. after 'expression(print(environment()))'
 
@@ -1118,7 +1118,7 @@ curr.fun: symbol print
 curr.fun: symbol <-
  .. after 'expression(x <- x + 1)'
 [1] "test6"
-<environment: 0x565161d2d650>
+<environment: 0x556b91076650>
 'envir' chosen:<environment: R_GlobalEnv>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
@@ -1148,8 +1148,8 @@ curr.fun: symbol print
 curr.fun: symbol <-
  .. after 'expression(x <- x + 1)'
 [1] "test7"
-<environment: 0x56516181aaf8>
-'envir' chosen:<environment: 0x56516181aaf8>
+<environment: 0x556b907e11e0>
+'envir' chosen:<environment: 0x556b907e11e0>
 encoding = "native.enc" chosen
  --> from_file='TRUE'
  lines:function (x, ...)  
@@ -1159,7 +1159,7 @@ encoding = "native.enc" chosen
 		 =================
 
 > print(environment())
-<environment: 0x56516181aaf8>
+<environment: 0x556b907e11e0>
 curr.fun: symbol print
  .. after 'expression(print(environment()))'
 
@@ -1196,7 +1196,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> fig_file="/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/fig_file.pdf"
+> fig_file="/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/fig_file.pdf"
 > # need to define fig_file="...." outside this script
 > library(cctu)
 
@@ -1218,8 +1218,8 @@ The following object is masked from ‘package:base’:
 > sumby(gender, arm, data = df)
 Saving 7 x 7 in image
      Variable Statistics A            B            Total        
-[1,] "Gender" "Female"   "2/10 (20%)" "3/10 (30%)" "5/20 (25%)" 
-[2,] ""       "Male"     "8/10 (80%)" "7/10 (70%)" "15/20 (75%)"
+[1,] "Gender" "Female"   "5/10 (50%)" "5/10 (50%)" "10/20 (50%)"
+[2,] ""       "Male"     "5/10 (50%)" "5/10 (50%)" "10/20 (50%)"
 attr(,"fig")
 > dev.off()
 null device 
@@ -1286,19 +1286,19 @@ Objects removed: X fig fig0 fit new_plot
 
  Output/Core/table_1.10.xml created.
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/table_1.1.xml created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/table_1.1.xml created.
 
  Output/Core/table_1.1.xml created.
 
 Objects removed: X dir1 dir2 dir3 fig 
-/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/report2410457b53e5.doc created.
+/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/report23f76111d99a.doc created.
 Source files are stored at:
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJxThe XML file stored at:
- /tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/file24104b31fb2f.xml/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/report24105092232e.docx created.
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2okThe XML file stored at:
+ /tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/file23f769fd9d9d.xml/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/report23f741ed5312.docx created.
 
  Output/Core/table_1.10.xml created.
 
@@ -1323,7 +1323,7 @@ Objects removed: X
  ./table_1.10.xml created.
 
 Objects removed: X 
-[ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+[ FAIL 1 | WARN 278 | SKIP 1 | PASS 402 ]
 
 ══ Skipped tests (1) ═══════════════════════════════════════════════════════════
 • On CI (1): 'test_write_table_text.R:158:3'
@@ -1338,7 +1338,7 @@ Backtrace:
 ── Warning ('test_1.R:31:1'): (code run outside of `test_that()`) ──────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─... %>% clean_names() at test_1.R:31:1
@@ -1383,7 +1383,7 @@ Backtrace:
  4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_1.R:86:3'): (code run outside of `test_that()`) ──────────────
-'.reserved' does not exist. All objects in <environment: 0x565154946528> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b902a4b70> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_ggplot(directory = test_path("Output/Figures")) at test_1.R:86:3
@@ -1432,7 +1432,7 @@ Backtrace:
  4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
-'.reserved' does not exist. All objects in <environment: 0x5651537a88c0> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b8f126fd8> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_ggplot(fig, format = "png")
@@ -1442,7 +1442,7 @@ Backtrace:
 ── Warning ('test_1.R:132:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─testthat::expect_warning(...) at test_1.R:132:3
@@ -1458,7 +1458,7 @@ Backtrace:
 ── Warning ('test_1.R:132:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─testthat::expect_warning(...) at test_1.R:132:3
@@ -1474,7 +1474,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1484,7 +1484,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1493,7 +1493,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1502,7 +1502,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1511,7 +1511,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1521,7 +1521,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1531,7 +1531,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1541,7 +1541,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1551,7 +1551,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1561,7 +1561,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1571,7 +1571,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1581,7 +1581,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1591,7 +1591,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1601,7 +1601,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1611,7 +1611,7 @@ Backtrace:
 ── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_1.R:166:3
@@ -1703,7 +1703,7 @@ Backtrace:
 ── Warning ('test_cctu_initiaize.R:47:3'): check_dir scripts ───────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::cctu_initialize(scripts = TRUE) at test_cctu_initiaize.R:47:3
@@ -1713,7 +1713,7 @@ Backtrace:
 ── Warning ('test_cctu_initiaize.R:47:3'): check_dir scripts ───────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::cctu_initialize(scripts = TRUE) at test_cctu_initiaize.R:47:3
@@ -1723,7 +1723,7 @@ Backtrace:
 ── Warning ('test_cctu_initiaize.R:49:3'): check_dir scripts ───────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─base::print(system.file(file.path("scripts", "main.R"), package = "cctu")) at test_cctu_initiaize.R:49:3
@@ -1778,7 +1778,7 @@ Backtrace:
 ── Warning ('test_cttab.R:3:1'): (code run outside of `test_that()`) ───────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata.csv", package = "cctu")) at test_cttab.R:3:1
@@ -1788,7 +1788,7 @@ Backtrace:
 ── Warning ('test_cttab.R:4:1'): (code run outside of `test_that()`) ───────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_cttab.R:4:1
@@ -1798,7 +1798,7 @@ Backtrace:
 ── Warning ('test_cttab.R:5:1'): (code run outside of `test_that()`) ───────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_cttab.R:5:1
@@ -1816,18 +1816,6 @@ Backtrace:
     ▆
  1. └─testthat::context("Test get_obj") at test_get_obj.R:7:1
  2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
-── Warning ('test_km_plot.R:10:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/basic.svg'
-── Warning ('test_km_plot.R:12:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/basic-more-ticks.svg'
-── Warning ('test_km_plot.R:14:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/pvalue.svg'
-── Warning ('test_km_plot.R:17:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/pvalue-digits-options.svg'
-── Warning ('test_km_plot.R:25:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/single.svg'
-── Warning ('test_km_plot.R:30:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/strata.svg'
 ── Warning ('test_km_plot.R:37:3'): produce different flavour of plot ──────────
 Removed 490 rows containing missing values or values outside the scale range (`geom_step()`).
 Backtrace:
@@ -1860,8 +1848,6 @@ Backtrace:
  26.                             └─self$geom$handle_na(data, self$computed_geom_params) at ggplot2/R/layer.R:460:5
  27.                               └─ggplot2 (local) handle_na(..., self = self) at ggplot2/R/ggproto.R:197:17
  28.                                 └─cli::cli_warn(...) at ggplot2/R/geom-path.R:146:7
-── Warning ('test_km_plot.R:37:3'): produce different flavour of plot ──────────
-Adding new file snapshot: 'tests/testthat/_snaps/Linux/labs.svg'
 ── Warning ('test_labels.R:1:1'): (code run outside of `test_that()`) ──────────
 `context()` was deprecated in the 3rd edition.
 Backtrace:
@@ -1871,7 +1857,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'dplyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/dplyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/dplyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/dplyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1879,7 +1865,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'xml2' found more than once, using the first from
   "/home/runner/work/_temp/Library/xml2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/xml2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/xml2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1887,7 +1873,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'magrittr' found more than once, using the first from
   "/home/runner/work/_temp/Library/magrittr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/magrittr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/magrittr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1895,7 +1881,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'readxl' found more than once, using the first from
   "/home/runner/work/_temp/Library/readxl",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readxl"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readxl"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1903,7 +1889,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1911,7 +1897,7 @@ Backtrace:
 ── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
 package 'testthat' found more than once, using the first from
   "/home/runner/work/_temp/Library/testthat",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/testthat"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/testthat"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:3:1
@@ -1931,7 +1917,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'dplyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/dplyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/dplyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/dplyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1939,7 +1925,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'xml2' found more than once, using the first from
   "/home/runner/work/_temp/Library/xml2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/xml2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/xml2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1947,7 +1933,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'magrittr' found more than once, using the first from
   "/home/runner/work/_temp/Library/magrittr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/magrittr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/magrittr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1955,7 +1941,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'readxl' found more than once, using the first from
   "/home/runner/work/_temp/Library/readxl",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readxl"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readxl"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1963,7 +1949,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1971,7 +1957,7 @@ Backtrace:
 ── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
 package 'testthat' found more than once, using the first from
   "/home/runner/work/_temp/Library/testthat",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/testthat"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/testthat"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_labels.R:96:3
@@ -1979,7 +1965,7 @@ Backtrace:
 ── Warning ('test_library_description.R:12:3'): library_description ────────────
 package 'tzdb' found more than once, using the first from
   "/home/runner/work/_temp/Library/tzdb",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tzdb"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tzdb"
 Backtrace:
      ▆
   1. ├─testthat::expect_contains(cctu::library_description(), "tidyverse") at test_library_description.R:12:3
@@ -2029,7 +2015,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:3:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(...) at test_macro_utils.R:3:1
@@ -2039,7 +2025,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:6:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:6:1
@@ -2049,7 +2035,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:7:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:7:1
@@ -2059,7 +2045,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:41:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:41:3
@@ -2069,7 +2055,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:42:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:42:3
@@ -2079,7 +2065,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:49:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:49:3
@@ -2089,7 +2075,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:50:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:50:3
@@ -2099,7 +2085,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:57:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:57:3
@@ -2109,7 +2095,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:58:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:58:3
@@ -2119,7 +2105,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:65:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:65:3
@@ -2129,7 +2115,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:66:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:66:3
@@ -2139,7 +2125,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:73:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:73:3
@@ -2149,7 +2135,7 @@ Backtrace:
 ── Warning ('test_macro_utils.R:74:3'): Apply DLU and CLU files ────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:74:3
@@ -2208,7 +2194,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:2:1'): (code run outside of `test_that()`) ──────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(...) at test_merge_data.r:2:1
@@ -2218,7 +2204,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:5:1'): (code run outside of `test_that()`) ──────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(...) at test_merge_data.r:5:1
@@ -2228,7 +2214,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:10:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "test_A_DLU.csv", package = "cctu")) at test_merge_data.r:10:1
@@ -2238,7 +2224,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:11:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "test_B_DLU.csv", package = "cctu")) at test_merge_data.r:11:1
@@ -2248,7 +2234,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:12:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "test_A_CLU.csv", package = "cctu")) at test_merge_data.r:12:1
@@ -2258,7 +2244,7 @@ Backtrace:
 ── Warning ('test_merge_data.r:13:1'): (code run outside of `test_that()`) ─────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(system.file("extdata", "test_B_CLU.csv", package = "cctu")) at test_merge_data.r:13:1
@@ -2289,7 +2275,7 @@ Backtrace:
 ── Warning ('test_options2.R:24:1'): (code run outside of `test_that()`) ───────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─... %>% clean_names() at test_options2.R:24:1
@@ -2334,7 +2320,7 @@ Backtrace:
  4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_options2.R:80:3'): (code run outside of `test_that()`) ───────
-'.reserved' does not exist. All objects in <environment: 0x565162889d48> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9c6fac88> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_ggplot() at test_options2.R:80:3
@@ -2375,7 +2361,7 @@ Backtrace:
  4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
-'.reserved' does not exist. All objects in <environment: 0x5651535494d8> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9e28b330> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_ggplot(fig, format = "png")
@@ -2385,7 +2371,7 @@ Backtrace:
 ── Warning ('test_options2.R:121:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─testthat::expect_warning(...) at test_options2.R:121:3
@@ -2401,7 +2387,7 @@ Backtrace:
 ── Warning ('test_options2.R:121:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
      ▆
   1. ├─testthat::expect_warning(...) at test_options2.R:121:3
@@ -2417,7 +2403,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2427,7 +2413,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2436,7 +2422,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2445,7 +2431,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2454,7 +2440,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2464,7 +2450,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2474,7 +2460,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2484,7 +2470,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2494,7 +2480,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2504,7 +2490,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2514,7 +2500,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2524,7 +2510,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2534,7 +2520,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2544,7 +2530,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2554,7 +2540,7 @@ Backtrace:
 ── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_options2.R:133:3
@@ -2650,7 +2636,7 @@ Backtrace:
 ── Warning ('test_read_data.R:3:1'): (code run outside of `test_that()`) ───────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─base::data.frame(...) at test_read_data.R:3:1
@@ -2666,7 +2652,7 @@ Backtrace:
 ── Warning ('test_read_data.R:56:3'): interaction with apply_macro_dict ────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─base::data.frame(...) at test_read_data.R:56:3
@@ -2692,7 +2678,7 @@ Backtrace:
 ── Warning ('test_remove_rows_cols.R:4:1'): (code run outside of `test_that()`) ──
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(...) at test_remove_rows_cols.R:4:1
@@ -2702,7 +2688,7 @@ Backtrace:
 ── Warning ('test_remove_rows_cols.R:17:5'): rows and cols alone ───────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. ├─utils::read.csv(...) at test_remove_rows_cols.R:17:5
@@ -2712,7 +2698,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'gee' found more than once, using the first from
   "/home/runner/work/_temp/Library/gee",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/gee"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/gee"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2720,7 +2706,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'lubridate' found more than once, using the first from
   "/home/runner/work/_temp/Library/lubridate",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/lubridate"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/lubridate"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2728,7 +2714,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'forcats' found more than once, using the first from
   "/home/runner/work/_temp/Library/forcats",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/forcats"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/forcats"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2736,7 +2722,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'stringr' found more than once, using the first from
   "/home/runner/work/_temp/Library/stringr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/stringr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/stringr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2744,7 +2730,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'purrr' found more than once, using the first from
   "/home/runner/work/_temp/Library/purrr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/purrr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/purrr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2752,7 +2738,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'readr' found more than once, using the first from
   "/home/runner/work/_temp/Library/readr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2760,7 +2746,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'tidyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/tidyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tidyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tidyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2768,7 +2754,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'tibble' found more than once, using the first from
   "/home/runner/work/_temp/Library/tibble",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tibble"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tibble"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2776,7 +2762,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'ggplot2' found more than once, using the first from
   "/home/runner/work/_temp/Library/ggplot2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/ggplot2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/ggplot2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2784,7 +2770,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'tidyverse' found more than once, using the first from
   "/home/runner/work/_temp/Library/tidyverse",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tidyverse"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tidyverse"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2792,7 +2778,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'eudract' found more than once, using the first from
   "/home/runner/work/_temp/Library/eudract",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/eudract"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/eudract"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2800,7 +2786,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'consort' found more than once, using the first from
   "/home/runner/work/_temp/Library/consort",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/consort"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/consort"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2808,7 +2794,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'dplyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/dplyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/dplyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/dplyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2816,7 +2802,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'xml2' found more than once, using the first from
   "/home/runner/work/_temp/Library/xml2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/xml2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/xml2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2824,7 +2810,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'magrittr' found more than once, using the first from
   "/home/runner/work/_temp/Library/magrittr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/magrittr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/magrittr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2832,7 +2818,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'readxl' found more than once, using the first from
   "/home/runner/work/_temp/Library/readxl",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readxl"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readxl"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2840,7 +2826,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2848,7 +2834,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
 package 'testthat' found more than once, using the first from
   "/home/runner/work/_temp/Library/testthat",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/testthat"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/testthat"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:4:3
@@ -2856,7 +2842,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'gee' found more than once, using the first from
   "/home/runner/work/_temp/Library/gee",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/gee"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/gee"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2864,7 +2850,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'lubridate' found more than once, using the first from
   "/home/runner/work/_temp/Library/lubridate",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/lubridate"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/lubridate"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2872,7 +2858,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'forcats' found more than once, using the first from
   "/home/runner/work/_temp/Library/forcats",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/forcats"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/forcats"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2880,7 +2866,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'stringr' found more than once, using the first from
   "/home/runner/work/_temp/Library/stringr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/stringr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/stringr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2888,7 +2874,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'purrr' found more than once, using the first from
   "/home/runner/work/_temp/Library/purrr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/purrr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/purrr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2896,7 +2882,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'readr' found more than once, using the first from
   "/home/runner/work/_temp/Library/readr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2904,7 +2890,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'tidyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/tidyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tidyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tidyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2912,7 +2898,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'tibble' found more than once, using the first from
   "/home/runner/work/_temp/Library/tibble",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tibble"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tibble"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2920,7 +2906,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'ggplot2' found more than once, using the first from
   "/home/runner/work/_temp/Library/ggplot2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/ggplot2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/ggplot2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2928,7 +2914,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'tidyverse' found more than once, using the first from
   "/home/runner/work/_temp/Library/tidyverse",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/tidyverse"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/tidyverse"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2936,7 +2922,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'eudract' found more than once, using the first from
   "/home/runner/work/_temp/Library/eudract",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/eudract"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/eudract"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2944,7 +2930,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'consort' found more than once, using the first from
   "/home/runner/work/_temp/Library/consort",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/consort"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/consort"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2952,7 +2938,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'dplyr' found more than once, using the first from
   "/home/runner/work/_temp/Library/dplyr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/dplyr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/dplyr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2960,7 +2946,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'xml2' found more than once, using the first from
   "/home/runner/work/_temp/Library/xml2",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/xml2"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/xml2"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2968,7 +2954,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'magrittr' found more than once, using the first from
   "/home/runner/work/_temp/Library/magrittr",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/magrittr"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/magrittr"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2976,7 +2962,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'readxl' found more than once, using the first from
   "/home/runner/work/_temp/Library/readxl",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/readxl"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/readxl"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2984,7 +2970,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -2992,7 +2978,7 @@ Backtrace:
 ── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
 package 'testthat' found more than once, using the first from
   "/home/runner/work/_temp/Library/testthat",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/testthat"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/testthat"
 Backtrace:
     ▆
  1. └─utils::data(mtcars) at test_render_stat.R:63:3
@@ -3312,7 +3298,7 @@ Backtrace:
  8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
  9.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
-'.reserved' does not exist. All objects in <environment: 0x5651621bd408> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b91f289c0> will be removed by clean_up().
 Backtrace:
     ▆
  1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
@@ -3363,7 +3349,7 @@ Backtrace:
  10.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  11.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_ggplot.R:11:3'): alternative dimension ─────────────────
-'.reserved' does not exist. All objects in <environment: 0x56515b728200> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9be56c18> will be removed by clean_up().
 Backtrace:
      ▆
   1. ├─testthat::expect_warning(...) at test_write_ggplot.R:11:3
@@ -3496,7 +3482,7 @@ Backtrace:
  2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
  3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
-'.reserved' does not exist. All objects in <environment: 0x5651609285c0> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b906f08b8> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
@@ -3553,7 +3539,7 @@ Backtrace:
  2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
  3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_table_text.R:59:3'): alternative dimension for table ───
-'.reserved' does not exist. All objects in <environment: 0x565152e79808> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9c361c68> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_table(...) at test_write_table_text.R:59:3
@@ -3573,7 +3559,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:69:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::create_word_xml(...) at test_write_table_text.R:69:3
@@ -3583,7 +3569,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:69:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::create_word_xml(...) at test_write_table_text.R:69:3
@@ -3593,7 +3579,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3603,7 +3589,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3612,7 +3598,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3621,7 +3607,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3630,7 +3616,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3640,7 +3626,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3650,7 +3636,7 @@ Backtrace:
 ── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
 package 'cctu' found more than once, using the first from
   "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
-  "/tmp/RtmpXhUYlC/RLIBS_21092135e75b/cctu"
+  "/tmp/RtmpftEseT/RLIBS_20ee1f793403/cctu"
 Backtrace:
     ▆
  1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
@@ -3707,7 +3693,7 @@ Backtrace:
  8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_text.R:56:5
  9.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_table_text.R:97:3'): alternative dimension for table ───
-'.reserved' does not exist. All objects in <environment: 0x565152e79808> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9c361c68> will be removed by clean_up().
 Backtrace:
     ▆
  1. ├─testthat::expect_warning(...) at test_write_table_text.R:97:3
@@ -3746,7 +3732,7 @@ Backtrace:
  3.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
  4.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_table_text.R:104:3'): alternative dimension for table ──
-'.reserved' does not exist. All objects in <environment: 0x56515bbf3a20> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9b900948> will be removed by clean_up().
 Backtrace:
     ▆
  1. ├─... %>% write_table(number = "1.10", directory = ".") at test_write_table_text.R:104:3
@@ -3797,7 +3783,7 @@ Backtrace:
  2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
  3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
 ── Warning ('test_write_table_text.R:150:3'): clean up behaviour when piping ───
-'.reserved' does not exist. All objects in <environment: 0x565150a97d80> will be removed by clean_up().
+'.reserved' does not exist. All objects in <environment: 0x556b9b3f2da0> will be removed by clean_up().
 Backtrace:
     ▆
  1. └─cctu::write_table(...) at test_write_table_text.R:150:3
@@ -3812,89 +3798,14 @@ Backtrace:
 
 ══ Failed tests ════════════════════════════════════════════════════════════════
 ── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/_rels/document.xml.rels" to '1/document.xml.rels' has changed
+Snapshot of "/tmp/RtmpftEseT/working_dir/Rtmp7ok2ok/word/_rels/document.xml.rels" to '1/document.xml.rels' has changed
 * Download and unzip run artifact
 * Copy 'tests/testthat/_snaps/1/document.new.xml.rels' to local test directory
 * Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/document.xml" to '1/document.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/document.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/fontTable.xml" to '1/fontTable.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/fontTable.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/footer1.xml" to '1/footer1.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/footer1.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/footer2.xml" to '1/footer2.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/footer2.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/footer3.xml" to '1/footer3.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/footer3.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/footer4.xml" to '1/footer4.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/footer4.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/footer5.xml" to '1/footer5.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/footer5.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/header1.xml" to '1/header1.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/header1.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/header2.xml" to '1/header2.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/header2.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/header3.xml" to '1/header3.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/header3.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/header4.xml" to '1/header4.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/header4.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/header5.xml" to '1/header5.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/header5.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/settings.xml" to '1/settings.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/settings.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/styles.xml" to '1/styles.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/styles.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
-── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
-Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/theme/theme1.xml" to '1/theme1.xml' has changed
-* Download and unzip run artifact
-* Copy 'tests/testthat/_snaps/1/theme1.new.xml' to local test directory
-* Run `testthat::snapshot_review('1/')` to review changes
 
-[ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+[ FAIL 1 | WARN 278 | SKIP 1 | PASS 402 ]
 Error: Test failures
 Execution halted
-P 1 | PASS 387 ]
+IP 1 | PASS 402 ]
 Error: Test failures
 Execution halted

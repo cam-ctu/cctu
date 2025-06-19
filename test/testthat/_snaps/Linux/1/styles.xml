@@ -927,30 +927,4 @@
       </w:tcPr>
     </w:tblStylePr>
   </w:style>
-</w:styles>ideWhenUsed />
-    <w:rsid w:val="00c31eeb" />
-    <w:tblPr>
-      <w:tblBorders>
-        <w:top w:val="single" w:color="000000" w:sz="6" w:space="0" />
-        <w:left w:val="single" w:color="000000" w:sz="6" w:space="0" />
-        <w:bottom w:val="single" w:color="000000" w:sz="6" w:space="0" />
-        <w:right w:val="single" w:color="000000" w:sz="6" w:space="0" />
-        <w:insideH w:val="single" w:color="000000" w:sz="6" w:space="0" />
-        <w:insideV w:val="single" w:color="000000" w:sz="6" w:space="0" />
-      </w:tblBorders>
-    </w:tblPr>
-    <w:tcPr>
-      <w:shd w:val="clear" w:color="auto" w:fill="auto" />
-    </w:tcPr>
-    <w:tblStylePr w:type="firstRow">
-      <w:rPr>
-        <w:b />
-        <w:bCs />
-      </w:rPr>
-      <w:tblPr />
-      <w:tcPr>
-        <w:shd w:val="solid" w:color="000000" w:fill="FFFFFF" />
-      </w:tcPr>
-    </w:tblStylePr>
-  </w:style>
 </w:styles>

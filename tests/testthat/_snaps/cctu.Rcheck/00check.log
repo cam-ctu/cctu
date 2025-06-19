@@ -1,0 +1,88 @@
+* using log directory ‘/home/runner/work/cctu/cctu/check/cctu.Rcheck’
+* using R version 4.5.1 (2025-06-13)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.2 LTS
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘cctu/DESCRIPTION’ ... OK
+* this is package ‘cctu’ version ‘0.8.7’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... OK
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘cctu’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... [15s/11s] OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... [38s/36s] ERROR
+  Running ‘testthat.R’ [38s/36s]
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  * Run `testthat::snapshot_review('1/')` to review changes
+  ── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+  Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/styles.xml" to '1/styles.xml' has changed
+  * Download and unzip run artifact
+  * Copy 'tests/testthat/_snaps/1/styles.new.xml' to local test directory
+  * Run `testthat::snapshot_review('1/')` to review changes
+  ── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+  Snapshot of "/tmp/RtmpXhUYlC/working_dir/RtmpHQtNJx/word/theme/theme1.xml" to '1/theme1.xml' has changed
+  * Download and unzip run artifact
+  * Copy 'tests/testthat/_snaps/1/theme1.new.xml' to local test directory
+  * Run `testthat::snapshot_review('1/')` to review changes
+  
+  [ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+  Error: Test failures
+  Execution halted
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... [14s/13s] OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 1 ERROR

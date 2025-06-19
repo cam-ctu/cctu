@@ -70,7 +70,8 @@ jobs:
         if: always()
         with:
           name: snapshot_archive-${{ matrix.config.os }}-${{ matrix.config.r }}
-          path: tests/testthat/_snaps/**/**/*
+          path: ~/tests/testthat/_snaps/
+          overwrite: true
 
       - name: Upload check results
         if: failure()

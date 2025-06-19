@@ -1,0 +1,12 @@
+```{r, echo=TRUE, results=FALSE, warning=FALSE, message=FALSE}
+source("{{path}}")
+```
+
+```{r, echo=FALSE}
+knitr::read_chunk("{{path}}", labels = "{{label}}")
+```
+
+```{r {{label}}, eval=FALSE}
+```
+SE}
+```

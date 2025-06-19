@@ -1,0 +1,13 @@
+```{r {{chunk_name}}, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+tab <- xml2::read_html("{{file_name}}") %>%
+  rvest::html_nodes("table") %>%
+  rvest::html_table(header = TRUE, fill = TRUE)
+# Remove blank rows -Pandoc can't deal with them
+tab <- tab[[1]]
+blank <- apply(tab, 1, function(x) {
+  all(is.na(x) | trimws(x) == "")
+})
+knitr::kable(tab[!blank, ], format = "html", row.names = FALSE) %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+

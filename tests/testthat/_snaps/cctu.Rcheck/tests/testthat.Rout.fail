@@ -1,0 +1,3901 @@
+
+R version 4.4.3 (2025-02-28) -- "Trophy Case"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(cctu)
+
+Attaching package: 'cctu'
+
+The following object is masked from 'package:base':
+
+    source
+
+> library(readxl)
+> library(magrittr)
+
+Attaching package: 'magrittr'
+
+The following objects are masked from 'package:testthat':
+
+    equals, is_less_than, not
+
+> library(xml2)
+> library(dplyr)
+
+Attaching package: 'dplyr'
+
+The following object is masked from 'package:testthat':
+
+    matches
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+> test_check("cctu")
+'envir' chosen:<environment: 0x55d6f1a50378>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 1 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print("hello world")
+[1] "hello world"
+curr.fun: symbol print
+ .. after 'expression(print("hello world"))'
+now dyn.load("/home/runner/work/_temp/Library/fs/libs/fs.so") ...
+now dyn.load("/home/runner/work/_temp/Library/purrr/libs/purrr.so") ...
+✔ Setting active project to "/home/runner/work/cctu/cctu".
+ℹ Leaving 'DESCRIPTION' unchanged.
+now dyn.load("/opt/R/4.4.3/lib/R/library/tools/libs/tools.so") ...
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+. given clean namessafety environment created in  
+full environment created in  
+data frames removed from  : data 
+safety attached containing: data 
+now dyn.load("/home/runner/work/_temp/Library/systemfonts/libs/systemfonts.so") ...
+now dyn.load("/home/runner/work/_temp/Library/textshaping/libs/textshaping.so") ...
+now dyn.load("/home/runner/work/_temp/Library/ragg/libs/ragg.so") ...
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.1_1.png created.
+
+ Output/Core/table_1.1.xml created.
+
+Objects removed: X 
+safety detached containing: data 
+full attached containing: data 
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.1.1_1.png created.
+
+ Output/Core/table_1.1.1.xml created.
+
+Objects removed: X 
+full detached containing: data 
+safety attached containing: data 
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.10_1.png created.
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.10_2.png created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
+safety detached containing: data 
+'envir' chosen:<environment: 0x55d6f279d938>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 19 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> attach_pop(1.1)
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop(1.1))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> X <- sumby(endpoint, rx, data = data)
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.1_1.png created.
+curr.fun: symbol <-
+ .. after 'expression(X <- sumby(endpoint, rx, data = data))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> write_table(X, directory = test_path("Output/Core"))
+
+ Output/Core/table_1.1.xml created.
+
+Objects removed: X fig 
+safety detached containing: data 
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, directory = test_path("Output/Core")))'
+
+>>>> eval(expression_nr. 4 )
+		 =================
+
+> attach_pop("1.1.1", verbose = TRUE)
+full attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("1.1.1", verbose = TRUE))'
+
+>>>> eval(expression_nr. 5 )
+		 =================
+
+> X <- sumby(endpoint, rx, data = data)
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.1.1_1.png created.
+curr.fun: symbol <-
+ .. after 'expression(X <- sumby(endpoint, rx, data = data))'
+
+>>>> eval(expression_nr. 6 )
+		 =================
+
+> write_table(X, clean_up = FALSE, heading = c("Variable", 
++     "Statistics with a long line of text to check folding", "A", 
++     "B", "Total"))
+
+ Output/Core/table_1.1.1.xml created.
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, clean_up = FALSE, heading = c("Variable", ''    "Statistics with a long line of text to check folding", "A", ''    "B", "Total")))'
+
+>>>> eval(expression_nr. 7 )
+		 =================
+
+> meta_table <- get_meta_table()
+curr.fun: symbol <-
+ .. after 'expression(meta_table <- get_meta_table())'
+
+>>>> eval(expression_nr. 8 )
+		 =================
+
+> meta_table[2, "subtitle"] <- ""
+curr.fun: symbol <-
+ .. after 'expression(meta_table[2, "subtitle"] <- "")'
+
+>>>> eval(expression_nr. 9 )
+		 =================
+
+> ntabs <- nrow(meta_table)
+curr.fun: symbol <-
+ .. after 'expression(ntabs <- nrow(meta_table))'
+
+>>>> eval(expression_nr. 10 )
+		 =================
+
+> meta_table[ntabs + 1, "number"] <- "1.1.2"
+curr.fun: symbol <-
+ .. after 'expression(meta_table[ntabs + 1, "number"] <- "1.1.2")'
+
+>>>> eval(expression_nr. 11 )
+		 =================
+
+> meta_table[ntabs + 1, "population"] <- " "
+curr.fun: symbol <-
+ .. after 'expression(meta_table[ntabs + 1, "population"] <- " ")'
+
+>>>> eval(expression_nr. 12 )
+		 =================
+
+> set_meta_table(meta_table)
+curr.fun: symbol set_meta_table
+ .. after 'expression(set_meta_table(meta_table))'
+
+>>>> eval(expression_nr. 13 )
+		 =================
+
+> write_table(X, number = "1.1.2")
+
+ Output/Core/table_1.1.2.xml created.
+
+Objects removed: X ntabs 
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, number = "1.1.2"))'
+
+>>>> eval(expression_nr. 14 )
+		 =================
+
+> attach_pop("1.10")
+full detached.
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("1.10"))'
+
+>>>> eval(expression_nr. 15 )
+		 =================
+
+> sumby(response, rx, data = data)
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.10_1.png created.
+curr.fun: symbol sumby
+     Variable   Statistics A             B             Total         
+[1,] "Response" "Fail"     "25/50 (50%)" "25/50 (50%)" "50/100 (50%)"
+[2,] ""         "Respond"  "25/50 (50%)" "25/50 (50%)" "50/100 (50%)"
+attr(,"fig")
+ .. after 'expression(sumby(response, rx, data = data))'
+
+>>>> eval(expression_nr. 16 )
+		 =================
+
+> fig <- sumby(response, rx, data = data) %>% attr("fig")
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_1.10_2.png created.
+curr.fun: symbol <-
+ .. after 'expression(fig <- sumby(response, rx, data = data) %>% attr("fig"))'
+
+>>>> eval(expression_nr. 17 )
+		 =================
+
+> write_ggplot(fig, format = "png")
+
+ Output/Figures/fig_1.10.png created.
+
+Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
+safety detached containing: data 
+curr.fun: symbol write_ggplot
+ .. after 'expression(write_ggplot(fig, format = "png"))'
+
+>>>> eval(expression_nr. 18 )
+		 =================
+
+> attach_pop("2.1")
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("2.1"))'
+
+>>>> eval(expression_nr. 19 )
+		 =================
+
+> write_text("There were no deaths")
+
+ Output/Core/text_2.1.xml created.
+
+Objects removed: fig 
+safety detached containing: data 
+curr.fun: symbol write_text
+ .. after 'expression(write_text("There were no deaths"))'
+now dyn.load("/home/runner/work/_temp/Library/png/libs/png.so") ...
+now dyn.load("/home/runner/work/_temp/Library/base64enc/libs/base64enc.so") ...
+Output/Reports/Report2.doc created.
+Output/Reports/Report_final.docx created.
+now dyn.load("/home/runner/work/_temp/Library/vdiffr/libs/vdiffr.so") ...
+now dyn.load("/home/runner/work/_temp/Library/igraph/libs/igraph.so") ...
+NULL
+                                                             parent
+1 /home/runner/work/cctu/cctu/check/cctu.Rcheck/tests/testthat/ROOT
+                                                                    child
+1 /home/runner/work/cctu/cctu/check/cctu.Rcheck/tests/testthat/analysis.R
+[1] "eps/fig_1.10.eps"
+[1] "fig_1.10.png"
+[1] "sumby_fig_1.1.1_1.png"
+[1] "sumby_fig_1.10_1.png"
+[1] "sumby_fig_1.10_2.png"
+[1] "sumby_fig_1.1_1.png"
+character(0)
+ [1] "Rplots.pdf"                 "_snaps"                    
+ [3] "analysis.R"                 "analysisB.R"               
+ [5] "analysis_interactive.R"     "batch_test.csv"            
+ [7] "check_loging.R"             "container.R"               
+ [9] "data"                       "eps"                       
+[11] "fig_1.10.postscript"        "fixtures"                  
+[13] "hello_world.R"              "helper.R"                  
+[15] "increment.R"                "interactive_sumby.R"       
+[17] "nested_run_batch.R"         "ref"                       
+[19] "script_to_test_run_batch.R" "source_myself.R"           
+[21] "table_1.10.xml"             "test_1.R"                  
+[23] "test_attach_pop.R"          "test_cctu_initiaize.R"     
+[25] "test_clean_meta_table.R"    "test_clean_names.R"        
+[27] "test_create_word_xml.R"     "test_cttab.R"              
+[29] "test_format_digits.R"       "test_get_obj.R"            
+[31] "test_initialise.R"          "test_is_empty.R"           
+[33] "test_km_plot.R"             "test_labels.R"             
+[35] "test_library_description.R" "test_macro_utils.R"        
+[37] "test_merge_data.r"          "test_options2.R"           
+[39] "test_order_dewey.R"         "test_p_format.R"           
+[41] "test_propercase.R"          "test_rbind_space.R"        
+[43] "test_read_data.R"           "test_regression_table.R"   
+[45] "test_remove_rows_cols.R"    "test_render_stat.R"        
+[47] "test_rm_envir.R"            "test_run_batch.R"          
+[49] "test_source.R"              "test_sumby.R"              
+[51] "test_to_factor.R"           "test_utf8.R"               
+[53] "test_utils.R"               "test_write_ggplot.R"       
+[55] "test_write_table_text.R"    "testthat-problems.rds"     
+ℹ Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+[1] "Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?"
+i Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+[1] "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu/scripts/main.R"
+ [1] "Output"                     "Progs"                     
+ [3] "Rplots.pdf"                 "_snaps"                    
+ [5] "analysis.R"                 "analysisB.R"               
+ [7] "analysis_interactive.R"     "batch_test.csv"            
+ [9] "check_loging.R"             "container.R"               
+[11] "data"                       "eps"                       
+[13] "fig_1.10.postscript"        "fixtures"                  
+[15] "hello_world.R"              "helper.R"                  
+[17] "increment.R"                "interactive_sumby.R"       
+[19] "library"                    "main.R"                    
+[21] "nested_run_batch.R"         "ref"                       
+[23] "script_to_test_run_batch.R" "source_myself.R"           
+[25] "table_1.10.xml"             "test_1.R"                  
+[27] "test_attach_pop.R"          "test_cctu_initiaize.R"     
+[29] "test_clean_meta_table.R"    "test_clean_names.R"        
+[31] "test_create_word_xml.R"     "test_cttab.R"              
+[33] "test_format_digits.R"       "test_get_obj.R"            
+[35] "test_initialise.R"          "test_is_empty.R"           
+[37] "test_km_plot.R"             "test_labels.R"             
+[39] "test_library_description.R" "test_macro_utils.R"        
+[41] "test_merge_data.r"          "test_options2.R"           
+[43] "test_order_dewey.R"         "test_p_format.R"           
+[45] "test_propercase.R"          "test_rbind_space.R"        
+[47] "test_read_data.R"           "test_regression_table.R"   
+[49] "test_remove_rows_cols.R"    "test_render_stat.R"        
+[51] "test_rm_envir.R"            "test_run_batch.R"          
+[53] "test_source.R"              "test_sumby.R"              
+[55] "test_to_factor.R"           "test_utf8.R"               
+[57] "test_utils.R"               "test_write_ggplot.R"       
+[59] "test_write_table_text.R"    "testthat-problems.rds"     
+i Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+ [1] "Output"                     "Rplots.pdf"                
+ [3] "_snaps"                     "analysis.R"                
+ [5] "analysisB.R"                "analysis_interactive.R"    
+ [7] "batch_test.csv"             "check_loging.R"            
+ [9] "container.R"                "data"                      
+[11] "eps"                        "fig_1.10.postscript"       
+[13] "fixtures"                   "hello_world.R"             
+[15] "helper.R"                   "increment.R"               
+[17] "interactive_sumby.R"        "nested_run_batch.R"        
+[19] "nonroot"                    "ref"                       
+[21] "script_to_test_run_batch.R" "source_myself.R"           
+[23] "table_1.10.xml"             "test_1.R"                  
+[25] "test_attach_pop.R"          "test_cctu_initiaize.R"     
+[27] "test_clean_meta_table.R"    "test_clean_names.R"        
+[29] "test_create_word_xml.R"     "test_cttab.R"              
+[31] "test_format_digits.R"       "test_get_obj.R"            
+[33] "test_initialise.R"          "test_is_empty.R"           
+[35] "test_km_plot.R"             "test_labels.R"             
+[37] "test_library_description.R" "test_macro_utils.R"        
+[39] "test_merge_data.r"          "test_options2.R"           
+[41] "test_order_dewey.R"         "test_p_format.R"           
+[43] "test_propercase.R"          "test_rbind_space.R"        
+[45] "test_read_data.R"           "test_regression_table.R"   
+[47] "test_remove_rows_cols.R"    "test_render_stat.R"        
+[49] "test_rm_envir.R"            "test_run_batch.R"          
+[51] "test_source.R"              "test_sumby.R"              
+[53] "test_to_factor.R"           "test_utf8.R"               
+[55] "test_utils.R"               "test_write_ggplot.R"       
+[57] "test_write_table_text.R"    "testthat-problems.rds"     
+[1] "nonroot"                "nonroot/Output"         "nonroot/Output/Core"   
+[4] "nonroot/Output/Figures" "nonroot/Output/Reports"
+i Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+safety environment created in  
+data frames removed from  : dt 
+safety attached containing: dt 
+┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐
+|                   │     Placebo     │    Research     │      Total      |
+├───────────────────┴─────────────────┴─────────────────┴─────────────────┤
+|Observation        │       48        │       52        │       100       |
+├───────────────────┬─────────────────┬─────────────────┬─────────────────┤
+├───────────────────┴─────────────────┴─────────────────┴─────────────────┤
+|Age                                                                      |
+├───────────────────┬─────────────────┬─────────────────┬─────────────────┤
+|  Valid Obs.       │       48        │       52        │       100       |
+|  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |
+|  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|
+├───────────────────┴─────────────────┴─────────────────┴─────────────────┤
+|Sex                                                                      |
+├───────────────────┬─────────────────┬─────────────────┬─────────────────┤
+|  Female           │  26/48 (54.2%)  │  25/52 (48.1%)  │ 51/100 (51.0%)  |
+|  Male             │  22/48 (45.8%)  │  27/52 (51.9%)  │ 49/100 (49.0%)  |
+├───────────────────┴─────────────────┴─────────────────┴─────────────────┤
+|Baseline BMI (kg/m^2)                                                    |
+├───────────────────┬─────────────────┬─────────────────┬─────────────────┤
+|  Valid Obs.       │        5        │        5        │       10        |
+|  Mean (SD)        │   27.8 (3.98)   │   24.5 (3.96)   │   26.2 (4.11)   |
+|  Median [Min, Max]│27.9 [23.4, 32.8]│23.0 [21.3, 31.4]│24.2 [21.3, 32.8]|
+|  Missing          │                 │    1 (16.7%)    │    1 (9.1%)     |
+└───────────────────┴─────────────────┴─────────────────┴─────────────────┘
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+
+Objects removed:  
+safety detached containing: dt 
+safety attached containing: dt 
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+safety detached.
+safety attached containing: dt 
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.10.xml created.
+
+Objects removed:  
+safety detached containing: dt 
+safety attached containing: dt 
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.10.xml created.
+
+Objects removed:  
+safety detached containing: dt 
+safety attached containing: dt 
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+
+Objects removed:  
+safety detached containing: dt 
+safety attached containing: dt 
+safety detached.
+safety attached containing: dt 
+i Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+
+ Output/Core/table_1.1.xml created.
+
+Objects removed:  
+safety detached containing: dt 
+v Setting active project to "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17".
+v Creating 'R/'.
+v Writing a sentinel file '.here'.
+[ ] Build robust paths within your project via `here::here()`.
+i Learn more at <https://here.r-lib.org>.
+v Setting active project to "/home/runner/work/cctu/cctu".
+v Setting active project to "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17".
+v Writing 'DESCRIPTION'.
+Package: Rtmpl4by17
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+v Setting active project to "/home/runner/work/cctu/cctu".
+now dyn.load("/home/runner/work/_temp/Library/diffobj/libs/diffobj.so") ...
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	cancer,cgd,diabetic,flchain,heart,logan,nafld,nwtco,pbc,reliability,retinopathy,rhDNase,solder,survexp,tobin,transplant,udca
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	band_instruments,band_instruments2,band_members,starwars,storms
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	meta_table_example
+
+name=mtcars:	 found in Rdata.rds
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	cancer,cgd,diabetic,flchain,heart,logan,nafld,nwtco,pbc,reliability,retinopathy,rhDNase,solder,survexp,tobin,transplant,udca
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	band_instruments,band_instruments2,band_members,starwars,storms
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	meta_table_example
+
+name=mtcars:	 found in Rdata.rds
+v Setting active project to "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17".
+v Creating 'R/'.
+v Writing a sentinel file '.here'.
+[ ] Build robust paths within your project via `here::here()`.
+i Learn more at <https://here.r-lib.org>.
+v Setting active project to "/home/runner/work/cctu/cctu".
+v Setting active project to "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17".
+v Writing 'DESCRIPTION'.
+Package: Rtmpl4by17
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+now dyn.load("/home/runner/work/_temp/Library/tidyr/libs/tidyr.so") ...
+now dyn.load("/home/runner/work/_temp/Library/readr/libs/readr.so") ...
+now dyn.load("/home/runner/work/_temp/Library/tzdb/libs/tzdb.so") ...
+now dyn.load("/home/runner/work/_temp/Library/stringi/libs/stringi.so") ...
+now dyn.load("/home/runner/work/_temp/Library/timechange/libs/timechange.so") ...
+now dyn.load("/home/runner/work/_temp/Library/lubridate/libs/lubridate.so") ...
+-- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+v forcats   1.0.0     v readr     2.1.5
+v ggplot2   3.5.2     v stringr   1.5.1
+v lubridate 1.9.4     v tibble    3.3.0
+v purrr     1.0.4     v tidyr     1.3.1
+-- Conflicts ------------------------------------------ tidyverse_conflicts() --
+x readr::edition_get()     masks testthat::edition_get()
+x magrittr::equals()       masks testthat::equals()
+x tidyr::extract()         masks magrittr::extract()
+x dplyr::filter()          masks stats::filter()
+x purrr::is_empty()        masks cctu::is_empty()
+x magrittr::is_less_than() masks testthat::is_less_than()
+x purrr::is_null()         masks testthat::is_null()
+x dplyr::lag()             masks stats::lag()
+x readr::local_edition()   masks testthat::local_edition()
+x tidyr::matches()         masks dplyr::matches(), testthat::matches()
+x magrittr::not()          masks testthat::not()
+x purrr::set_names()       masks magrittr::set_names()
+i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+v Setting active project to "/home/runner/work/cctu/cctu".
+The conversion of the following variables to dates failed and no action was taken:
+mdy, dmy_part, time
+ℹ Leaving 'DESCRIPTION' unchanged.
+Package: cctu
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last <first.last@example.com> [aut, cre]
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Imports:
+    consort,
+    eudract,
+    tidyverse
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically
+. given clean namessafety environment created in  
+full environment created in  
+data frames removed from  : data 
+safety attached containing: data 
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.1_1.png created.
+
+ Output_other/Core/table_1.1.xml created.
+
+Objects removed: X opts 
+safety detached containing: data 
+full attached containing: data 
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.1.1_1.png created.
+
+ Output_other/Core/table_1.1.1.xml created.
+
+Objects removed: X 
+full detached containing: data 
+safety attached containing: data 
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.10_1.png created.
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.10_2.png created.
+
+ Output_other/Figures/fig_1.10.png created.
+
+ Output_other/Figures/eps/fig_1.10.eps created.
+
+Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
+safety detached containing: data 
+'envir' chosen:<environment: 0x55d6f0722640>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 19 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> attach_pop(1.1)
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop(1.1))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> X <- sumby(endpoint, rx, data = data)
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.1_1.png created.
+curr.fun: symbol <-
+ .. after 'expression(X <- sumby(endpoint, rx, data = data))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> write_table(X, directory = test_path("Output/Core"))
+
+ Output/Core/table_1.1.xml created.
+
+Objects removed: X fig 
+safety detached containing: data 
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, directory = test_path("Output/Core")))'
+
+>>>> eval(expression_nr. 4 )
+		 =================
+
+> attach_pop("1.1.1", verbose = TRUE)
+full attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("1.1.1", verbose = TRUE))'
+
+>>>> eval(expression_nr. 5 )
+		 =================
+
+> X <- sumby(endpoint, rx, data = data)
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.1.1_1.png created.
+curr.fun: symbol <-
+ .. after 'expression(X <- sumby(endpoint, rx, data = data))'
+
+>>>> eval(expression_nr. 6 )
+		 =================
+
+> write_table(X, clean_up = FALSE, heading = c("Variable", 
++     "Statistics with a long line of text to check folding", "A", 
++     "B", "Total"))
+
+ Output_other/Core/table_1.1.1.xml created.
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, clean_up = FALSE, heading = c("Variable", ''    "Statistics with a long line of text to check folding", "A", ''    "B", "Total")))'
+
+>>>> eval(expression_nr. 7 )
+		 =================
+
+> meta_table <- get_meta_table()
+curr.fun: symbol <-
+ .. after 'expression(meta_table <- get_meta_table())'
+
+>>>> eval(expression_nr. 8 )
+		 =================
+
+> meta_table[2, "subtitle"] <- ""
+curr.fun: symbol <-
+ .. after 'expression(meta_table[2, "subtitle"] <- "")'
+
+>>>> eval(expression_nr. 9 )
+		 =================
+
+> ntabs <- nrow(meta_table)
+curr.fun: symbol <-
+ .. after 'expression(ntabs <- nrow(meta_table))'
+
+>>>> eval(expression_nr. 10 )
+		 =================
+
+> meta_table[ntabs + 1, "number"] <- "1.1.2"
+curr.fun: symbol <-
+ .. after 'expression(meta_table[ntabs + 1, "number"] <- "1.1.2")'
+
+>>>> eval(expression_nr. 11 )
+		 =================
+
+> meta_table[ntabs + 1, "population"] <- " "
+curr.fun: symbol <-
+ .. after 'expression(meta_table[ntabs + 1, "population"] <- " ")'
+
+>>>> eval(expression_nr. 12 )
+		 =================
+
+> set_meta_table(meta_table)
+curr.fun: symbol set_meta_table
+ .. after 'expression(set_meta_table(meta_table))'
+
+>>>> eval(expression_nr. 13 )
+		 =================
+
+> write_table(X, number = "1.1.2")
+
+ Output_other/Core/table_1.1.2.xml created.
+
+Objects removed: X ntabs 
+curr.fun: symbol write_table
+ .. after 'expression(write_table(X, number = "1.1.2"))'
+
+>>>> eval(expression_nr. 14 )
+		 =================
+
+> attach_pop("1.10")
+full detached.
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("1.10"))'
+
+>>>> eval(expression_nr. 15 )
+		 =================
+
+> sumby(response, rx, data = data)
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.10_1.png created.
+curr.fun: symbol sumby
+     Variable   Statistics A             B             Total         
+[1,] "Response" "Fail"     "25/50 (50%)" "25/50 (50%)" "50/100 (50%)"
+[2,] ""         "Respond"  "25/50 (50%)" "25/50 (50%)" "50/100 (50%)"
+attr(,"fig")
+ .. after 'expression(sumby(response, rx, data = data))'
+
+>>>> eval(expression_nr. 16 )
+		 =================
+
+> fig <- sumby(response, rx, data = data) %>% attr("fig")
+Saving 7 x 7 in image
+Output_other/Figures/sumby_fig_1.10_2.png created.
+curr.fun: symbol <-
+ .. after 'expression(fig <- sumby(response, rx, data = data) %>% attr("fig"))'
+
+>>>> eval(expression_nr. 17 )
+		 =================
+
+> write_ggplot(fig, format = "png")
+
+ Output_other/Figures/fig_1.10.png created.
+
+Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
+safety detached containing: data 
+curr.fun: symbol write_ggplot
+ .. after 'expression(write_ggplot(fig, format = "png"))'
+
+>>>> eval(expression_nr. 18 )
+		 =================
+
+> attach_pop("2.1")
+safety attached containing: data 
+curr.fun: symbol attach_pop
+ .. after 'expression(attach_pop("2.1"))'
+
+>>>> eval(expression_nr. 19 )
+		 =================
+
+> write_text("There were no deaths")
+
+ Output_other/Core/text_2.1.xml created.
+
+Objects removed: fig 
+safety detached containing: data 
+curr.fun: symbol write_text
+ .. after 'expression(write_text("There were no deaths"))'
+Output_other/Reports/Report.doc created.
+Output_other/Reports/Report.docx created.
+object created in : dirtydata
+object created in : meta
+object created in : dirtydata
+object created in : meta
+[1] "dirtydata.csv"
+object created in : dt
+object created in : dlu
+object created in : clu
+output given clean namesobject created in : dt
+output given clean namesobject created in : dlu
+output given clean namesobject created in : clu
+Waiting for profiling to be done...
+now dyn.load("/opt/R/4.4.3/lib/R/library/cluster/libs/cluster.so") ...
+now dyn.load("/opt/R/4.4.3/lib/R/library/foreign/libs/foreign.so") ...
+now dyn.load("/opt/R/4.4.3/lib/R/library/nnet/libs/nnet.so") ...
+now dyn.load("/opt/R/4.4.3/lib/R/library/rpart/libs/rpart.so") ...
+now dyn.load("/home/runner/work/_temp/Library/checkmate/libs/checkmate.so") ...
+now dyn.load("/home/runner/work/_temp/Library/backports/libs/backports.so") ...
+now dyn.load("/home/runner/work/_temp/Library/digest/libs/digest.so") ...
+now dyn.load("/home/runner/work/_temp/Library/fastmap/libs/fastmap.so") ...
+now dyn.load("/home/runner/work/_temp/Library/htmltools/libs/htmltools.so") ...
+now dyn.load("/home/runner/work/_temp/Library/xfun/libs/xfun.so") ...
+now dyn.load("/home/runner/work/_temp/Library/colorspace/libs/colorspace.so") ...
+now dyn.load("/home/runner/work/_temp/Library/Hmisc/libs/Hmisc.so") ...
+now dyn.load("/home/runner/work/_temp/Library/SparseM/libs/SparseM.so") ...
+now dyn.load("/opt/R/4.4.3/lib/R/library/MASS/libs/MASS.so") ...
+now dyn.load("/home/runner/work/_temp/Library/quantreg/libs/quantreg.so") ...
+now dyn.load("/opt/R/4.4.3/lib/R/library/nlme/libs/nlme.so") ...
+now dyn.load("/home/runner/work/_temp/Library/polspline/libs/polspline.so") ...
+now dyn.load("/home/runner/work/_temp/Library/zoo/libs/zoo.so") ...
+now dyn.load("/home/runner/work/_temp/Library/mvtnorm/libs/mvtnorm.so") ...
+now dyn.load("/home/runner/work/_temp/Library/rms/libs/rms.so") ...
+now dyn.load("/home/runner/work/_temp/Library/minqa/libs/minqa.so") ...
+now dyn.load("/home/runner/work/_temp/Library/nloptr/libs/nloptr.so") ...
+now dyn.load("/home/runner/work/_temp/Library/rbibutils/libs/rbibutils.so") ...
+now dyn.load("/home/runner/work/_temp/Library/lme4/libs/lme4.so") ...
+now dyn.load("/home/runner/work/_temp/Library/gee/libs/gee.so") ...
+Beginning Cgee S-function, @(#) geeformula.q 4.13 98/01/27
+running glm to get initial regression estimate
+          (Intercept)   rms::rcs(age, 4)age  rms::rcs(age, 4)age' 
+          -0.38104013            0.00189902           -0.00533899 
+rms::rcs(age, 4)age''           log(height)          log(abdomen) 
+           0.01983507           -0.43566037            0.61280658 
+Waiting for profiling to be done...
+dirty modified with blanks removed.
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	lakers
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	gss_cat
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	fruit,sentences,words
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	billboard,cms_patient_care,cms_patient_experience,construction,fish_encounters,household,population,relig_income,smiths,table1,table2,table3,table4a,table4b,table5,us_rent_income,who,who2,world_bank_pop
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	diamonds,economics,economics_long,faithfuld,luv_colours,midwest,mpg,msleep,presidential,seals,txhousing
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	safety,soc_code
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	dispos.data
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	cancer,cgd,diabetic,flchain,heart,logan,nafld,nwtco,pbc,reliability,retinopathy,rhDNase,solder,survexp,tobin,transplant,udca
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	band_instruments,band_instruments2,band_members,starwars,storms
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	meta_table_example
+
+name=mtcars:	 found in Rdata.rds
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	lakers
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	gss_cat
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	fruit,sentences,words
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	billboard,cms_patient_care,cms_patient_experience,construction,fish_encounters,household,population,relig_income,smiths,table1,table2,table3,table4a,table4b,table5,us_rent_income,who,who2,world_bank_pop
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	diamonds,economics,economics_long,faithfuld,luv_colours,midwest,mpg,msleep,presidential,seals,txhousing
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	safety,soc_code
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	dispos.data
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	cancer,cgd,diabetic,flchain,heart,logan,nafld,nwtco,pbc,reliability,retinopathy,rhDNase,solder,survexp,tobin,transplant,udca
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	band_instruments,band_instruments2,band_members,starwars,storms
+
+name=mtcars:	 NOT found in names() of Rdata.rds, i.e.,
+	meta_table_example
+
+name=mtcars:	 found in Rdata.rds
+newenvir detached.
+package:datasets detached.
+[1] "test1"
+'envir' chosen:<environment: 0x55d7032c7c98>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: 0x55d7032c7c98>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 1
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+[1] "test2"
+'envir' chosen:<environment: 0x55d7032c7c98>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: 0x55d7032c7c98>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 2
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+[1] "test3"
+[1] "test4"
+[1] "test4"
+<environment: 0x55d70317a160>
+'envir' chosen:<environment: 0x55d7032c7c98>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: 0x55d7032c7c98>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 3
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+[1] "test5"
+<environment: 0x55d702adc498>
+'envir' chosen:<environment: 0x55d702adc498>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: 0x55d702adc498>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 1
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+[1] "test6"
+<environment: 0x55d702cc87e0>
+'envir' chosen:<environment: R_GlobalEnv>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: R_GlobalEnv>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 3
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+[1] "test7"
+<environment: 0x55d702ebaff8>
+'envir' chosen:<environment: 0x55d702ebaff8>
+encoding = "native.enc" chosen
+ --> from_file='TRUE'
+ lines:function (x, ...)  
+--> parsed 3 expressions; now eval(.)ing them:
+
+>>>> eval(expression_nr. 1 )
+		 =================
+
+> print(environment())
+<environment: 0x55d702ebaff8>
+curr.fun: symbol print
+ .. after 'expression(print(environment()))'
+
+>>>> eval(expression_nr. 2 )
+		 =================
+
+> print(x)
+[1] 1
+curr.fun: symbol print
+ .. after 'expression(print(x))'
+
+>>>> eval(expression_nr. 3 )
+		 =================
+
+> x <- x + 1
+curr.fun: symbol <-
+ .. after 'expression(x <- x + 1)'
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_0_1.png created.
+
+R version 4.4.3 (2025-02-28) -- "Trophy Case"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> fig_file="/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/fig_file.pdf"
+> # need to define fig_file="...." outside this script
+> library(cctu)
+
+Attaching package: ‘cctu’
+
+The following object is masked from ‘package:base’:
+
+    source
+
+> library(magrittr)
+> n <- 10
+> df <- data.frame(
++   arm = rep(c("A", "B"), rep(n, 2)),
++   age = rnorm(2 * n, mean = 40, sd = 10) %>% round(1),
++   gender = sample(c("Male", "Female"), 2 * n, replace = TRUE)
++ )
+> 
+  > pdf(file = fig_file)
+> sumby(gender, arm, data = df)
+Saving 7 x 7 in image
+     Variable Statistics A            B            Total        
+[1,] "Gender" "Female"   "7/10 (70%)" "4/10 (40%)" "11/20 (55%)"
+[2,] ""       "Male"     "3/10 (30%)" "6/10 (60%)" "9/20 (45%)" 
+attr(,"fig")
+> dev.off()
+null device 
+          1 
+> 
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_0_2.png created.
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_0_3.png created.
+     Variable Statistics  A type        B type        Total        
+[1,] "Age"    "n"         "20"          "20"          "40"         
+[2,] ""       "Mean (SD)" "37.6 (10.6)" "38.7 (10.8)" "38.1 (10.6)"
+[3,] ""       "Median"    "35.75"       "39.3"        "38"         
+[4,] ""       "Min, Max"  "17.9, 57.5"  "16.3, 58.2"  "16.3, 58.2" 
+attr(,"fig")
+[1] "matrix" "array" 
+[1] "Variable"   "Statistics" "A type"     "B type"     "Total"     
+Saving 7 x 7 in image
+Output/Figures/sumby_fig_0_4.png created.
+
+ Output/Core/table_1.10.xml created.
+
+Objects removed:  
+
+ ./fig_1.10.png created.
+
+ ./eps/fig_1.10.eps created.
+
+Objects removed: args_list clean_up directory dpi footnote format graphics_args height number plot units verbose width 
+
+ ./fig_1.10.png created.
+
+ ./eps/fig_1.10.eps created.
+
+ ./fig_1.10.png created.
+
+ ./eps/fig_1.10.eps created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/pdf/fig_1.10.pdf created.
+
+ Output/Figures/fig_1.10.png created.
+
+ Output/Figures/eps/fig_1.10.eps created.
+
+Objects removed: X fig fig0 fit new_plot 
+
+ Output/Core/table_1.10.xml created.
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/table_1.1.xml created.
+
+ Output/Core/table_1.1.xml created.
+
+Objects removed: X dir1 dir2 dir3 fig 
+/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/report24107b1432d0.doc created.
+Source files are stored at:
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17The XML file stored at:
+ /tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/file2410527ef14c.xml/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/report24104ac7e89b.docx created.
+
+ Output/Core/table_1.10.xml created.
+
+Objects removed: X filetemp mt_tab 
+
+ Output/Core/text_1.10.xml created.
+
+Objects removed:  
+
+ ./table_1.10.xml created.
+
+Objects removed:  
+
+ ./table_1.10.xml created.
+
+Objects removed: X 
+
+ ./table_1.10.xml created.
+
+Objects removed: X 
+
+ ./table_1.10.xml created.
+
+Objects removed: X 
+[ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+
+══ Skipped tests (1) ═══════════════════════════════════════════════════════════
+• On CI (1): 'test_write_table_text.R:158:3'
+
+══ Warnings ════════════════════════════════════════════════════════════════════
+── Warning ('test_1.R:12:1'): (code run outside of `test_that()`) ──────────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test the testing") at test_1.R:12:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_1.R:31:1'): (code run outside of `test_that()`) ──────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─... %>% clean_names() at test_1.R:31:1
+  2. ├─cctu::clean_names(.) at magrittr/R/pipe.R:136:3
+  3. │ └─cctu::clean_string(names(df)) at cctu/R/clean_names.R:29:3
+  4. │   └─... %>% trimws() at cctu/R/clean_names.R:52:3
+  5. ├─base::trimws(.) at magrittr/R/pipe.R:136:3
+  6. │ ├─base (local) mysub(...)
+  7. │ │ └─base::sub(re, "", x, perl = TRUE)
+  8. │ │   └─base::is.factor(x)
+  9. │ └─base (local) mysub(paste0("^", whitespace, "+"), x)
+ 10. │   └─base::sub(re, "", x, perl = TRUE)
+ 11. │     └─base::is.factor(x)
+ 12. ├─base::gsub("_$", "", .)
+ 13. │ └─base::is.factor(x)
+ 14. ├─base::gsub("^_", "", .)
+ 15. │ └─base::is.factor(x)
+ 16. ├─base::gsub("_+", "_", .)
+ 17. │ └─base::is.factor(x)
+ 18. ├─base::gsub("\\.", "_", .)
+ 19. │ └─base::is.factor(x)
+ 20. ├─base::gsub("/", "_", .)
+ 21. │ └─base::is.factor(x)
+ 22. ├─base::gsub("-", "_", .)
+ 23. │ └─base::is.factor(x)
+ 24. ├─base::gsub("\\s+", "_", .)
+ 25. │ └─base::is.factor(x)
+ 26. ├─base::tolower(.)
+ 27. ├─base::as.data.frame(., stringsAsFactors = FALSE) at cctu/R/clean_names.R:29:3
+ 28. ├─readxl::read_excel(...)
+ 29. │ └─readxl:::check_file(path) at readxl/R/read_excel.R:126:3
+ 30. │   └─readxl:::is_string(path) at readxl/R/utils.R:2:3
+ 31. └─base::system.file("extdata", "meta_table.xlsx", package = "cctu") at readxl/R/read_excel.R:126:3
+ 32.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:86:3'): (code run outside of `test_that()`) ──────────────
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(directory = test_path("Output/Figures")) at test_1.R:86:3
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_1.R:86:3'): (code run outside of `test_that()`) ──────────────
+'.reserved' does not exist. All objects in <environment: 0x55d6f8343098> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(directory = test_path("Output/Figures")) at test_1.R:86:3
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_1.R:99:1'): (code run outside of `test_that()`) ──────────────
+cannot remove file 'backup_image.Rdata', reason 'No such file or directory'
+Backtrace:
+    ▆
+ 1. └─base::file.remove("backup_image.Rdata") at test_1.R:99:1
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+invalid values for 'item' converted to 'table'
+Backtrace:
+    ▆
+ 1. └─cctu::set_meta_table(meta_table)
+ 2.   └─cctu:::clean_meta_table(meta_table) at cctu/R/meta_table_functions.R:22:5
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+invalid values for 'orientation' converted to 'portrait'
+Backtrace:
+    ▆
+ 1. └─cctu::set_meta_table(meta_table)
+ 2.   └─cctu:::clean_meta_table(meta_table) at cctu/R/meta_table_functions.R:22:5
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.1.2")
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+eps files are created by default to meet journal requirements
+This warning is displayed once per session.
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(fig, format = "png")
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(fig, format = "png")
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_1.R:101:1'): (code run outside of `test_that()`) ─────────────
+'.reserved' does not exist. All objects in <environment: 0x55d6f85ae338> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(fig, format = "png")
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_1.R:132:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_1.R:132:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::create_word_xml(...) at rlang/R/eval.R:96:3
+  8.   ├─base::file.copy(...) at cctu/R/create_word_xml.R:86:3
+  9.   └─base::system.file("extdata", "header.txt", package = "cctu") at cctu/R/create_word_xml.R:86:3
+ 10.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:132:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_1.R:132:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::create_word_xml(...) at rlang/R/eval.R:96:3
+  8.   ├─xml2::read_xml(xslt_file) at cctu/R/create_word_xml.R:221:3
+  9.   └─base::system.file("extdata", "to_word.xslt", package = "cctu") at cctu/R/create_word_xml.R:221:3
+ 10.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   ├─base::file.copy(...) at cctu/R/write_docx.R:67:3
+ 3.   └─base::system.file("assets/wordfiles", package = "cctu") at cctu/R/write_docx.R:67:3
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─base::system.file("assets", "core.xml", package = "cctu") at cctu/R/write_docx.R:106:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─base::system.file("assets", "[Content_Types].xml", package = "cctu") at cctu/R/write_docx.R:121:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─base::system.file("assets", "document.xml.rels", package = "cctu") at cctu/R/write_docx.R:125:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:166:3'): create snapshots ────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_1.R:166:3
+ 2.   └─base::system.file("assets", "document.xslt", package = "cctu") at cctu/R/write_docx.R:331:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_1.R:233:3'): Comparison to saved output ──────────────────────
+package 'xml2' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(xml2) at test_1.R:233:3
+── Warning ('test_attach_pop.R:1:1'): (code run outside of `test_that()`) ──────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test attach_pop errors") at test_attach_pop.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_attach_pop.R:10:3'): call all warnings ───────────────────────
+Need to have 'population' column in meta_table
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(attach_pop("99.99.99.99"), "Need to have 'number' column in meta_table") at test_attach_pop.R:10:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::attach_pop("99.99.99.99") at rlang/R/eval.R:96:3
+ 8.   └─cctu:::match_population(number) at cctu/R/attach_pop.R:22:3
+── Warning ('test_attach_pop.R:10:3'): call all warnings ───────────────────────
+No population was attached
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(attach_pop("99.99.99.99"), "Need to have 'number' column in meta_table") at test_attach_pop.R:10:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::attach_pop("99.99.99.99") at rlang/R/eval.R:96:3
+── Warning ('test_attach_pop.R:11:3'): call all warnings ───────────────────────
+Need to have 'number' column in meta_table
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(attach_pop("99.99.99.99"), "Need to have 'population' column in meta_table") at test_attach_pop.R:11:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::attach_pop("99.99.99.99") at rlang/R/eval.R:96:3
+ 8.   └─cctu:::match_population(number) at cctu/R/attach_pop.R:22:3
+── Warning ('test_attach_pop.R:11:3'): call all warnings ───────────────────────
+No population was attached
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(attach_pop("99.99.99.99"), "Need to have 'population' column in meta_table") at test_attach_pop.R:11:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::attach_pop("99.99.99.99") at rlang/R/eval.R:96:3
+── Warning ('test_cctu_initiaize.R:2:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("cctu_initialise") at test_cctu_initiaize.R:2:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_cctu_initiaize.R:3:1'): (code run outside of `test_that()`) ──
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_cctu_initiaize.R:3:1
+── Warning ('test_cctu_initiaize.R:4:1'): (code run outside of `test_that()`) ──
+package 'testthat' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(testthat) at test_cctu_initiaize.R:4:1
+── Warning ('test_cctu_initiaize.R:10:3'): rm_output ───────────────────────────
+'Output' already exists
+Backtrace:
+    ▆
+ 1. └─base::dir.create("Output") at test_cctu_initiaize.R:10:3
+── Warning ('test_cctu_initiaize.R:11:3'): rm_output ───────────────────────────
+'Output/Core' already exists
+Backtrace:
+    ▆
+ 1. └─base::dir.create(file.path("Output", "Core")) at test_cctu_initiaize.R:11:3
+── Warning ('test_cctu_initiaize.R:47:3'): check_dir scripts ───────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::cctu_initialize(scripts = TRUE) at test_cctu_initiaize.R:47:3
+ 2.   ├─base::file.copy(...) at cctu/R/cctu_initialise.R:38:5
+ 3.   └─base::system.file(file.path("scripts", "main.R"), package = "cctu") at cctu/R/cctu_initialise.R:38:5
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_cctu_initiaize.R:47:3'): check_dir scripts ───────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::cctu_initialize(scripts = TRUE) at test_cctu_initiaize.R:47:3
+ 2.   ├─base::file.copy(...) at cctu/R/cctu_initialise.R:42:5
+ 3.   └─base::system.file(file.path("scripts", "Progs"), package = "cctu") at cctu/R/cctu_initialise.R:42:5
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_cctu_initiaize.R:49:3'): check_dir scripts ───────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─base::print(system.file(file.path("scripts", "main.R"), package = "cctu")) at test_cctu_initiaize.R:49:3
+ 2. └─base::system.file(file.path("scripts", "main.R"), package = "cctu")
+ 3.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_cctu_initiaize.R:73:3'): add spurious files and check rm_output option in cctu_initialise ──
+'Output' already exists
+Backtrace:
+    ▆
+ 1. └─base::dir.create("Output") at test_cctu_initiaize.R:73:3
+── Warning ('test_cctu_initiaize.R:74:3'): add spurious files and check rm_output option in cctu_initialise ──
+'Output/Core' already exists
+Backtrace:
+    ▆
+ 1. └─base::dir.create(file.path("Output", "Core")) at test_cctu_initiaize.R:74:3
+── Warning ('test_clean_meta_table.R:2:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test clean_meta_table") at test_clean_meta_table.R:2:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_clean_meta_table.R:7:3'): basic and errors ───────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(...) at test_clean_meta_table.R:7:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_clean_meta_table.R:9:3'): basic and errors ───────────────────
+invalid values for 'item' converted to 'table'
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(cctu:::clean_meta_table(X[, -8])) at test_clean_meta_table.R:9:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu:::clean_meta_table(X[, -8]) at rlang/R/eval.R:96:3
+── Warning ('test_clean_names.R:1:1'): (code run outside of `test_that()`) ─────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("test clean_names") at test_clean_names.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_create_word_xml.R:1:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("create_word_xml check not provided elswhere") at test_create_word_xml.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_cttab.R:3:1'): (code run outside of `test_that()`) ───────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata.csv", package = "cctu")) at test_cttab.R:3:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_cttab.R:4:1'): (code run outside of `test_that()`) ───────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_cttab.R:4:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_cttab.R:5:1'): (code run outside of `test_that()`) ───────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_cttab.R:5:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_get_obj.R:3:1'): (code run outside of `test_that()`) ─────────
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_get_obj.R:3:1
+── Warning ('test_get_obj.R:7:1'): (code run outside of `test_that()`) ─────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test get_obj") at test_get_obj.R:7:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_km_plot.R:10:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/basic.svg'
+── Warning ('test_km_plot.R:12:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/basic-more-ticks.svg'
+── Warning ('test_km_plot.R:14:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/pvalue.svg'
+── Warning ('test_km_plot.R:17:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/pvalue-digits-options.svg'
+── Warning ('test_km_plot.R:25:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/single.svg'
+── Warning ('test_km_plot.R:30:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/strata.svg'
+── Warning ('test_km_plot.R:37:3'): produce different flavour of plot ──────────
+Removed 490 rows containing missing values or values outside the scale range (`geom_step()`).
+Backtrace:
+     ▆
+  1. └─vdiffr::expect_doppelganger("labs", fig7, variant = operating_system) at test_km_plot.R:37:3
+  2.   └─vdiffr (local) writer(fig, testcase, title) at vdiffr/R/expect-doppelganger.R:113:3
+  3.     ├─vdiffr:::print_plot(plot, title) at vdiffr/R/svg.R:23:3
+  4.     └─vdiffr:::print_plot.default(plot, title) at vdiffr/R/svg.R:27:3
+  5.       ├─base::print(p) at vdiffr/R/svg.R:32:3
+  6.       └─cctu:::print.km_ggplot(p)
+  7.         ├─base::plot(...) at cctu/R/km_ggplot.R:232:3
+  8.         └─patchwork:::plot.patchwork(...)
+  9.           └─patchwork:::build_patchwork(plot, plot$layout$guides %||% "auto") at patchwork/R/plot_patchwork.R:20:3
+ 10.             └─base::lapply(x$plots, plot_table, guides = guides) at patchwork/R/plot_patchwork.R:158:3
+ 11.               ├─patchwork (local) FUN(X[[i]], ...)
+ 12.               └─patchwork:::plot_table.ggplot(X[[i]], ...) at patchwork/R/plot_patchwork.R:294:3
+ 13.                 └─ggplot2::ggplotGrob(x) at patchwork/R/plot_patchwork.R:299:3
+ 14.                   ├─ggplot2::ggplot_gtable(ggplot_build(x)) at ggplot2/R/plot-build.R:295:3
+ 15.                   └─ggplot2:::ggplot_gtable.ggplot_built(ggplot_build(x)) at ggplot2/R/plot-build.R:182:3
+ 16.                     └─ggplot2:::by_layer(...) at ggplot2/R/plot-build.R:192:3
+ 17.                       ├─rlang::try_fetch(...) at ggplot2/R/plot-build.R:302:3
+ 18.                       │ ├─base::tryCatch(...) at rlang/R/cnd-handlers.R:206:3
+ 19.                       │ │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 20.                       │ │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 21.                       │ │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 22.                       │ └─base::withCallingHandlers(...)
+ 23.                       └─ggplot2 (local) f(l = layers[[i]], d = data[[i]]) at ggplot2/R/plot-build.R:304:7
+ 24.                         └─l$draw_geom(d, layout) at ggplot2/R/plot-build.R:192:3
+ 25.                           └─ggplot2 (local) draw_geom(..., self = self) at ggplot2/R/ggproto.R:197:17
+ 26.                             └─self$geom$handle_na(data, self$computed_geom_params) at ggplot2/R/layer.R:460:5
+ 27.                               └─ggplot2 (local) handle_na(..., self = self) at ggplot2/R/ggproto.R:197:17
+ 28.                                 └─cli::cli_warn(...) at ggplot2/R/geom-path.R:146:7
+── Warning ('test_km_plot.R:37:3'): produce different flavour of plot ──────────
+Adding new file snapshot: 'tests/testthat/_snaps/Linux/labs.svg'
+── Warning ('test_labels.R:1:1'): (code run outside of `test_that()`) ──────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("test functions variable label related functions") at test_labels.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'dplyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/dplyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/dplyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'xml2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/xml2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/xml2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'magrittr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/magrittr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/magrittr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'readxl' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readxl",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readxl"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:3:1'): (code run outside of `test_that()`) ──────────
+package 'testthat' found more than once, using the first from
+  "/home/runner/work/_temp/Library/testthat",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/testthat"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:3:1
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:58:1'): (code run outside of `test_that()`) ─────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("test functions variable value label related functions") at test_labels.R:58:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_labels.R:93:1'): (code run outside of `test_that()`) ─────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("test functions drop labels") at test_labels.R:93:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'dplyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/dplyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/dplyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'xml2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/xml2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/xml2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'magrittr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/magrittr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/magrittr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'readxl' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readxl",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readxl"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_labels.R:96:3'): Label/labls attributes ──────────────────────
+package 'testthat' found more than once, using the first from
+  "/home/runner/work/_temp/Library/testthat",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/testthat"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_labels.R:96:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_library_description.R:12:3'): library_description ────────────
+package 'tzdb' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tzdb",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tzdb"
+Backtrace:
+     ▆
+  1. ├─testthat::expect_contains(cctu::library_description(), "tidyverse") at test_library_description.R:12:3
+  2. │ └─testthat::quasi_label(enquo(object), arg = "object") at testthat/R/expect-setequal.R:128:3
+  3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+  4. ├─cctu::library_description() at rlang/R/eval.R:96:3
+  5. │ └─base::lapply(mylibs, library, character.only = TRUE) at cctu/R/library_description.R:16:5
+  6. │   └─base (local) FUN(X[[i]], ...)
+  7. │     ├─base::tryCatch(...)
+  8. │     │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+  9. │     │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 10. │     │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 11. │     └─base::attachNamespace(ns, pos = pos, deps, exclude, include.only)
+ 12. │       └─base (local) runHook(".onAttach", ns, dirname(nspath), nsname)
+ 13. │         ├─base::tryCatch(fun(libname, pkgname), error = identity)
+ 14. │         │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 15. │         │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 16. │         │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 17. │         └─tidyverse (local) fun(libname, pkgname)
+ 18. │           └─tidyverse:::tidyverse_attach() at tidyverse/R/zzz.R:2:3
+ 19. │             ├─base::suppressPackageStartupMessages(lapply(to_load, same_library)) at tidyverse/R/attach.R:18:3
+ 20. │             │ └─base::withCallingHandlers(expr, packageStartupMessage = function(c) tryInvokeRestart("muffleMessage"))
+ 21. │             └─base::lapply(to_load, same_library) at tidyverse/R/attach.R:18:3
+ 22. │               └─tidyverse (local) FUN(X[[i]], ...)
+ 23. │                 └─base::library(pkg, lib.loc = loc, character.only = TRUE, warn.conflicts = FALSE) at tidyverse/R/attach.R:12:3
+ 24. │                   ├─base::tryCatch(...)
+ 25. │                   │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 26. │                   │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 27. │                   │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 28. │                   └─base::loadNamespace(package, lib.loc)
+ 29. │                     └─base (local) runHook(".onLoad", env, package.lib, package)
+ 30. │                       ├─base::tryCatch(fun(libname, pkgname), error = identity)
+ 31. │                       │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 32. │                       │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 33. │                       │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 34. │                       └─readr (local) fun(libname, pkgname)
+ 35. └─base::loadNamespace(x) at readr/R/zzz.R:3:3
+ 36.   └─base (local) runHook(".onLoad", env, package.lib, package)
+ 37.     ├─base::tryCatch(fun(libname, pkgname), error = identity)
+ 38.     │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+ 39.     │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 40.     │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 41.     └─tzdb (local) fun(libname, pkgname)
+ 42.       └─tzdb:::tzdb_path(type = "text") at tzdb/R/zzz.R:4:3
+ 43.         └─base::system.file("tzdata", package = "tzdb", mustWork = TRUE) at tzdb/R/path.R:19:3
+ 44.           └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:3:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(...) at test_macro_utils.R:3:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:6:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:6:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:7:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:7:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:41:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:41:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:42:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:42:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:49:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:49:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:50:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:50:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:57:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:57:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:58:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:58:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:65:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:65:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:66:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:66:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:73:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu")) at test_macro_utils.R:73:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_dlu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:74:3'): Apply DLU and CLU files ────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu")) at test_macro_utils.R:74:3
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "pilotdata_clu.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_macro_utils.R:175:3'): Test date conversion ──────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(df$dmy_part, dat$dmy.part) at test_macro_utils.R:175:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_macro_utils.R:177:3'): Test date conversion ──────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(df$mdy_time, "Date") at test_macro_utils.R:177:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_macro_utils.R:178:3'): Test date conversion ──────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(df$dmy, "Date") at test_macro_utils.R:178:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_macro_utils.R:186:3'): Test date conversion ──────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(df$mdy_time, "POSIXct") at test_macro_utils.R:186:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_macro_utils.R:187:3'): Test date conversion ──────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(df$mdy, "character") at test_macro_utils.R:187:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_macro_utils.R:188:3'): Test date conversion ──────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(df$mdy, dat$mdy) at test_macro_utils.R:188:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_macro_utils.R:189:3'): Test date conversion ──────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(df$dmy, "Date") at test_macro_utils.R:189:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_merge_data.r:2:1'): (code run outside of `test_that()`) ──────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(...) at test_merge_data.r:2:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_A.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_merge_data.r:5:1'): (code run outside of `test_that()`) ──────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(...) at test_merge_data.r:5:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_B.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_merge_data.r:10:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "test_A_DLU.csv", package = "cctu")) at test_merge_data.r:10:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_A_DLU.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_merge_data.r:11:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "test_B_DLU.csv", package = "cctu")) at test_merge_data.r:11:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_B_DLU.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_merge_data.r:12:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "test_A_CLU.csv", package = "cctu")) at test_merge_data.r:12:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_A_CLU.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_merge_data.r:13:1'): (code run outside of `test_that()`) ─────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(system.file("extdata", "test_B_CLU.csv", package = "cctu")) at test_merge_data.r:13:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "test_B_CLU.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:6:1'): (code run outside of `test_that()`) ────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test output options") at test_options2.R:6:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_options2.R:8:1'): (code run outside of `test_that()`) ────────
+package 'testthat' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(testthat) at test_options2.R:8:1
+── Warning ('test_options2.R:9:1'): (code run outside of `test_that()`) ────────
+package 'readxl' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(readxl) at test_options2.R:9:1
+── Warning ('test_options2.R:10:1'): (code run outside of `test_that()`) ───────
+package 'magrittr' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(magrittr) at test_options2.R:10:1
+── Warning ('test_options2.R:24:1'): (code run outside of `test_that()`) ───────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─... %>% clean_names() at test_options2.R:24:1
+  2. ├─cctu::clean_names(.) at magrittr/R/pipe.R:136:3
+  3. │ └─cctu::clean_string(names(df)) at cctu/R/clean_names.R:29:3
+  4. │   └─... %>% trimws() at cctu/R/clean_names.R:52:3
+  5. ├─base::trimws(.) at magrittr/R/pipe.R:136:3
+  6. │ ├─base (local) mysub(...)
+  7. │ │ └─base::sub(re, "", x, perl = TRUE)
+  8. │ │   └─base::is.factor(x)
+  9. │ └─base (local) mysub(paste0("^", whitespace, "+"), x)
+ 10. │   └─base::sub(re, "", x, perl = TRUE)
+ 11. │     └─base::is.factor(x)
+ 12. ├─base::gsub("_$", "", .)
+ 13. │ └─base::is.factor(x)
+ 14. ├─base::gsub("^_", "", .)
+ 15. │ └─base::is.factor(x)
+ 16. ├─base::gsub("_+", "_", .)
+ 17. │ └─base::is.factor(x)
+ 18. ├─base::gsub("\\.", "_", .)
+ 19. │ └─base::is.factor(x)
+ 20. ├─base::gsub("/", "_", .)
+ 21. │ └─base::is.factor(x)
+ 22. ├─base::gsub("-", "_", .)
+ 23. │ └─base::is.factor(x)
+ 24. ├─base::gsub("\\s+", "_", .)
+ 25. │ └─base::is.factor(x)
+ 26. ├─base::tolower(.)
+ 27. ├─base::as.data.frame(., stringsAsFactors = FALSE) at cctu/R/clean_names.R:29:3
+ 28. ├─readxl::read_excel(...)
+ 29. │ └─readxl:::check_file(path) at readxl/R/read_excel.R:126:3
+ 30. │   └─readxl:::is_string(path) at readxl/R/utils.R:2:3
+ 31. └─base::system.file("extdata", "meta_table.xlsx", package = "cctu") at readxl/R/read_excel.R:126:3
+ 32.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:80:3'): (code run outside of `test_that()`) ───────
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot() at test_options2.R:80:3
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_options2.R:80:3'): (code run outside of `test_that()`) ───────
+'.reserved' does not exist. All objects in <environment: 0x55d6fd5392e0> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot() at test_options2.R:80:3
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_options2.R:93:1'): (code run outside of `test_that()`) ───────
+cannot remove file 'backup_image.Rdata', reason 'No such file or directory'
+Backtrace:
+    ▆
+ 1. └─base::file.remove("backup_image.Rdata") at test_options2.R:93:1
+── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
+invalid values for 'item' converted to 'table'
+Backtrace:
+    ▆
+ 1. └─cctu::set_meta_table(meta_table)
+ 2.   └─cctu:::clean_meta_table(meta_table) at cctu/R/meta_table_functions.R:22:5
+── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
+invalid values for 'orientation' converted to 'portrait'
+Backtrace:
+    ▆
+ 1. └─cctu::set_meta_table(meta_table)
+ 2.   └─cctu:::clean_meta_table(meta_table) at cctu/R/meta_table_functions.R:22:5
+── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.1.2")
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(fig, format = "png")
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 5.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_options2.R:95:1'): (code run outside of `test_that()`) ───────
+'.reserved' does not exist. All objects in <environment: 0x55d6f63fe840> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_ggplot(fig, format = "png")
+ 2.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+ 3.   └─cctu (local) `<fn>`(...)
+ 4.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_options2.R:121:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_options2.R:121:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::create_word_xml(...) at rlang/R/eval.R:96:3
+  8.   ├─base::file.copy(...) at cctu/R/create_word_xml.R:86:3
+  9.   └─base::system.file("extdata", "header.txt", package = "cctu") at cctu/R/create_word_xml.R:86:3
+ 10.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:121:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_options2.R:121:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::create_word_xml(...) at rlang/R/eval.R:96:3
+  8.   ├─xml2::read_xml(xslt_file) at cctu/R/create_word_xml.R:221:3
+  9.   └─base::system.file("extdata", "to_word.xslt", package = "cctu") at cctu/R/create_word_xml.R:221:3
+ 10.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   ├─base::file.copy(...) at cctu/R/write_docx.R:67:3
+ 3.   └─base::system.file("assets/wordfiles", package = "cctu") at cctu/R/write_docx.R:67:3
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─base::system.file("assets", "core.xml", package = "cctu") at cctu/R/write_docx.R:106:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─base::system.file("assets", "[Content_Types].xml", package = "cctu") at cctu/R/write_docx.R:121:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─base::system.file("assets", "document.xml.rels", package = "cctu") at cctu/R/write_docx.R:125:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_options2.R:133:3'): create snapshots ─────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_options2.R:133:3
+ 2.   └─base::system.file("assets", "document.xslt", package = "cctu") at cctu/R/write_docx.R:331:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_order_dewey.R:1:1'): (code run outside of `test_that()`) ─────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("test order_dewey") at test_order_dewey.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_p_format.R:1:1'): (code run outside of `test_that()`) ────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test p_format") at test_p_format.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_p_format.R:6:3'): regular usage ──────────────────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(p, c("<0.001", " 0.451")) at test_p_format.R:6:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_propercase.R:2:1'): (code run outside of `test_that()`) ──────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("propercase") at test_propercase.R:2:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_propercase.R:3:1'): (code run outside of `test_that()`) ──────
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_propercase.R:3:1
+── Warning ('test_propercase.R:4:1'): (code run outside of `test_that()`) ──────
+package 'testthat' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(testthat) at test_propercase.R:4:1
+── Warning ('test_rbind_space.R:1:1'): (code run outside of `test_that()`) ─────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("rbind_space") at test_rbind_space.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_rbind_space.R:2:1'): (code run outside of `test_that()`) ─────
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_rbind_space.R:2:1
+── Warning ('test_rbind_space.R:6:3'): try different classes of object ─────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(rbind_space(x, x), "matrix") at test_rbind_space.R:6:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_rbind_space.R:8:3'): try different classes of object ─────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(rbind_space(x, x), "data.frame") at test_rbind_space.R:8:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_rbind_space.R:12:3'): try different classes of object ────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(rbind_space(x, x), "matrix") at test_rbind_space.R:12:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_rbind_space.R:14:3'): try different classes of object ────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(rbind_space(x, x), "matrix") at test_rbind_space.R:14:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_rbind_space.R:33:3'): mixture of matrix and 1-d character ────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(Reduce(rbind_space, list(a, b, c, d)), "matrix") at test_rbind_space.R:33:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_read_data.R:1:1'): (code run outside of `test_that()`) ───────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("read_data") at test_read_data.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_read_data.R:3:1'): (code run outside of `test_that()`) ───────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─base::data.frame(...) at test_read_data.R:3:1
+ 2. └─base::system.file("extdata", package = "cctu")
+ 3.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_read_data.R:17:3'): basic case ───────────────────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(data_table_summary(data_table), "data.frame") at test_read_data.R:17:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_read_data.R:56:3'): interaction with apply_macro_dict ────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─base::data.frame(...) at test_read_data.R:56:3
+ 2. └─base::system.file("extdata", package = "cctu")
+ 3.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_regression_table.R:2:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Testing the regression table functions") at test_regression_table.R:2:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_regression_table.R:83:3'): coxph regression ──────────────────
+package 'survival' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(survival) at test_regression_table.R:83:3
+── Warning ('test_remove_rows_cols.R:1:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test remove_blank_rows_cols") at test_remove_rows_cols.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_remove_rows_cols.R:4:1'): (code run outside of `test_that()`) ──
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(...) at test_remove_rows_cols.R:4:1
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "dirtydata.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_remove_rows_cols.R:17:5'): rows and cols alone ───────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. ├─utils::read.csv(...) at test_remove_rows_cols.R:17:5
+ 2. │ └─utils::read.table(...)
+ 3. └─base::system.file("extdata", "dirtydata.csv", package = "cctu")
+ 4.   └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'gee' found more than once, using the first from
+  "/home/runner/work/_temp/Library/gee",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/gee"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'lubridate' found more than once, using the first from
+  "/home/runner/work/_temp/Library/lubridate",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/lubridate"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'forcats' found more than once, using the first from
+  "/home/runner/work/_temp/Library/forcats",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/forcats"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'stringr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/stringr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/stringr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'purrr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/purrr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/purrr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'readr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'tidyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tidyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tidyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'tibble' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tibble",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tibble"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'ggplot2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/ggplot2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/ggplot2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'tidyverse' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tidyverse",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tidyverse"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'eudract' found more than once, using the first from
+  "/home/runner/work/_temp/Library/eudract",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/eudract"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'consort' found more than once, using the first from
+  "/home/runner/work/_temp/Library/consort",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/consort"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'dplyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/dplyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/dplyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'xml2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/xml2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/xml2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'magrittr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/magrittr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/magrittr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'readxl' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readxl",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readxl"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:4:3'): Numeric ─────────────────────────────────
+package 'testthat' found more than once, using the first from
+  "/home/runner/work/_temp/Library/testthat",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/testthat"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:4:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'gee' found more than once, using the first from
+  "/home/runner/work/_temp/Library/gee",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/gee"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'lubridate' found more than once, using the first from
+  "/home/runner/work/_temp/Library/lubridate",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/lubridate"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'forcats' found more than once, using the first from
+  "/home/runner/work/_temp/Library/forcats",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/forcats"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'stringr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/stringr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/stringr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'purrr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/purrr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/purrr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'readr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'tidyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tidyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tidyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'tibble' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tibble",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tibble"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'ggplot2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/ggplot2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/ggplot2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'tidyverse' found more than once, using the first from
+  "/home/runner/work/_temp/Library/tidyverse",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/tidyverse"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'eudract' found more than once, using the first from
+  "/home/runner/work/_temp/Library/eudract",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/eudract"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'consort' found more than once, using the first from
+  "/home/runner/work/_temp/Library/consort",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/consort"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'dplyr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/dplyr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/dplyr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'xml2' found more than once, using the first from
+  "/home/runner/work/_temp/Library/xml2",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/xml2"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'magrittr' found more than once, using the first from
+  "/home/runner/work/_temp/Library/magrittr",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/magrittr"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'readxl' found more than once, using the first from
+  "/home/runner/work/_temp/Library/readxl",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/readxl"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_render_stat.R:63:3'): Character ──────────────────────────────
+package 'testthat' found more than once, using the first from
+  "/home/runner/work/_temp/Library/testthat",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/testthat"
+Backtrace:
+    ▆
+ 1. └─utils::data(mtcars) at test_render_stat.R:63:3
+ 2.   └─base::find.package(package, lib.loc, verbose = verbose)
+── Warning ('test_rm_envir.R:3:1'): (code run outside of `test_that()`) ────────
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_rm_envir.R:3:1
+── Warning ('test_rm_envir.R:5:1'): (code run outside of `test_that()`) ────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test rm_envir") at test_rm_envir.R:5:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_run_batch.R:2:1'): (code run outside of `test_that()`) ───────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("run_batch") at test_run_batch.R:2:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_run_batch.R:4:1'): (code run outside of `test_that()`) ───────
+package 'testthat' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(testthat) at test_run_batch.R:4:1
+── Warning ('test_run_batch.R:19:3'): basic test ───────────────────────────────
+Make certain you only have the project open on one computer
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_run_batch.R:19:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::run_batch(normalizePath("script_to_test_run_batch.R")) at rlang/R/eval.R:96:3
+── Warning ('test_sumby.R:7:1'): (code run outside of `test_that()`) ───────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Test sumby") at test_sumby.R:7:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_sumby.R:32:1'): (code run outside of `test_that()`) ──────────
+The `code` argument to `test_that()` must be a braced expression to get accurate file-line information for failures.
+Backtrace:
+    ▆
+ 1. └─testthat::test_that(...) at test_sumby.R:32:1
+── Warning ('test_sumby.R:32:1'): continuous variable ──────────────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(answer, X_age[2, "A"])
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_sumby.R:42:3'): categorical ──────────────────────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(...) at test_sumby.R:42:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_sumby.R:43:3'): categorical ──────────────────────────────────
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(...) at test_sumby.R:43:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_sumby.R:46:1'): (code run outside of `test_that()`) ──────────
+The `code` argument to `test_that()` must be a braced expression to get accurate file-line information for failures.
+Backtrace:
+    ▆
+ 1. └─testthat::test_that(...) at test_sumby.R:46:1
+── Warning ('test_sumby.R:54:3'): arm as factor or character ───────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(...) at test_sumby.R:54:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_sumby.R:56:3'): arm as factor or character ───────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(...) at test_sumby.R:56:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_sumby.R:62:3'): sumfig direct ────────────────────────────────
+`expect_is()` was deprecated in the 3rd edition.
+i Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead
+Backtrace:
+    ▆
+ 1. └─testthat::expect_is(fig, "gg") at test_sumby.R:62:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_is()", "Use `expect_type()`, `expect_s3_class()`, or `expect_s4_class()` instead") at testthat/R/expect-inheritance.R:174:3
+── Warning ('test_sumby.R:95:3'): case with binary endpoint and just want one of the rows ──
+`expect_equivalent()` was deprecated in the 3rd edition.
+i Use expect_equal(ignore_attr = TRUE)
+Backtrace:
+    ▆
+ 1. └─testthat::expect_equivalent(X["Statistics"], "Female") at test_sumby.R:95:3
+ 2.   └─testthat:::edition_deprecate(3, "expect_equivalent()", "Use expect_equal(ignore_attr = TRUE)") at testthat/R/expect-equality.R:160:3
+── Warning ('test_to_factor.R:1:1'): (code run outside of `test_that()`) ───────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("Vector type conversion") at test_to_factor.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_utf8.R:1:1'): (code run outside of `test_that()`) ────────────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("utf8") at test_utf8.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_utf8.R:6:1'): (code run outside of `test_that()`) ────────────
+package 'cctu' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(cctu) at test_utf8.R:6:1
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 2 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 5 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 8 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 2 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 5 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:13:5'): check inputs for detection ────────────────────
+input string 8 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:13:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df[rep(69:71, 3), rep(2:4, 2)]) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:14:5'): check inputs for detection ────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:14:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:14:5'): check inputs for detection ────────────────────
+input string 70 is invalid
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_equal(...) at test_utf8.R:14:5
+ 2. │ └─testthat::quasi_label(enquo(object), label, arg = "object") at testthat/R/expect-equality.R:62:3
+ 3. │   └─rlang::eval_bare(expr, quo_get_env(quo)) at testthat/R/quasi-label.R:45:3
+ 4. └─cctu::detect_invalid_utf8(ae_df) at rlang/R/eval.R:96:3
+ 5.   └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 6.     └─cctu (local) FUN(X[[i]], ...)
+ 7.       └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
+unable to translate 'Lip swelling and <85>papular rash' to a wide string
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::write_table(ae_df, number = "1.10") at rlang/R/eval.R:96:3
+  8.   └─cctu:::table_data(X, heading, na_to_empty) at cctu/R/write_table.R:60:5
+  9.     └─cctu::detect_invalid_utf8(X) at cctu/R/write_table.R:125:5
+ 10.       └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 11.         └─cctu (local) FUN(X[[i]], ...)
+ 12.           └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
+input string 70 is invalid
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::write_table(ae_df, number = "1.10") at rlang/R/eval.R:96:3
+  8.   └─cctu:::table_data(X, heading, na_to_empty) at cctu/R/write_table.R:60:5
+  9.     └─cctu::detect_invalid_utf8(X) at cctu/R/write_table.R:125:5
+ 10.       └─base::lapply(data, invalid_utf8_) at cctu/R/utf8.R:18:3
+ 11.         └─cctu (local) FUN(X[[i]], ...)
+ 12.           └─base::grepl(" ", x) at cctu/R/utf8.R:54:3
+── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
+.reserved not found
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(ae_df, number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 9.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
+'.reserved' does not exist. All objects in <environment: 0x55d6fc9c9d38> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(ae_df, number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+── Warning ('test_utf8.R:40:3'): write_table warning ───────────────────────────
+No population was detached
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_utf8.R:40:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(ae_df, number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 9.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_utf8.R:45:3'): write_table warning ───────────────────────────
+object '.parent' not found
+Backtrace:
+    ▆
+ 1. └─base::rm(.old_meta, .parent) at test_utf8.R:45:3
+── Warning ('test_write_ggplot.R:1:1'): (code run outside of `test_that()`) ────
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("testing write_ggplot") at test_write_ggplot.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_write_ggplot.R:11:3'): alternative dimension ─────────────────
+.reserved not found
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_write_ggplot.R:11:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::write_ggplot(fig, number = "1.10", directory = ".", units = "inches") at rlang/R/eval.R:96:3
+  8.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+  9.   └─cctu (local) `<fn>`(...)
+ 10.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 11.       └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_ggplot.R:11:3'): alternative dimension ─────────────────
+'.reserved' does not exist. All objects in <environment: 0x55d6f348dd20> will be removed by clean_up().
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_write_ggplot.R:11:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::write_ggplot(fig, number = "1.10", directory = ".", units = "inches") at rlang/R/eval.R:96:3
+  8.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+  9.   └─cctu (local) `<fn>`(...)
+ 10.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_write_ggplot.R:11:3'): alternative dimension ─────────────────
+No population was detached
+Backtrace:
+     ▆
+  1. ├─testthat::expect_warning(...) at test_write_ggplot.R:11:3
+  2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+  3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+  4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+  5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+  6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+  7. └─cctu::write_ggplot(fig, number = "1.10", directory = ".", units = "inches") at rlang/R/eval.R:96:3
+  8.   ├─base::do.call(write_plot, args_list) at cctu/R/write_ggplot.R:321:3
+  9.   └─cctu (local) `<fn>`(...)
+ 10.     └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 11.       └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_ggplot.R:23:3'): alternative dimension ─────────────────
+cannot remove file 'fig_1.10.eps', reason 'No such file or directory'
+Backtrace:
+    ▆
+ 1. └─base::file.remove("fig_1.10.eps") at test_write_ggplot.R:23:3
+── Warning ('test_write_ggplot.R:66:3'): test write_plot ───────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(...) at test_write_ggplot.R:66:3
+── Warning ('test_write_ggplot.R:76:3'): test write_plot ───────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(...) at test_write_ggplot.R:76:3
+── Warning ('test_write_ggplot.R:84:3'): test write_plot ───────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(...) at test_write_ggplot.R:84:3
+── Warning ('test_write_ggplot.R:95:3'): test write_plot ───────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig, number = "1.10", clean_up = FALSE) at test_write_ggplot.R:95:3
+── Warning ('test_write_ggplot.R:99:3'): test write_plot ───────────────────────
+cannot remove file 'Output/Figures/fig_1.10.pdf', reason 'No such file or directory'
+Backtrace:
+    ▆
+ 1. └─base::file.remove("Output/Figures/fig_1.10.pdf") at test_write_ggplot.R:99:3
+── Warning ('test_write_ggplot.R:101:3'): test write_plot ──────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig, number = "1.10", format = c("pdf"), clean_up = FALSE) at test_write_ggplot.R:101:3
+── Warning ('test_write_ggplot.R:105:3'): test write_plot ──────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_error(...) at test_write_ggplot.R:105:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:117:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_plot(fig, number = "1.10", format = "tiff", clean_up = FALSE) at rlang/R/eval.R:96:3
+── Warning ('test_write_ggplot.R:109:3'): test write_plot ──────────────────────
+package 'survival' already present in search()
+Backtrace:
+    ▆
+ 1. └─base::library(survival) at test_write_ggplot.R:109:3
+── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
+Unable to identify the code file that created figure 1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
+── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
+semi-transparency is not supported on this device: reported only once per page
+Backtrace:
+     ▆
+  1. ├─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
+  2. │ ├─base::do.call(plot_fn, plot_args) at cctu/R/write_ggplot.R:260:5
+  3. │ ├─base (local) `<fn>`(`<km_ggplt>`)
+  4. │ └─cctu:::plot.km_ggplot(`<km_ggplt>`)
+  5. │   ├─base::plot(...) at cctu/R/km_ggplot.R:232:3
+  6. │   └─patchwork:::plot.patchwork(...)
+  7. │     ├─base::tryCatch(...) at patchwork/R/plot_patchwork.R:33:3
+  8. │     │ └─base (local) tryCatchList(expr, classes, parentenv, handlers)
+  9. │     │   └─base (local) tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 10. │     │     └─base (local) doTryCatch(return(expr), name, parentenv, handler)
+ 11. │     ├─grid::grid.draw(gtable) at patchwork/R/plot_patchwork.R:33:3
+ 12. │     └─grid:::grid.draw.gTree(gtable)
+ 13. │       └─grDevices::recordGraphics(drawGTree(x), list(x = x), getNamespace("grid"))
+ 14. ├─grid:::drawGTree(x)
+ 15. │ ├─grid::grid.draw(x$children[[i]], recording = FALSE)
+ 16. │ └─grid:::grid.draw.gTree(x$children[[i]], recording = FALSE)
+ 17. │   └─grDevices::recordGraphics(drawGTree(x), list(x = x), getNamespace("grid"))
+ 18. ├─grid:::drawGTree(x)
+ 19. │ ├─grid::grid.draw(x$children[[i]], recording = FALSE)
+ 20. │ └─grid:::grid.draw.gTree(x$children[[i]], recording = FALSE)
+ 21. │   └─grDevices::recordGraphics(drawGTree(x), list(x = x), getNamespace("grid"))
+ 22. ├─grid:::drawGTree(x)
+ 23. │ ├─grid::grid.draw(x$children[[i]], recording = FALSE)
+ 24. │ └─grid:::grid.draw.gTree(x$children[[i]], recording = FALSE)
+ 25. │   └─grDevices::recordGraphics(drawGTree(x), list(x = x), getNamespace("grid"))
+ 26. ├─grid:::drawGTree(x)
+ 27. │ ├─grid::grid.draw(x$children[[i]], recording = FALSE)
+ 28. │ └─grid:::grid.draw.gTree(x$children[[i]], recording = FALSE)
+ 29. │   └─grDevices::recordGraphics(drawGTree(x), list(x = x), getNamespace("grid"))
+ 30. ├─grid:::drawGTree(x)
+ 31. │ ├─grid::grid.draw(x$children[[i]], recording = FALSE)
+ 32. │ └─grid:::grid.draw.grob(x$children[[i]], recording = FALSE)
+ 33. │   └─grDevices::recordGraphics(drawGrob(x), list(x = x), getNamespace("grid"))
+ 34. └─grid:::drawGrob(x)
+ 35.   ├─grid::drawDetails(x, recording = FALSE)
+ 36.   └─grid:::drawDetails.polygon(x, recording = FALSE)
+ 37.     └─grid:::grid.Call.graphics(C_polygon, x$x, x$y, index)
+── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
+'.reserved' does not exist. All objects in <environment: 0x55d6f8749fc0> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+── Warning ('test_write_ggplot.R:112:3'): test write_plot ──────────────────────
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_plot(fig0, number = "1.10") at test_write_ggplot.R:112:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_ggplot.R:270:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:1:1'): (code run outside of `test_that()`) ──
+`context()` was deprecated in the 3rd edition.
+Backtrace:
+    ▆
+ 1. └─testthat::context("testing write_text and write_table") at test_write_table_text.R:1:1
+ 2.   └─testthat:::edition_deprecate(3, "context()") at testthat/R/context.R:27:3
+── Warning ('test_write_table_text.R:20:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.1
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_error(...) at test_write_table_text.R:20:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:117:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(...) at rlang/R/eval.R:96:3
+── Warning ('test_write_table_text.R:30:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.1
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:30:3
+── Warning ('test_write_table_text.R:38:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.1
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.1", directory = dir2, clean_up = FALSE) at test_write_table_text.R:38:3
+── Warning ('test_write_table_text.R:48:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.1
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.1", directory = dir3, clean_up = FALSE) at test_write_table_text.R:48:3
+── Warning ('test_write_table_text.R:59:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.1
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:59:3
+── Warning ('test_write_table_text.R:59:3'): alternative dimension for table ───
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:59:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_table_text.R:59:3'): alternative dimension for table ───
+'.reserved' does not exist. All objects in <environment: 0x55d6f9685880> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:59:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+── Warning ('test_write_table_text.R:59:3'): alternative dimension for table ───
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:59:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:69:3'): alternative dimension for table ───
+This function is no longer being maintained. Use write_docx() instead
+Backtrace:
+    ▆
+ 1. └─cctu::create_word_xml(...) at test_write_table_text.R:69:3
+── Warning ('test_write_table_text.R:69:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::create_word_xml(...) at test_write_table_text.R:69:3
+ 2.   ├─base::file.copy(...) at cctu/R/create_word_xml.R:86:3
+ 3.   └─base::system.file("extdata", "header.txt", package = "cctu") at cctu/R/create_word_xml.R:86:3
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:69:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::create_word_xml(...) at test_write_table_text.R:69:3
+ 2.   ├─xml2::read_xml(xslt_file) at cctu/R/create_word_xml.R:221:3
+ 3.   └─base::system.file("extdata", "to_word.xslt", package = "cctu") at cctu/R/create_word_xml.R:221:3
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   ├─base::file.copy(...) at cctu/R/write_docx.R:67:3
+ 3.   └─base::system.file("assets/wordfiles", package = "cctu") at cctu/R/write_docx.R:67:3
+ 4.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─base::system.file("assets", "core.xml", package = "cctu") at cctu/R/write_docx.R:106:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─base::system.file("assets", "[Content_Types].xml", package = "cctu") at cctu/R/write_docx.R:121:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─base::system.file("assets", "document.xml.rels", package = "cctu") at cctu/R/write_docx.R:125:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─cctu:::to_wml.header(report_title, meta_table[i, "section"]) at cctu/R/write_docx.R:290:5
+ 3.     └─base::system.file("assets", "header.xml", package = "cctu") at cctu/R/write_docx.R:373:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─cctu:::to_wml.footer(author, meta_table[i, "program"]) at cctu/R/write_docx.R:309:5
+ 3.     └─base::system.file("assets", "footer.xml", package = "cctu") at cctu/R/write_docx.R:388:3
+ 4.       └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:78:3'): alternative dimension for table ───
+package 'cctu' found more than once, using the first from
+  "/home/runner/work/cctu/cctu/check/cctu.Rcheck/cctu",
+  "/tmp/RtmpSRdMtG/RLIBS_21063c73ca5a/cctu"
+Backtrace:
+    ▆
+ 1. └─cctu::write_docx(...) at test_write_table_text.R:78:3
+ 2.   └─base::system.file("assets", "document.xslt", package = "cctu") at cctu/R/write_docx.R:331:3
+ 3.     └─base::find.package(package, lib.loc, quiet = TRUE)
+── Warning ('test_write_table_text.R:89:3'): alternative dimension for table ───
+Unable to identify the code file that created table1.10
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:89:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(X, number = "1.10", na_to_empty = TRUE) at rlang/R/eval.R:96:3
+── Warning ('test_write_table_text.R:89:3'): alternative dimension for table ───
+.reserved not found
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:89:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(X, number = "1.10", na_to_empty = TRUE) at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 9.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_table_text.R:89:3'): alternative dimension for table ───
+No population was detached
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:89:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_table(X, number = "1.10", na_to_empty = TRUE) at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 9.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:97:3'): alternative dimension for table ───
+.reserved not found
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:97:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_text("Hello World!", number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_text.R:56:5
+ 9.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_table_text.R:97:3'): alternative dimension for table ───
+'.reserved' does not exist. All objects in <environment: 0x55d6f9685880> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:97:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_text("Hello World!", number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_text.R:56:5
+── Warning ('test_write_table_text.R:97:3'): alternative dimension for table ───
+No population was detached
+Backtrace:
+    ▆
+ 1. ├─testthat::expect_warning(...) at test_write_table_text.R:97:3
+ 2. │ └─testthat:::expect_condition_matching(...) at testthat/R/expect-condition.R:160:5
+ 3. │   └─testthat:::quasi_capture(...) at testthat/R/expect-condition.R:266:3
+ 4. │     ├─testthat (local) .capture(...) at testthat/R/quasi-label.R:54:3
+ 5. │     │ └─base::withCallingHandlers(...) at testthat/R/expect-condition.R:366:3
+ 6. │     └─rlang::eval_bare(quo_get_expr(.quo), quo_get_env(.quo)) at testthat/R/quasi-label.R:54:3
+ 7. └─cctu::write_text("Hello World!", number = "1.10") at rlang/R/eval.R:96:3
+ 8.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_text.R:56:5
+ 9.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:104:3'): alternative dimension for table ──
+Unable to identify the code file that created table1.10
+Backtrace:
+    ▆
+ 1. ├─... %>% write_table(number = "1.10", directory = ".") at test_write_table_text.R:104:3
+ 2. └─cctu::write_table(., number = "1.10", directory = ".") at magrittr/R/pipe.R:136:3
+── Warning ('test_write_table_text.R:104:3'): alternative dimension for table ──
+.reserved not found
+Backtrace:
+    ▆
+ 1. ├─... %>% write_table(number = "1.10", directory = ".") at test_write_table_text.R:104:3
+ 2. └─cctu::write_table(., number = "1.10", directory = ".") at magrittr/R/pipe.R:136:3
+ 3.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 4.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_table_text.R:104:3'): alternative dimension for table ──
+'.reserved' does not exist. All objects in <environment: 0x55d7062b6750> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. ├─... %>% write_table(number = "1.10", directory = ".") at test_write_table_text.R:104:3
+ 2. └─cctu::write_table(., number = "1.10", directory = ".") at magrittr/R/pipe.R:136:3
+ 3.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+── Warning ('test_write_table_text.R:104:3'): alternative dimension for table ──
+No population was detached
+Backtrace:
+    ▆
+ 1. ├─... %>% write_table(number = "1.10", directory = ".") at test_write_table_text.R:104:3
+ 2. └─cctu::write_table(., number = "1.10", directory = ".") at magrittr/R/pipe.R:136:3
+ 3.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 4.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:125:3'): clean up behaviour standard code evaluation ──
+Unable to identify the code file that created table1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(Y, number = "1.10", directory = ".") at test_write_table_text.R:125:3
+── Warning ('test_write_table_text.R:125:3'): clean up behaviour standard code evaluation ──
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(Y, number = "1.10", directory = ".") at test_write_table_text.R:125:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:136:3'): Empty data ───────────────────────
+Unable to identify the code file that created table1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.10", directory = ".") at test_write_table_text.R:136:3
+── Warning ('test_write_table_text.R:136:3'): Empty data ───────────────────────
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(X, number = "1.10", directory = ".") at test_write_table_text.R:136:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+── Warning ('test_write_table_text.R:150:3'): clean up behaviour when piping ───
+Unable to identify the code file that created table1.10
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:150:3
+── Warning ('test_write_table_text.R:150:3'): clean up behaviour when piping ───
+.reserved not found
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:150:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu:::get_obj(reserved_string, frame = frame) at cctu/R/clean_up.R:19:3
+── Warning ('test_write_table_text.R:150:3'): clean up behaviour when piping ───
+'.reserved' does not exist. All objects in <environment: 0x55d7079ce568> will be removed by clean_up().
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:150:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+── Warning ('test_write_table_text.R:150:3'): clean up behaviour when piping ───
+No population was detached
+Backtrace:
+    ▆
+ 1. └─cctu::write_table(...) at test_write_table_text.R:150:3
+ 2.   └─cctu::clean_up(number, frame = parent.frame(), verbose = verbose) at cctu/R/write_table.R:72:5
+ 3.     └─cctu::detach_pop(number, verbose = verbose) at cctu/R/clean_up.R:38:3
+
+══ Failed tests ════════════════════════════════════════════════════════════════
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/_rels/document.xml.rels" to '1/document.xml.rels' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/document.new.xml.rels' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/document.xml" to '1/document.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/document.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/fontTable.xml" to '1/fontTable.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/fontTable.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/footer1.xml" to '1/footer1.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/footer1.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/footer2.xml" to '1/footer2.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/footer2.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/footer3.xml" to '1/footer3.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/footer3.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/footer4.xml" to '1/footer4.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/footer4.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/footer5.xml" to '1/footer5.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/footer5.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/header1.xml" to '1/header1.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/header1.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/header2.xml" to '1/header2.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/header2.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/header3.xml" to '1/header3.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/header3.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/header4.xml" to '1/header4.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/header4.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/header5.xml" to '1/header5.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/header5.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/settings.xml" to '1/settings.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/settings.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/styles.xml" to '1/styles.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/styles.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+── Failure ('test_1.R:179:6'): create snapshots ────────────────────────────────
+Snapshot of "/tmp/RtmpSRdMtG/working_dir/Rtmpl4by17/word/theme/theme1.xml" to '1/theme1.xml' has changed
+* Download and unzip run artifact
+* Copy 'tests/testthat/_snaps/1/theme1.new.xml' to local test directory
+* Run `testthat::snapshot_review('1/')` to review changes
+
+[ FAIL 16 | WARN 285 | SKIP 1 | PASS 387 ]
+Error: Test failures
+Execution halted
+tion halted
+IP 1 | PASS 387 ]
+Error: Test failures
+Execution halted

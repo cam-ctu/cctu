@@ -1,0 +1,74 @@
+
+<table>
+ <thead>
+<tr><th>Variable</th><th>Placebo</th><th>Research</th><th>Total</th></tr>
+</thead>
+ <tbody>
+<tr><td style='bold;bgcol;span;firstleft'>Study Visit = Baseline</td><td></td><td></td><td></td></tr>
+<tr><td style='bold;firstleft'>Observation</td><td>48</td><td>52</td><td>100</td></tr>
+<tr><td style='bold;span;firstleft'>Aspartate Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>47</td><td>52</td><td>99</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>23.4 (7.09)</td><td>23.6 (7.05)</td><td>23.5 (7.04)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>23.0 [12.0, 54.0]</td><td>21.5 [13.0, 52.0]</td><td>23.0 [12.0, 54.0]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>1 (2.1%)</td><td></td><td>1 (1.0%)</td></tr>
+<tr><td style='bold;span;firstleft'>Bilirubin (umol/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>46</td><td>51</td><td>97</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>10.0 (4.38)</td><td>11.4 (6.01)</td><td>10.8 (5.32)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>8.55 [5.13, 25.7]</td><td>10.3 [5.13, 39.3]</td><td>10.3 [5.13, 39.3]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.2%)</td><td>1 (1.9%)</td><td>3 (3.0%)</td></tr>
+<tr><td style='bold;span;firstleft'>Alanine Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>45</td><td>40</td><td>85</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>18.1 (8.01)</td><td>22.1 (13.2)</td><td>20.0 (10.9)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>16.0 [7.00, 50.0]</td><td>17.0 [8.00, 64.0]</td><td>16.0 [7.00, 64.0]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td></td><td>2 (4.8%)</td><td>2 (2.3%)</td></tr>
+<tr><td style='bold;span;firstleft'>AST range</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>High</td><td>1/47 (2.1%)</td><td>1/52 (1.9%)</td><td>2/99 (2.0%)</td></tr>
+<tr><td style='indent;firstleft'>Low</td><td>16/47 (34.0%)</td><td>15/52 (28.8%)</td><td>31/99 (31.3%)</td></tr>
+<tr><td style='indent;firstleft'>Normal</td><td>30/47 (63.8%)</td><td>36/52 (69.2%)</td><td>66/99 (66.7%)</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>1 (2.1%)</td><td></td><td>1 (1.0%)</td></tr>
+<tr><td style='bold;bgcol;span;firstleft'>Study Visit = Week 4</td><td></td><td></td><td></td></tr>
+<tr><td style='bold;firstleft'>Observation</td><td>43</td><td>44</td><td>87</td></tr>
+<tr><td style='bold;span;firstleft'>Aspartate Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>41</td><td>43</td><td>84</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>25.1 (18.4)</td><td>23.8 (6.39)</td><td>24.4 (13.6)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>23.0 [12.0, 135]</td><td>23.0 [12.0, 43.0]</td><td>23.0 [12.0, 135]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.7%)</td><td>1 (2.3%)</td><td>3 (3.4%)</td></tr>
+<tr><td style='bold;span;firstleft'>Bilirubin (umol/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>42</td><td>44</td><td>86</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>12.7 (18.2)</td><td>11.4 (6.51)</td><td>12.0 (13.5)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>8.55 [5.13, 125]</td><td>8.55 [5.13, 34.2]</td><td>8.55 [5.13, 125]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>1 (2.3%)</td><td></td><td>1 (1.1%)</td></tr>
+<tr><td style='bold;span;firstleft'>Alanine Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>39</td><td>38</td><td>77</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>18.9 (16.1)</td><td>21.6 (11.0)</td><td>20.2 (13.8)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>15.0 [7.00, 107]</td><td>20.0 [8.00, 61.0]</td><td>16.0 [7.00, 107]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td></td><td>3 (7.3%)</td><td>3 (3.8%)</td></tr>
+<tr><td style='bold;span;firstleft'>AST range</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>High</td><td>1/41 (2.4%)</td><td>1/43 (2.3%)</td><td>2/84 (2.4%)</td></tr>
+<tr><td style='indent;firstleft'>Low</td><td>11/41 (26.8%)</td><td>10/43 (23.3%)</td><td>21/84 (25.0%)</td></tr>
+<tr><td style='indent;firstleft'>Normal</td><td>29/41 (70.7%)</td><td>32/43 (74.4%)</td><td>61/84 (72.6%)</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.7%)</td><td>1 (2.3%)</td><td>3 (3.4%)</td></tr>
+<tr><td style='bold;bgcol;span;firstleft'>Study Visit = End of Treatment</td><td></td><td></td><td></td></tr>
+<tr><td style='bold;firstleft'>Observation</td><td>47</td><td>50</td><td>97</td></tr>
+<tr><td style='bold;span;firstleft'>Aspartate Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>45</td><td>48</td><td>93</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>27.4 (27.9)</td><td>23.1 (6.04)</td><td>25.2 (19.9)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>21.0 [14.0, 168]</td><td>23.0 [12.0, 39.0]</td><td>22.0 [12.0, 168]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.3%)</td><td>2 (4.0%)</td><td>4 (4.1%)</td></tr>
+<tr><td style='bold;span;firstleft'>Bilirubin (umol/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>45</td><td>46</td><td>91</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>12.5 (17.7)</td><td>11.5 (6.39)</td><td>12.0 (13.2)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>8.55 [5.13, 125]</td><td>10.3 [3.42, 30.8]</td><td>8.55 [3.42, 125]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.3%)</td><td>4 (8.0%)</td><td>6 (6.2%)</td></tr>
+<tr><td style='bold;span;firstleft'>Alanine Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>Valid Obs.</td><td>45</td><td>43</td><td>88</td></tr>
+<tr><td style='indent;firstleft'>Mean (SD)</td><td>19.6 (21.8)</td><td>19.7 (8.41)</td><td>19.6 (16.6)</td></tr>
+<tr><td style='indent;firstleft'>Median [Min, Max]</td><td>14.0 [5.00, 124]</td><td>17.0 [9.00, 43.0]</td><td>16.0 [5.00, 124]</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td></td><td>1 (2.3%)</td><td>1 (1.1%)</td></tr>
+<tr><td style='bold;span;firstleft'>AST range</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>High</td><td>3/45 (6.7%)</td><td></td><td>3/93 (3.2%)</td></tr>
+<tr><td style='indent;firstleft'>Low</td><td>16/45 (35.6%)</td><td>16/48 (33.3%)</td><td>32/93 (34.4%)</td></tr>
+<tr><td style='indent;firstleft'>Normal</td><td>26/45 (57.8%)</td><td>32/48 (66.7%)</td><td>58/93 (62.4%)</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td>2 (4.3%)</td><td>2 (4.0%)</td><td>4 (4.1%)</td></tr>
+</tbody>
+ </table>

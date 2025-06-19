@@ -12,6 +12,7 @@ permissions: read-all
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if:  github.actor != 'github-actions[bot]'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:

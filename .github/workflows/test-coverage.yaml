@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [main, master, dev]
 
+
 name: test-coverage
 
 permissions: read-all
@@ -13,6 +14,7 @@ permissions: read-all
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
+    if:  github.actor != 'github-actions[bot]'
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 

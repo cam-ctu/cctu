@@ -5,6 +5,7 @@ on:
     branches: [main, master, dev, adayim-master]
   pull_request:
     branches: [main, master, dev]
+
   workflow_dispatch:
     branches: [main, master, dev]
 
@@ -21,7 +22,7 @@ permissions:
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-
+    if:  github.actor != 'github-actions[bot]'
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="xml_to_word.xslt"
-xmlns:w="http://schemas.microsoft.com/office/word/2003/wordml"
-?>

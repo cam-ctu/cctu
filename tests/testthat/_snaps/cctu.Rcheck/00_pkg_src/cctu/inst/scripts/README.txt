@@ -1,1 +1,0 @@
-You need to mirror any changes in here in the version in the inst/scripts or ../scripts directory

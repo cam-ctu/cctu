@@ -176,9 +176,14 @@ operating_system <-    Sys.info()["sysname"]
 
   # Compare everything inside the word folder
   for (i in extract_xml(test_path("Output", "Reports", "Report_final.docx"))) {
-     expect_snapshot_file(i, variant=operating_system)
-    announce_snapshot_file(path=file.path("_snaps",operating_system,"1"), name = basename(i))
-    compare_file_text(file.path("_snaps",operating_system,"1", basename(i)), i)
+    # check if its there already and create if not
+
+     expect_snapshot_file(i, compare= compare_file_text)
+    announce_snapshot_file( name = basename(i))
+    #compare_file_text(file.path("_snaps",operating_system,"1", basename(i)), i)
+    # then produce a test fail if they aren't identical
+    # save the newer version
+
     # This will enable review the changes with a browser
     # announce_snapshot_file(name = name)
     # expect_snapshot_file(i, basename(i))

@@ -94,6 +94,7 @@ jobs:
           path: check/*.tar.gz
 
   Snaps_Update:
+    if: ${{ always() }}
     needs: R-CMD-check
 
     runs-on: ubuntu-latest

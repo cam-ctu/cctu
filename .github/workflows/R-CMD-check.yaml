@@ -25,7 +25,7 @@ permissions:
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    if:  github.actor != 'github-actions[bot]'
+
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:

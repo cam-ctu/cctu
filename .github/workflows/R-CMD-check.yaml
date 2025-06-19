@@ -3,9 +3,12 @@
 on:
   push:
     branches: [main, master, dev, adayim-master]
+    paths-ignore:
+        - 'tests/testthat/_snaps'
   pull_request:
     branches: [main, master, dev]
-
+    paths-ignore:
+        - 'tests/testthat/_snaps'
   workflow_dispatch:
     branches: [main, master, dev]
 
@@ -107,7 +110,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           merge-multiple: true
-          path: test/testthat/_snaps
+          path: tests/testthat/_snaps
       - name: Set as safe for following git commands
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 

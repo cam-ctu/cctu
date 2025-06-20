@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [main, master, dev]
 
+
 name: test-coverage
 
 permissions: read-all
@@ -13,6 +14,7 @@ permissions: read-all
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
+
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
@@ -28,6 +30,8 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
 
+
+
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
@@ -37,6 +41,11 @@ jobs:
           )
           covr::to_cobertura(cov)
         shell: Rscript {0}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: snapshot_archive_test_coverage
+          path: tests/testthat/_snaps/**/**/*
 
       - uses: codecov/codecov-action@v4
         with:

@@ -14,7 +14,7 @@ write_plot(
   units = "cm",
   clean_up = TRUE,
   directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
-  format = c("png", "postscript", "jpeg"),
+  format = getOption("cctu_fig_format", default = c("png", "eps")),
   graphics_args = NULL,
   verbose = options()$verbose,
   footnote = NULL,
@@ -48,11 +48,22 @@ end. Defaults to TRUE}
 directory. The Output directory can be over-riden with
 options("cctu_output").}
 
-\item{format}{either "jpg", "postscript", or "png" to determine the file
-type to use}
+\item{format}{either \code{"png"}, \code{"eps"}, \code{"ps"},
+\code{"pdf"}, \code{"svg"}, \code{"jpg"} or \code{"jpeg"} to determine the
+ file type to use. You can request multiple file types by providing a vector.
+ The \code{"png"} format will always be produced and saved under
+ \code{directory}, typically this is \code{Output/Figures}. All other formats
+ will be saved under a sub-folder with the format name. See details for more
+ information. You can set the default figure format by setting
+ \code{options(cctu_fig_format = c("png", "eps"))} (default).}
 
 \item{graphics_args}{a list of named arguments to supply to graphics
-function (png, postscript, jpeg)}
+function. \link[grDevices]{png} for \code{"png"}, \link[grDevices]{postscript}
+for \code{"ps"} or \code{"eps"}, \link[grDevices]{jpeg} for \code{"jpg"} and
+\code{"jpeg"}, \link[grDevices]{pdf} for \code{"pdf"}). If you have the \code{ragg}
+package installed, it will use \link[ragg]{agg_png} for \code{"png"} and
+\link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
+The \link[svglite]{svglite} is used for \code{"svg"} file.}
 
 \item{verbose}{logical to print information on changes to the global
 environment or external files. Defaults to options()$verbose.}
@@ -61,16 +72,20 @@ environment or external files. Defaults to options()$verbose.}
 
 \item{plot_args}{Deprecated, kept here for backcompatibility. A named list
 arguments for \code{plot_fn}.}
+
+\item{plot}{the plot object to save. defaults to \code{last_plot}}
 }
 \value{
-writes a copy of a plot to file fig_number.. edits the TableofTables
- object with the calling programe No return object.
+writes a copy of a plot to file fig_number. edits the TableofTables
+ object with the calling program No return object.
 }
 \description{
 One may not always use \code{ggplot2} to draw plot, base \code{plot} function for example,
 this function is particularly useful in that situation.
 }
 \details{
+## Saving a plot
+
 The \code{plot_fn} can be a user defined function to draw plot. Let us
 assume the object \code{p} is your plot object. If you can see the plot by
 simply typing \code{p} on the console, then this should be \code{print}.
@@ -78,6 +93,19 @@ If you can see the plot by simply typing \code{plot(p)} on the console,
 then this should be \code{plot}.
 
 All parameters should be passed with names. Checkout the examples below.
+
+## Figure formats
+
+You can request for multiple figure formats when saving a plot. You can save
+\code{"png"} (default), \code{"eps"}, \code{"ps"}, \code{"pdf"},
+\code{"svg"}, \code{"jpg"} and/or \code{"jpeg"} formats. The \code{"png"}
+format will always be produced to produce final Word report. The \code{"eps"},
+ \code{"ps"}, \code{"pdf"} and \code{"svg"} are vector figures and you can
+ post edit figures with tools like \href{https://inkscape.org/}{Inkscape}.
+ The \code{"svg"} is recommended if you want to modify the plots. You can then
+easily export \code{"svg"} to other formats, including \code{"eps"} and
+ \code{"ps"}, \code{"pdf"}. The \link[svglite]{svglite} is used to generate
+\code{"svg"} file.
 }
 \examples{
 \dontrun{

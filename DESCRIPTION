@@ -1,7 +1,7 @@
 Package: cctu
 Title: In-House Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.8.7
-Date: 2025-05-07
+Version: 0.8.8
+Date: 2025-06-20
 Authors@R: c(
   person("Simon", "Bond", email = "simon.bond7@nhs.net", role = c("aut", "cre")),
   person("Alimu", "Dayimu", role = "aut")
@@ -28,8 +28,9 @@ Imports:
   png, 
   rlang, 
   lifecycle, 
+  patchwork,
   survival, 
-  patchwork
+  svglite
 Suggests: 
   igraph, 
   testthat, 
@@ -50,6 +51,7 @@ Suggests:
   withr,
   tidyverse,
   consort,
+  ragg,
   eudract
 VignetteBuilder: knitr
 Repository: local-cran

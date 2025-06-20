@@ -4,7 +4,10 @@ local_create_project <- function(dir = tempdir(), env = parent.frame()) {
 
   # create new folder and package
   usethis::create_project(dir, open = FALSE) # A
-  withr::defer(fs::dir_delete(dir), envir = env) # -A
+  withr::defer(
+    unlink(dir, recursive = TRUE, force = TRUE),
+    #fs::dir_delete(dir),
+    envir = env) # -A
 
   # change working directory
   setwd(dir) # B

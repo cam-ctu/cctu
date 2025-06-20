@@ -1,3 +1,14 @@
+# cctu 0.8.8
+
+write_plot() and write_ggplot() (retired function),  now accept multiple values to
+the format argument.  The default is to create both the png format for use in a docx
+report, and also eps, saved in a subfolder, to have a format that is accepted by 
+most journals. 
+
+minor bug fixes
+
+improved unit testing locally and for CI  on github.
+
 # cctu 0.8.7
 
 Tools with `cctu_initialise` and `library_description` to record and load packages using a 

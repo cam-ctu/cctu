@@ -136,7 +136,7 @@ cttab.default <- function(x,
   .cttab.internal(
     vars = x,
     data = data,
-    group = group,
+    grouping_var = group,
     row_split = row_split,
     total = total,
     select = select,
@@ -201,7 +201,7 @@ cttab.formula <- function(x,
   .cttab.internal(
     vars = vars,
     data = data,
-    group = group,
+    grouping_var = group,
     row_split = row_split,
     total = total,
     select = select,
@@ -221,7 +221,7 @@ cttab.formula <- function(x,
 .cttab.internal <- function(
     vars,
     data,
-    group = NULL,
+    grouping_var = NULL,
     row_split = NULL,
     total = TRUE,
     select = NULL,
@@ -240,10 +240,10 @@ cttab.formula <- function(x,
   stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
 
   if (blinded) {
-    group <- NULL
+    grouping_var <- NULL
   }
 
-  vars_list <- c(unlist(vars), group, row_split)
+  vars_list <- c(unlist(vars), grouping_var, row_split)
   if (!all(vars_list %in% names(data))) {
     stop(
       "Variable ",
@@ -255,13 +255,13 @@ cttab.formula <- function(x,
   # Convert to data.table to avoid format lose.
   data <- data.table::as.data.table(data)
 
-  # Group variable to factor
-  if (!is.null(group)) {
-    # Remove missing records for group
-    data <- data[!is.na(data[[group]]), ]
+  # grouping_var variable to factor
+  if (!is.null(grouping_var)) {
+    # Remove missing records for grouping_var
+    data <- data[!is.na(data[[grouping_var]]), ]
 
-    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
+    if (has.labels(data[[grouping_var]]) || !is.factor(data[[grouping_var]])) {
+      data[[grouping_var]] <- to_factor(data[[grouping_var]], drop.levels = TRUE)
     }
   }
 
@@ -297,7 +297,7 @@ cttab.formula <- function(x,
 
         r <- stat_tab(
           vars = x,
-          group = group,
+          grouping_var = grouping_var,
           data = dat,
           total = total,
           select = select,
@@ -309,7 +309,7 @@ cttab.formula <- function(x,
           logical_na_impute = logical_na_impute
         )
 
-        # Add grouping
+        # Add grouping_varing
         if (!is_empty(names(vars)[i])) {
           to_insert <- blnk_cttab(
             row_labs = names(vars)[i],
@@ -324,7 +324,7 @@ cttab.formula <- function(x,
 
       res <- do.call(rbind, res)
 
-      # This is for logical value that has no variable name, use the grouping
+      # This is for logical value that has no variable name, use the grouping_varing
       # label as the variable name
       pos <- attr(res, "position")
       ps <- which(pos == 0 & c(pos[-1], 3) == 1)
@@ -335,7 +335,7 @@ cttab.formula <- function(x,
     } else {
       res <- stat_tab(
         vars = vars,
-        group = group,
+        grouping_var = grouping_var,
         data = dat,
         total = total,
         select = select,
@@ -349,10 +349,10 @@ cttab.formula <- function(x,
     }
 
     # Add observation row
-    if (!is.null(group)) {
-      gp_tab <- table(dat[[group]])
+    if (!is.null(grouping_var)) {
+      gp_tab <- table(dat[[grouping_var]])
       if (total) {
-        gp_tab <- c(gp_tab, "Total" = length(dat[[group]]))
+        gp_tab <- c(gp_tab, "Total" = length(dat[[grouping_var]]))
       }
 
       if (add_obs) {
@@ -373,7 +373,7 @@ cttab.formula <- function(x,
 
   # Get arguments that will be passed to plot printing
   if (print_plot) {
-    cctab_plot(vars, data, group, row_split, select)
+    cctab_plot(vars, data, grouping_var, row_split, select)
   }
 
   # If no split
@@ -459,7 +459,7 @@ cttab.formula <- function(x,
 #' @keywords internal
 
 stat_tab <- function(vars,
-                     group = NULL,
+                     grouping_var = NULL,
                      data,
                      total = TRUE,
                      select = NULL,
@@ -471,7 +471,7 @@ stat_tab <- function(vars,
                      logical_na_impute = FALSE) {
   # mf <- match.call()
 
-  vars_list <- c(unlist(vars), group)
+  vars_list <- c(unlist(vars), grouping_var)
   if (!all(vars_list %in% names(data))) {
     stop(
       "Variable ",
@@ -481,17 +481,17 @@ stat_tab <- function(vars,
   }
 
 
-  # Group variable to factor
-  if (!is.null(group)) {
-    # Select records with non-missing group and row split
-    data <- data[!is.na(data[[group]]), , drop = FALSE]
+  # grouping_var variable to factor
+  if (!is.null(grouping_var)) {
+    # Select records with non-missing grouping_var and row split
+    data <- data[!is.na(data[[grouping_var]]), , drop = FALSE]
 
-    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
+    if (has.labels(data[[grouping_var]]) || !is.factor(data[[grouping_var]])) {
+      data[[grouping_var]] <- to_factor(data[[grouping_var]], drop.levels = TRUE)
     }
   }
 
-  # Create value labels for characters variables to avoid missing levels between groups
+  # Create value labels for characters variables to avoid missing levels between grouping_vars
   convcols <- names(Filter(is.character, data))
 
   # Get variable class, make sure the class is consistent across data
@@ -515,10 +515,10 @@ stat_tab <- function(vars,
   any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
 
   # Transform data to list for loop
-  if (total && !is.null(group)) {
-    x <- c(split(data, data[[group]]), list(Total = data))
-  } else if (!is.null(group)) {
-    x <- split(data, data[[group]])
+  if (total && !is.null(grouping_var)) {
+    x <- c(split(data, data[[grouping_var]]), list(Total = data))
+  } else if (!is.null(grouping_var)) {
+    x <- split(data, data[[grouping_var]])
   } else {
     x <- list(Total = data)
   }

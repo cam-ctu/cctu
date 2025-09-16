@@ -471,6 +471,7 @@ stat_tab <- function(vars,
                      render_num = "Median [Min, Max]",
                      logical_na_impute = FALSE) {
   # mf <- match.call()
+  data <- as.data.table(data)
 
   vars_list <- c(unlist(vars), group)
   if (!all(vars_list %in% names(data))) {

@@ -136,7 +136,7 @@ cttab.default <- function(x,
   .cttab.internal(
     vars = x,
     data = data,
-    grouping_var = group,
+    group = group,
     row_split = row_split,
     total = total,
     select = select,
@@ -201,7 +201,7 @@ cttab.formula <- function(x,
   .cttab.internal(
     vars = vars,
     data = data,
-    grouping_var = group,
+    group = group,
     row_split = row_split,
     total = total,
     select = select,
@@ -221,7 +221,7 @@ cttab.formula <- function(x,
 .cttab.internal <- function(
     vars,
     data,
-    grouping_var = NULL,
+    group = NULL,
     row_split = NULL,
     total = TRUE,
     select = NULL,
@@ -240,10 +240,10 @@ cttab.formula <- function(x,
   stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
 
   if (blinded) {
-    grouping_var <- NULL
+    group <- NULL
   }
 
-  vars_list <- c(unlist(vars), grouping_var, row_split)
+  vars_list <- c(unlist(vars), group, row_split)
   if (!all(vars_list %in% names(data))) {
     stop(
       "Variable ",
@@ -255,13 +255,15 @@ cttab.formula <- function(x,
   # Convert to data.table to avoid format lose.
   data <- data.table::as.data.table(data)
 
-  # grouping_var variable to factor
-  if (!is.null(grouping_var)) {
-    # Remove missing records for grouping_var
-    data <- data[!is.na(data[[grouping_var]]), ]
+  # group variable to factor
+  if (!is.null(group)) {
+    # Remove missing records for group
+    # data <- data[!is.na(data[[group]]), ]
+    data <- eval(substitute2(subset(data, !is.na(group)),
+                             list(data = data, group = group)))
 
-    if (has.labels(data[[grouping_var]]) || !is.factor(data[[grouping_var]])) {
-      data[[grouping_var]] <- to_factor(data[[grouping_var]], drop.levels = TRUE)
+    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
+      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
     }
   }
 
@@ -289,7 +291,7 @@ cttab.formula <- function(x,
   }
 
   # Wrapped tabulation function
-  calc_tab <- function(dat) {
+  calc_tab <- function(data) {
     # If variables are not list
     if (is.list(vars)) {
       res <- lapply(seq_along(vars), function(i) {
@@ -297,8 +299,8 @@ cttab.formula <- function(x,
 
         r <- stat_tab(
           vars = x,
-          grouping_var = grouping_var,
-          data = dat,
+          group = group,
+          data = data,
           total = total,
           select = select,
           add_missing = add_missing,
@@ -335,8 +337,8 @@ cttab.formula <- function(x,
     } else {
       res <- stat_tab(
         vars = vars,
-        grouping_var = grouping_var,
-        data = dat,
+        group = group,
+        data = data,
         total = total,
         select = select,
         add_missing = add_missing,
@@ -349,10 +351,10 @@ cttab.formula <- function(x,
     }
 
     # Add observation row
-    if (!is.null(grouping_var)) {
-      gp_tab <- table(dat[[grouping_var]])
+    if (!is.null(group)) {
+      gp_tab <- table(data[[group]])
       if (total) {
-        gp_tab <- c(gp_tab, "Total" = length(dat[[grouping_var]]))
+        gp_tab <- c(gp_tab, "Total" = length(data[[group]]))
       }
 
       if (add_obs) {
@@ -373,7 +375,7 @@ cttab.formula <- function(x,
 
   # Get arguments that will be passed to plot printing
   if (print_plot) {
-    cctab_plot(vars, data, grouping_var, row_split, select)
+    cctab_plot(vars, data, group, row_split, select)
   }
 
   # If no split
@@ -450,7 +452,6 @@ cttab.formula <- function(x,
 #' of variable label. Variable name will be used if the variable does not have
 #' a variable label.
 #'
-#' @param grouping_var Name of the grouping variable.
 #'
 #' @inheritParams cttab
 #'
@@ -460,7 +461,7 @@ cttab.formula <- function(x,
 #' @keywords internal
 
 stat_tab <- function(vars,
-                     grouping_var = NULL,
+                     group = NULL,
                      data,
                      total = TRUE,
                      select = NULL,
@@ -472,7 +473,7 @@ stat_tab <- function(vars,
                      logical_na_impute = FALSE) {
   # mf <- match.call()
 
-  vars_list <- c(unlist(vars), grouping_var)
+  vars_list <- c(unlist(vars), group)
   if (!all(vars_list %in% names(data))) {
     stop(
       "Variable ",
@@ -482,13 +483,16 @@ stat_tab <- function(vars,
   }
 
 
-  # grouping_var variable to factor
-  if (!is.null(grouping_var)) {
-    # Select records with non-missing grouping_var and row split
-    data <- data[!is.na(data[[grouping_var]]), , drop = FALSE]
+  # group variable to factor
+  if (!is.null(group)) {
+    # Select records with non-missing group and row split
+    # data <- data[!is.na(data[[group]]), , drop = FALSE]
+    # DO NOT USE substitute here, it will cause problem
+    data <- eval(substitute2(subset(data, !is.na(group)),
+                             list(data = data, group = group)))
 
-    if (has.labels(data[[grouping_var]]) || !is.factor(data[[grouping_var]])) {
-      data[[grouping_var]] <- to_factor(data[[grouping_var]], drop.levels = TRUE)
+    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
+      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
     }
   }
 
@@ -516,10 +520,10 @@ stat_tab <- function(vars,
   any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
 
   # Transform data to list for loop
-  if (total && !is.null(grouping_var)) {
-    x <- c(split(data, data[[grouping_var]]), list(Total = data))
-  } else if (!is.null(grouping_var)) {
-    x <- split(data, data[[grouping_var]])
+  if (total && !is.null(group)) {
+    x <- c(split(data, data[[group]]), list(Total = data))
+  } else if (!is.null(group)) {
+    x <- split(data, data[[group]])
   } else {
     x <- list(Total = data)
   }
@@ -614,11 +618,11 @@ stat_tab <- function(vars,
 
 # Generate selection vector function
 # Evaluate the select in the data and generate a logical vector.
-gen_selec <- function(dat, var, select = NULL) {
+gen_selec <- function(data, var, select = NULL) {
   if (is.null(select) || !var %in% names(select)) {
-    return(rep(TRUE, length(dat[[var]])))
+    return(rep(TRUE, length(data[[var]])))
   } else {
-    r <- eval(str2expression(select[var]), envir = dat)
+    r <- eval(str2expression(select[var]), envir = data)
     r & !is.na(r)
   }
 }

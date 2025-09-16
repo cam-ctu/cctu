@@ -6,7 +6,7 @@
 \usage{
 stat_tab(
   vars,
-  group = NULL,
+  grouping_var = NULL,
   data,
   total = TRUE,
   select = NULL,
@@ -19,7 +19,7 @@ stat_tab(
 )
 }
 \arguments{
-\item{group}{Name of the grouping variable.}
+\item{grouping_var}{Name of the grouping variable.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}

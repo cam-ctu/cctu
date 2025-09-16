@@ -450,6 +450,7 @@ cttab.formula <- function(x,
 #' of variable label. Variable name will be used if the variable does not have
 #' a variable label.
 #'
+#' @param grouping_var Name of the grouping variable.
 #'
 #' @inheritParams cttab
 #'

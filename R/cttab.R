@@ -259,8 +259,7 @@ cttab.formula <- function(x,
   if (!is.null(group)) {
     # Remove missing records for group
     # data <- data[!is.na(data[[group]]), ]
-    data <- eval(substitute2(subset(data, !is.na(group)),
-                             list(data = data, group = group)))
+    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
     if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
       data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
@@ -487,9 +486,7 @@ stat_tab <- function(vars,
   if (!is.null(group)) {
     # Select records with non-missing group and row split
     # data <- data[!is.na(data[[group]]), , drop = FALSE]
-    # DO NOT USE substitute here, it will cause problem
-    data <- eval(substitute2(subset(data, !is.na(group)),
-                             list(data = data, group = group)))
+    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
     if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
       data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)

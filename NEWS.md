@@ -1,3 +1,5 @@
+# News Document
+
 ## cctu 0.8.8
 
 write_plot() and write_ggplot() (retired function),  now accept multiple values to
@@ -49,7 +51,6 @@ Updated Vignette
 Added write_docx() which creates directly a fully compliant OfficeOpen docx file,
 no subsequent steps needed, and it does open on the online office/word tools.
 
-
 ## cctu 0.8.1 
 
 Fixing the GitHub continuous integration. Minor fixes to rbind_space, data_table_summary
@@ -69,6 +70,6 @@ to present regression models. Minor improvements and updates to other functions 
 -	Figures are embedded in the document. No need to perform “save picture in document”.
 -	Dynamically add footnotes to the tables and figures in write_table() and write_ggplot().
 -	There’s a new function write_plot() to save figures other than the ggplot family, KM-plot from survminer for example.
--	Bug fix: headings will be used if it is provided in the write_table().
+-	Bugfix: headings will be used if it is provided in the write_table().
 - p_format will round pvalues and convert to <0.001 as a character variable.
 

@@ -1,5 +1,5 @@
 
-# README Document
+# Readme Document
 
 [![R-CMD-check](https://github.com/cam-ctu/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/cam-ctu/cctu/actions)
 [![Codecov test

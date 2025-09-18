@@ -6,16 +6,17 @@
 #' @export
 #'
 
-library_description <- function(){
+library_description <- function() {
   if (!file.exists("DESCRIPTION")) {
     warning("No DESCRIPTION file so no packages loaded")
   } else {
-    mylibs <- read.dcf("DESCRIPTION", fields="Imports") |>
+    mylibs <- read.dcf("DESCRIPTION", fields = "Imports") |>
       strsplit(",\n") |>
-      unlist( use.names = FALSE)
-    lapply( mylibs ,
-       library, character.only = TRUE
-      )
+      unlist(use.names = FALSE)
+    lapply(mylibs,
+      library,
+      character.only = TRUE
+    )
     mylibs
   }
 }

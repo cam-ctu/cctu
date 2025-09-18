@@ -255,10 +255,11 @@ cttab.formula <- function(x,
   # Convert to data.table to avoid format lose.
   data <- data.table::as.data.table(data)
 
-  # Group variable to factor
+  # group variable to factor
   if (!is.null(group)) {
     # Remove missing records for group
-    data <- data[!is.na(data[[group]]), ]
+    # data <- data[!is.na(data[[group]]), ]
+    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
     if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
       data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
@@ -289,7 +290,7 @@ cttab.formula <- function(x,
   }
 
   # Wrapped tabulation function
-  calc_tab <- function(dat) {
+  calc_tab <- function(data) {
     # If variables are not list
     if (is.list(vars)) {
       res <- lapply(seq_along(vars), function(i) {
@@ -298,7 +299,7 @@ cttab.formula <- function(x,
         r <- stat_tab(
           vars = x,
           group = group,
-          data = dat,
+          data = data,
           total = total,
           select = select,
           add_missing = add_missing,
@@ -309,7 +310,7 @@ cttab.formula <- function(x,
           logical_na_impute = logical_na_impute
         )
 
-        # Add grouping
+        # Add grouping_varing
         if (!is_empty(names(vars)[i])) {
           to_insert <- blnk_cttab(
             row_labs = names(vars)[i],
@@ -324,7 +325,7 @@ cttab.formula <- function(x,
 
       res <- do.call(rbind, res)
 
-      # This is for logical value that has no variable name, use the grouping
+      # This is for logical value that has no variable name, use the grouping_varing
       # label as the variable name
       pos <- attr(res, "position")
       ps <- which(pos == 0 & c(pos[-1], 3) == 1)
@@ -336,7 +337,7 @@ cttab.formula <- function(x,
       res <- stat_tab(
         vars = vars,
         group = group,
-        data = dat,
+        data = data,
         total = total,
         select = select,
         add_missing = add_missing,
@@ -350,9 +351,9 @@ cttab.formula <- function(x,
 
     # Add observation row
     if (!is.null(group)) {
-      gp_tab <- table(dat[[group]])
+      gp_tab <- table(data[[group]])
       if (total) {
-        gp_tab <- c(gp_tab, "Total" = length(dat[[group]]))
+        gp_tab <- c(gp_tab, "Total" = length(data[[group]]))
       }
 
       if (add_obs) {
@@ -470,6 +471,7 @@ stat_tab <- function(vars,
                      render_num = "Median [Min, Max]",
                      logical_na_impute = FALSE) {
   # mf <- match.call()
+  data <- as.data.table(data)
 
   vars_list <- c(unlist(vars), group)
   if (!all(vars_list %in% names(data))) {
@@ -481,17 +483,18 @@ stat_tab <- function(vars,
   }
 
 
-  # Group variable to factor
+  # group variable to factor
   if (!is.null(group)) {
     # Select records with non-missing group and row split
-    data <- data[!is.na(data[[group]]), , drop = FALSE]
+    # data <- data[!is.na(data[[group]]), , drop = FALSE]
+    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
     if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
       data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
     }
   }
 
-  # Create value labels for characters variables to avoid missing levels between groups
+  # Create value labels for characters variables to avoid missing levels between grouping_vars
   convcols <- names(Filter(is.character, data))
 
   # Get variable class, make sure the class is consistent across data
@@ -613,11 +616,11 @@ stat_tab <- function(vars,
 
 # Generate selection vector function
 # Evaluate the select in the data and generate a logical vector.
-gen_selec <- function(dat, var, select = NULL) {
+gen_selec <- function(data, var, select = NULL) {
   if (is.null(select) || !var %in% names(select)) {
-    return(rep(TRUE, length(dat[[var]])))
+    return(rep(TRUE, length(data[[var]])))
   } else {
-    r <- eval(str2expression(select[var]), envir = dat)
+    r <- eval(str2expression(select[var]), envir = data)
     r & !is.na(r)
   }
 }

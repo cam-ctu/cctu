@@ -1,4 +1,3 @@
-
 [![R-CMD-check](https://github.com/cam-ctu/cctu/workflows/R-CMD-check/badge.svg)](https://github.com/cam-ctu/cctu/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/cam-ctu/cctu/branch/master/graph/badge.svg)](https://codecov.io/gh/cam-ctu/cctu?branch=master)

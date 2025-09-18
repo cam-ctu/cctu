@@ -25,7 +25,7 @@ The goal of cctu is to provide tools to easily produce reports in word that take
 
 ## Installation
 
-You can install the github version of cctu with:
+You can install the GitHub version of cctu with:
 
 ``` r
 install.packages("devtools")

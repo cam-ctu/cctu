@@ -27,7 +27,7 @@ cctab_plot <- function(vars,
   if (any(logic_vars)) {
     # Extract labels
     logis_labs <- sapply(vars[logic_vars], function(x) {
-      ifelse(has.label(data[[x]]), var_lab(data[[x]]), x)
+      ifelse(has_label(data[[x]]), var_lab(data[[x]]), x)
     })
 
     if (!is.null(group) || !is.null(row_split)) {
@@ -62,13 +62,13 @@ cctab_plot <- function(vars,
 
   # Extract group and split labels
   if (!is.null(group)) {
-    gp_lab <- ifelse(has.label(data[[group]]), var_lab(data[[group]]), group)
+    gp_lab <- ifelse(has_label(data[[group]]), var_lab(data[[group]]), group)
   } else {
     gp_lab <- NULL
   }
 
   if (!is.null(row_split)) {
-    rs_lab <- ifelse(has.label(data[[row_split]]),
+    rs_lab <- ifelse(has_label(data[[row_split]]),
       var_lab(data[[row_split]]),
       row_split
     )
@@ -78,11 +78,11 @@ cctab_plot <- function(vars,
 
 
   p_list <- lapply(vars, function(v) {
-    v_lab <- ifelse(has.label(data[[v]]), var_lab(data[[v]]), v)
+    v_lab <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
 
     # Convert character to factor
-    if (v != "logic_variables" && (has.labels(data[[v]]) ||
-      is.character(data[[v]]))) {
+    if (v != "logic_variables" && (has_labels(data[[v]]) ||
+                                     is.character(data[[v]]))) {
       data[[v]] <- to_factor(data[[v]], ordered = TRUE)
     }
 
@@ -156,10 +156,7 @@ cctab_plot <- function(vars,
             theme(legend.position = "top")
         }
       }
-
-
-
-      return(p)
+      p
     }
   })
 

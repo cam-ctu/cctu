@@ -15,7 +15,7 @@
 #' @export
 
 
-rbind_space <- function(x, y, check.names = FALSE) {
+rbind_space <- function(x, y, check.names = FALSE) {# nolint: object_name_linter
   x <- tidy_input(x, check.names = check.names)
   y <- tidy_input(y, check.names = check.names)
   if (ncol(x) != ncol(y)) {
@@ -27,7 +27,7 @@ rbind_space <- function(x, y, check.names = FALSE) {
 
 #' @keywords internal
 
-tidy_input <- function(x, check.names = FALSE) {
+tidy_input <- function(x, check.names = FALSE) {# nolint: object_name_linter
   if (!inherits(x, c(
     "integer", "factor", "numeric", "character",
     "data.frame", "matrix"

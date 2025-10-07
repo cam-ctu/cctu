@@ -12,25 +12,25 @@ order_dewey <- function(x) {
     stop("Must input a character vector")
   }
   # split up the string into a list of vectors broken by decimals
-  X <- strsplit(x, "\\.")
-  check_non_numeric <- sapply(X, function(x) {
+  xx <- strsplit(x, "\\.")
+  check_non_numeric <- sapply(xx, function(x) {
     any(grepl("\\D", x))
   })
   if (any(check_non_numeric)) {
     stop("non numeric values are not allowed")
   }
   # FInd out the longest length
-  nrow <- max(sapply(X, length))
+  nrow <- max(sapply(xx, length))
   # Pad the empty elements out and return a matrix
-  X <- sapply(X, function(x) {
+  xx <- sapply(xx, function(x) {
     c(as.integer(x), rep(NA, nrow - length(x)))
   })
-  # a trick to get X technically as a list of columns, and then allow
+  # a trick to get xx technically as a list of columns, and then allow
   # order() over an arbitrary number of columns as arguments to break ties
   if (nrow > 1) {
-    X <- as.data.frame(t(X))
+    xx <- as.data.frame(t(xx))
   } else {
-    X <- as.data.frame(X)
+    xx <- as.data.frame(xx)
   }
-  do.call(order, X)
+  do.call(order, xx)
 }

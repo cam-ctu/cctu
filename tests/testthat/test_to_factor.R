@@ -25,7 +25,7 @@ test_that("Test to_factor", {
   expect_identical(
     {
       df$a[df$a == 1] <- NA
-      levels(to_factor(df$a, drop.levels = T))
+      levels(to_factor(df$a, drop_levels = TRUE))
     },
     c("b")
   )
@@ -35,7 +35,7 @@ test_that("Test to_factor", {
   expect_identical(
     {
       df$a[df$a == 1] <- ""
-      levels(to_factor(df$a, drop.levels = T))
+      levels(to_factor(df$a, drop_levels = T))
     },
     c("b")
   )

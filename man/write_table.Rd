@@ -6,7 +6,7 @@
 TableofTables}
 \usage{
 write_table(
-  X,
+  x,
   number = cctu_env$number,
   heading = NULL,
   na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
@@ -17,14 +17,14 @@ write_table(
 )
 }
 \arguments{
-\item{X}{the data.frame or table to be saved in xml format}
+\item{x}{the data.frame or table to be saved in xml format}
 
 \item{number}{the number used to as a suffix in the output filename, and to
 link to TableofTables. Default is to use the value in the cctu_env package
  environment that is set within \code{\link{attach_pop}}.}
 
 \item{heading}{character vector of column titles. Defaults to the colnames
-of X}
+of x}
 
 \item{na_to_empty}{logical, if true then any NA values will be written as
 empty strings. Defaults to false.}

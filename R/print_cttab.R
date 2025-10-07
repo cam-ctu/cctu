@@ -19,9 +19,9 @@ print.cttab <- function(x, indent = "  ", ...) {
   if (inherits(x, "matrix")) {
     align <- c("l", rep("c", ncol(x))) # Row names left align
     # Row names to column
-    col.names <- colnames(x)
+    col_names <- colnames(x)
     x <- cbind(" " = rownames(x), x)
-    colnames(x) <- c("", col.names)
+    colnames(x) <- c("", col_names)
   }
 
   # Add indents

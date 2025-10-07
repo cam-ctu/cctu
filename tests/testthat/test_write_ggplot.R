@@ -102,9 +102,9 @@ test_that("test write_plot", {
 
   expect_true(file.exists("Output/Figures/pdf/fig_1.10.pdf"))
   expect_true(file.exists("Output/Figures/fig_1.10.png"))
-  expect_error(
-    write_plot(fig, number = "1.10", format = "tiff", clean_up = FALSE)
-  )
+  write_plot(fig, number = "1.10", format = "tiff", clean_up = FALSE)
+  expect_true(file.exists("Output/Figures/tiff/fig_1.10.tiff"))
+
 
   library(survival)
   fit <- survfit(Surv(time, status) ~ rx, data = colon)

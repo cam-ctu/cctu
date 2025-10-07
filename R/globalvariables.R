@@ -25,4 +25,6 @@ cctu_env$dlu <- NULL
 # it can be mocked as per
 # https://testthat.r-lib.org/reference/local_mocked_bindings.html#base-functions
 # in the testing
-Sys.time <- NULL
+# Is this to override the date stamp in the report outputs, to allow testing
+# and direct comparison of outputs in CI/CD.
+Sys.time <- NULL # nolint: object_name_linter

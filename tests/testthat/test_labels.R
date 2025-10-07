@@ -40,7 +40,7 @@ test_that("Check assign variable lables", {
 
   expect_identical(mtcars$am_tmp, drop_lab(mtcars$am))
 
-  expect_false(has.label(mtcars$am_tmp))
+  expect_false(has_label(mtcars$am_tmp))
 
   expect_null(val_lab(mtcars))
 })
@@ -79,9 +79,9 @@ test_that("Assign value lables", {
     "d" = c(d = 3)
   ), val_lab(dd))
 
-  expect_true(has.labels(a))
+  expect_true(has_labels(a))
   a <- unval(a)
-  expect_false(has.labels(a))
+  expect_false(has_labels(a))
   expect_identical(unval(a), 1)
 
   dd <- data.frame(a = 1:3, b = 3:1, d = 3)

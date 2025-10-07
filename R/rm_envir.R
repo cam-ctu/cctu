@@ -13,12 +13,13 @@
 
 
 
-rm_envir <- function(ignore = c(
-                       ".GlobalEnv", "package:", "tools:",
-                       "Autoloads"
-                     ),
-                     verbose = options()$verbose,
-                     perl = FALSE) {
+rm_envir <- function(
+    ignore = c(
+      ".GlobalEnv", "package:", "tools:",
+      "Autoloads"
+    ),
+    verbose = options()$verbose,
+    perl = FALSE) {
   base_items <- c(
     ".GlobalEnv", "tools:rstudio", "package:stats", "package:graphics",
     "package:grDevices", "package:utils", "package:datasets",

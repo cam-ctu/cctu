@@ -74,7 +74,7 @@ test_that("interaction with apply_macro_dict", {
   expect_true("arm" %in% clean_dlu$shortcode)
 
   expect_type(dt$arm, "double")
-  expect_true(has.labels(dt$arm))
+  expect_true(has_labels(dt$arm))
   # there's no columns that are dates, to check their conversion,
   # but I'm not so bothered about these.
   read_data(my_data, colClasses = "character", clean_names = TRUE)

@@ -172,7 +172,7 @@ write_docx <- function(
       ),
       "</fontsize></heading>\n",
       sprintf(
-        "<pagesection><orientation>%s</orientation><headerid>rId%i</headerid><footerid>rId%i</footerid><margin>%s</margin></pagesection>\n",
+        "<pagesection><orientation>%s</orientation><headerid>rId%i</headerid><footerid>rId%i</footerid><margin>%s</margin></pagesection>\n",# nolint: line_length_linter
         orientation, headerid, footerid, margin
       )
     )
@@ -287,7 +287,7 @@ write_docx <- function(
     }
 
     # Write header
-    header_xml <- to_wml.header(report_title, meta_table[i, "section"])
+    header_xml <- to_wml_header(report_title, meta_table[i, "section"])
     write_xml(header_xml,
       file = file.path(output_dir, sprintf("wordfiles/word/header%i.xml", i))
     )
@@ -306,7 +306,7 @@ write_docx <- function(
     )
 
     # write footer
-    footer_xml <- to_wml.footer(author, meta_table[i, "program"])
+    footer_xml <- to_wml_footer(author, meta_table[i, "program"])
     write_xml(footer_xml,
       file = file.path(output_dir, sprintf("wordfiles/word/footer%i.xml", i))
     )
@@ -369,7 +369,7 @@ write_docx <- function(
 
 # Generate header
 #' @keywords internal
-to_wml.header <- function(report_title, section) {
+to_wml_header <- function(report_title, section) {
   con <- system.file("assets", "header.xml", package = "cctu")
 
   x <- read_xml(con)
@@ -384,7 +384,7 @@ to_wml.header <- function(report_title, section) {
 
 # Generate footer
 #' @keywords internal
-to_wml.footer <- function(author, program) {
+to_wml_footer <- function(author, program) {
   con <- system.file("assets", "footer.xml", package = "cctu")
 
   x <- read_xml(con)

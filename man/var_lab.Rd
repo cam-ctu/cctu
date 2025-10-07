@@ -4,7 +4,7 @@
 \alias{var_lab}
 \alias{var_lab.data.frame}
 \alias{var_lab<-}
-\alias{has.label}
+\alias{has_label}
 \alias{drop_lab}
 \title{Set or get variable label}
 \usage{
@@ -14,7 +14,7 @@ var_lab(x)
 
 var_lab(x) <- value
 
-has.label(x)
+has_label(x)
 
 drop_lab(x)
 }
@@ -36,7 +36,7 @@ value labels see \link{val_lab}.
 exist.}
 \item{\code{var_lab<-}}{ set variable label.}
 \item{\code{drop_lab}}{ drops variable label.}
-\item{\code{has.label}}{ check if variable label exists.}
+\item{\code{has_label}}{ check if variable label exists.}
 }
 }
 \details{

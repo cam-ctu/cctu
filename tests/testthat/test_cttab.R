@@ -30,6 +30,16 @@ test_that("Start from data reading", {
 
   df$BMIBL[df$RACEN == 6] <- NA
 
+  df$group <- df$ARM
+  expect_no_error(
+    cttab(
+      x = c("AGE", "SEX", "BMIBL"),
+      group = "group",
+      data = df,
+      select = c("BMIBL" = "RACEN != 1")
+    )
+  )
+
   X <- cttab(
     x = c("AGE", "SEX", "BMIBL"),
     group = "ARM",

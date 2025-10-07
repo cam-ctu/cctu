@@ -10,7 +10,7 @@ on:
 #    paths-ignore:
 #        - 'tests/testthat/_snaps/**'
   workflow_dispatch:
-    branches: [main, master, dev]
+
 
 name: R-CMD-check
 

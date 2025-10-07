@@ -21,7 +21,7 @@ attach_pop <- function(number,
   cctu_env$sumby_count <- 0
   popn_name <- match_population(number)
   if (length(popn_name) && popn_name != "" &&
-    exists(popn_name, where = parent.frame())) {
+        exists(popn_name, where = parent.frame())) {
     if (rm_envir) {
       rm_envir(verbose = verbose)
     }
@@ -67,5 +67,5 @@ match_population <- function(number) {
   }
   index <- match(number, meta_table$number)
   popn_name <- meta_table[index, "population"] %>% as.character()
-  return(popn_name)
+  popn_name
 }

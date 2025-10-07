@@ -67,7 +67,7 @@ render_numeric <- function(x, what = "Median [Min, Max]", ...) {
     if (!any(grepl("[[:digit:]]", i))) {
       i <- ""
     }
-    return(i)
+    i
   })
 
   c(

@@ -3,7 +3,7 @@
 \name{val_lab}
 \alias{val_lab}
 \alias{val_lab<-}
-\alias{has.labels}
+\alias{has_labels}
 \alias{unval}
 \title{Set or get value labels}
 \usage{
@@ -11,7 +11,7 @@ val_lab(x)
 
 val_lab(x) <- value
 
-has.labels(x)
+has_labels(x)
 
 unval(x)
 }
@@ -38,7 +38,7 @@ elements of data.frame/list. To drop value labels, use
 exist.}
 \item{\code{val_lab<-}}{ set value labels.}
 \item{\code{unval}}{ drops value labels.}
-\item{\code{has.labels}}{ check if value labels exists.}
+\item{\code{has_labels}}{ check if value labels exists.}
 }
 }
 \details{

@@ -44,7 +44,8 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
       recursive = TRUE
     )
     dir.create(file.path(root, "library"))
-    print("Maybe set up a Project in Rstudio and a git repository?\nCopy across or install packages in the project library, set .libPaths()?")
+    print("Maybe set up a Project in Rstudio and a git repository?
+Copy across or install packages in the project library, set .libPaths()?")
   }
 
   if (!file.exists("DESCRIPTION")) {
@@ -52,8 +53,9 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
       usethis::use_description(
         fields = list(Imports = "tidyverse,\n    eudract,\n    consort"),
         check_name = FALSE
-        )
-      message("Edit DESCRIPTION Imports: to add the packages you want to load.\nUse  library_description()  to load them all automatically")
+      )
+      message("Edit DESCRIPTION Imports: to add the packages you want to load.
+Use  library_description()  to load them all automatically")
     } else {
       warning("Recommend to create and edit a DESCRIPTION file")
     }

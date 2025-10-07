@@ -62,7 +62,7 @@ report_missing <- function(data,
   vars <- vars[any_miss]
 
   res <- lapply(vars, function(v) {
-    variable <- ifelse(has.label(data[[v]]), var_lab(data[[v]]), v)
+    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
 
     z <- data[gen_selec(data, v, select[v]), ]
 

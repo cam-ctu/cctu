@@ -28,7 +28,9 @@
 #' table will not align. There are other packages, like `ggsurvfit`,
 #' you can use to draw a KM-plot with more options.
 #'
-#' @author Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+#' @author Original taken from
+#' \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/}
+#' but modified by authors of \code{cctu} package.
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_step scale_y_continuous
 #' scale_x_continuous theme  element_text layer_scales  labs xlab ylab unit
@@ -63,7 +65,7 @@ km_ggplot <- function(sfit,
   }
 
   ldots <- list(...)
-  strata <- summary(sfit, censored = T)$strata
+  strata <- summary(sfit, censored = TRUE)$strata
 
 
 
@@ -140,7 +142,8 @@ km_ggplot <- function(sfit,
   ) +
     labs(colour = "", fill = "", linetype = "")
 
-  # https://stackoverflow.com/questions/33874909/how-do-i-add-shading-and-color-to-the-confidence-intervals-in-ggplot-2-generated
+  # https://stackoverflow.com/questions/33874909/
+  # how-do-i-add-shading-and-color-to-the-confidence-intervals-in-ggplot-2-generated
   # https://stackoverflow.com/questions/33967078/create-a-ggplot2-survival-curve-with-censored-table
   # https://rpkgs.datanovia.com/survminer/index.html
 
@@ -173,16 +176,16 @@ km_ggplot <- function(sfit,
   }
 
 
-  risk.data <- data.frame(
+  risk_data <- data.frame(
     strata = strata,
     time = summary_object$time,
     n.risk = summary_object$n.risk,
     n.event = summary_object$n.event
   )
   # take cumsum of events by strata
-  risk.data$n.event <- unlist(with(risk.data, tapply(n.event, strata, cumsum)))
-  data.table <- ggplot(
-    risk.data,
+  risk_data$n.event <- unlist(with(risk_data, tapply(n.event, strata, cumsum)))
+  data_table <- ggplot(
+    risk_data,
     aes(
       x = .data$time, y = .data$strata, colour = .data$strata,
       label = paste0(
@@ -193,14 +196,14 @@ km_ggplot <- function(sfit,
   ) +
     geom_text(size = 3.5) +
     scale_y_discrete(
-      breaks = as.character(levels(risk.data$strata)),
+      breaks = as.character(levels(risk_data$strata)),
       labels = strata_labs
     ) +
     scale_x_continuous("at risk / events", limits = xlims, position = "bottom")
 
-  data.table <- data.table + theme(legend.position = "none") +
+  data_table <- data_table + theme(legend.position = "none") +
     xlab(NULL) + ylab(NULL)
-  data.table <- data.table +
+  data_table <- data_table +
     # plot.margin reflects: top, right, bottom, and left margins
     theme(
       plot.margin = unit(c(0.5, 1, 0.5, 0.1 * m), "lines"),
@@ -210,7 +213,7 @@ km_ggplot <- function(sfit,
       panel.grid.minor = element_blank()
     )
   ### modify
-  output <- list(top = p, bottom = data.table)
+  output <- list(top = p, bottom = data_table)
   class(output) <- "km_ggplot"
 
   attr(output, "nstrata") <- length(unique(strata))

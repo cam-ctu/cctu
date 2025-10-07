@@ -2,9 +2,9 @@
 #' TableofTables
 #'
 #' @inheritParams write_ggplot
-#' @param X the data.frame or table to be saved in xml format
+#' @param x the data.frame or table to be saved in xml format
 #' @param heading character vector of column titles. Defaults to the colnames
-#' of X
+#' of x
 #' @param na_to_empty logical, if true then any NA values will be written as
 #'  empty strings. Defaults to false.
 #'
@@ -23,7 +23,7 @@
 #'  \code{\link{apply_macro_dict}}
 #' @importFrom magrittr %>% %<>%
 
-write_table <- function(X,
+write_table <- function(x,
                         number = cctu_env$number,
                         heading = NULL,
                         na_to_empty = getOption("cctu_na_to_empty",
@@ -38,26 +38,26 @@ write_table <- function(X,
                         ),
                         verbose = options()$verbose,
                         footnote = NULL) {
-  CallingProg <- cctu_env$parent[1] # get_file_name()
-  if (is.null(CallingProg)) {
+  calling_prog <- cctu_env$parent[1] # get_file_name()
+  if (is.null(calling_prog)) {
     warning("Unable to identify the code file that created table", number)
-    CallingProg <- "Missing"
+    calling_prog <- "Missing"
   }
-  add_program(number, CallingProg)
+  add_program(number, calling_prog)
   if (!is.null(footnote)) {
     add_footnote(number, footnote)
   }
 
-  if (is.null(dim(X)) || dim(X)[1] == 0 || dim(X)[2] == 0) {
-    X <- data.frame(" " = "No Data")
-    colnames(X) <- ""
+  if (is.null(dim(x)) || dim(x)[1] == 0 || dim(x)[2] == 0) {
+    x <- data.frame(" " = "No Data")
+    colnames(x) <- ""
   }
 
 
-  if (inherits(X, "cttab")) {
-    output_string <- table_cttab(X)
+  if (inherits(x, "cttab")) {
+    output_string <- table_cttab(x)
   } else {
-    output_string <- table_data(X, heading, na_to_empty)
+    output_string <- table_data(x, heading, na_to_empty)
   }
 
   # directory %<>% normalizePath %>% final_slash
@@ -79,7 +79,7 @@ write_table <- function(X,
 remove_xml_specials <- function(x) {
   # Remove non-UTF-8 here or the gsub will fail for non-UTF-8 characters
   # Ref: https://blog.r-project.org/2022/06/27/why-to-avoid-%5Cx-in-regular-expressions/
-  x <- rm_invalid_utf8_(x)
+  x <- rm_invalid_utf8(x)
   x <- gsub("&(?!#\\d+;)", "&amp;\\1", x, perl = TRUE)
   x <- gsub("<", "&lt;", x)
   x <- gsub(">", "&gt;", x)
@@ -93,36 +93,36 @@ remove_xml_specials <- function(x) {
 # For normal
 #' @keywords internal
 #' @importFrom utils capture.output
-table_data <- function(X, heading = NULL, na_to_empty = FALSE) {
-  if (!is.null(heading) && ncol(X) != length(heading)) {
+table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
+  if (!is.null(heading) && ncol(x) != length(heading)) {
     stop("Heading should have the same length as the number of columns")
   }
 
   if (!is.null(heading)) {
     for (i in seq_along(heading)) {
-      var_lab(X[[i]]) <- heading[i]
+      var_lab(x[[i]]) <- heading[i]
     }
   } else {
-    heading <- colnames(X)
+    heading <- colnames(x)
   }
 
-  check <- as.character(rownames(X)) != as.character(seq_len(nrow(X)))
-  if (inherits(X, "matrix") && any(check)) {
+  check <- as.character(rownames(x)) != as.character(seq_len(nrow(x)))
+  if (inherits(x, "matrix") && any(check)) {
     heading <- c("Variables", heading)
-    X <- data.frame(row_nam = rownames(X), X, row.names = NULL)
+    x <- data.frame(row_nam = rownames(x), x, row.names = NULL)
   }
 
   # Variable names to labels if no variable label
-  with_varlab <- sapply(X, has.label)
+  with_varlab <- sapply(x, has_label)
   if (any(with_varlab)) {
-    heading[with_varlab] <- unlist(var_lab(X)[with_varlab])
+    heading[with_varlab] <- unlist(var_lab(x)[with_varlab])
   }
 
   # Variable values to labels if has value
-  X <- lab2val(X)
+  x <- lab2val(x)
 
-  if (inherits(X, "data.frame")) {
-    utf8_check <- detect_invalid_utf8(X)
+  if (inherits(x, "data.frame")) {
+    utf8_check <- detect_invalid_utf8(x)
     utf8_check_cap <- capture.output(utf8_check)
     utf8_check_cap <- paste(utf8_check_cap, "\n", sep = "")
     if (nrow(utf8_check)) {
@@ -137,7 +137,7 @@ table_data <- function(X, heading = NULL, na_to_empty = FALSE) {
   thead <- paste0("<thead>\n", th, "</thead>\n")
 
   # Table body
-  td <- apply(X, 2, function(c) {
+  td <- apply(x, 2, function(c) {
     if (na_to_empty) {
       c <- ifelse(is.na(c), "", c)
     }
@@ -169,7 +169,7 @@ table_cttab <- function(x) {
     hd_nam <- colnames(x)
   } else {
     # Variable names to labels if no variable label
-    with_varlab <- sapply(x, has.label)
+    with_varlab <- sapply(x, has_label)
     for (i in names(x)[!with_varlab]) {
       var_lab(x[[i]]) <- i
     }

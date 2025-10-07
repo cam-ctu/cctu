@@ -36,9 +36,9 @@ geom_stepribbon <- function(
     stat = "identity",
     position = "identity",
     direction = "hv",
-    na.rm = FALSE,
-    show.legend = NA,
-    inherit.aes = TRUE, ...) {
+    na.rm = FALSE, # nolint: object_name_linter
+    show.legend = NA,# nolint: object_name_linter
+    inherit.aes = TRUE, ...) { # nolint: object_name_linter
   layer(
     data        = data,
     mapping     = mapping,
@@ -56,13 +56,13 @@ geom_stepribbon <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomStepribbon <- ggproto(
+GeomStepribbon <- ggproto(# nolint: object_name_linter
   "GeomStepribbon", GeomRibbon,
   extra_params = c("na.rm"),
   draw_group = function(data,
                         panel_scales,
                         coord,
-                        na.rm = FALSE,
+                        na.rm = FALSE,# nolint: object_name_linter
                         direction = "hv") {
     if (na.rm) data <- data[complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- rbind(data, data)

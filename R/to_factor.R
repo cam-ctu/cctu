@@ -6,8 +6,8 @@
 #' @param x vector
 #' @param ordered logical flag to determine if the levels should be regarded
 #' as ordered.
-#' @param drop.levels If `TRUE`, drop unused levels from the converted factor,
-#'  default is `FALSE`.
+#' @param drop_levels If `TRUE`, drop unused levels from the converted factor,
+#'  default is `FALSE`. This argument has previously been "drop.levels".
 #' @return Factor/character of the same form as x but with value labels instead
 #' of values. For numeric and logical vectors with corresponding type.
 #'

@@ -21,8 +21,8 @@ to_logical(x)
 \item{ordered}{logical flag to determine if the levels should be regarded
 as ordered.}
 
-\item{drop.levels}{If `TRUE`, drop unused levels from the converted factor,
-default is `FALSE`.}
+\item{drop_levels}{If `TRUE`, drop unused levels from the converted factor,
+default is `FALSE`. This argument has previously been "drop.levels".}
 }
 \value{
 Factor/character of the same form as x but with value labels instead

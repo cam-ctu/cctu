@@ -86,7 +86,7 @@ clean_meta_table <- function(meta_table) {
     meta_table <- meta_table[index, ]
     pmat <- pmatch(names(meta_table), columns_needed)
     meta_table <- subset(meta_table, !is.na(meta_table$number) &
-      meta_table$number != "", select = !is.na(pmat))
+                           meta_table$number != "", select = !is.na(pmat))
   }
 
   if (!("item" %in% names(meta_table))) {
@@ -103,10 +103,10 @@ clean_meta_table <- function(meta_table) {
 
   extra_cols <- columns_needed[-pmat]
   if (length(extra_cols)) {
-    X <- matrix("", nrow = n, ncol = length(extra_cols))
-    X <- as.data.frame(X)
-    names(X) <- extra_cols
-    meta_table <- cbind(meta_table, X)
+    x <- matrix("", nrow = n, ncol = length(extra_cols))
+    x <- as.data.frame(x)
+    names(x) <- extra_cols
+    meta_table <- cbind(meta_table, x)
   }
 
   meta_table$population <- gsub("\\s", "", meta_table$population)

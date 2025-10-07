@@ -163,8 +163,8 @@ format_percent <- function(x, digits = 1, ...) {
 #' Format p-value
 #'
 #' @param pvals A numeric value or vector of p-values
-#' @param sig.limit Lower bound for precision; smaller values will be shown
-#'  as < sig.limit
+#' @param sig_limit Lower bound for precision; smaller values will be shown
+#'  as < sig_limit
 #' @param digits Number of digits past the decimal point to keep
 #'
 #' @export
@@ -173,7 +173,7 @@ format_percent <- function(x, digits = 1, ...) {
 #' pv <- c(-1, 0.00001, 0.0042, 0.0601, 0.1335, 0.4999, 0.51, 0.89, 0.9, 1)
 #' format_pval(pv)
 #'
-format_pval <- function(pvals, sig.limit = 10^(-digits), digits = 3) {
+format_pval <- function(pvals, sig_limit = 10^(-digits), digits = 3) {
   roundr <- function(x, digits = 1) {
     res <- sprintf(paste0("%.", digits, "f"), x)
     zzz <- paste0("0.", paste(rep("0", digits), collapse = ""))
@@ -181,14 +181,14 @@ format_pval <- function(pvals, sig.limit = 10^(-digits), digits = 3) {
     res
   }
 
-  sapply(pvals, function(x, sig.limit) {
+  sapply(pvals, function(x, sig_limit) {
     if (is.na(x)) {
       return(x)
     }
-    if (x < sig.limit) {
-      return(sprintf("<%s", format(sig.limit, scientific = FALSE)))
+    if (x < sig_limit) {
+      sprintf("<%s", format(sig_limit, scientific = FALSE))
     } else {
-      return(roundr(x, digits = digits))
+      roundr(x, digits = digits)
     }
-  }, sig.limit = sig.limit, simplify = TRUE)
+  }, sig_limit = sig_limit, simplify = TRUE)
 }

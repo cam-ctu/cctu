@@ -28,19 +28,19 @@ data_table_summary <- function(data_table,
     normalizePath(winslash = "/")
   full_path <- gsub("\\\\", "/", full_path)
   mod_time <- file.mtime(full_path)
-  X <- data.frame(
+  x <- data.frame(
     data_table[, name_variable],
     data_table[, file_variable],
     folder,
     mod_time,
     full_path
   )
-  names(X) <- c(
+  names(x) <- c(
     name_variable,
     file_variable,
     folder_variable,
     mod_time_variable,
     "full_file_path"
   )
-  X
+  x
 }

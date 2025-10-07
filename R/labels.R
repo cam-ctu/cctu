@@ -7,7 +7,7 @@
 #' exist.}
 #' \item{\code{var_lab<-}}{ set variable label.}
 #' \item{\code{drop_lab}}{ drops variable label.}
-#' \item{\code{has.label}}{ check if variable label exists.}
+#' \item{\code{has_label}}{ check if variable label exists.}
 #' }
 #' @param x Variable. In the most cases it is numeric vector.
 #' @param value A character scalar - label for the variable x.
@@ -95,7 +95,7 @@ var_lab.data.frame <- function(x) {
 
 #' @rdname var_lab
 #' @export
-has.label <- function(x) {
+has_label <- function(x) {
   !is.null(attr(x, "label", exact = TRUE))
 }
 
@@ -135,7 +135,7 @@ drop_lab.data.frame <- function(x) {
 #' exist.}
 #' \item{\code{val_lab<-}}{ set value labels.}
 #' \item{\code{unval}}{ drops value labels.}
-#' \item{\code{has.labels}}{ check if value labels exists.}
+#' \item{\code{has_labels}}{ check if value labels exists.}
 #' }
 #' @param x Variable(s). Vector/data.frame/list.
 #' @param value Named vector. Names of vector are labels for the appropriate
@@ -177,9 +177,9 @@ val_lab.data.frame <- function(x) {
   all_labs <- lapply(x, val_lab)
   all_labs <- all_labs[lengths(all_labs) > 0]
   if (length(all_labs) > 0) {
-    return(all_labs)
+    all_labs
   } else {
-    return(NULL)
+    NULL
   }
 }
 
@@ -229,7 +229,7 @@ val_lab.data.frame <- function(x) {
 
 #' @export
 #' @rdname val_lab
-has.labels <- function(x) {
+has_labels <- function(x) {
   !is.null(attr(x, "labels", exact = TRUE))
 }
 
@@ -239,7 +239,7 @@ has.labels <- function(x) {
 #' @rdname val_lab
 unval <- function(x) {
   val_lab(x) <- NULL
-  return(x)
+  x
 }
 
 ##########################
@@ -272,10 +272,10 @@ unlab.default <- function(x) {
     return(x)
   }
 
-  if (has.label(x)) {
+  if (has_label(x)) {
     attr(x, "label") <- NULL
   }
-  if (has.labels(x)) {
+  if (has_labels(x)) {
     attr(x, "labels") <- NULL
   }
   x
@@ -317,7 +317,7 @@ copy_lab <- function(new_var, old_var, strict = TRUE) {
   }
 
   var_lab(new_var) <- var_lab(old_var)
-  if (mode(new_var) == mode(new_var) && has.labels(old_var)) {
+  if (mode(new_var) == mode(new_var) && has_labels(old_var)) {
     val_lab(new_var) <- val_lab(old_var)
   }
 

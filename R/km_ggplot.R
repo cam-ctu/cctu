@@ -28,7 +28,9 @@
 #' table will not align. There are other packages, like `ggsurvfit`,
 #' you can use to draw a KM-plot with more options.
 #'
-#' @author Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+#' @author Original taken from
+#' \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/}
+#' but modified by authors of \code{cctu} package.
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_step scale_y_continuous
 #' scale_x_continuous theme  element_text layer_scales  labs xlab ylab unit
@@ -140,7 +142,8 @@ km_ggplot <- function(sfit,
   ) +
     labs(colour = "", fill = "", linetype = "")
 
-  # https://stackoverflow.com/questions/33874909/how-do-i-add-shading-and-color-to-the-confidence-intervals-in-ggplot-2-generated
+  # https://stackoverflow.com/questions/33874909/
+  # how-do-i-add-shading-and-color-to-the-confidence-intervals-in-ggplot-2-generated
   # https://stackoverflow.com/questions/33967078/create-a-ggplot2-survival-curve-with-censored-table
   # https://rpkgs.datanovia.com/survminer/index.html
 

@@ -8,7 +8,8 @@
 #' copy of the figure. Defaults to true
 #' @param directory the path to the directory where figures will be saved as
 #'  "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set
-#'  in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.
+#'  in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}}
+#'  has been run since the XX was last set.
 #' @param verbose logical to print information on changes to the global
 #' environment or external files. Defaults to options()$verbose.
 #' @param text_clean a function to transform character labels. Defaults to
@@ -99,7 +100,7 @@ sumby <- function(variable,
     }
   }
 
-  variable.class <- class(variable)
+  variable_class <- class(variable)
   # continuous variable summary statistics by arm
   if (inherits(variable, "numeric") || inherits(variable, "integer")) {
     mu <- format(tapply(variable, arm, mean, na.rm = TRUE), digits = 3, width = 2)
@@ -122,7 +123,7 @@ sumby <- function(variable,
     )
   }
   # categorical variable summary statistics by arm
-  if (inherits(variable, "factor") || variable.class == "character") {
+  if (inherits(variable, "factor") || variable_class == "character") {
     tab <- table(variable, arm)
     nams <- dimnames(tab)
     tab_all <- as.data.frame(tab)
@@ -142,15 +143,15 @@ sumby <- function(variable,
     stats <- text_clean(tab[, 1])
     tab <- tab[, -1]
     perc <- round(100 * tab / total, digits = pct_digits)
-    X <- array(0, dim = c(dim(perc), 3))
-    X[, , 1] <- as.matrix(perc)
-    X[, , 2] <- as.matrix(tab)
-    X[, , 3] <- as.matrix(total)
+    x <- array(0, dim = c(dim(perc), 3))
+    x[, , 1] <- as.matrix(perc)
+    x[, , 2] <- as.matrix(tab)
+    x[, , 3] <- as.matrix(total)
 
     perpast <- function(x) {
       paste0(x[2], "/", x[3], " (", x[1], "%)")
     }
-    value <- apply(X, c(1, 2), perpast)
+    value <- apply(x, c(1, 2), perpast)
     colnames(value) <- nams[[2]]
 
     ans <- data.frame(cbind(variable, stats, value),

@@ -74,5 +74,7 @@ plot(p)
 
 }
 \author{
-Original taken from  \url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/} but modified by authors of \code{cctu} package.
+Original taken from
+\url{http://statbandit.wordpress.com/2011/03/08/an-enhanced-kaplan-meier-plot/}
+but modified by authors of \code{cctu} package.
 }

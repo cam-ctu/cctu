@@ -1,5 +1,13 @@
 # News Document
 
+## cctu 0.8.9
+
+Bug fix to cttab when `group` is the variable name in the data set that you want 
+to use as the `group` argument.
+
+Passing lint tests. Argument to `to_factor()` "drop.levels"  is now "drop_levels".
+Other internal changes to indentation and variable naming .
+
 ## cctu 0.8.8
 
 write_plot() and write_ggplot() (retired function),  now accept multiple values to

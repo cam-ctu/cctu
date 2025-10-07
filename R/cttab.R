@@ -133,7 +133,7 @@ cttab.default <- function(x,
                           logical_na_impute = c(FALSE, NA, TRUE),
                           blinded = getOption("cctu_blinded", default = FALSE),
                           ...) {
-  .cttab.internal(
+  .cttab_internal(
     vars = x,
     data = data,
     group = group,
@@ -198,7 +198,7 @@ cttab.formula <- function(x,
     row_split <- NULL
   }
 
-  .cttab.internal(
+  .cttab_internal(
     vars = vars,
     data = data,
     group = group,
@@ -218,7 +218,7 @@ cttab.formula <- function(x,
   )
 }
 
-.cttab.internal <- function(
+.cttab_internal <- function(
     vars,
     data,
     group = NULL,
@@ -261,8 +261,8 @@ cttab.formula <- function(x,
     # data <- data[!is.na(data[[group]]), ]
     data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
-    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
+    if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
+      data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
     }
   }
 
@@ -271,8 +271,8 @@ cttab.formula <- function(x,
   }
 
   if (!is.null(row_split)) {
-    if (has.labels(data[[row_split]]) || !is.factor(data[[row_split]])) {
-      data[[row_split]] <- to_factor(data[[row_split]], drop.levels = TRUE)
+    if (has_labels(data[[row_split]]) || !is.factor(data[[row_split]])) {
+      data[[row_split]] <- to_factor(data[[row_split]], drop_levels = TRUE)
     }
   }
 
@@ -320,7 +320,7 @@ cttab.formula <- function(x,
           r <- rbind(to_insert, r)
         }
 
-        return(r)
+        r
       })
 
       res <- do.call(rbind, res)
@@ -369,7 +369,7 @@ cttab.formula <- function(x,
       }
     }
 
-    return(res)
+    res
   }
 
   # Get arguments that will be passed to plot printing
@@ -396,7 +396,7 @@ cttab.formula <- function(x,
     }
   } else {
     # Extract split variable label
-    split_lab <- ifelse(has.label(data[[row_split]]),
+    split_lab <- ifelse(has_label(data[[row_split]]),
       var_lab(data[[row_split]]),
       row_split
     )
@@ -431,7 +431,7 @@ cttab.formula <- function(x,
         }
       }
 
-      return(out)
+      out
     })
 
     tbody <- do.call("rbind", tbody)
@@ -489,8 +489,8 @@ stat_tab <- function(vars,
     # data <- data[!is.na(data[[group]]), , drop = FALSE]
     data <- data[!is.na(data[[group]]), env = list(group = I(group))]
 
-    if (has.labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop.levels = TRUE)
+    if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
+      data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
     }
   }
 
@@ -504,7 +504,7 @@ stat_tab <- function(vars,
     }
 
     fcase(
-      inherits(data[[v]], c("factor", "character")) | has.labels(data[[v]]), "category",
+      inherits(data[[v]], c("factor", "character")) | has_labels(data[[v]]), "category",
       inherits(data[[v]], c("numeric", "integer")) | all(is.na(data[[v]])), "numeric",
       inherits(data[[v]], c("logical")), "logical"
     )
@@ -529,14 +529,14 @@ stat_tab <- function(vars,
 
   r <- do.call(rbind, lapply(vars, function(v) {
     # Get variable label
-    variable <- ifelse(has.label(data[[v]]), var_lab(data[[v]]), v)
+    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
 
     y <- do.call(cbind, lapply(x, function(s) {
       z <- s[gen_selec(s, v, select[v]), ] # Apply subset
       z <- z[[v]]
 
       # Convert character to factor
-      if (has.labels(z) | is.character(z)) {
+      if (has_labels(z) | is.character(z)) {
         z <- to_factor(z, ordered = TRUE)
       }
 
@@ -559,8 +559,8 @@ stat_tab <- function(vars,
       if (var_class[v] == "numeric") {
         r <- c("", unlist(
           render_numeric(z,
-                         what = render_num, digits = digits,
-                         digits_pct = digits_pct, rounding_fn = rounding_fn
+            what = render_num, digits = digits,
+            digits_pct = digits_pct, rounding_fn = rounding_fn
           )
         ))
       }
@@ -577,7 +577,7 @@ stat_tab <- function(vars,
         r <- c(r, miss)
       }
 
-      return(r)
+      r
     }))
 
     y[y == "NA"] <- ""

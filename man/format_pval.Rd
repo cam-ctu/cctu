@@ -4,13 +4,13 @@
 \alias{format_pval}
 \title{Format p-value}
 \usage{
-format_pval(pvals, sig.limit = 10^(-digits), digits = 3)
+format_pval(pvals, sig_limit = 10^(-digits), digits = 3)
 }
 \arguments{
 \item{pvals}{A numeric value or vector of p-values}
 
-\item{sig.limit}{Lower bound for precision; smaller values will be shown
-as < sig.limit}
+\item{sig_limit}{Lower bound for precision; smaller values will be shown
+as < sig_limit}
 
 \item{digits}{Number of digits past the decimal point to keep}
 }

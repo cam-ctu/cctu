@@ -16,8 +16,8 @@ clean_up <- function(number,
                      frame = parent.frame(),
                      reserved_string = ".reserved",
                      verbose = options()$verbose) {
-  RESERVED <- get_obj(reserved_string, frame = frame)
-  if (is.null(RESERVED)) {
+  reserved <- get_obj(reserved_string, frame = frame)
+  if (is.null(reserved)) {
     warning(
       paste0(
         "'", reserved_string,
@@ -27,7 +27,7 @@ clean_up <- function(number,
     )
   }
   obj_list <- ls(frame, all.names = FALSE)
-  keep <- match(RESERVED, obj_list, nomatch = 0)
+  keep <- match(reserved, obj_list, nomatch = 0)
   if (length(keep) > 1 || (length(keep == 1) && all(keep != 0))) {
     obj_list <- obj_list[-keep]
   }

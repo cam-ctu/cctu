@@ -66,31 +66,32 @@ regression_table <- function(x, labels = names(coef(x)),
     signif_pad(coef[, "lower"], digits = digits), ", ",
     signif_pad(coef[, "upper"], digits = digits)
   )
-  p <- format_pval(coef[, "p"], digits = p_digits, sig.limit = 10^(-p_digits))
+  p <- format_pval(coef[, "p"], digits = p_digits, sig_limit = 10^(-p_digits))
   # this works with est_trans as either null (ignores it), or a vector
   var_list <- list(labels, est, est_trans, ci, p)
-  X <- data.frame(do.call(cbind, var_list))
+  xx <- data.frame(do.call(cbind, var_list))
   # Needs to be more general to deal with extra transformed columns
   empty <- list("")
-  Z <- covar(x, digits = digits)
-  Y <- as.data.frame(
+  z <- covar(x, digits = digits)
+  y <- as.data.frame(
     do.call(
       cbind,
       c(
-        list(Z),
-        empty[rep(1, ncol(X) - ncol(Z))]
+        list(z),
+        empty[rep(1, ncol(xx) - ncol(z))]
       )
     )
   )
-  names(Y) <- names(X)
-  X <- rbind_space(X, Y)
-  names(X) <- col_names
+  names(y) <- names(xx)
+  xx <- rbind_space(xx, y)
+  names(xx) <- col_names
   if (inherits(x, c("gls", "lme", "gee"))) {
     warning(
-      "The variance-correlation structure is not included as it is too general consider summary(x), coef(x$modelStruct$corStruct, uncons=FALSE), or coef(x$modelStruct$varStruct, uncons=FALSE)"
+      "The variance-correlation structure is not included as it is too general consider summary(x),
+      coef(x$modelStruct$corStruct, uncons=FALSE), or coef(x$modelStruct$varStruct, uncons=FALSE)"
     )
   }
-  X
+  xx
 }
 
 
@@ -204,25 +205,25 @@ covar.coxph <- function(x, ...) {
 
 #' @export
 covar.lme <- function(x, digits = 3, ...) {
-  X <- nlme::VarCorr(x)
-  X <- rbind(colnames(X), X)
+  xx <- nlme::VarCorr(x)
+  xx <- rbind(colnames(xx), xx)
   # Want to apply formatting to numbers
-  index <- grep("\\d+\\.\\d+", X)
-  X[index] <- X[index] %>%
+  index <- grep("\\d+\\.\\d+", xx)
+  xx[index] <- xx[index] %>%
     as.numeric() %>%
     signif_pad(digits = digits)
 
   n <- x$dims$N
   n_groups <- x$dims$ngrps[1:x$dims$Q]
   contrasts <- c(
-    "Random Effects", rownames(X)[-1],
+    "Random Effects", rownames(xx)[-1],
     "Number of Observations",
     names(n_groups)
   )
-  cols <- ncol(X)
+  cols <- ncol(xx)
   empty <- list("")
-  Y <- do.call(cbind, c(list(c(n, n_groups)), empty[rep(1, cols - 1)]))
-  output <- cbind(contrasts, rbind(X, Y))
+  y <- do.call(cbind, c(list(c(n, n_groups)), empty[rep(1, cols - 1)]))
+  output <- cbind(contrasts, rbind(xx, y))
   output
 }
 

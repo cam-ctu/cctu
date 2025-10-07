@@ -160,10 +160,10 @@ apply_macro_dict <- function(data,
 
     val <- tryCatch(date_fn(val, tryFormats = date_format),
       error = function(e) {
-        return("ERROR")
+        "ERROR"
       },
       warning = function(w) {
-        return("ERROR")
+        "ERROR"
       }
     )
 

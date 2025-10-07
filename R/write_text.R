@@ -2,7 +2,7 @@
 #' TableofTables
 #'
 #' @inheritParams write_ggplot
-#' @param X the character string to be saved in xml format
+#' @param x the character string to be saved in xml format
 
 #'
 #' @return writes an xml version of the input data to file text_number.xml .
@@ -11,7 +11,7 @@
 #' @seealso \code{\link{write_ggplot}} \code{\link{write_table}}
 #' @importFrom magrittr %>% %<>%
 
-write_text <- function(X,
+write_text <- function(x,
                        number = cctu_env$number,
                        clean_up = TRUE,
                        directory = file.path(
@@ -21,15 +21,15 @@ write_text <- function(X,
                          "Core"
                        ),
                        verbose = options()$verbose) {
-  CallingProg <- cctu_env$parent[1] # get_file_name()
-  if (is.null(CallingProg)) {
+  calling_prog <- cctu_env$parent[1] # get_file_name()
+  if (is.null(calling_prog)) {
     warning(paste(
       "Unable to identify the code file that created table",
       number
     ))
-    CallingProg <- "Missing"
+    calling_prog <- "Missing"
   }
-  add_program(number, CallingProg)
+  add_program(number, calling_prog)
 
 
   output_string <- NULL
@@ -41,8 +41,8 @@ write_text <- function(X,
   }
 
   paste_plus("<text>\n")
-  X <- remove_xml_specials(X)
-  paste_plus(X)
+  x <- remove_xml_specials(x)
+  paste_plus(x)
   paste_plus("</text>\n")
 
   file_name <- file.path(directory, paste0("text_", number, ".xml"))

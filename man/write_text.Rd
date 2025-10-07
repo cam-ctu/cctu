@@ -6,7 +6,7 @@
 TableofTables}
 \usage{
 write_text(
-  X,
+  x,
   number = cctu_env$number,
   clean_up = TRUE,
   directory = file.path(getOption("cctu_output", default = "Output"), "Core"),
@@ -14,7 +14,7 @@ write_text(
 )
 }
 \arguments{
-\item{X}{the character string to be saved in xml format}
+\item{x}{the character string to be saved in xml format}
 
 \item{number}{the number used to as a suffix in the output filename, and to
 link to TableofTables. Default is to use the value in the cctu_env package

@@ -106,5 +106,5 @@ find_common_prefix <- function(vec) {
     }
   }
 
-  return(substr(vec[1], 1, min_length)) # Entire shortest string is a common prefix
+  substr(vec[1], 1, min_length) # Entire shortest string is a common prefix
 }

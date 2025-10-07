@@ -7,7 +7,7 @@
 \alias{to_logical}
 \title{Convert vector but keep value/value labels.}
 \usage{
-to_factor(x, ordered = TRUE, drop.levels = FALSE)
+to_factor(x, ordered = TRUE, drop_levels = FALSE)
 
 to_character(x)
 

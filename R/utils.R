@@ -20,7 +20,7 @@ rbind.cttab <- function(...) {
   allargs <- lapply(allargs, function(x) {
     l <- which(attr(x, "class") == "cttab")
     attr(x, "class") <- attr(x, "class")[-l]
-    return(x)
+    x
   })
 
   structure(do.call(base::rbind, allargs),

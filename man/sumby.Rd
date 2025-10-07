@@ -40,7 +40,8 @@ copy of the figure. Defaults to true}
 
 \item{directory}{the path to the directory where figures will be saved as
 "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set
-in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}} has been run since the XX was last set.}
+in \code{\link{attach_pop}}, and the Y is counting how many time \code{\link{sumby}}
+has been run since the XX was last set.}
 
 \item{verbose}{logical to print information on changes to the global
 environment or external files. Defaults to options()$verbose.}

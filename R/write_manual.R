@@ -16,15 +16,15 @@
 write_manual <- function(number = cctu_env$number,
                          clean_up = TRUE,
                          verbose = options()$verbose) {
-  CallingProg <- cctu_env$parent[1] # get_file_name()
-  if (is.null(CallingProg)) {
+  calling_prog <- cctu_env$parent[1] # get_file_name()
+  if (is.null(calling_prog)) {
     warning(paste(
       "Unable to identify the code file that created table",
       number
     ))
-    CallingProg <- "Missing"
+    calling_prog <- "Missing"
   }
-  add_program(number, CallingProg)
+  add_program(number, calling_prog)
 
 
   if (clean_up) {

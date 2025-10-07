@@ -178,15 +178,15 @@ write_plot <- function(...,
     stop("units must be ''cm'' or ''inches''")
   }
 
-  CallingProg <- cctu_env$parent[1] # get_file_name()
-  if (is.null(CallingProg)) {
-    CallingProg <- "Missing"
+  calling_prog <- cctu_env$parent[1] # get_file_name()
+  if (is.null(calling_prog)) {
+    calling_prog <- "Missing"
     warning(paste(
       "Unable to identify the code file that created figure",
       number
     ))
   }
-  add_program(number, CallingProg)
+  add_program(number, calling_prog)
 
   if (!is.null(footnote)) {
     add_footnote(number, footnote)
@@ -223,7 +223,8 @@ write_plot <- function(...,
     svg = function(filename, ...) svglite::svglite(file = filename, ...),
     png = function(...) png_dev(..., res = dpi, units = "in"),
     jpg = function(...) jpeg_dev(..., res = dpi, units = "in"),
-    jpeg = function(...) jpeg_dev(..., res = dpi, units = "in")
+    jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
+    tiff = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (any(!format %in% names(devices))) {

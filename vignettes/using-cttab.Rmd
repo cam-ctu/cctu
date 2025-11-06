@@ -57,9 +57,9 @@ table(to_factor(mtcars$am))
 
 But be cautious, **some R process might drop the variable or value label attributes**. Normally it won't, but you should check it before report if you are not sure. For example, `as.numeric`, `as.character` and `as.logiac` will drop the variable and value label. There are `to_numeric`, `to_character` and `to_logical` can be used to convert the data type. You can also use the `copy_lab` function to copy the variable and value labels from the other variable. 
 
-You can use `var_lab` to extract the variable label or assign one. And use `has.label` to check if the variable has any variable label with it. You may also want to use `drop_lab` to drop the variable label.    
+You can use `var_lab` to extract the variable label or assign one. And use `has_label` to check if the variable has any variable label with it. You may also want to use `drop_lab` to drop the variable label.    
 
-For value label, you can use `val_lab` to extract or assign value label. And use `has.labels` to check if the variable has a value label. There are also `unval` function to drop the value label and `lab2val` to replace the `data.frame` value to its corresponding value labels.
+For value label, you can use `val_lab` to extract or assign value label. And use `has_labels` to check if the variable has a value label. There are also `unval` function to drop the value label and `lab2val` to replace the `data.frame` value to its corresponding value labels.
 
 
 ## MACRO dataset utility functions

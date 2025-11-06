@@ -109,8 +109,8 @@ reference:
   - val_lab
   - var_lab
   - copy_lab
-  - has.label
-  - has.labels
+  - has_label
+  - has_labels
   - lab2val
   - drop_lab
 
@@ -125,5 +125,14 @@ reference:
   - remove_blank_rows_cols
   - remove_invalid_utf8
 
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - analysis-template
+  - using-cttab
+  - rmarkdown_report
 
+development:
+  mode: auto
 

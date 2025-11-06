@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +25,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/analysis-template.html">Analysis Template</a></li>
-    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
     <li><a class="dropdown-item" href="../articles/using-cttab.html">Use cttab in the Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -47,51 +47,56 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.8/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/cam-ctu/cctu/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.9" id="cctu-089">cctu 0.8.9<a class="anchor" aria-label="anchor" href="#cctu-089"></a></h2>
+<ul><li><p>Bug fix to cttab when <code>group</code> is the variable name in the data set that you want to use as the <code>group</code> argument.</p></li>
+<li><p>Passing lint tests. Argument to <code><a href="../reference/to_factor.html">to_factor()</a></code> “drop.levels” is now “drop_levels”. Other internal changes to indentation and variable naming .</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.8" id="cctu-088">cctu 0.8.8<a class="anchor" aria-label="anchor" href="#cctu-088"></a></h2>
-<p>write_plot() and write_ggplot() (retired function), now accept multiple values to the format argument. The default is to create both the png format for use in a docx report, and also eps, saved in a subfolder, to have a format that is accepted by most journals.</p>
-<p>minor bug fixes</p>
-<p>improved unit testing locally and for CI on github.</p>
-</div>
+<ul><li><p>write_plot() and write_ggplot() (retired function), now accept multiple values to the format argument. The default is to create both the PNG format for use in a docx report, and also eps, saved in a subfolder, to have a format that is accepted by most journals.</p></li>
+<li><p>minor bugfixes</p></li>
+<li><p>improved unit testing locally and for CI on GitHub.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.7" id="cctu-087">cctu 0.8.7<a class="anchor" aria-label="anchor" href="#cctu-087"></a></h2>
-<p>Tools with <code>cctu_initialise</code> and <code>library_description</code> to record and load packages using a DESCRIPTION file.</p>
-<p>Better code_tree plotting.</p>
-<p>Fixes to <code>cttab</code> when a variable is totally missing.</p>
-<p>Updates to vignettes to give pointers and advice on using Quarto.</p>
-</div>
+<ul><li><p>Tools with <code>cctu_initialise</code> and <code>library_description</code> to record and load packages using a DESCRIPTION file.</p></li>
+<li><p>Better code_tree plotting.</p></li>
+<li><p>Fixes to <code>cttab</code> when a variable is totally missing.</p></li>
+<li><p>Updates to vignettes to give pointers and advice on using Quarto.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.6" id="cctu-086">cctu 0.8.6<a class="anchor" aria-label="anchor" href="#cctu-086"></a></h2>
-<p>Applied testing and edits with <code>lintr</code> and <code>styler</code> to meet tidyverse style with the r code.</p>
-<p>Fixed issue with <code><a href="../reference/source.html">source()</a></code> so it now should work with the rstudio button.</p>
-<p>Partially set up pkdwon website version of the docs- but not currently able to include the vignettes.</p>
-</div>
+<ul><li><p>Applied testing and edits with <code>lintr</code> and <code>styler</code> to meet tidyverse style with the r code.</p></li>
+<li><p>Fixed issue with <code><a href="../reference/source.html">source()</a></code> so it now should work with the rstudio button.</p></li>
+<li><p>Partially set up pkdown site version of the docs- but not currently able to include the vignettes.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.4" id="cctu-084">cctu 0.8.4<a class="anchor" aria-label="anchor" href="#cctu-084"></a></h2>
-<p>Added in km_ggplot() function to produce publication-quality Kaplan-Meier figures with error bands and table underneath.</p>
-<p>Added in options(“cctu_p_digits”) with default of 4 for regression_table() and km_ggplot()</p>
-</div>
+<ul><li><p>Added in km_ggplot() function to produce publication-quality Kaplan-Meier figures with error bands and table underneath.</p></li>
+<li><p>Added in options(“cctu_p_digits”) with default of 4 for regression_table() and km_ggplot()</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.3" id="cctu-083">cctu 0.8.3<a class="anchor" aria-label="anchor" href="#cctu-083"></a></h2>
-<p>Fixed a bug with write_docx() in the multi-line headers are now completely visible. Testing added of docx outputs.</p>
-<p>Added in options(cctu_output) and optinos(cctu_source_local) to change the default arguments for write_xx() and source()</p>
-<p>Updated Vignette</p>
-</div>
+<ul><li><p>Fixed a bug with write_docx() in the multi-line headers are now completely visible. Testing added of docx outputs.</p></li>
+<li><p>Added in options(cctu_output) and optinos(cctu_source_local) to change the default arguments for write_xx() and source()</p></li>
+<li><p>Updated Vignette</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.2" id="cctu-082">cctu 0.8.2<a class="anchor" aria-label="anchor" href="#cctu-082"></a></h2>
-<p>Added write_docx() which creates directly a fully compliant OfficeOpen docx file, no subsequent steps needed, and it does open on the online office/word tools.</p>
-</div>
+<ul><li>Added write_docx() which creates directly a fully compliant OfficeOpen docx file, no subsequent steps needed, and it does open on the online office/word tools.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.1" id="cctu-081">cctu 0.8.1<a class="anchor" aria-label="anchor" href="#cctu-081"></a></h2>
-<p>Fixing the github continuous integration. Minor fixes to rbind_space, data_table_summary</p>
-</div>
+<ul><li>Fixing the GitHub continuous integration. Minor fixes to rbind_space, data_table_summary</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.8.0" id="cctu-080">cctu 0.8.0<a class="anchor" aria-label="anchor" href="#cctu-080"></a></h2>
-<p>Added in the regression_table() generic to print a nice tidy table to present regression models. Minor improvements and updates to other functions including cttab and write_plot.</p>
-</div>
+<ul><li>Added in the regression_table() generic to print a nice tidy table to present regression models. Minor improvements and updates to other functions including cttab and write_plot.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.6" id="cctu-076">cctu 0.7.6<a class="anchor" aria-label="anchor" href="#cctu-076"></a></h2>
 <ul><li>The apply_macro_dict() function is faster now. By default, evaluating whether a category variable’s type is numeric before converting is skipped.</li>
@@ -99,7 +104,7 @@
 <li>Figures are embedded in the document. No need to perform “save picture in document”.</li>
 <li>Dynamically add footnotes to the tables and figures in write_table() and write_ggplot().</li>
 <li>There’s a new function write_plot() to save figures other than the ggplot family, KM-plot from survminer for example.</li>
-<li>Bug fix: headings will be used if it is provided in the write_table().</li>
+<li>Bugfix: headings will be used if it is provided in the write_table().</li>
 <li>p_format will round pvalues and convert to &lt;0.001 as a character variable.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -111,7 +116,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

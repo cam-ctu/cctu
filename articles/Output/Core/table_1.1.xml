@@ -1,0 +1,15 @@
+
+<table>
+ <thead>
+<tr><th>Variable</th><th>Statistics</th><th>Control</th><th>Drug</th><th>Total</th></tr>
+</thead>
+ <tbody>
+<tr><td>Age</td><td>n</td><td>3</td><td>3</td><td>6</td></tr>
+<tr><td></td><td>Mean (SD)</td><td>33.3 (11.7)</td><td>43.3 (21.1)</td><td>38.3 (16.2)</td></tr>
+<tr><td></td><td>Median</td><td>38</td><td>55</td><td>40</td></tr>
+<tr><td></td><td>Min, Max</td><td>20, 42</td><td>19, 56</td><td>19, 56</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td>Gender</td><td>Male</td><td>1/3 (33%)</td><td>2/3 (67%)</td><td>3/6 (50%)</td></tr>
+<tr><td></td><td>Female</td><td>2/3 (67%)</td><td>1/3 (33%)</td><td>3/6 (50%)</td></tr>
+</tbody>
+ </table>

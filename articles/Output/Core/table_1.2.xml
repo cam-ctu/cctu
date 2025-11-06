@@ -1,0 +1,13 @@
+
+<table>
+ <thead>
+<tr><th>Parameter</th><th>Estimate (SE)</th><th>Conf. Int.</th><th>p-value</th></tr>
+</thead>
+ <tbody>
+<tr><td>Mean age reference arm</td><td>33.3 (9.85)</td><td>6.00, 60.7</td><td>0.0276</td></tr>
+<tr><td>Treament Effect</td><td>10.0 (13.9)</td><td>-28.7, 48.7</td><td>0.5124</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td>Residual SE</td><td>17.1</td><td></td><td></td></tr>
+<tr><td>Number of Observations</td><td>6</td><td></td><td></td></tr>
+</tbody>
+ </table>

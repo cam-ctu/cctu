@@ -1,0 +1,8 @@
+"section","title","subtitle","number","population","orientation","program","item","footnote1","footnote2","fontsize"
+"Baseline","Summary Table","Note A","1.1.1","full","portrait","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","table","fictitious data",NA,"16"
+"Baseline","Summary Table","Note A","1.1","safety","portrait","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","table","fictitious data",NA,"20"
+"Baseline","Regression: Age predicted by Treatment","Note A","1.2","safety","portrait","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","table","fictitious data",NA,"20"
+"Baseline","Kaplan-Meier Plot","Note A","1.3","safety","portrait","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","figure","fictitious data",NA,"20"
+"Baseline","Summary Figure","Note B","1.10","safety","landscape","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","figure",NA,NA,"20"
+"Safety","Deaths","","2","safety","portrait","/home/runner/work/cctu/cctu/vignettes/Progs/analysis.R","text",NA,NA,NA
+"Meta","Imported Data",NA,"9",NA,"landscape","/home/runner/work/cctu/cctu/vignettes/Progs/data_import.R","table",NA,NA,NA

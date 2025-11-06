@@ -15,7 +15,7 @@ graphical equivalent."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,8 @@ graphical equivalent."></head><body>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/analysis-template.html">Analysis Template</a></li>
-    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
     <li><a class="dropdown-item" href="../articles/using-cttab.html">Use cttab in the Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -49,7 +49,7 @@ graphical equivalent."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Produces summary statistics on a variable broken down by arm, display a graphical equivalent.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.8/R/sumby.R" class="external-link"><code>R/sumby.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/sumby.R" class="external-link"><code>R/sumby.R</code></a></small>
       <div class="d-none name"><code>sumby.Rd</code></div>
     </div>
 
@@ -112,7 +112,8 @@ copy of the figure. Defaults to true</p></dd>
 <dt id="arg-directory">directory<a class="anchor" aria-label="anchor" href="#arg-directory"></a></dt>
 <dd><p>the path to the directory where figures will be saved as
 "sumby_XX_Y.png". XX is taken from the current table numer (or "0") set
-in <code><a href="attach_pop.html">attach_pop</a></code>, and the Y is counting how many time <code>sumby</code> has been run since the XX was last set.</p></dd>
+in <code><a href="attach_pop.html">attach_pop</a></code>, and the Y is counting how many time <code>sumby</code>
+has been run since the XX was last set.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -158,7 +159,7 @@ ready to use with write_table(). Plus an attribute "fig" that contains
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

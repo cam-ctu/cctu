@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,8 +42,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/analysis-template.html">Analysis Template</a></li>
-    <li><a class="dropdown-item" href="articles/rmarkdown_report.html">Generate HTML Report</a></li>
     <li><a class="dropdown-item" href="articles/using-cttab.html">Use cttab in the Analysis</a></li>
+    <li><a class="dropdown-item" href="articles/rmarkdown_report.html">Generate HTML Report</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -68,16 +68,20 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-<div class="section level1">
-<div class="page-header"><h1 id="cctu">cctu<a class="anchor" aria-label="anchor" href="#cctu"></a>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="readme-document">Readme Document<a class="anchor" aria-label="anchor" href="#readme-document"></a>
 </h1></div>
+<p><a href="https://github.com/cam-ctu/cctu/actions" class="external-link"><img src="https://github.com/cam-ctu/cctu/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a> <a href="https://codecov.io/gh/cam-ctu/cctu?branch=master" class="external-link"><img src="https://codecov.io/gh/cam-ctu/cctu/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <!-- badges: end --></p>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<div class="section level2">
+<h2 id="cctu">cctu<a class="anchor" aria-label="anchor" href="#cctu"></a>
+</h2>
 <p>The goal of cctu is to provide tools to easily produce reports in word that take the pain out of formatting tables, and ensure that the right population is always used.</p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the github version of cctu with:</p>
+<p>You can install the GitHub version of cctu with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"shug0131/cctu"</span><span class="op">)</span></span></code></pre></div>
@@ -91,7 +95,6 @@
 <span><span class="co">#&gt; No vignettes found by browseVignettes("cctu")</span></span></code></pre></div>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -123,13 +126,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/cam-ctu/cctu/actions" class="external-link"><img src="https://github.com/cam-ctu/cctu/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/cam-ctu/cctu?branch=master" class="external-link"><img src="https://codecov.io/gh/cam-ctu/cctu/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
@@ -140,7 +137,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

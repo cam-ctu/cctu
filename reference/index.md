@@ -1,0 +1,190 @@
+# Package index
+
+## Study related function
+
+Functions to setup studies
+
+- [`cctu_initialise()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
+  [`cctu_initialize()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
+  [`cctu_check_dir()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
+  [`rm_output()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
+  : initialise objects for using cctu package
+- [`library_description()`](https://cam-ctu.github.io/cctu/reference/library_description.md)
+  : loads all the packages listed in the DESCRIPTION file
+- [`attach_pop()`](https://cam-ctu.github.io/cctu/reference/attach_pop.md)
+  [`detach_pop()`](https://cam-ctu.github.io/cctu/reference/attach_pop.md)
+  : Functions that attach and detach environments based on which
+  populations are used for a given table number
+- [`clean_up()`](https://cam-ctu.github.io/cctu/reference/clean_up.md) :
+  removes all the objects in the environment, apart from those listed in
+  reserved and detaches the environment used to create tables or figures
+  corresponding to the number
+- [`data_table_summary()`](https://cam-ctu.github.io/cctu/reference/data_table_summary.md)
+  : Provides a summary with date stamps of external data files.
+- [`order_dewey()`](https://cam-ctu.github.io/cctu/reference/order_dewey.md)
+  : sorts inputs that look like Dewey decimal numbering
+- [`get_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
+  [`set_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
+  : Functions to handle meta_table
+- [`get_code_tree()`](https://cam-ctu.github.io/cctu/reference/get_code_tree.md)
+  [`reset_code_tree()`](https://cam-ctu.github.io/cctu/reference/get_code_tree.md)
+  : track which files of code are called by which oher files
+- [`plot(`*`<code_tree>`*`)`](https://cam-ctu.github.io/cctu/reference/plot.code_tree.md)
+  : plot the code tree.
+- [`create_popn_envir()`](https://cam-ctu.github.io/cctu/reference/create_popn_envir.md)
+  : create environments contain a set of data frames filtered for each
+  population
+- [`rm_envir()`](https://cam-ctu.github.io/cctu/reference/rm_envir.md) :
+  A function to remove all attached objects from the search path with
+  any exceptions specified
+- [`run_batch()`](https://cam-ctu.github.io/cctu/reference/run_batch.md)
+  : Runs a script in batch mode directly from within R.
+- [`source()`](https://cam-ctu.github.io/cctu/reference/source.md) : A
+  modified version of the source() function to capture in a data.frame
+  what file was called and from which file
+- [`read_data()`](https://cam-ctu.github.io/cctu/reference/read_data.md)
+  : Automatic reading in data from a meta-table of external data sets.
+- [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/meta_table_example.md)
+  : Example of a meta_table data frame
+
+## Macro utility functions
+
+Functions manipulating MACRO data
+
+- [`apply_macro_dict()`](https://cam-ctu.github.io/cctu/reference/apply_macro_dict.md)
+  : Apply DLU/CLU file to the data frame
+- [`extract_form()`](https://cam-ctu.github.io/cctu/reference/extract_form.md)
+  : Extract data by form from MACRO dataset
+- [`merge_data()`](https://cam-ctu.github.io/cctu/reference/merge_data.md)
+  : Merge vertically split data
+- [`set_dlu()`](https://cam-ctu.github.io/cctu/reference/set_dlu.md)
+  [`get_dlu()`](https://cam-ctu.github.io/cctu/reference/set_dlu.md) :
+  Set/get DLU data
+- [`tidy_dlu()`](https://cam-ctu.github.io/cctu/reference/tidy_dlu.md) :
+  Tidy DLU form
+- [`dump_missing_report()`](https://cam-ctu.github.io/cctu/reference/dump_missing_report.md)
+  [`get_missing_report()`](https://cam-ctu.github.io/cctu/reference/dump_missing_report.md)
+  [`reset_missing_report()`](https://cam-ctu.github.io/cctu/reference/dump_missing_report.md)
+  : Save/Get/Reset missingness report
+
+## Formating/conversion function
+
+Functions to format digits, convert characters.
+
+- [`format_percent()`](https://cam-ctu.github.io/cctu/reference/format_percent.md)
+  : Format number to percent
+- [`format_pval()`](https://cam-ctu.github.io/cctu/reference/format_pval.md)
+  : Format p-value
+- [`signif_pad()`](https://cam-ctu.github.io/cctu/reference/signif_pad.md)
+  [`round_pad()`](https://cam-ctu.github.io/cctu/reference/signif_pad.md)
+  : Round numbers with 0-padding.
+- [`p_format()`](https://cam-ctu.github.io/cctu/reference/p_format.md) :
+  formats p values with rounding and \<0.001
+- [`to_factor()`](https://cam-ctu.github.io/cctu/reference/to_factor.md)
+  [`to_character()`](https://cam-ctu.github.io/cctu/reference/to_factor.md)
+  [`to_numeric()`](https://cam-ctu.github.io/cctu/reference/to_factor.md)
+  [`to_logical()`](https://cam-ctu.github.io/cctu/reference/to_factor.md)
+  : Convert vector but keep value/value labels.
+- [`propercase()`](https://cam-ctu.github.io/cctu/reference/propercase.md)
+  : Function to convert text to proper case
+
+## Summarise data
+
+Functions to create summary statistics
+
+- [`cttab()`](https://cam-ctu.github.io/cctu/reference/cttab.md) :
+  Generate an table of descriptive statistics.
+- [`print(`*`<cttab>`*`)`](https://cam-ctu.github.io/cctu/reference/print.cttab.md)
+  : Print
+- [`rbind(`*`<cttab>`*`)`](https://cam-ctu.github.io/cctu/reference/rbind.cttab.md)
+  : Combine descriptive statistics table by rows
+- [`render_cat()`](https://cam-ctu.github.io/cctu/reference/render_cat.md)
+  : Render categorical values for table output.
+- [`render_numeric()`](https://cam-ctu.github.io/cctu/reference/render_numeric.md)
+  : Render continuous values for table output.
+- [`num_stat()`](https://cam-ctu.github.io/cctu/reference/num_stat.md)
+  [`cat_stat()`](https://cam-ctu.github.io/cctu/reference/num_stat.md) :
+  Compute some basic descriptive statistics.
+- [`sumby()`](https://cam-ctu.github.io/cctu/reference/sumby.md) :
+  Produces summary statistics on a variable broken down by arm, display
+  a graphical equivalent.
+- [`sumfig()`](https://cam-ctu.github.io/cctu/reference/sumfig.md) :
+  Produce ggplot to represent summary statistics graphically, either
+  boxplot or barchart
+- [`regression_table()`](https://cam-ctu.github.io/cctu/reference/regression_table.md)
+  : Produce a table summarising a regression model for a study report
+
+## Plotting
+
+Functions to create plots
+
+- [`geom_stepribbon()`](https://cam-ctu.github.io/cctu/reference/geom_stepribbon.md)
+  : Step ribbon plots.
+- [`km_ggplot()`](https://cam-ctu.github.io/cctu/reference/km_ggplot.md)
+  : Create a Kaplan-Meier plot using ggplot2
+- [`plot(`*`<km_ggplot>`*`)`](https://cam-ctu.github.io/cctu/reference/plot.km_ggplot.md)
+  : plot methods for km_ggplot object
+- [`print(`*`<km_ggplot>`*`)`](https://cam-ctu.github.io/cctu/reference/print.km_ggplot.md)
+  : print methods for km_ggplot object
+
+## Writing outputs
+
+Functions to write tables, figures and report
+
+- [`write_docx()`](https://cam-ctu.github.io/cctu/reference/write_docx.md)
+  : Produces the final Docx file
+- [`write_ggplot()`](https://cam-ctu.github.io/cctu/reference/write_ggplot.md)
+  : Function to save ggplot figures.
+- [`write_manual()`](https://cam-ctu.github.io/cctu/reference/write_manual.md)
+  : Function to write to meta-table and clean up without creating a
+  table,text, or figure. For manual use
+- [`write_plot()`](https://cam-ctu.github.io/cctu/reference/write_plot.md)
+  : Function to save plot figures
+- [`write_table()`](https://cam-ctu.github.io/cctu/reference/write_table.md)
+  : Function to write a table into xml format in the correct directory,
+  and edit TableofTables
+- [`write_text()`](https://cam-ctu.github.io/cctu/reference/write_text.md)
+  : Function to write a text into xml format in the correct directory,
+  and edit TableofTables
+- [`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
+  : Produces the final xml file
+
+## Variable and value labels
+
+Functions for labels
+
+- [`val_lab()`](https://cam-ctu.github.io/cctu/reference/val_lab.md)
+  [`` `val_lab<-`() ``](https://cam-ctu.github.io/cctu/reference/val_lab.md)
+  [`has_labels()`](https://cam-ctu.github.io/cctu/reference/val_lab.md)
+  [`unval()`](https://cam-ctu.github.io/cctu/reference/val_lab.md) : Set
+  or get value labels
+- [`var_lab()`](https://cam-ctu.github.io/cctu/reference/var_lab.md)
+  [`` `var_lab<-`() ``](https://cam-ctu.github.io/cctu/reference/var_lab.md)
+  [`has_label()`](https://cam-ctu.github.io/cctu/reference/var_lab.md)
+  [`drop_lab()`](https://cam-ctu.github.io/cctu/reference/var_lab.md) :
+  Set or get variable label
+- [`unlab()`](https://cam-ctu.github.io/cctu/reference/unlab.md) : Drop
+  variable label and value labels
+- [`copy_lab()`](https://cam-ctu.github.io/cctu/reference/copy_lab.md) :
+  Copy variable label and value labels
+- [`lab2val()`](https://cam-ctu.github.io/cctu/reference/lab2val.md) :
+  Replace vector/matrix/data.frame values with corresponding value
+  labels.
+
+## Miscellaneous
+
+- [`all_is_numeric()`](https://cam-ctu.github.io/cctu/reference/all_is_numeric.md)
+  : Check if All Elements in Character Vector are Numeric
+- [`clean_names()`](https://cam-ctu.github.io/cctu/reference/clean_names.md)
+  [`clean_string()`](https://cam-ctu.github.io/cctu/reference/clean_names.md)
+  : Tidies up names of a data frame within certain rules
+- [`detect_invalid_utf8()`](https://cam-ctu.github.io/cctu/reference/detect_invalid_utf8.md)
+  [`remove_invalid_utf8()`](https://cam-ctu.github.io/cctu/reference/detect_invalid_utf8.md)
+  : Functions to detect and delete non-UTF8 characters, which the XML
+  output will not like
+- [`is_empty()`](https://cam-ctu.github.io/cctu/reference/is_empty.md) :
+  Check whether string, list or vector is empty
+- [`rbind_space()`](https://cam-ctu.github.io/cctu/reference/rbind_space.md)
+  : Function to bind tables/matrices with a blank row between them
+- [`remove_blank_rows_cols()`](https://cam-ctu.github.io/cctu/reference/remove_blank_rows_cols.md)
+  : Function to remove blank rows/columns from a df

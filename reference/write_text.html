@@ -15,7 +15,7 @@ TableofTables"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,8 @@ TableofTables"></head><body>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/analysis-template.html">Analysis Template</a></li>
-    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
     <li><a class="dropdown-item" href="../articles/using-cttab.html">Use cttab in the Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -49,7 +49,7 @@ TableofTables"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to write a text into xml format in the correct directory, and edit TableofTables</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.8/R/write_text.R" class="external-link"><code>R/write_text.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/write_text.R" class="external-link"><code>R/write_text.R</code></a></small>
       <div class="d-none name"><code>write_text.Rd</code></div>
     </div>
 
@@ -61,7 +61,7 @@ TableofTables</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_text</span><span class="op">(</span></span>
-<span>  <span class="va">X</span>,</span>
+<span>  <span class="va">x</span>,</span>
 <span>  number <span class="op">=</span> <span class="va">cctu_env</span><span class="op">$</span><span class="va">number</span>,</span>
 <span>  clean_up <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  directory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
@@ -73,7 +73,7 @@ TableofTables</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-x">X<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+<dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>the character string to be saved in xml format</p></dd>
 
 
@@ -118,7 +118,7 @@ Edits the TableofTables object with the calling programe. No return object.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

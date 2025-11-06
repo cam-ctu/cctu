@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +25,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/analysis-template.html">Analysis Template</a></li>
-    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
     <li><a class="dropdown-item" href="../articles/using-cttab.html">Use cttab in the Analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/rmarkdown_report.html">Generate HTML Report</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -54,8 +54,7 @@
 
       <div class="section-desc"><p>Functions to setup studies</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -66,85 +65,99 @@
 
         </dt>
         <dd>initialise objects for using cctu package</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="library_description.html">library_description()</a></code>
 
         </dt>
         <dd>loads all the packages listed in the DESCRIPTION file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="attach_pop.html">attach_pop()</a></code> <code><a href="attach_pop.html">detach_pop()</a></code>
 
         </dt>
         <dd>Functions that attach and detach environments based on which populations are used for a given table number</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="clean_up.html">clean_up()</a></code>
 
         </dt>
         <dd>removes all the objects in the environment, apart from those listed in reserved and detaches the environment used to create tables or figures corresponding to the number</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="data_table_summary.html">data_table_summary()</a></code>
 
         </dt>
         <dd>Provides a summary with date stamps of external data files.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="order_dewey.html">order_dewey()</a></code>
 
         </dt>
         <dd>sorts inputs that look like Dewey decimal numbering</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_meta_table.html">get_meta_table()</a></code> <code><a href="get_meta_table.html">set_meta_table()</a></code>
 
         </dt>
         <dd>Functions to handle meta_table</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_code_tree.html">get_code_tree()</a></code> <code><a href="get_code_tree.html">reset_code_tree()</a></code>
 
         </dt>
         <dd>track which files of code are called by which oher files</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot.code_tree.html">plot(<i>&lt;code_tree&gt;</i>)</a></code>
 
         </dt>
         <dd>plot the code tree.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="create_popn_envir.html">create_popn_envir()</a></code>
 
         </dt>
         <dd>create environments contain a set of data frames filtered for each population</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rm_envir.html">rm_envir()</a></code>
 
         </dt>
         <dd>A function to remove all attached objects from the search path with any exceptions specified</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="run_batch.html">run_batch()</a></code>
 
         </dt>
         <dd>Runs a script in batch mode directly from within R.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="source.html">source()</a></code>
 
         </dt>
         <dd>A modified version of the source() function to capture in a data.frame what file was called and from which file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="read_data.html">read_data()</a></code>
 
         </dt>
         <dd>Automatic reading in data from a meta-table of external data sets.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="meta_table_example.html">meta_table_example</a></code>
 
@@ -155,8 +168,7 @@
 
       <div class="section-desc"><p>Functions manipulating MACRO data</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -167,31 +179,36 @@
 
         </dt>
         <dd>Apply DLU/CLU file to the data frame</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_form.html">extract_form()</a></code>
 
         </dt>
         <dd>Extract data by form from MACRO dataset</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="merge_data.html">merge_data()</a></code>
 
         </dt>
         <dd>Merge vertically split data</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="set_dlu.html">set_dlu()</a></code> <code><a href="set_dlu.html">get_dlu()</a></code>
 
         </dt>
         <dd>Set/get DLU data</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="tidy_dlu.html">tidy_dlu()</a></code>
 
         </dt>
         <dd>Tidy DLU form</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="dump_missing_report.html">dump_missing_report()</a></code> <code><a href="dump_missing_report.html">get_missing_report()</a></code> <code><a href="dump_missing_report.html">reset_missing_report()</a></code>
 
@@ -202,8 +219,7 @@
 
       <div class="section-desc"><p>Functions to format digits, convert characters.</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -214,31 +230,36 @@
 
         </dt>
         <dd>Format number to percent</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="format_pval.html">format_pval()</a></code>
 
         </dt>
         <dd>Format p-value</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="signif_pad.html">signif_pad()</a></code> <code><a href="signif_pad.html">round_pad()</a></code>
 
         </dt>
         <dd>Round numbers with 0-padding.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="p_format.html">p_format()</a></code>
 
         </dt>
         <dd>formats p values with rounding and &lt;0.001</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="to_factor.html">to_factor()</a></code> <code><a href="to_factor.html">to_character()</a></code> <code><a href="to_factor.html">to_numeric()</a></code> <code><a href="to_factor.html">to_logical()</a></code>
 
         </dt>
         <dd>Convert vector but keep value/value labels.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="propercase.html">propercase()</a></code>
 
@@ -249,8 +270,7 @@
 
       <div class="section-desc"><p>Functions to create summary statistics</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -261,49 +281,57 @@
 
         </dt>
         <dd>Generate an table of descriptive statistics.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="print.cttab.html">print(<i>&lt;cttab&gt;</i>)</a></code>
 
         </dt>
         <dd>Print</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rbind.cttab.html">rbind(<i>&lt;cttab&gt;</i>)</a></code>
 
         </dt>
         <dd>Combine descriptive statistics table by rows</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="render_cat.html">render_cat()</a></code>
 
         </dt>
         <dd>Render categorical values for table output.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="render_numeric.html">render_numeric()</a></code>
 
         </dt>
         <dd>Render continuous values for table output.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="num_stat.html">num_stat()</a></code> <code><a href="num_stat.html">cat_stat()</a></code>
 
         </dt>
         <dd>Compute some basic descriptive statistics.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sumby.html">sumby()</a></code>
 
         </dt>
         <dd>Produces summary statistics on a variable broken down by arm, display a graphical equivalent.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sumfig.html">sumfig()</a></code>
 
         </dt>
         <dd>Produce ggplot to represent summary statistics graphically, either boxplot or barchart</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="regression_table.html">regression_table()</a></code>
 
@@ -314,8 +342,7 @@
 
       <div class="section-desc"><p>Functions to create plots</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -326,19 +353,22 @@
 
         </dt>
         <dd>Step ribbon plots.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="km_ggplot.html">km_ggplot()</a></code>
 
         </dt>
         <dd>Create a Kaplan-Meier plot using ggplot2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot.km_ggplot.html">plot(<i>&lt;km_ggplot&gt;</i>)</a></code>
 
         </dt>
         <dd>plot methods for km_ggplot object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="print.km_ggplot.html">print(<i>&lt;km_ggplot&gt;</i>)</a></code>
 
@@ -349,8 +379,7 @@
 
       <div class="section-desc"><p>Functions to write tables, figures and report</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -361,37 +390,43 @@
 
         </dt>
         <dd>Produces the final Docx file</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_ggplot.html">write_ggplot()</a></code>
 
         </dt>
         <dd>Function to save ggplot figures.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_manual.html">write_manual()</a></code>
 
         </dt>
         <dd>Function to write to meta-table and clean up without creating a table,text, or figure. For manual use</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_plot.html">write_plot()</a></code>
 
         </dt>
         <dd>Function to save plot figures</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_table.html">write_table()</a></code>
 
         </dt>
         <dd>Function to write a table into xml format in the correct directory, and edit TableofTables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_text.html">write_text()</a></code>
 
         </dt>
         <dd>Function to write a text into xml format in the correct directory, and edit TableofTables</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="create_word_xml.html">create_word_xml()</a></code>
 
@@ -402,37 +437,40 @@
 
       <div class="section-desc"><p>Functions for labels</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
 
       <dl><dt>
 
-          <code><a href="val_lab.html">val_lab()</a></code> <code><a href="val_lab.html">`val_lab&lt;-`()</a></code> <code><a href="val_lab.html">has.labels()</a></code> <code><a href="val_lab.html">unval()</a></code>
+          <code><a href="val_lab.html">val_lab()</a></code> <code><a href="val_lab.html">`val_lab&lt;-`()</a></code> <code><a href="val_lab.html">has_labels()</a></code> <code><a href="val_lab.html">unval()</a></code>
 
         </dt>
         <dd>Set or get value labels</dd>
-      </dl><dl><dt>
 
-          <code><a href="var_lab.html">var_lab()</a></code> <code><a href="var_lab.html">`var_lab&lt;-`()</a></code> <code><a href="var_lab.html">has.label()</a></code> <code><a href="var_lab.html">drop_lab()</a></code>
+        <dt>
+
+          <code><a href="var_lab.html">var_lab()</a></code> <code><a href="var_lab.html">`var_lab&lt;-`()</a></code> <code><a href="var_lab.html">has_label()</a></code> <code><a href="var_lab.html">drop_lab()</a></code>
 
         </dt>
         <dd>Set or get variable label</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="unlab.html">unlab()</a></code>
 
         </dt>
         <dd>Drop variable label and value labels</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="copy_lab.html">copy_lab()</a></code>
 
         </dt>
         <dd>Copy variable label and value labels</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="lab2val.html">lab2val()</a></code>
 
@@ -443,8 +481,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -455,31 +492,36 @@
 
         </dt>
         <dd>Check if All Elements in Character Vector are Numeric</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="clean_names.html">clean_names()</a></code> <code><a href="clean_names.html">clean_string()</a></code>
 
         </dt>
         <dd>Tidies up names of a data frame within certain rules</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="detect_invalid_utf8.html">detect_invalid_utf8()</a></code> <code><a href="detect_invalid_utf8.html">remove_invalid_utf8()</a></code>
 
         </dt>
         <dd>Functions to detect and delete non-UTF8 characters, which the XML output will not like</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is_empty.html">is_empty()</a></code>
 
         </dt>
         <dd>Check whether string, list or vector is empty</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rbind_space.html">rbind_space()</a></code>
 
         </dt>
         <dd>Function to bind tables/matrices with a blank row between them</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="remove_blank_rows_cols.html">remove_blank_rows_cols()</a></code>
 
@@ -495,7 +537,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

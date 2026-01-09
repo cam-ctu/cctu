@@ -1,0 +1,234 @@
+---
+date: "`r format(Sys.time(), format = '%H:%M %d %b %Y')`"
+author: "`r params$my_author`"
+title: "`r params$my_title`"
+format:
+  html:
+    toc: true
+    toc_float: true
+    df-print: kable
+    fig-cap-location: top
+    tbl-cap-location: top
+    embed-resources: true
+    linestretch: 1
+  # Uncomment the below for PDF
+  # pdf:
+  #   toc: true
+  #   toc-depth: 3
+  #   toc-title: "Table of contents"
+  #   number-depth: 2
+  #   fig-cap-location: top
+  #   tbl-cap-location: top
+  #   papersize: a4
+  #   geometry:
+  #     - inner=1cm
+  #     - outer=1cm
+  #     - top=2cm
+  #     - bottom=1cm
+  #   include-in-header:
+  #       text: |
+  #         \usepackage{setspace}
+  #         \singlespacing
+  #         \linespread{1}
+  #   df-print: kable
+execute:
+  echo: false
+  message: false
+  warning: false
+params:
+  my_title: "Title of the report"
+  my_author: "Author"
+  tinny_table: "If tinny table should be used"
+---
+
+```{r}
+#| echo: false
+#| output: asis
+#| label: report
+
+library(xml2)
+
+if(!params$tinny_table){
+  library(flextable)
+  # Set flextable defaults
+  set_flextable_defaults(
+    font.family = "Arial",
+    font.size = 10,
+    font.color = "black",
+    text.align = "left",
+    padding = 0,
+    padding.bottom = 0,
+    padding.top = 0,
+    padding.left = 0,
+    padding.right = 0,
+    border.color = "black",
+    # border.width = 0.75,
+    line_spacing = 1,
+    table.layout = "autofit"
+  )
+}else{
+  library(tinytable)
+}
+
+table_path <- file.path(getwd(), "Output", "Core")
+figure_path <- file.path(getwd(), "Output", "Figures")
+
+# Prep-table function
+prep_table <- function(filename, tinytable = params$tinny_table){
+  xml_file <- read_xml(filename)
+
+  rows <- xml_find_all(xml_file, ".//tr")
+  # Parse each row into a list with cell values and style (if any)
+  table_data <- lapply(rows, function(row) {
+    cells <- xml_find_all(row, ".//th | .//td")
+    values <- xml_text(cells)
+    
+    # Try to extract style from the first <td> if it exists
+    first_td <- xml_find_first(row, ".//td")
+    style <- if (!is.na(first_td)) xml_attr(first_td, "style") else NA
+    
+    # Append style to the values
+    c(values, style)
+  })
+
+  # Convert to a data frame
+  df <- as.data.frame(do.call(rbind, table_data))
+
+  styles <- df[-1, ncol(df)]
+  colnames(df) <- df[1, -ncol(df)]
+  df <- df[-1, -ncol(df)]
+  
+  if(!tinytable){
+    
+    qflextable(df) |> 
+    align(align = "center", part = "all") |> 
+    align(i = grepl("firstleft", styles), j = 1, align = "left") |> 
+    bold(bold = TRUE, part = "header") |> 
+    bold(i = grepl("bold", styles), j = 1) |> 
+    bg(i = grepl("bgcol", styles), bg = "#D3D3D3", part = "body") |> 
+    merge_h_range(i = grepl("span", styles), j1 = 1, j2 = ncol(df)) |> 
+    align(i = grepl("span", styles) & grepl("bgcol", styles),
+          align = "center") |> 
+    padding(i = grep("indent", styles), j = 1, padding.left = 2)
+    
+  }else{
+    group_indx <- grepl("span", styles)
+    group_rows <- as.list(
+      setNames(
+        which(group_indx) - (0:(sum(group_indx)-1)),
+        df[group_indx, 1])
+    )
+
+    tab <- tt(df[!group_indx, ]) |>
+      style_tt(align = "c")
+
+    if(any(grepl("firstleft", styles))){
+      tab <- tab|>
+        style_tt(j = 1, align = "l")
+    }
+
+    if(length(group_rows)>0){
+      tab <- tab |>
+        group_tt(i = group_rows) |>
+        style_tt(i = which(group_indx), bold = TRUE)
+    }
+
+    if(any(grepl("bgcol", styles))){
+      tab <- tab |>
+        style_tt(i = grep("bgcol", styles),
+                align = "c",
+                background = "#D3D3D3",
+                bold = TRUE)
+    }
+
+    tab |>
+      format_tt(escape = TRUE) |>
+      theme_tt("multipage")
+  }
+}
+
+meta_tbl <- read.csv(file = file.path("Output", "meta_table.csv"),
+                       stringsAsFactors = FALSE,
+                       colClasses = "character")
+
+cat("{{< pagebreak >}}")
+
+for(j in unique(meta_tbl$section)){
+  meta_table <- meta_tbl[meta_tbl$section == j,]
+  meta_table$program <- normalizePath(meta_table$program, winslash = "/")
+  
+  for(i in seq_len(nrow(meta_table))){
+
+    if(meta_table$orientation[i] %in% "landscape")
+      cat("\n::: {.landscape}")
+    
+    if(i == 1)
+      cat(sprintf("\n\n# %s\n\n", j))
+
+    item_num <- meta_table$number[i]
+    cat(sprintf("\n\n## %s %s\n\n", item_num, meta_table$title[i]))
+
+    item_caption <- sprintf("%s [Population-%s]", 
+                            meta_table$subtitle[i], 
+                            meta_table$population[i])
+
+    # Table
+    if(meta_table$item[i] %in% "table"){
+      
+      table_xmlfile <- file.path(table_path, sprintf("table_%s.xml", item_num))
+      cat(sep = "\n", knitr::knit_child(quiet = TRUE, text = c(
+          "```{r}",
+          "#| echo: false",
+          sprintf("#| tbl-cap: %s", item_caption),
+          "prep_table(table_xmlfile)",
+          "```"
+        )))
+    }
+
+    # Table
+    if(meta_table$item[i] %in% "text"){
+      file_path <- file.path(table_path, sprintf("text_%s.xml", item_num))
+      xml_file <- read_xml(file_path)
+      text <- xml_find_all(xml_file, ".//text")
+      cat("\n",xml_text(text), "\n")
+    }
+
+    # Figure
+    if(meta_table$item[i] %in% "figure"){
+      fig_filepath <- file.path(figure_path, sprintf("fig_%s.png", item_num))
+      cat(sep = "\n", knitr::knit_child(quiet = TRUE, text = c(
+          "```{r}",
+          "#| echo: false",
+          sprintf("#| fig-cap: %s", item_caption),
+          "knitr::include_graphics(fig_filepath)",
+          "```"
+        )))
+    }
+
+    ftn <- c(meta_table$footnote1[i], meta_table$footnote2[i])
+    ftn <- ftn[!ftn %in% c("", NA)]
+    ftn <- gsub("\n", "\n\n", paste(ftn, collapse = "\n"))
+    cat(ftn)
+    cat(sprintf("\n\n[Program: %s]{style='color:grey;'}\n\n", meta_table$program[i]))
+    if(meta_table$orientation[i] %in% "landscape")
+      cat(":::\n")
+    else
+      cat("{{< pagebreak >}}")
+  }
+}
+
+```
+
+
+# Session information 
+
+```{r}
+#| echo: false
+sessionInfo()
+```
+
+
+
+
+
+

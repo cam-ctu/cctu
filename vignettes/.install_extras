@@ -1,4 +1,2 @@
-^Progs$
-^output$
-^main.R$
-vignettes/Output/.*
+.*[.]docx$
+.*[.]html$

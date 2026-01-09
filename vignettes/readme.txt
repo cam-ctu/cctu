@@ -1,30 +1,25 @@
-There is a problem in creating output within the Vignettes directory and saving it when the package is
-built.
+To create a file in a vignette (that's not the html report) you need to
 
-.intall_extras does not seem to work. It does keep Progs/, but this only has .R or .Rmd docs inside..
-
-_so_  first run
-
-devtools::build_packages(clean=FALSE)
-
-###Update v 0.5.4 18JUN2020 this is not needed. The vignetters put the Ouptut folder into Doc and it works fine.
-
-then copy the vignettes/Output directory into ~/inst
-
-then
-
-devtools::build() to get the tar.gz source
-# Or maybe do
-
-setwd("..")
-system("R CMD build cctu") seems to do a better job...
+a) run the vignette directly from the .Rmd file, to create the file in the vignette folder.
+b) change the name of the file e.g add "_bak" onto the file name.
+Else it will get deleted during the build process
+c)  use a link like  [my file](../doc/my_file_bak.docx) in the .Rmd vignette file.
+d)  in the .install_extras add a line like  .*[.]docx$  to copy all docx files.
+I've not yet succeeded to make this work with subfolders- Keep it simple
+e)  then with devtools::build_vignettes()  you should get this copied across into /doc
+and the cross-reference works.  The /doc folder is what you see in the install package.
 
 
-then install from tar.gz
+To make the rmarkdown_report.Rmd work. Requires
 
-and there will be a top-level Output/ directory with the outputs, and doc and xml files.
+a) run analysis-template.Rmd manually
+b) run the individual blocks of R code from rmark_down_report.Rmd
+(but not the first one to copy the meta_table.csv - you already have this)
 
-Could modify the links in teh vignette??? and or force the moving of the directory to inst when the vignette is built??
+Then the build will copy across the output files. The rmark_down_report.Rmd doesn't evaluate
+the R code, as it is fragile...
+
+
 
 
 

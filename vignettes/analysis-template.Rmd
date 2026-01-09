@@ -61,7 +61,7 @@ During the analysis code, the function `attach_pop()` is repeatedly called with 
 
 A set of default local files can be set up using `cctu_initialise` where the outputs will be stored using the default arguments.
 
-The code itself is assumed to be modularised into a sequence of code that calls other code using `source`.
+The code itself is assumed to be modularised into a sequence of code that calls other code using `source`.  Copies of the scripts used in this vignette are available within the package folder `/scripts`.
 
 * `Main.R` at the top with a minimal amount of initialisation: working directory, PATHs, `library(cctu)`, `run_batch()`, then a sequence of `source()`, final calling of `create_word_xml()` and maybe further calls to `render` for other outputs.
 * A configuration file, loading packages, setting graphical defaults, loading bespoke functions,
@@ -83,7 +83,7 @@ After the analysis, the function `write_docx`  glues these files all together al
 
 Previously the command `create_word_xml` was used, which then needed subsequent steps to convert to a fully compliant docx with figures. Included for back compatibility now.
 
-If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk! This is not the case with `write_docx` anymore. You are not allowed to eidit this file as the Docx file is complicated. 
+If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk! This is not the case with `write_docx` anymore. You are not allowed to edit this file as the Docx file is complicated. 
 
 ## Pointers
 
@@ -209,7 +209,7 @@ From here one could refer to the vignette `using-cttab`, and apply further funct
 
 ## Creating the Report
 
-Need to create names for the population labels, including the number of subjects. Good to name the report ending with the suffix ".doc".
+Need to create names for the population labels, including the number of subjects. Good to name the report ending with the suffix ".docx".
 
 
 ```{r report}
@@ -223,7 +223,7 @@ write.csv(get_code_tree(), file = file.path("Output", "codetree.csv"), row.names
 write_docx(
   report_title = "Vignette Report",
   author = "Simon Bond",
-  filename = file.path("Output", "Reports", "Vignette_Report.doc"),
+  filename = "Vignette_Report.docx",#file.path("Output", "Reports", "Vignette_Report.docx"),
   popn_labels = popn_labels
 )
 Sys.info()
@@ -237,8 +237,11 @@ date()
 # file.copy("Output", "../inst/doc", recursive=TRUE)
 ```
 
-The output is [Output/Reports/Vignette_Report.doc](Output/Reports/Vignette_Report.docx).  To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
+The output is [Vignette_Report_bak.docx](../doc/Vignette_Report_bak.docx).  
 
+For the older function `create_word_xml()` output it was neccesary to carry out post-processing in word. To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
+
+This is not needed with `write_docx` output. 
 
 ## Multiple Versions of Reports
 

@@ -16,3 +16,4 @@ build_dashboard.R
 *.zip
 !/inst/assets/*
 docs
+/Meta/

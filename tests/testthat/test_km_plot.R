@@ -17,8 +17,7 @@ operating_system <-    Sys.info()["sysname"]
   vdiffr::expect_doppelganger("pvalue_digits_options", fig3, variant = operating_system )
   options("cctu_p_digits" = NULL)
   fig4 <- km_ggplot(fit, pval = TRUE)
-  vdiffr::expect_doppelganger("pvalue", fig4, variant = operating_system )
-  # checking that fig2 and fig4 are the same
+
 
   fit0 <- survfit(Surv(time, status) ~ 1, data = colon)
   fig5 <- km_ggplot(fit0)
@@ -35,4 +34,13 @@ operating_system <-    Sys.info()["sysname"]
     ylims = c(0.5, 1), xlims = c(0, 2000)
   )
   vdiffr::expect_doppelganger("labs", fig7, variant = operating_system )
+
+
+  skip_on_ci()
+  vdiffr::expect_doppelganger("pvalue", fig4, variant = operating_system )
+  # checking that fig2 and fig4 are the same
+  # Currently works locally. But on github it creates an error by insisting
+  # that the "pvalue" is not repeated across tests.
+  # SO we can't run:  fig2="Pvalue" and fig2="pvalue" => fig2=fig4
+
 })

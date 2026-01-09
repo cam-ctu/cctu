@@ -1,3 +1,9 @@
+# cctu 0.8.10
+
+Worked out how to make the vignettes' links to output files actually work. Fixed
+`analysis-template` and `rmarkdown_report`. See the `\vignette\readme.txt`
+
+
 
 # cctu 0.8.9
 

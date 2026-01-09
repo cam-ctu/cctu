@@ -74,14 +74,14 @@ clean_meta_table <- function(meta_table) {
   )
 
   # makes empty columns are characters - read_excel will make them logicals.
-  meta_table <- lapply(meta_table, as.character) %>% data.frame()
+  meta_table <- lapply(meta_table, as.character) |> data.frame()
 
   if (!("number" %in% names(meta_table))) {
     stop("Need to have 'number' column in meta_table")
   } else {
     meta_table$number <- gsub("\\s", "", meta_table$number)
-    index <- meta_table$number %>%
-      as.character() %>%
+    index <- meta_table$number |>
+      as.character() |>
       order_dewey()
     meta_table <- meta_table[index, ]
     pmat <- pmatch(names(meta_table), columns_needed)
@@ -115,7 +115,7 @@ clean_meta_table <- function(meta_table) {
     meta_table$orientation <- "portrait"
   }
 
-  item_index <- pmatch(meta_table$item %>% tolower(),
+  item_index <- pmatch(meta_table$item |> tolower(),
     c("table", "figure", "text"),
     duplicates.ok = TRUE
   )
@@ -127,7 +127,7 @@ clean_meta_table <- function(meta_table) {
   }
   meta_table$item <- c("table", "figure", "text")[item_index]
 
-  orient_index <- pmatch(meta_table$orientation %>% tolower(),
+  orient_index <- pmatch(meta_table$orientation |> tolower(),
     c("portrait", "landscape"),
     duplicates.ok = TRUE
   )

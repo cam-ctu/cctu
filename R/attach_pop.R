@@ -10,7 +10,7 @@
 #'
 #' @return invisibly returns an environment for attaching, or NULL for detaching.
 #' @seealso \code{\link{attach}} \code{\link{detach}} \code{\link{rm_envir}}
-#' @importFrom magrittr %>%
+
 
 #' @describeIn attach_pop attaches a population
 #' @export
@@ -66,6 +66,6 @@ match_population <- function(number) {
     warning("Need to have 'population' column in meta_table")
   }
   index <- match(number, meta_table$number)
-  popn_name <- meta_table[index, "population"] %>% as.character()
+  popn_name <- meta_table[index, "population"] |> as.character()
   popn_name
 }

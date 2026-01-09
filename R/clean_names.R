@@ -21,7 +21,7 @@
 #'
 #'
 #' @export
-#' @importFrom  magrittr %>%
+
 
 
 clean_names <- function(df, convert = TRUE, verbose = options()$verbose) {
@@ -49,14 +49,14 @@ clean_names <- function(df, convert = TRUE, verbose = options()$verbose) {
 #' cleaned.
 #'
 clean_string <- function(x) {
-  x %>%
-    tolower(.) %>%
-    gsub("\\s+", "_", .) %>%
-    gsub("-", "_", .) %>%
-    gsub("/", "_", .) %>%
-    gsub("\\.", "_", .) %>%
-    gsub("_+", "_", .) %>%
-    gsub("^_", "", .) %>%
-    gsub("_$", "", .) %>%
+  x |>
+    tolower() |>
+    gsub("\\s+", "_", x = _) |>
+    gsub("-", "_", x = _) |>
+    gsub("/", "_", x = _) |>
+    gsub("\\.", "_", x = _) |>
+    gsub("_+", "_", x = _) |>
+    gsub("^_", "", x = _) |>
+    gsub("_$", "", x = _) |>
     trimws()
 }

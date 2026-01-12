@@ -136,3 +136,7 @@ articles:
 development:
   mode: auto
 
+redirects:
+  - ["doc/Vignette_Report.html", "articles/Vignette_Report.html"]
+  - ["doc/Vignette_Report_Quarto.html", "articles/Vignette_Report_Quarto.html"]
+  - ["doc/Vignette_Report_bak.docx", "articles/Vignette_Report_bak.docx"]

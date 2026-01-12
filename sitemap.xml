@@ -1,5 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://cam-ctu.github.io/cctu/404.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/articles/Vignette_Report.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/articles/Vignette_Report_Quarto.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/articles/analysis-template.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/articles/index.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/articles/rmarkdown_report.html</loc></url>

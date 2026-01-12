@@ -77,7 +77,8 @@ A set of default local files can be set up using `cctu_initialise` where
 the outputs will be stored using the default arguments.
 
 The code itself is assumed to be modularised into a sequence of code
-that calls other code using `source`.
+that calls other code using `source`. Copies of the scripts used in this
+vignette are available within the package folder `/scripts`.
 
 - `Main.R` at the top with a minimal amount of initialisation: working
   directory, PATHs, [`library(cctu)`](https://cam-ctu.github.io/cctu/),
@@ -146,7 +147,7 @@ Included for back compatibility now.
 If you want to tweak the style of the word document then you would edit
 the [xslt file](https://cam-ctu.github.io/cctu/extdata/xml_to_word.xslt)
 totally at your own risk! This is not the case with `write_docx`
-anymore. You are not allowed to eidit this file as the Docx file is
+anymore. You are not allowed to edit this file as the Docx file is
 complicated.
 
 ### Pointers
@@ -480,7 +481,7 @@ write_text("There were no deaths")
 ### Creating the Report
 
 Need to create names for the population labels, including the number of
-subjects. Good to name the report ending with the suffix “.doc”.
+subjects. Good to name the report ending with the suffix “.docx”.
 
 ``` r
 pop_size <- sapply(popn[, names(popn) != "subjid"], sum)
@@ -493,11 +494,11 @@ write.csv(get_code_tree(), file = file.path("Output", "codetree.csv"), row.names
 write_docx(
   report_title = "Vignette Report",
   author = "Simon Bond",
-  filename = file.path("Output", "Reports", "Vignette_Report.doc"),
+  filename = "Vignette_Report.docx",#file.path("Output", "Reports", "Vignette_Report.docx"),
   popn_labels = popn_labels
 )
 #> now dyn.load("/home/runner/work/_temp/Library/png/libs/png.so") ...
-#> Output/Reports/Vignette_Report.docx created.
+#> Vignette_Report.docx created.
 Sys.info()
 #>                                               sysname 
 #>                                               "Linux" 
@@ -506,7 +507,7 @@ Sys.info()
 #>                                               version 
 #> "#18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025" 
 #>                                              nodename 
-#>                                       "runnervmf2e7y" 
+#>                                       "runnervmi13qx" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -537,32 +538,38 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#>  [1] survival_3.8-3 xml2_1.4.1     rvest_1.0.5    tidyr_1.3.1    rmarkdown_2.30
-#>  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.50     ggplot2_4.0.0  dplyr_1.1.4   
-#> [11] cctu_0.8.9    
+#>  [1] survival_3.8-3 xml2_1.5.1     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.30
+#>  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.51     ggplot2_4.0.1  dplyr_1.1.4   
+#> [11] cctu_0.8.11   
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-7     digest_0.6.37     
+#>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-7     digest_0.6.39     
 #>  [5] evaluate_1.0.5     grid_4.5.2         RColorBrewer_1.1-3 fastmap_1.2.0     
 #>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-4       gridExtra_2.3     
-#> [13] httr_1.4.7         purrr_1.2.0        scales_1.4.0       textshaping_1.0.4 
-#> [17] jquerylib_0.1.4    cli_3.6.5          rlang_1.1.6        splines_4.5.2     
-#> [21] xslt_1.5.1         withr_3.0.2        cachem_1.1.0       yaml_2.3.10       
+#> [13] httr_1.4.7         purrr_1.2.1        scales_1.4.0       textshaping_1.0.4 
+#> [17] jquerylib_0.1.4    cli_3.6.5          rlang_1.1.7        splines_4.5.2     
+#> [21] xslt_1.5.1         withr_3.0.2        cachem_1.1.0       yaml_2.3.12       
 #> [25] tools_4.5.2        png_0.1-8          vctrs_0.6.5        R6_2.6.1          
-#> [29] lifecycle_1.0.4    htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
-#> [33] pillar_1.11.1      bslib_0.9.0        gtable_0.3.6       data.table_1.17.8 
-#> [37] glue_1.8.0         Rcpp_1.1.0         systemfonts_1.3.1  xfun_0.54         
-#> [41] tibble_3.3.0       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.8.1 
-#> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.5.2     S7_0.2.0
+#> [29] lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
+#> [33] pillar_1.11.1      bslib_0.9.0        gtable_0.3.6       data.table_1.18.0 
+#> [37] glue_1.8.0         Rcpp_1.1.1         systemfonts_1.3.1  xfun_0.55         
+#> [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   
+#> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.5.2     S7_0.2.1
 date()
-#> [1] "Thu Nov  6 16:15:05 2025"
+#> [1] "Mon Jan 12 15:04:26 2026"
 ```
 
 The output is
-[Output/Reports/Vignette_Report.doc](https://cam-ctu.github.io/cctu/articles/Output/Reports/Vignette_Report.docx).
-To permanently save, first go to file \> Edit Links to Files; highlight
-all the figures (shift + scroll), and click “break link”. Then File\>
-save as, and ensure it is Saved As Type a “Word Document (\*.docx)“.
+[Vignette_Report_bak.docx](https://cam-ctu.github.io/cctu/doc/Vignette_Report_bak.docx).
+
+For the older function
+[`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
+output it was neccesary to carry out post-processing in word. To
+permanently save, first go to file \> Edit Links to Files; highlight all
+the figures (shift + scroll), and click “break link”. Then File\> save
+as, and ensure it is Saved As Type a “Word Document (\*.docx)“.
+
+This is not needed with `write_docx` output.
 
 ### Multiple Versions of Reports
 

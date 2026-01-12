@@ -1,5 +1,15 @@
 # Changelog
 
+## cctu 0.8.11
+
+Trying to fix links in Package Down.
+
+## cctu 0.8.10
+
+Worked out how to make the vignettes’ links to output files actually
+work. Fixed `analysis-template` and `rmarkdown_report`. See the
+`\vignette\readme.txt`
+
 ## cctu 0.8.9
 
 - Bug fix to cttab when `group` is the variable name in the data set

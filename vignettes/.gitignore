@@ -3,3 +3,5 @@ analysis-template.html
 archive
 *.html
 *.R
+!Vignette_Report.html
+!Vignette_Report_Quarto.html

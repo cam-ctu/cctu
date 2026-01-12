@@ -28,7 +28,6 @@
 #' \code{\link{propercase}},
 #' \code{\link{cttab}}
 #'
-#' @importFrom magrittr %<>% %>%
 #' @export
 
 
@@ -68,7 +67,7 @@ sumby <- function(variable,
     }
     cctu_env$sumby_count <- cctu_env$sumby_count + 1
     if (directory != formals()$directory || cctu_check_dir()) {
-      # directory %<>% normalizePath %>% final_slash
+      # directory %<>% normalizePath |> final_slash
       file_name <- file.path(directory, paste0(
         "sumby_fig_",
         cctu_env$number,
@@ -161,10 +160,10 @@ sumby <- function(variable,
   }
 
   names(ans)[1:2] <- c("Variable", "Statistics")
-  ans <- ans %>%
-    apply(., 2, as.character) %>%
-    gsub("^0% ", "", .) %>%
-    gsub("^NaN% ", "", .)
+  ans <- ans |>
+    apply(2, as.character) |>
+    gsub("^0% ", "", x = _) |>
+    gsub("^NaN% ", "", x = _)
 
   if (fig) attr(ans, "fig") <- fig_object
   ans

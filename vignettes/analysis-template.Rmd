@@ -17,6 +17,7 @@ resource_files:
   - Output
   - main.R
   - vignettes/Output
+  - Vignette_Report_bak.docx
 ---
 
 ```{r setup, include = FALSE}

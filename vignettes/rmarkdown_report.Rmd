@@ -7,8 +7,8 @@ output:
     toc: true
     number_sections: false
 resource_files:
-  - html/rmarkdown_report.html
-  - html/quarto_report.html
+  - Vignette_Report.html
+  - Vignette_Report_Quarto.html
   
 vignette: |
   %\VignetteIndexEntry{Generate HTML Report} 
@@ -40,7 +40,7 @@ This is to make sure that all the meta data is saved in the `meta_table.csv` fil
 The `rmarkdown_report.Rmd` file is the main file that will be used to generate the report. The `table.Rmd` and `text.Rmd` files are the templates for the tables and text respectively. The `rmarkdown_report.Rmd` file will call these templates to generate the report.
 
 
-You can use the follwoing code to copy the templates to the current working directory.
+You can use the following code to copy the templates to the current working directory.
 
 ```{r, eval=FALSE}
 # Copy the templates to the Progs folder under current working directory
@@ -58,7 +58,7 @@ After copying the files, you can modify the template as you wish. Then use the f
 ```{r, eval=FALSE}
 rmarkdown::render(
   # Path to the RMD template file
-  file.path("Progs", "rmarkdown_report.Rmd"), 
+  file.path("Progs", "_rmarkdown_report.Rmd"), 
   # Name of the output file
   output_file = "Vignette_Report.html",  
   # Set the output directory to the Output/Reports folder
@@ -82,7 +82,7 @@ Click [here](../doc/Vignette_Report.html) to see the example output of the repor
 First, you need to copy yhe templates to the current working directory. 
 
 ```{r, eval=FALSE}
-file.copy(from = system.file("assets/qmd/quarto-report.qmd", package = "cctu"), 
+file.copy(from = system.file("assets/qmd/_quarto-report.qmd", package = "cctu"), 
           to = getwd(), 
           overwrite = TRUE, 
           recursive = FALSE, 
@@ -93,7 +93,7 @@ file.copy(from = system.file("assets/qmd/quarto-report.qmd", package = "cctu"),
 After copying the files, you can modify the template as you wish. Then use the following code to generate the report.
 ```{r, eval=FALSE}
 quarto::quarto_render(
-  input = "quarto-report.qmd", # Path to the QMD template file
+  input = "_quarto-report.qmd", # Path to the QMD template file
   # Name of the output file
   output_file = "Vignette_Report_Quarto.html", 
   # Set the output format to HTML

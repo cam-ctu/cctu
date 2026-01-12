@@ -19,6 +19,9 @@ b) run the individual blocks of R code from rmark_down_report.Rmd
 Then the build will copy across the output files. The rmark_down_report.Rmd doesn't evaluate
 the R code, as it is fragile...
 
+Need to explicitly reallow any html files created this way, as the .gitignore excludes them
+
+
 
 
 

@@ -16,7 +16,7 @@
 #' @seealso \code{\link{dir.create}} \code{\link{reset_code_tree}}
 #'
 #' @export
-#' @importFrom magrittr %>% %<>%
+
 
 #' @describeIn cctu_initialise create the standard directories for outputs
 #'  if needed.
@@ -25,8 +25,8 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
                             output = getOption("cctu_output",
                               default = "Output"
                             )) {
-  root <- root %>% normalizePath()
-  # root_slash <- root %>% final_slash()
+  root <- root |> normalizePath()
+  # root_slash <- root |> final_slash()
   reset_code_tree(root_file = file.path(root, "ROOT"))
   if (!cctu_check_dir(root = root)) {
     dir.create(file.path(root, output)) &
@@ -84,7 +84,7 @@ cctu_check_dir <- function(root = getwd(), warnings = FALSE,
                            output = getOption("cctu_output",
                              default = "Output"
                            )) {
-  root <- normalizePath(root) # %>% final_slash
+  root <- normalizePath(root) # |> final_slash
   check <- dir.exists(file.path(root, output)) &
     dir.exists(file.path(root, output, "Core")) &
     dir.exists(file.path(root, output, "Figures")) &

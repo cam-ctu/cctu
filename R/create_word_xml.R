@@ -27,7 +27,6 @@
 #' @param keep_xml a boolean if the compiled XML should be kept, used for
 #'  debugging purpose.
 #' @export
-#' @importFrom magrittr %>% %<>%
 #'
 #' @return This function is run for its side-effects: creates an xml document
 #'  that glues together all the outputs and meta data as per the meta-table
@@ -66,8 +65,8 @@ create_word_xml <- function(
     immediate. = TRUE
   )
 
-  table_path <- normalizePath(table_path) # %>% final_slash
-  long_filename <- filename %>% normalizePath(., mustWork = FALSE)
+  table_path <- normalizePath(table_path) # |> final_slash
+  long_filename <- filename |> normalizePath(mustWork = FALSE)
 
   if (keep_xml) {
     filename <- paste0(filename, ".xml")
@@ -104,8 +103,8 @@ create_word_xml <- function(
   headers <- with(
     meta_table,
     paste0(
-      "<heading><section>", section %>% as.character() %>% remove_xml_specials(),
-      "</section><title>", title %>% as.character() %>% remove_xml_specials(),
+      "<heading><section>", section |> as.character() |> remove_xml_specials(),
+      "</section><title>", title |> as.character() |> remove_xml_specials(),
       "</title><population>",
       ifelse(is.na(population), "", remove_xml_specials(as.character(population))),
       "</population><subtitle>",

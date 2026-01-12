@@ -556,7 +556,7 @@ sessionInfo()
 #> [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   
 #> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.5.2     S7_0.2.1
 date()
-#> [1] "Mon Jan 12 15:04:26 2026"
+#> [1] "Mon Jan 12 15:14:36 2026"
 ```
 
 The output is

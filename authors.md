@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/cam-ctu/cctu/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/cam-ctu/cctu/blob/0.8.11/DESCRIPTION)
 
 Bond S, Dayimu A (2026). *cctu: In-House Functions for Report Writing at
 Cambridge Clinical Trials Unit*. R package version 0.8.11,

@@ -217,7 +217,10 @@ test_that("By cycle No treatment arm summary", {
 
   mis_rp <- get_missing_report()
   expect_identical(mis_rp$subject_id[1], "1275")
-  expect_identical(mis_rp$subject_id[7], "1181, 1286, 1259")
+  expect_identical(mis_rp$subject_id[mis_rp$form == "Lab" &
+                                       mis_rp$visit == "Baseline" &
+                                       mis_rp$variable == "BILI"],
+                   "1181, 1286, 1259")
 
   cctu_env$parent <- "test"
   write_table(X, directory = tmp_dir)

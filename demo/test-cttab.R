@@ -161,7 +161,7 @@ df$BMIBL[df$RACEN == 6] <- NA
 
 df$group <- df$ARM
 
-r <- cttabnew(
+r <- cttab(
   x = c("AGE", "SEX", "BMIBL"),
   group = "group",
   data = df,
@@ -178,7 +178,7 @@ df$inrange <- ifelse(df$AST < 20, "Low",
 )
 var_lab(df$inrange) <- "AST range"
 
-r1 <- cttabnew(
+r1 <- cttab(
   x = c("AST", "BILI", "ALT", "inrange"),
   group = "ARM",
   data = df,
@@ -193,8 +193,25 @@ final_table_2 <- dcast(r,
                        value.var = "Value",
                        fill = "-")
 
+tmp <- group_data(final_table_2,
+                  groups = c("Variable"),
+                  shift = TRUE,
+                  indent = TRUE)
 
 
+final_table_3 <- dcast(r1,
+                       Variable + AVISIT + Statistic ~ ARM,
+                       value.var = "Value",
+                       fill = "-")
 
+tmp2 <- group_data(final_table_3,
+                  groups = c("AVISIT", "Variable"),
+                  shift = TRUE,
+                  indent = TRUE)
+
+tmp3 <- group_data(final_table_3,
+                   groups = c("Variable", "AVISIT"),
+                   shift = TRUE,
+                   indent = TRUE)
 
 

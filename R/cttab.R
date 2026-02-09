@@ -114,7 +114,8 @@ cttab <- function(x, ...) {
   UseMethod("cttab")
 }
 
-#' @describeIn cttab The default interface, where \code{x} is a \code{data.frame}.
+
+#' @describeIn cttab The default interface, where \code{x} is a \code{character}.
 #' @export
 cttab.default <- function(x,
                           data,
@@ -253,7 +254,7 @@ cttab.formula <- function(x,
   }
 
   # Convert to data.table to avoid format lose.
-  data <- data.table::as.data.table(data)
+  if(!is.data.table(data))data <- as.data.table(data)
 
   # group variable to factor
   if (!is.null(group)) {
@@ -276,135 +277,31 @@ cttab.formula <- function(x,
     }
   }
 
-  # Blank cttab matrix
-  blnk_cttab <- function(row_labs, pos, from_tab) {
-    to_insert <- matrix(c(rep("", ncol(from_tab))),
-      nrow = 1,
-      dimnames = list(row_labs, colnames(from_tab))
-    )
+  # Convert variables to factor with value labels
+  cols_toconvert <- sapply(data, function(x) has_labels(x) | is.character(x))
+  cols_toconvert <- intersect(names(cols_toconvert)[cols_toconvert], vars)
+  data[,(cols_toconvert):= lapply(.SD, to_factor, ordered = TRUE), .SDcols = cols_toconvert]
 
-    structure(to_insert,
-      position = pos,
-      class = class(from_tab)
-    )
-  }
-
-  # Wrapped tabulation function
-  calc_tab <- function(data) {
-    # If variables are not list
-    if (is.list(vars)) {
-      res <- lapply(seq_along(vars), function(i) {
-        x <- vars[[i]]
-
-        r <- stat_tab(
-          vars = x,
-          group = group,
-          data = data,
-          total = total,
-          select = select,
-          add_missing = add_missing,
-          digits = digits,
-          digits_pct = digits_pct,
-          rounding_fn = rounding_fn,
-          render_num = render_num,
-          logical_na_impute = logical_na_impute
-        )
-
-        # Add grouping_varing
-        if (!is_empty(names(vars)[i])) {
-          to_insert <- blnk_cttab(
-            row_labs = names(vars)[i],
-            pos = 0,
-            from_tab = r
-          )
-          r <- rbind(to_insert, r)
-        }
-
-        r
-      })
-
-      res <- do.call(rbind, res)
-
-      # This is for logical value that has no variable name, use the grouping_varing
-      # label as the variable name
-      pos <- attr(res, "position")
-      ps <- which(pos == 0 & c(pos[-1], 3) == 1)
-      if (any(!is_empty(ps))) {
-        pos[ps] <- rep(2, length(ps))
-        attr(res, "position") <- pos
-      }
-    } else {
-      res <- stat_tab(
-        vars = vars,
-        group = group,
-        data = data,
-        total = total,
-        select = select,
-        add_missing = add_missing,
-        digits = digits,
-        digits_pct = digits_pct,
-        rounding_fn = rounding_fn,
-        render_num = render_num,
-        logical_na_impute = logical_na_impute
-      )
-    }
-
-    # Add observation row
-    if (!is.null(group)) {
-      gp_tab <- table(data[[group]])
-      if (total) {
-        gp_tab <- c(gp_tab, "Total" = length(data[[group]]))
-      }
-
-      if (add_obs) {
-        obs <- matrix(gp_tab,
-          nrow = 1,
-          dimnames = list("Observation", names(gp_tab))
-        )
-        obs <- structure(obs,
-          position = 1,
-          class = c("cttab", class(obs))
-        )
-        res <- rbind(obs, res)
-      }
-    }
-
-    res
-  }
+  # Summarise data
+  tbody <- stat_tab(
+    vars = vars,
+    group_vars = c(group, row_split),
+    data = data,
+    total = total,
+    select = select,
+    add_missing = add_missing,
+    digits = digits,
+    digits_pct = digits_pct,
+    rounding_fn = rounding_fn,
+    render_num = render_num,
+    logical_na_impute = logical_na_impute
+  )
 
   # Get arguments that will be passed to plot printing
   if (print_plot) {
     cctab_plot(vars, data, group, row_split, select)
   }
 
-  # If no split
-  if (is.null(row_split)) {
-    tbody <- calc_tab(data)
-  } else {
-    # Extract split variable label
-    split_lab <- ifelse(has_label(data[[row_split]]),
-      var_lab(data[[row_split]]),
-      row_split
-    )
-
-    dfm <- split(data, data[[row_split]])
-
-    tbody <- lapply(names(dfm), function(x) {
-      out <- calc_tab(dfm[[x]])
-
-      to_insert <- blnk_cttab(
-        row_labs = paste(split_lab, "=", x),
-        pos = 0,
-        from_tab = out
-      )
-
-      out <- rbind(to_insert, out)
-      out
-    })
-
-    tbody <- do.call("rbind", tbody)
-  }
-  
   # Report missing -------------------
   if (add_missing && !is.null(subjid_string)) {
     report_missing(
@@ -415,6 +312,7 @@ cttab.formula <- function(x,
       subjid_string = subjid_string
     )
   }
+  # End of missing report -----------------
 
   return(tbody)
 }
@@ -432,174 +330,178 @@ cttab.formula <- function(x,
 #'
 #'
 #' @inheritParams cttab
+#' @param group_vars Name of the grouping variable, length one or two character vector. 
+#' If two variables are provided, the first one will be used for grouping and the second
+#' one will be used for row split. The row split variable should be the last element of the
+#' \code{group_vars} vector.
 #'
 #' @return An object of class "cttab".
 #'
-#' @importFrom data.table .SD
+#' @import data.table
 #' @keywords internal
 
-stat_tab <- function(vars,
-                     group = NULL,
-                     data,
-                     total = TRUE,
-                     select = NULL,
-                     add_missing = TRUE,
-                     digits = 2,
-                     digits_pct = 1,
-                     rounding_fn = signif_pad,
-                     render_num = "Median [Min, Max]",
-                     logical_na_impute = FALSE) {
-  # mf <- match.call()
-  data <- as.data.table(data)
+stat_tab <- function(
+  vars,
+  group_vars = NULL, # Row split variable should be included as the last element in group
+  data,
+  total = TRUE,
+  select = NULL,
+  add_missing = TRUE,
+  digits = 2,
+  digits_pct = 1,
+  rounding_fn = signif_pad,
+  render_num = "Median [Min, Max]",
+  logical_na_impute = FALSE
+) {
 
-  vars_list <- c(unlist(vars), group)
-  if (!all(vars_list %in% names(data))) {
-    stop(
-      "Variable ",
-      paste(vars_list[!vars_list %in% names(data)], collapse = ", "),
-      " not in the dataset, please check!"
+  process_chunk <- function(.SD) {
+
+    n_row <- data.table(
+      Variable  = "Observation",
+      Statistic = "",
+      Value     = as.character(nrow(.SD)),
+      Var_ID    = 0,
+      Stat_ID   = 1
     )
-  }
 
+    # Iterate via Index (i) to capture the Variable Order
+    chunk_list <- lapply(seq_along(vars), function(i) {
+      col <- vars[i]
 
-  # group variable to factor
-  if (!is.null(group)) {
-    # Select records with non-missing group and row split
-    # data <- data[!is.na(data[[group]]), , drop = FALSE]
-    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
-
-    if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
-    }
-  }
-
-  # Create value labels for characters variables to avoid missing levels between grouping_vars
-  convcols <- names(Filter(is.character, data))
-
-  # Get variable class, make sure the class is consistent across data
-  var_class <- sapply(vars, function(v) {
-    if (!inherits(data[[v]], c("numeric", "integer", "factor", "character", "logical"))) {
-      stop(paste("The class of variable", v, "is", class(data[[v]]), "and not supported!"))
-    }
-
-    fcase(
-      inherits(data[[v]], c("factor", "character")) | has_labels(data[[v]]), "category",
-      inherits(data[[v]], c("numeric", "integer")) | all(is.na(data[[v]])), "numeric",
-      inherits(data[[v]], c("logical")), "logical"
-    )
-  })
-
-  if (length(convcols) > 0) {
-    data[, convcols] <- data[, lapply(.SD, to_character), .SDcols = convcols]
-  }
-
-  # Check if missing
-  any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
-
-  # Transform data to list for loop
-  if (total && !is.null(group)) {
-    x <- c(split(data, data[[group]]), list(Total = data))
-  } else if (!is.null(group)) {
-    x <- split(data, data[[group]])
-  } else {
-    x <- list(Total = data)
-  }
-
-
-  r <- do.call(rbind, lapply(vars, function(v) {
-    # Get variable label
-    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
-
-    y <- do.call(cbind, lapply(x, function(s) {
-      z <- s[gen_selec(s, v, select[v]), ] # Apply subset
-      z <- z[[v]]
-
-      # Convert character to factor
-      if (has_labels(z) | is.character(z)) {
-        z <- to_factor(z, ordered = TRUE)
+      if(!inherits(data[[col]], c("numeric", "integer", "factor", "character", "logical"))){
+        stop(paste("The class of variable", col, "is", class(data[[col]]), "and not supported!"))
       }
 
+      # Check if this column has a specific filter in 'select'
+      if (!is.null(select) && col %in% names(select)) {
 
-      if (var_class[v] == "category") {
-        r <- c("", unlist(render_cat(z, digits_pct = digits_pct)))
+        filter_string <- select[[col]]
+
+        # We use tryCatch to prevent crashing if the string is invalid
+        rows_to_keep <- tryCatch({
+          expr <- parse(text = filter_string)
+          # Evaluate expression within .SD environment
+          # resulting in a TRUE/FALSE vector
+          eval(expr, envir = .SD)
+        }, error = function(e) {
+          warning(paste("Filter failed for variable:", col, "-", e$message))
+          return(rep(TRUE, nrow(.SD))) # Fallback: keep all rows if error
+        })
+
+        # Handle NA results in filtering (treat as FALSE)
+        rows_to_keep[is.na(rows_to_keep)] <- FALSE
+
+        # Subset the values
+        val <- .SD[[col]][rows_to_keep]
+
+      } else {
+        # Standard case: Use all data in this group
+        val <- .SD[[col]]
       }
+      # ------------------------------------------
 
-      if (var_class[v] == "logical") {
-        # Impute missing data for logical
-        z[is.na(z)] <- logical_na_impute
+      # Get variable label
+      if(has_label(data[[col]]))
+        lbl <- var_lab(data[[col]])
+      else
+        lbl <- col
 
-        r <- with(
-          cat_stat(z, digits_pct = digits_pct)$Yes,
-          c(Missing = sprintf("%s/%s (%s)", FREQ, N, PCTnoNA))
-        )
-        add_missing <- FALSE
-      }
-
-      if (var_class[v] == "numeric") {
-        r <- c("", unlist(
-          render_numeric(z,
-            what = render_num, digits = digits,
-            digits_pct = digits_pct, rounding_fn = rounding_fn
-          )
-        ))
-      }
-
-      names(r)[1] <- variable
-
-      if (add_missing & any_miss[v]) {
+      # Handle Missingness
+      if (add_missing & sum(is.na(val)) > 0) {
         miss <- with(
-          cat_stat(is.na(z), digits_pct = digits_pct)$Yes,
+          cat_stat(is.na(val), digits_pct = digits_pct)$Yes,
           c(Missing = ifelse(FREQ == 0, "",
             sprintf("%s (%s)", FREQ, PCT)
           ))
         )
-        r <- c(r, miss)
+      }else {
+        miss <- NULL
       }
 
-      r
-    }))
+      stats <- NULL
+      # Handle Numeric variable statistics
+      if (inherits(data[[col]], c("numeric", "integer")) | all(is.na(data[[col]]))) {
+        stats <- render_numeric(
+          val,
+          what = render_num,
+          digits = digits,
+          digits_pct = digits_pct,
+          rounding_fn = rounding_fn
+        )
+      }
 
-    y[y == "NA"] <- ""
+      # Handle Factor/Character variable statistics
+      if(inherits(data[[col]], c("factor", "character"))) {
+        stats <- render_cat(val, digits_pct = digits_pct)
+      }
 
-    if (nrow(y) == 1 & all(y == "")) {
-      return(NULL)
-    }
+      # Handle Logical variable statistics
+      if(inherits(data[[col]], "logical")) {
+        val[is.na(val)] <- logical_na_impute
+        stats <- with(
+          cat_stat(val, digits_pct = digits_pct)$Yes,
+          c(Missing = sprintf("%s/%s (%s)", FREQ, N, PCTnoNA))
+        )
+        miss <- NULL
+      }
 
-    # Remove Invalid rows
-    if (nrow(y) > 1) {
-      all_val <- rowSums(apply(y, 2, function(x) x == "")) != ncol(y)
-      all_val[1] <- TRUE
-      y <- y[all_val, , drop = FALSE]
-    }
+      if (is.null(stats)) return(NULL)
 
-    # Don't report if the variable has no values to report
-    if (nrow(y) == 1 & all(y == "")) {
-      return(NULL)
-    }
+      stats <- c(stats, miss)
 
-    fst <- ifelse(nrow(y) == 1, 3, 2)
+      # --- Calculate Stat_IDs with "Missing" forced to bottom ---
+      s_names <- names(stats)
+      s_ids   <- seq_along(stats)
 
-    if (var_class[v] == "logical") {
-      fst <- 1
-    }
+      # If "Missing" exists, override its ID to 9999
+      # This ensures it is sorted last, even if other stats are added later
+      if ("Missing" %in% s_names) {
+        s_ids[s_names == "Missing"] <- 9999
+      }
 
-    structure(y,
-      position = c(fst, rep(3, nrow(y) - 1)),
-      class = c("cttab", class(y))
-    )
-  }))
+      # Create Table with Ordering IDs
+      data.table(
+        Variable  = lbl,
+        Statistic = names(stats),
+        Value     = as.character(stats),
+        Var_ID    = i,
+        Stat_ID   = s_ids
+      )
+    })
 
-  return(r)
-}
-
-
-# Generate selection vector function
-# Evaluate the select in the data and generate a logical vector.
-gen_selec <- function(data, var, select = NULL) {
-  if (is.null(select) || !var %in% names(select)) {
-    return(rep(TRUE, length(data[[var]])))
-  } else {
-    r <- eval(str2expression(select[var]), envir = data)
-    r & !is.na(r)
+    # Remove NULLs and bind
+    chunk_list <- Filter(function(x) !is.null(x) && nrow(x) > 0, chunk_list)
+    if (length(chunk_list) == 0) return(NULL)
+    rbindlist(c(list(n_row), chunk_list))
   }
+
+  # --- Aggregate ---
+  if (is.null(group_vars)) {
+    long_res <- process_chunk(data)
+    setnames(long_res, "Value", "Total")
+  } else {
+    stopifnot(length(group_vars) %in% c(1,2))
+    if(total){
+      long_res <- data[, process_chunk(.SD), by = group_vars]
+      if(length(group_vars) > 1){
+        total_res <- data[, process_chunk(.SD), by = eval(group_vars[2])]
+      } else {
+        total_res <- process_chunk(data)
+      }
+      total_res[[group_vars[1]]] <- "Total"
+      long_res <- rbind(long_res, total_res, fill = TRUE)
+      # Handle ordering
+      long_res[[group_vars[1]]] <- factor(long_res[[group_vars[1]]],
+                                     levels = c(setdiff(unique(long_res[[group_vars[1]]]), "Total"), "Total"))
+      }
+  }
+
+  # --- Enforce Order for Pivoting ---
+  setorder(long_res, Var_ID, Stat_ID)
+  # long_res[, Variable := factor(Variable, levels = unique(Variable))]
+  # long_res[, Statistic := factor(Statistic, levels = unique(Statistic))]
+
+  return(long_res)
 }
+
+

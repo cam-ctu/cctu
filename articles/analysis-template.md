@@ -507,7 +507,7 @@ Sys.info()
 #>                                               version 
 #> "#18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025" 
 #>                                              nodename 
-#>                                       "runnervmi13qx" 
+#>                                       "runnervmwffz4" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -538,25 +538,29 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#>  [1] survival_3.8-3 xml2_1.5.1     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.30
-#>  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.51     ggplot2_4.0.1  dplyr_1.1.4   
+#>  [1] survival_3.8-3 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.30
+#>  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.51     ggplot2_4.0.2  dplyr_1.2.0   
 #> [11] cctu_0.8.11   
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-7     digest_0.6.39     
-#>  [5] evaluate_1.0.5     grid_4.5.2         RColorBrewer_1.1-3 fastmap_1.2.0     
-#>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-4       gridExtra_2.3     
-#> [13] httr_1.4.7         purrr_1.2.1        scales_1.4.0       textshaping_1.0.4 
-#> [17] jquerylib_0.1.4    cli_3.6.5          rlang_1.1.7        splines_4.5.2     
-#> [21] xslt_1.5.1         withr_3.0.2        cachem_1.1.0       yaml_2.3.12       
-#> [25] tools_4.5.2        png_0.1-8          vctrs_0.6.5        R6_2.6.1          
-#> [29] lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.0         pkgconfig_2.0.3   
-#> [33] pillar_1.11.1      bslib_0.9.0        gtable_0.3.6       data.table_1.18.0 
-#> [37] glue_1.8.0         Rcpp_1.1.1         systemfonts_1.3.1  xfun_0.55         
-#> [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   
-#> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.5.2     S7_0.2.1
+#>  [1] sass_0.4.10         generics_0.1.4      lattice_0.22-7     
+#>  [4] digest_0.6.39       evaluate_1.0.5      grid_4.5.2         
+#>  [7] RColorBrewer_1.1-3  fastmap_1.2.0       cellranger_1.1.0   
+#> [10] jsonlite_2.0.0      Matrix_1.7-4        gridExtra_2.3      
+#> [13] httr_1.4.7          purrr_1.2.1         scales_1.4.0       
+#> [16] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          
+#> [19] rlang_1.1.7         splines_4.5.2       xslt_1.5.1         
+#> [22] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
+#> [25] tools_4.5.2         png_0.1-8           vctrs_0.7.1        
+#> [28] R6_2.6.1            lifecycle_1.0.5     htmlwidgets_1.6.4  
+#> [31] ragg_1.5.0          pkgconfig_2.0.3     pillar_1.11.1      
+#> [34] bslib_0.10.0        gtable_0.3.6        data.table_1.18.2.1
+#> [37] glue_1.8.0          Rcpp_1.1.1          systemfonts_1.3.1  
+#> [40] xfun_0.56           tibble_3.3.1        tidyselect_1.2.1   
+#> [43] farver_2.1.2        htmltools_0.5.9     patchwork_1.3.2    
+#> [46] labeling_0.4.3      compiler_4.5.2      S7_0.2.1
 date()
-#> [1] "Mon Jan 12 15:14:36 2026"
+#> [1] "Tue Feb 10 08:21:59 2026"
 ```
 
 The output is

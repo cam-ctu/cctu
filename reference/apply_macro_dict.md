@@ -72,11 +72,11 @@ A data.table object.
 ### Overview
 
 This function first convert the data to a
-[`data.table`](https://rdatatable.gitlab.io/data.table/reference/data.table.html).
-This is to avoid the variable attributes dropped by base R functions.
-Then it will use the dlu file to convert the data into corresponding
-variable types. After the conversion of the data, variable and value
-label attribute will be created for the variable, see
+[`data.table`](https://rdrr.io/pkg/data.table/man/data.table.html). This
+is to avoid the variable attributes dropped by base R functions. Then it
+will use the dlu file to convert the data into corresponding variable
+types. After the conversion of the data, variable and value label
+attribute will be created for the variable, see
 [`var_lab`](https://cam-ctu.github.io/cctu/reference/var_lab.md)) and
 [`val_lab`](https://cam-ctu.github.io/cctu/reference/val_lab.md).
 
@@ -136,7 +136,7 @@ The CLU file contains three columns:
 [`val_lab`](https://cam-ctu.github.io/cctu/reference/val_lab.md)
 [`tidy_dlu`](https://cam-ctu.github.io/cctu/reference/tidy_dlu.md)
 [`set_dlu`](https://cam-ctu.github.io/cctu/reference/set_dlu.md)
-[`data.table`](https://rdatatable.gitlab.io/data.table/reference/data.table.html)
+[`data.table`](https://rdrr.io/pkg/data.table/man/data.table.html)
 [`clean_names`](https://cam-ctu.github.io/cctu/reference/clean_names.md)
 [`read_data`](https://cam-ctu.github.io/cctu/reference/read_data.md)
 [`remove_blank_rows_cols`](https://cam-ctu.github.io/cctu/reference/remove_blank_rows_cols.md)

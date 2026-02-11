@@ -9,4 +9,11 @@
 /*.pdf
 /*.doc
 /*.docx
-*.zip
+/*.zip
+/*.xml
+/*.json
+/*.html
+*.Rout
+*.RData
+*.rds
+

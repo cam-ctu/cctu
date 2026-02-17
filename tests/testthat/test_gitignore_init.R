@@ -75,3 +75,27 @@ test_that("set local git", {
 # # gives the explicit list of ignored files
 # system("git ls-files --exclude-standard", intern=TRUE)
 # # says what is current being tracked
+
+test_that("gitcheck", {
+  skip_if_not(grepl("version", system("git --version", intern = TRUE)))
+
+  withr::local_dir(tempdir())
+  # create a new gitignore
+  system("git init")
+  expect_message(gitignore_init(), ".gitignore file created")
+  # make some files and directories
+  expect_message(gitcheck(), "No problem files found")
+  file.copy(system.file("extdata/gitignore_template", package = "cctu"), "output.csv")
+  dir.create("data")
+  dir.create("data/output")
+  file.copy(system.file("extdata/gitignore_template", package = "cctu"), "data/test.xls")
+  file.copy(system.file("extdata/gitignore_template", package = "cctu"), "data/output/test.xls")
+  # pre comit so want to get prelimary alert
+  expect_message(gitcheck(), "These files may get tracked accidentally but are not yet a problem")
+  system("git add . && git commit")
+  expect_message(gitcheck(), "These files are being tracked")
+})
+
+
+
+

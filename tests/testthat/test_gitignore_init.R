@@ -7,10 +7,12 @@
 
 # check that git is installed.
 
+
+
 test_that("set local git", {
   skip_if_not(grepl("version", system("git --version", intern = TRUE)))
-
-  withr::local_dir(tempdir())
+  test_dir <- withr::local_tempdir()
+  withr::local_dir(test_dir)
   # create a new gitignore
   system("git init")
   expect_message(gitignore_init(), ".gitignore file created")
@@ -79,7 +81,8 @@ test_that("set local git", {
 test_that("gitcheck", {
   skip_if_not(grepl("version", system("git --version", intern = TRUE)))
 
-  withr::local_dir(tempdir())
+  test_dir <- withr::local_tempdir()
+  withr::local_dir(test_dir)
   # create a new gitignore
   system("git init")
   expect_message(gitignore_init(), ".gitignore file created")
@@ -92,7 +95,7 @@ test_that("gitcheck", {
   file.copy(system.file("extdata/gitignore_template", package = "cctu"), "data/output/test.xls")
   # pre comit so want to get prelimary alert
   expect_message(gitcheck(), "These files may get tracked accidentally but are not yet a problem")
-  system("git add . && git commit")
+  system("git add . && git commit -am \"adding files\"")
   expect_message(gitcheck(), "These files are being tracked")
 })
 

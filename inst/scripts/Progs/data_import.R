@@ -5,6 +5,9 @@ data %<>% clean_names() %>% remove_blank_rows_cols()
 
 codes <- read.csv(system.file("extdata","codes.csv", package="cctu")) %>% clean_names()
 
+#  Use the read_data() functions  and then
+# apply_macro_dict()   possibly
+#  data_table_summary(data_table)  to give a table of the input data.
 
 for( x in unique(codes$var)){
   code_df <-  subset(codes, var==x)

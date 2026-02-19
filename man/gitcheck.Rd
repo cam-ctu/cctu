@@ -6,7 +6,7 @@
 \usage{
 gitcheck(
   folder = ".",
-  extensions = c("xls", "xlsx", "png", "eps", "jpg", "pdf", "doc", "docx", "zip")
+  extensions = c("csv", "xls", "xlsx", "png", "eps", "jpg", "pdf", "doc", "docx", "zip")
 )
 }
 \arguments{

@@ -16,4 +16,7 @@
 *.Rout
 *.RData
 *.rds
-
+*.Rds
+*.log
+*.sas7bdat
+*.dta

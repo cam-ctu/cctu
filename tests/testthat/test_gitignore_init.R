@@ -43,7 +43,8 @@ test_that("set local git", {
   # edit a new gitignore
   writeLines(c("output.csv", "/*.pdf"), ".gitignore")
   # re apply the gitignore
-  system("git rm -r -f --cached . && git add .")
+  system("git rm -r -f --cached .")
+  system("git add .")
   # check only one is now ingored
   expect_contains(
     system("git ls-files --others --ignored --exclude-standard", intern = TRUE),
@@ -57,7 +58,8 @@ test_that("set local git", {
     length()
   expect_equal(git_length, template_length + 1)
   # previous checks should still all apply plus
-  system("git rm -r -f --cached . && git add .")
+  system("git rm -r -f --cached .")
+  system("git add .")
   # check what is ignored
   expect_contains(
     system("git ls-files --others --ignored --exclude-standard", intern = TRUE),
@@ -95,7 +97,8 @@ test_that("gitcheck", {
   file.copy(system.file("extdata/gitignore_template", package = "cctu"), "data/output/test.xls")
   # pre comit so want to get prelimary alert
   expect_message(gitcheck(), "These files may get tracked accidentally but are not yet a problem")
-  system("git add . && git commit -am \"adding files\"")
+  system("git add .")
+  system("git commit -am \"adding files\"")
   expect_message(gitcheck(), "These files are being tracked")
 })
 

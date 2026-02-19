@@ -38,8 +38,10 @@ gitignore_init <- function(template = system.file("extdata/gitignore_template", 
 
 gitcheck <- function(folder = ".",
                      extensions = c("csv","xls", "xlsx", "png", "eps", "jpg", "pdf", "doc", "docx", "zip")) {
-  untracked <- system(paste0("cd ", folder, " && git ls-files --others --exclude-standard"), intern = TRUE)
-  tracked <- system(paste0("cd ", folder, " && git ls-files --exclude-standard"), intern = TRUE)
+  wd <- setwd(folder)
+  on.exit( setwd(wd))
+  untracked <- system( "git ls-files --others --exclude-standard", intern = TRUE)
+  tracked <- system( "git ls-files --exclude-standard", intern = TRUE)
 
   untrack_alert <- lapply(extensions, \(x){
     grep(paste0(".*\\.", x, "$"), untracked, value = TRUE)

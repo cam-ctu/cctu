@@ -10,7 +10,8 @@ cctu_initialise(
   scripts = FALSE,
   rm = FALSE,
   description = TRUE,
-  output = getOption("cctu_output", default = "Output")
+  output = getOption("cctu_output", default = "Output"),
+  check_gitignore = TRUE
 )
 
 cctu_initialize(
@@ -18,7 +19,8 @@ cctu_initialize(
   scripts = FALSE,
   rm = FALSE,
   description = TRUE,
-  output = getOption("cctu_output", default = "Output")
+  output = getOption("cctu_output", default = "Output"),
+  check_gitignore = TRUE
 )
 
 cctu_check_dir(
@@ -60,6 +62,11 @@ rm_output(
 
   character string giving the name of the output folder. Can be
   overriden by setting the option("cctu_output").
+
+- check_gitignore:
+
+  logical on whether to run the function `gitignore_init` to create or
+  edit a .gitignore file
 
 - warnings:
 

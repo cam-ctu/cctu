@@ -76,6 +76,9 @@ Functions to setup studies
   : Automatic reading in data from a meta-table of external data sets.
 - [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/meta_table_example.md)
   : Example of a meta_table data frame
+- [`gitignore_init()`](https://cam-ctu.github.io/cctu/reference/gitignore_init.md)
+  : checks to see if a .gitignore needs to be create or edited based on
+  the template file
 
 ## Macro utility functions
 
@@ -218,6 +221,8 @@ Functions for labels
   : Function to bind tables/matrices with a blank row between them
 - [`remove_blank_rows_cols()`](https://cam-ctu.github.io/cctu/reference/remove_blank_rows_cols.md)
   : Function to remove blank rows/columns from a df
+- [`gitcheck()`](https://cam-ctu.github.io/cctu/reference/gitcheck.md) :
+  Checks for problem files to avoid saving in github
 
 # Articles
 

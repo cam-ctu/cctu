@@ -259,6 +259,7 @@ options(verbose = TRUE)
 # run_batch("main.R")
 DATA <- "PATH_TO_DATA"
 cctu_initialise()
+#> .gitignore edited
 rm_output()
 ```
 
@@ -547,7 +548,7 @@ sessionInfo()
 #>  [4] digest_0.6.39       evaluate_1.0.5      grid_4.5.2         
 #>  [7] RColorBrewer_1.1-3  fastmap_1.2.0       cellranger_1.1.0   
 #> [10] jsonlite_2.0.0      Matrix_1.7-4        gridExtra_2.3      
-#> [13] httr_1.4.7          purrr_1.2.1         scales_1.4.0       
+#> [13] httr_1.4.8          purrr_1.2.1         scales_1.4.0       
 #> [16] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          
 #> [19] rlang_1.1.7         splines_4.5.2       xslt_1.5.1         
 #> [22] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
@@ -560,7 +561,7 @@ sessionInfo()
 #> [43] farver_2.1.2        htmltools_0.5.9     patchwork_1.3.2    
 #> [46] labeling_0.4.3      compiler_4.5.2      S7_0.2.1
 date()
-#> [1] "Tue Feb 10 08:21:59 2026"
+#> [1] "Fri Feb 20 14:09:33 2026"
 ```
 
 The output is

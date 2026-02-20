@@ -36,6 +36,7 @@ reference:
   - read_data
   - get_meta_table
   - meta_table_example
+  - gitignore_init
 
 - title: "Macro utility functions"
   desc: >
@@ -124,6 +125,7 @@ reference:
   - rbind_space
   - remove_blank_rows_cols
   - remove_invalid_utf8
+  - gitcheck
 
 articles:
 - title: Articles

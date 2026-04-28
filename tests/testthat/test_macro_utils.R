@@ -166,24 +166,25 @@ test_that("Test date conversion", {
 
   expect_message(
     df <- apply_macro_dict(dat, dlu),
-    "The conversion of the following variables to dates failed and no action was taken:"
+    "The conversion of the following variables to dates failed and no action was taken:
+dmy_part, time"
   )
 
   # Should not be converted
   expect_type(df$dmy_part, "character")
-  expect_equal(df$dmy_part, dat$dmy.part, ignore_attr=TRUE)
+  expect_equal(df$dmy_part, dat$dmy.part, ignore_attr = TRUE)
 
-#  expect_s3_class(df$mdy_time, "Date")
- # expect_s3_class(df$dmy, "Date")
+  expect_s3_class(df$mdy_time, "Date")
+  expect_s3_class(df$dmy, "Date")
 
 
   # Test with hour
   df <- apply_macro_dict(dat, dlu,
-    date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d %H:%M:%S")
+                         date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d %H:%M:%S")
   )
 
   expect_s3_class(df$mdy_time, "POSIXct")
   expect_type(df$mdy, "character")
-  expect_equal(df$mdy, dat$mdy, ignore_attr=TRUE)
-#  expect_s3_class(df$dmy, "character")
+  expect_equal(df$mdy, dat$mdy, ignore_attr = TRUE)
+  expect_s3_class(df$dmy, "Date")
 })

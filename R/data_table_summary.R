@@ -24,7 +24,7 @@ data_table_summary <- function(data_table,
   folder <- data_table[, folder_variable]
   folder <- ifelse(is.na(folder) | folder == "", getwd(), normalizePath(folder))
   folder <- gsub("\\\\", "/", folder)
-  full_path <- file.path(folder, data_table[, file_variable]) %>%
+  full_path <- file.path(folder, data_table[, file_variable]) |>
     normalizePath(winslash = "/")
   full_path <- gsub("\\\\", "/", full_path)
   mod_time <- file.mtime(full_path)

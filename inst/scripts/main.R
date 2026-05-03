@@ -1,6 +1,5 @@
 rm(list=ls())
 #set to the library folder
-.libPaths()
 library(cctu)
 options(verbose=TRUE)
 #run_batch("main.R")
@@ -18,7 +17,7 @@ index <- match(pop_name, names(pop_size))
 popn_labels <- paste0(propercase(pop_name), " (n = ", pop_size[index],")")
 
 
-create_word_xml(report_title="Vignette Report",
+write_docx(report_title="Vignette Report",
                 author="Simon Bond", filename="Output/Reports/Vignette_Report.doc",
                 popn_labels=popn_labels
 )
@@ -40,7 +39,7 @@ render("Progs/rmarkdown_report.Rmd",
        knit_root_dir=".."
 )
 
-
+gitcheck()
 Sys.info()
 sessionInfo()
 date()

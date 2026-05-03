@@ -209,8 +209,8 @@ covar.lme <- function(x, digits = 3, ...) {
   xx <- rbind(colnames(xx), xx)
   # Want to apply formatting to numbers
   index <- grep("\\d+\\.\\d+", xx)
-  xx[index] <- xx[index] %>%
-    as.numeric() %>%
+  xx[index] <- xx[index] |>
+    as.numeric() |>
     signif_pad(digits = digits)
 
   n <- x$dims$N

@@ -159,15 +159,11 @@ apply_macro_dict <- function(data,
     }
 
     val <- tryCatch(date_fn(val, tryFormats = date_format),
-      error = function(e) {
-        "ERROR"
-      },
-      warning = function(w) {
-        "ERROR"
-      }
+      error = function(e) e,
+      warning = function(w) w
     )
 
-    if ("ERROR" %in% val) {
+    if (inherits(val, "condition")) {
       invalid_dates <- c(invalid_dates, j)
       next
     }

@@ -36,6 +36,7 @@ reference:
   - read_data
   - get_meta_table
   - meta_table_example
+  - gitignore_init
 
 - title: "Macro utility functions"
   desc: >
@@ -124,6 +125,7 @@ reference:
   - rbind_space
   - remove_blank_rows_cols
   - remove_invalid_utf8
+  - gitcheck
 
 articles:
 - title: Articles
@@ -136,3 +138,7 @@ articles:
 development:
   mode: auto
 
+redirects:
+  - ["doc/Vignette_Report.html", "articles/Vignette_Report.html"]
+  - ["doc/Vignette_Report_Quarto.html", "articles/Vignette_Report_Quarto.html"]
+  - ["doc/Vignette_Report_bak.docx", "articles/Vignette_Report_bak.docx"]

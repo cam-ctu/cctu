@@ -160,8 +160,11 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
 #' @keywords internal
 #'
 table_cttab <- function(x) {
+  if (!is.matrix(x) || is.null(attr(x, "row_style"))) {
+    x <- cttab_format(x)
+  }
   rl <- rownames(x)
-  rowclass <- attr(x, "position")
+  rowclass <- attr(x, "row_style")
 
   if (inherits(x, "matrix")) {
     x <- cbind("Variable" = rl, x)
@@ -180,6 +183,16 @@ table_cttab <- function(x) {
     x[is.na(x)] <- ""
   }
 
+  # If the first column carries leading whitespace (set by cttab_format to
+  # express visual indent), apply the "indent" style and strip the spaces
+  # so the Word output isn't double-indented.
+  has_indent <- rep(FALSE, nrow(x))
+  if (ncol(x) >= 1L) {
+    leading_ws <- grepl("^\\s+", x[, 1])
+    has_indent <- leading_ws
+    x[leading_ws, 1] <- sub("^\\s+", "", x[leading_ws, 1])
+  }
+
   x[] <- apply(x, 2, remove_xml_specials)
 
   # Table header
@@ -187,24 +200,27 @@ table_cttab <- function(x) {
   th <- paste0("<tr>", th, "</tr>\n")
   thead <- paste0("<thead>\n", th, "</thead>\n")
 
-  # Table body
-  # Add class
-  cls <- matrix(NA, nrow(x), ncol(x))
-  rowclass <- sapply(
-    seq_along(rowclass),
-    function(x) {
-      switch(as.character(rowclass[x]),
-        "0" = "bold;bgcol;span",
-        "1" = "bold",
-        "2" = "bold;span",
-        "3" = "indent",
-        ""
-      )
+  # Map row_style -> Word/CSS-style class string. Stat rows have an empty
+  # row_style; their indent comes from the leading-whitespace strip above.
+  style_map <- function(rs, indent) {
+    base <- switch(rs,
+      "banner" = "bold;bgcol;span",
+      "header" = "bold;span",
+      "bold"   = "bold",
+      ""
+    )
+    if (indent) {
+      if (nzchar(base)) paste(base, "indent", sep = ";") else "indent"
+    } else {
+      base
     }
-  )
+  }
+  rowclass <- vapply(seq_along(rowclass),
+                     function(i) style_map(rowclass[i], has_indent[i]),
+                     character(1L))
 
+  cls <- matrix("", nrow(x), ncol(x))
   cls[, 1] <- paste0(" style='", paste(rowclass, al, sep = ";"), "'")
-  cls[is.na(cls)] <- ""
 
   td <- paste0("<td", cls, ">", as.matrix(x), "</td>")
   dim(td) <- dim(x)

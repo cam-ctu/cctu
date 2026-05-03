@@ -2,13 +2,29 @@
 % Please edit documentation in R/utils.R
 \name{rbind.cttab}
 \alias{rbind.cttab}
-\title{Combine descriptive statistics table by rows}
+\title{Combine descriptive statistics tables by rows.}
 \usage{
 \method{rbind}{cttab}(...)
 }
 \arguments{
-\item{...}{\code{stat_tab} descriptive statistics table .}
+\item{...}{\code{cttab} objects to stack.}
+}
+\value{
+A \code{cttab} object of the same flavour (long-format
+  \code{data.table} or formatted matrix) as the inputs.
 }
 \description{
-Combine descriptive statistics table by rows
+Stacks two or more long-format \code{\link{cttab}} objects without
+formatting them. The inputs must share the same grouping variable
+(\code{attr(., "group")}) so they line up as a single rendered table; the
+\code{nest} mode is taken from the first input. The bound parts are kept
+as separate sections in the rendered output by offsetting their
+\code{Group_ID} / \code{Var_ID} so subsequent variables sort after earlier
+ones rather than interleaving.
+}
+\details{
+Already-formatted matrix \code{cttab} objects (e.g. produced by
+\code{\link{cttab_format}}) are stacked by binding their character
+matrices and concatenating their \code{position} attributes. Mixing
+matrix and long-format inputs is not supported.
 }

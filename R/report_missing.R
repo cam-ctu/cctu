@@ -19,11 +19,13 @@
 #' @keywords internal
 report_missing <- function(data,
                            vars,
-                           select,
+                           select = NULL,
                            row_split = NULL,
                            subjid_string = getOption("cctu_subjid_string",
                              default = "subjid"
                            )) {
+  
+  # Blank return
   blnk_miss <- setNames(
     data.frame(matrix(ncol = 8, nrow = 0)),
     c(
@@ -35,64 +37,102 @@ report_missing <- function(data,
   dlu <- get_dlu()
   # If the subjid can not be found in the dataset
   if (!subjid_string %in% names(data)) {
-    return(blnk_miss)
+    return(invisible(NULL))
   }
-
-  # Generate selection vector function
-  gen_selec <- function(dat, var, select = NULL) {
-    if (is.null(select) || !var %in% names(select)) {
-      return(rep(TRUE, length(dat[[var]])))
-    } else {
-      r <- eval(str2expression(select[var]), envir = dat)
-      r & !is.na(r)
-    }
-  }
-
+  
+  # Ensure data is data.table
+  dt <- as.data.table(data)
+  
   vars <- unlist(vars, use.names = FALSE)
+  
+  # Filter variables that are actually in the data
+  vars <- vars[vars %in% names(dt)]
+  if(length(vars) == 0) return(invisible(NULL))
 
-  # Check if missing
-  any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
-
-  # If all missing, return blank
-  if (all(!any_miss)) {
-    return(blnk_miss)
+  # Check if row_split is valid
+  if (!is.null(row_split)) {
+    if (!row_split %in% names(dt)) {
+      warning("row_split variable not found in data. Ignoring row_split.")
+      row_split <- NULL
+    }
   }
 
-  # Only report variables with missing
-  vars <- vars[any_miss]
+  res_list <- lapply(vars, function(v) {
+      
+      # Apply selection
+      if (!is.null(select) && v %in% names(select)) {
+        filter_expr <- str2expression(select[v])
+        rows_to_keep <- tryCatch({
+           r <- eval(filter_expr, envir = dt)
+           r & !is.na(r)
+        }, error = function(e) rep(TRUE, nrow(dt)))
+        
+        # Subset data based on filter
+        d_sub <- dt[rows_to_keep]
+      } else {
+        d_sub <- dt
+      }
+      
+      # Define grouping
+      by_clause <- if(!is.null(row_split)) row_split else NULL
+      
+      # Aggregation
+      agg <- d_sub[, .(
+         n_miss = sum(is.na(get(v))),
+         n_total = .N,
+         subids = list(get(subjid_string)[is.na(get(v))])
+      ), by = by_clause]
+      
+      # Filter out groups with 0 missing
+      agg <- agg[n_miss > 0]
+      
+      if (nrow(agg) == 0) return(NULL)
+      
+      # Format output
+      # Get label
+      lbl <- if(has_label(dt[[v]])) var_lab(dt[[v]]) else v
+      
+      # Get form
+      fm_name <- if (!is.null(dlu) && v %in% dlu$shortcode) {
+        dlu$form[dlu$shortcode == v]
+      } else {
+        "Derived"
+      }
+      
+      # Get split label
+      if (!is.null(row_split)) {
+         split_lbl <- if(has_label(dt[[row_split]])) var_lab(dt[[row_split]]) else row_split
+         visit_val <- as.character(agg[[row_split]])
+         visit_var <- row_split
+      } else {
+         split_lbl <- NA
+         visit_val <- NA
+         visit_var <- NA
+      }
 
-  res <- lapply(vars, function(v) {
-    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
-
-    z <- data[gen_selec(data, v, select[v]), ]
-
-    subid <- z[[subjid_string]][is.na(z[[v]])]
-    pct <- round(100 * length(subid) / length(z[[subjid_string]]), 1)
-
-    if (v %in% dlu$shortcode) {
-      fm_name <- dlu$form[dlu$shortcode == v]
-    } else {
-      fm_name <- "Derived"
-    }
-
-    data.frame(
-      form = fm_name,
-      visit_var = NA,
-      visit_label = NA,
-      visit = NA,
-      variable = v,
-      label = variable,
-      missing_pct = paste0(
-        pct, "% (", length(subid), "/",
-        length(z[[subjid_string]]), ")"
-      ),
-      subject_id = paste(subid, collapse = ", "),
-      row.names = NULL
-    )
+      # Construct result
+      out <- data.frame(
+        form = fm_name,
+        visit_var = visit_var,
+        visit_label = split_lbl,
+        visit = visit_val,
+        variable = v,
+        label = lbl,
+        missing_pct = paste0(round(100 * agg$n_miss / agg$n_total, 1), "% (", agg$n_miss, "/", agg$n_total, ")"),
+        subject_id = sapply(agg$subids, paste, collapse = ", "),
+        stringsAsFactors = FALSE
+      )
+      return(out)
   })
-
-  res <- do.call(rbind, res)
-  res[res$subject_id != "", ]
+    
+  res <- do.call(rbind, res_list)
+  if (!is.null(res)) {
+    cctu_env$missing_report_data <- rbind(
+      cctu_env$missing_report_data,
+      res
+    )
+  }
+  invisible(NULL)
 }
 
 #' @name dump_missing_report

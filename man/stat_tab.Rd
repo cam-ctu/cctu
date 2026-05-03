@@ -7,8 +7,10 @@
 stat_tab(
   vars,
   group = NULL,
+  row_split = NULL,
   data,
   total = TRUE,
+  add_obs = TRUE,
   select = NULL,
   add_missing = TRUE,
   digits = 2,
@@ -19,13 +21,19 @@ stat_tab(
 )
 }
 \arguments{
-\item{group}{Name of the grouping variable.}
+\item{group}{Name of the grouping variable, length 0/1. When supplied each
+level becomes a column in the rendered table (plus an extra "Total" column
+if \code{total = TRUE}).}
+
+\item{row_split}{Variable used for splitting table rows, length 0/1.}
 
 \item{data}{A \code{data.frame} from which the variables in \code{vars}
 should be taken.}
 
 \item{total}{If a "Total" column will be created (default). Specify
 \code{FALSE} to omit the column.}
+
+\item{add_obs}{Add an observation row (default).}
 
 \item{select}{a named vector with as many components as row-variables. Every
 element of `select` will be used to select the individuals to be analyzed
@@ -63,14 +71,34 @@ in the summary. You can used a named list in \code{x} and stack multiple
  choice in one category.}
 }
 \value{
-An object of class "cttab".
+A long-format \code{data.table}. \code{NULL} when there is nothing
+to summarise.
 }
 \description{
-It is important to use variable label and value label to produce a proper
-descriptive table. Variables with value labels will be converted to ordered
-factor with same order as the value labels (\code{to_factor}). And variable
-labels will be used in the output. The first row will be blank with row names
-of variable label. Variable name will be used if the variable does not have
-a variable label.
+Internal long-format summariser that powers \code{\link{cttab}}. Variable
+value labels are honoured (variables with labels are converted to ordered
+factors). Variable labels are used in the output when present; the variable
+name is used otherwise.
+}
+\details{
+The returned \code{data.table} has the following columns:
+\itemize{
+  \item the row-split variable, when \code{row_split} is supplied;
+  \item the grouping variable when \code{group} is supplied (a factor whose
+    levels finish with \code{"Total"} when \code{total = TRUE});
+  \item \code{Group_ID}, \code{Group_Label}: identifier and (optional) banner
+    label produced when \code{vars} is a named list;
+  \item \code{Var_ID}, \code{Variable}: per-variable id (0 = "Observation"
+    row) and the rendered variable label;
+  \item \code{Stat_ID}, \code{Statistic}: per-statistic id and label;
+  \item \code{Is_Missing}: \code{TRUE} for the per-variable "Missing"
+    summary row so it can be sorted below the other stats;
+  \item \code{Value}: the rendered cell value (character);
+  \item \code{Row_Style}: rendering hint per row. \code{""} for an
+    ordinary stat row, \code{"bold"} for a single-row variable
+    (logical / Observation). The \code{"banner"} and \code{"header"}
+    styles are assigned by \code{\link{cttab_format}} when it inserts
+    the section / variable-label header rows.
+}
 }
 \keyword{internal}

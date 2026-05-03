@@ -1,4 +1,9 @@
-utils::globalVariables(c("."))
+utils::globalVariables(c(
+  ".",
+  "Group_ID", "Var_ID", "Stat_ID", "Group_Label", "Variable",
+  "Statistic", "Row_Style", "Value", "Is_Missing",
+  "._sort_idx", "is_header"
+))
 # may well have to add "cctu_env" to the line above. But I can't get
 # devtools::check() to work past installing,
 # so impossible to check at the moment.

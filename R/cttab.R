@@ -15,6 +15,11 @@
 #' @param group Name of the grouping variable.
 #' @param row_split Variable that used for splitting table rows, rows will be
 #'  split using this variable. Useful for repeated measures.
+#' @param nest Controls the row hierarchy when \code{row_split} is supplied.
+#'   Default \code{"split"} renders the row-split variable as the outer
+#'   header with the analysis variables nested inside it. Use \code{"var"}
+#'   to flip the hierarchy so each analysis variable becomes the outer
+#'   section and the row-split levels are nested as sub-sections under it.
 #' @param total If a "Total" column will be created (default). Specify
 #' \code{FALSE} to omit the column.
 #' @param select a named vector with as many components as row-variables. Every
@@ -57,7 +62,7 @@
 #' \strong{1. Parameter settings with global options}
 #'
 #' Some of the function parameters can be set with options. This will have an global
-#' effect on the \code{cctab} function. It is an ideal way to set a global settings
+#' effect on the \code{cttab} function. It is an ideal way to set a global settings
 #' if you want this to be effective globally. Currently, you can set \code{digits},
 #' \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
 #' \code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
@@ -78,32 +83,36 @@
 #'
 #' \strong{3. Return}
 #'
-#' A summary table with some attributes will be reutned, a method has been writen for \code{rbind}.
-#' So you can use \code{rbind} to combine two tables without losing any attributes. An attribute
-#' \code{position} will be used to produce a nice table. There are three 4 possible values for each
-#' rows. Row name printed as the first column in the word table. Some styles will be applied to each
-#' row based on the \code{position} attributes.
+#' A long-format \code{data.table} with class \code{cttab} is returned. It carries
+#' \code{group} and \code{row_split} attributes that record the names of the grouping
+#' and splitting variables. The function \code{\link{cttab_format}} converts this
+#' long-format table into a matrix with a \code{row_style} attribute used by the
+#' \code{print} method and \code{\link{write_table}} to render the final report.
+#' Possible \code{row_style} values are:
 #' \tabular{ll}{
-#' \code{0} \tab indicates the row will be  in bold, spanned through all columns and a grey background
-#' in the word \cr
+#' \code{"banner"} \tab top-level section header: bold, spanned through all
+#'   columns, grey background in Word. \cr
 #' \tab \cr
-#' \code{1} \tab indicates the row will be in bold \cr
+#' \code{"header"} \tab variable-label / sub-section header: bold, spanned. \cr
 #' \tab \cr
-#' \code{2} \tab the row will be in bold and spanned through all columns \cr
+#' \code{"bold"} \tab single bold data row (Observation, logical summary). \cr
 #' \tab \cr
-#' \code{3} \tab indicates the row of the first column will be indented \cr
+#' \code{""} \tab regular stat row. Visual indentation is supplied as leading
+#'   whitespace on the row name; \code{\link{write_table}} converts it to a
+#'   Word indent. \cr
 #' }
 #'
 #' @seealso
 #' \code{\link{signif_pad}}
 #' \code{\link{round_pad}}
 #' \code{\link{stat_tab}}
+#' \code{\link{cttab_format}}
 #' \code{\link{sumby}}
 #' \code{\link{dump_missing_report}}
 #' \code{\link{get_missing_report}}
 #' \code{\link{render_numeric}}
 #' \code{\link{render_cat}}
-#' @return A matrix with `cttab` class.
+#' @return A \code{data.table} with class \code{cttab}.
 #'
 #' @example inst/examples/cttab.R
 #'
@@ -114,12 +123,16 @@ cttab <- function(x, ...) {
   UseMethod("cttab")
 }
 
-#' @describeIn cttab The default interface, where \code{x} is a \code{data.frame}.
+
+#' @describeIn cttab The default interface, where \code{x} is a \code{character}
+#' vector or a (optionally named) list of character vectors. A named list inserts
+#' a banner header row above the corresponding variables.
 #' @export
 cttab.default <- function(x,
                           data,
                           group = NULL,
                           row_split = NULL,
+                          nest = c("split", "var"),
                           total = TRUE,
                           select = NULL,
                           add_missing = TRUE,
@@ -133,141 +146,169 @@ cttab.default <- function(x,
                           logical_na_impute = c(FALSE, NA, TRUE),
                           blinded = getOption("cctu_blinded", default = FALSE),
                           ...) {
-  .cttab_internal(
-    vars = x,
-    data = data,
+
+  vars <- x
+  nest <- match.arg(nest)
+  logical_na_impute <- logical_na_impute[1]
+  stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
+
+  if (blinded) group <- NULL
+
+  vars_list <- c(unlist(vars), group, row_split)
+  if (!all(vars_list %in% names(data))) {
+    stop("Variable ",
+         paste(vars_list[!vars_list %in% names(data)], collapse = ", "),
+         " not in the dataset, please check!")
+  }
+
+  if (!is.data.table(data)) data <- as.data.table(data)
+
+  if (base::anyDuplicated(vars_list)) {
+    stop("The variable list, group or row split variable have duplicated variable.")
+  }
+
+  flat_vars <- unlist(vars, use.names = FALSE)
+
+  tbody <- stat_tab(
+    vars = vars,
     group = group,
     row_split = row_split,
+    data = data,
     total = total,
+    add_obs = add_obs,
     select = select,
     add_missing = add_missing,
-    add_obs = add_obs,
     digits = digits,
     digits_pct = digits_pct,
     rounding_fn = rounding_fn,
-    subjid_string = subjid_string,
-    print_plot = print_plot,
     render_num = render_num,
-    logical_na_impute = logical_na_impute,
-    blinded = blinded
+    logical_na_impute = logical_na_impute
   )
+
+  if (print_plot) {
+    cctab_plot(flat_vars, data, group, row_split, select)
+  }
+
+  if (add_missing && !is.null(subjid_string)) {
+    report_missing(
+      data = data,
+      vars = flat_vars,
+      select = select,
+      row_split = row_split,
+      subjid_string = subjid_string
+    )
+  }
+
+  if (is.null(tbody)) return(invisible(NULL))
+
+  setattr(tbody, "nest", nest)
+  class(tbody) <- unique(c("cttab", class(tbody)))
+
+  return(tbody[])
 }
 
 #' @describeIn cttab The formula interface, where \code{x} is a \code{formula}.
+#' Parses the formula then dispatches to \code{cttab.default}.
 #' @export
-cttab.formula <- function(x,
-                          data,
-                          total = TRUE,
-                          select = NULL,
-                          add_missing = TRUE,
-                          add_obs = TRUE,
-                          digits = getOption("cctu_digits", default = 3),
-                          digits_pct = getOption("cctu_digits_pct", default = 0),
-                          rounding_fn = signif_pad,
-                          subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-                          print_plot = getOption("cctu_print_plot", default = TRUE),
-                          render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
-                          logical_na_impute = c(FALSE, NA, TRUE),
-                          blinded = getOption("cctu_blinded", default = FALSE),
-                          ...) {
+cttab.formula <- function(x, data, ...) {
   f <- split_formula(x)
-  logical_na_impute <- logical_na_impute[1]
 
   if (is.null(f$lhs)) {
     stop("No variables provided to summarise, please add variable to the left hand side of the formula.")
   }
-
   if (length(f$lhs) != 1) {
     stop("Invalid formula, only `+` is allowed to list multiple variables.")
   }
-
   if (!length(f$rhs) %in% c(1, 2)) {
     stop("Invalid formula, multiple split provided.")
   }
-
   if (f$rhs[[1]] == ".") {
     stop("Invalid formula, dot is not allowed.")
   }
 
   group <- if (f$rhs[[1]] == 1) NULL else all.vars(f$rhs[[1]])
-  vars <- all.vars(f$lhs[[1]])
+  vars  <- all.vars(f$lhs[[1]])
+  row_split <- if (length(f$rhs) == 2) all.vars(f$rhs[[2]]) else NULL
 
-  if (length(f$rhs) == 2) {
-    row_split <- all.vars(f$rhs[[2]])
-  } else {
-    row_split <- NULL
-  }
-
-  .cttab_internal(
-    vars = vars,
-    data = data,
-    group = group,
-    row_split = row_split,
-    total = total,
-    select = select,
-    add_missing = add_missing,
-    add_obs = add_obs,
-    digits = digits,
-    digits_pct = digits_pct,
-    rounding_fn = rounding_fn,
-    subjid_string = subjid_string,
-    print_plot = print_plot,
-    render_num = render_num,
-    logical_na_impute = logical_na_impute,
-    blinded = blinded
-  )
+  cttab.default(x = vars, data = data,
+                group = group, row_split = row_split, ...)
 }
 
-.cttab_internal <- function(
-    vars,
-    data,
-    group = NULL,
-    row_split = NULL,
-    total = TRUE,
-    select = NULL,
-    add_missing = TRUE,
-    add_obs = TRUE,
-    digits = getOption("cctu_digits", default = 3),
-    digits_pct = getOption("cctu_digits_pct", default = 0),
-    rounding_fn = signif_pad,
-    subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-    print_plot = getOption("cctu_print_plot", default = TRUE),
-    render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
-    logical_na_impute = c(FALSE, NA, TRUE),
-    blinded = getOption("cctu_blinded", default = FALSE)) {
-  # tpcall <- match.call()
-  logical_na_impute <- logical_na_impute[1]
-  stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
 
-  if (blinded) {
-    group <- NULL
-  }
+#' Generate a descriptive summary statistics table.
+#'
+#' Internal long-format summariser that powers \code{\link{cttab}}. Variable
+#' value labels are honoured (variables with labels are converted to ordered
+#' factors). Variable labels are used in the output when present; the variable
+#' name is used otherwise.
+#'
+#' The returned \code{data.table} has the following columns:
+#' \itemize{
+#'   \item the row-split variable, when \code{row_split} is supplied;
+#'   \item the grouping variable when \code{group} is supplied (a factor whose
+#'     levels finish with \code{"Total"} when \code{total = TRUE});
+#'   \item \code{Group_ID}, \code{Group_Label}: identifier and (optional) banner
+#'     label produced when \code{vars} is a named list;
+#'   \item \code{Var_ID}, \code{Variable}: per-variable id (0 = "Observation"
+#'     row) and the rendered variable label;
+#'   \item \code{Stat_ID}, \code{Statistic}: per-statistic id and label;
+#'   \item \code{Is_Missing}: \code{TRUE} for the per-variable "Missing"
+#'     summary row so it can be sorted below the other stats;
+#'   \item \code{Value}: the rendered cell value (character);
+#'   \item \code{Row_Style}: rendering hint per row. \code{""} for an
+#'     ordinary stat row, \code{"bold"} for a single-row variable
+#'     (logical / Observation). The \code{"banner"} and \code{"header"}
+#'     styles are assigned by \code{\link{cttab_format}} when it inserts
+#'     the section / variable-label header rows.
+#' }
+#'
+#' @inheritParams cttab
+#' @param group Name of the grouping variable, length 0/1. When supplied each
+#' level becomes a column in the rendered table (plus an extra "Total" column
+#' if \code{total = TRUE}).
+#' @param row_split Variable used for splitting table rows, length 0/1.
+#'
+#' @return A long-format \code{data.table}. \code{NULL} when there is nothing
+#' to summarise.
+#'
+#' @import data.table
+#' @keywords internal
 
-  vars_list <- c(unlist(vars), group, row_split)
-  if (!all(vars_list %in% names(data))) {
+stat_tab <- function(vars,
+                     group = NULL,
+                     row_split = NULL,
+                     data,
+                     total = TRUE,
+                     add_obs = TRUE,
+                     select = NULL,
+                     add_missing = TRUE,
+                     digits = 2,
+                     digits_pct = 1,
+                     rounding_fn = signif_pad,
+                     render_num = "Median [Min, Max]",
+                     logical_na_impute = FALSE) {
+
+  data <- copy(as.data.table(data))
+
+  # Validate variable presence
+  flat_vars <- unlist(vars, use.names = FALSE)
+  required <- c(flat_vars, group, row_split)
+  if (!all(required %in% names(data))) {
     stop(
       "Variable ",
-      paste(vars_list[!vars_list %in% names(data)], collapse = ", "),
+      paste(setdiff(required, names(data)), collapse = ", "),
       " not in the dataset, please check!"
     )
   }
 
-  # Convert to data.table to avoid format lose.
-  data <- data.table::as.data.table(data)
-
-  # group variable to factor
+  # Drop rows where the grouping variable is missing, then make the grouping
+  # / row-split / labelled variables into factors so category ordering is
+  # consistent across cells.
   if (!is.null(group)) {
-    # Remove missing records for group
-    # data <- data[!is.na(data[[group]]), ]
     data <- data[!is.na(data[[group]]), env = list(group = I(group))]
-
     if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
       data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
     }
-  }
-
-  if (base::anyDuplicated(vars_list)) {
-    stop("The variable list, group or row split variable have duplicated variable.")
   }
 
   if (!is.null(row_split)) {
@@ -276,351 +317,206 @@ cttab.formula <- function(x,
     }
   }
 
-  # Blank cttab matrix
-  blnk_cttab <- function(row_labs, pos, from_tab) {
-    to_insert <- matrix(c(rep("", ncol(from_tab))),
-      nrow = 1,
-      dimnames = list(row_labs, colnames(from_tab))
-    )
-
-    structure(to_insert,
-      position = pos,
-      class = class(from_tab)
-    )
+  cols_toconvert <- vapply(data, function(z) has_labels(z) || is.character(z),
+                           logical(1L))
+  cols_toconvert <- intersect(names(cols_toconvert)[cols_toconvert], flat_vars)
+  if (length(cols_toconvert) > 0) {
+    data[, (cols_toconvert) := lapply(.SD, to_factor, ordered = TRUE),
+         .SDcols = cols_toconvert]
   }
 
-  # Wrapped tabulation function
-  calc_tab <- function(data) {
-    # If variables are not list
-    if (is.list(vars)) {
-      res <- lapply(seq_along(vars), function(i) {
-        x <- vars[[i]]
-
-        r <- stat_tab(
-          vars = x,
-          group = group,
-          data = data,
-          total = total,
-          select = select,
-          add_missing = add_missing,
-          digits = digits,
-          digits_pct = digits_pct,
-          rounding_fn = rounding_fn,
-          render_num = render_num,
-          logical_na_impute = logical_na_impute
-        )
-
-        # Add grouping_varing
-        if (!is_empty(names(vars)[i])) {
-          to_insert <- blnk_cttab(
-            row_labs = names(vars)[i],
-            pos = 0,
-            from_tab = r
-          )
-          r <- rbind(to_insert, r)
-        }
-
-        r
-      })
-
-      res <- do.call(rbind, res)
-
-      # This is for logical value that has no variable name, use the grouping_varing
-      # label as the variable name
-      pos <- attr(res, "position")
-      ps <- which(pos == 0 & c(pos[-1], 3) == 1)
-      if (any(!is_empty(ps))) {
-        pos[ps] <- rep(2, length(ps))
-        attr(res, "position") <- pos
-      }
-    } else {
-      res <- stat_tab(
-        vars = vars,
-        group = group,
-        data = data,
-        total = total,
-        select = select,
-        add_missing = add_missing,
-        digits = digits,
-        digits_pct = digits_pct,
-        rounding_fn = rounding_fn,
-        render_num = render_num,
-        logical_na_impute = logical_na_impute
-      )
-    }
-
-    # Add observation row
-    if (!is.null(group)) {
-      gp_tab <- table(data[[group]])
-      if (total) {
-        gp_tab <- c(gp_tab, "Total" = length(data[[group]]))
-      }
-
-      if (add_obs) {
-        obs <- matrix(gp_tab,
-          nrow = 1,
-          dimnames = list("Observation", names(gp_tab))
-        )
-        obs <- structure(obs,
-          position = 1,
-          class = c("cttab", class(obs))
-        )
-        res <- rbind(obs, res)
-      }
-    }
-
-    res
-  }
-
-  # Get arguments that will be passed to plot printing
-  if (print_plot) {
-    cctab_plot(vars, data, group, row_split, select)
-  }
-
-  # If no split
-  if (is.null(row_split)) {
-    tbody <- calc_tab(data)
-
-    # Report missing
-    if (add_missing && !is.null(subjid_string)) {
-      miss_rep <- report_missing(
-        data = data, vars = vars, select = select,
-        subjid_string = subjid_string
-      )
-
-
-      cctu_env$missing_report_data <- rbind(
-        cctu_env$missing_report_data,
-        miss_rep
-      )
-    }
+  # Normalize variable groupings (Group_ID + Group_Label) when vars is a list
+  if (is.list(vars)) {
+    nm <- names(vars)
+    if (is.null(nm)) nm <- rep("", length(vars))
+    nm[is.na(nm) | nm == ""] <- NA_character_
+    var_group_id <- rep(seq_along(vars), lengths(vars))
+    var_group_label <- rep(nm, lengths(vars))
   } else {
-    # Extract split variable label
-    split_lab <- ifelse(has_label(data[[row_split]]),
-      var_lab(data[[row_split]]),
-      row_split
-    )
+    var_group_id <- rep(1L, length(flat_vars))
+    var_group_label <- rep(NA_character_, length(flat_vars))
+  }
 
-    dfm <- split(data, data[[row_split]])
+  # Per-chunk processor: returns long-format rows for one (group, row_split)
+  # cell of data. Includes the Observation row when add_obs && include_obs.
+  process_chunk <- function(.SD, include_obs) {
+    rows_list <- list()
 
-    tbody <- lapply(names(dfm), function(x) {
-      out <- calc_tab(dfm[[x]])
-
-      to_insert <- blnk_cttab(
-        row_labs = paste(split_lab, "=", x),
-        pos = 0,
-        from_tab = out
+    if (include_obs) {
+      rows_list[[length(rows_list) + 1L]] <- data.table(
+        Group_ID    = 0L,
+        Group_Label = NA_character_,
+        Var_ID      = 0L,
+        Variable    = "Observation",
+        Statistic   = "",
+        Value       = as.character(nrow(.SD)),
+        Stat_ID     = 1L,
+        Is_Missing  = FALSE,
+        Row_Style   = "bold"
       )
-
-      out <- rbind(to_insert, out)
-
-      # Report missing
-      if (add_missing && !is.null(subjid_string)) {
-        miss_rep <- report_missing(
-          data = dfm[[x]], vars = vars, select = select,
-          subjid_string = subjid_string
-        )
-        if (nrow(miss_rep) != 0) {
-          miss_rep$visit_var <- row_split
-          miss_rep$visit_label <- split_lab
-          miss_rep$visit <- x
-          cctu_env$missing_report_data <- rbind(
-            cctu_env$missing_report_data,
-            miss_rep
-          )
-        }
-      }
-
-      out
-    })
-
-    tbody <- do.call("rbind", tbody)
-  }
-
-  return(tbody)
-}
-
-
-#' Generate a descriptive summary statistics table.
-#'
-#'
-#' It is important to use variable label and value label to produce a proper
-#' descriptive table. Variables with value labels will be converted to ordered
-#' factor with same order as the value labels (\code{to_factor}). And variable
-#' labels will be used in the output. The first row will be blank with row names
-#' of variable label. Variable name will be used if the variable does not have
-#' a variable label.
-#'
-#'
-#' @inheritParams cttab
-#'
-#' @return An object of class "cttab".
-#'
-#' @importFrom data.table .SD
-#' @keywords internal
-
-stat_tab <- function(vars,
-                     group = NULL,
-                     data,
-                     total = TRUE,
-                     select = NULL,
-                     add_missing = TRUE,
-                     digits = 2,
-                     digits_pct = 1,
-                     rounding_fn = signif_pad,
-                     render_num = "Median [Min, Max]",
-                     logical_na_impute = FALSE) {
-  # mf <- match.call()
-  data <- as.data.table(data)
-
-  vars_list <- c(unlist(vars), group)
-  if (!all(vars_list %in% names(data))) {
-    stop(
-      "Variable ",
-      paste(vars_list[!vars_list %in% names(data)], collapse = ", "),
-      " not in the dataset, please check!"
-    )
-  }
-
-
-  # group variable to factor
-  if (!is.null(group)) {
-    # Select records with non-missing group and row split
-    # data <- data[!is.na(data[[group]]), , drop = FALSE]
-    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
-
-    if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
-    }
-  }
-
-  # Create value labels for characters variables to avoid missing levels between grouping_vars
-  convcols <- names(Filter(is.character, data))
-
-  # Get variable class, make sure the class is consistent across data
-  var_class <- sapply(vars, function(v) {
-    if (!inherits(data[[v]], c("numeric", "integer", "factor", "character", "logical"))) {
-      stop(paste("The class of variable", v, "is", class(data[[v]]), "and not supported!"))
     }
 
-    fcase(
-      inherits(data[[v]], c("factor", "character")) | has_labels(data[[v]]), "category",
-      inherits(data[[v]], c("numeric", "integer")) | all(is.na(data[[v]])), "numeric",
-      inherits(data[[v]], c("logical")), "logical"
-    )
-  })
+    for (i in seq_along(flat_vars)) {
+      col <- flat_vars[i]
 
-  if (length(convcols) > 0) {
-    data[, convcols] <- data[, lapply(.SD, to_character), .SDcols = convcols]
-  }
-
-  # Check if missing
-  any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
-
-  # Transform data to list for loop
-  if (total && !is.null(group)) {
-    x <- c(split(data, data[[group]]), list(Total = data))
-  } else if (!is.null(group)) {
-    x <- split(data, data[[group]])
-  } else {
-    x <- list(Total = data)
-  }
-
-
-  r <- do.call(rbind, lapply(vars, function(v) {
-    # Get variable label
-    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
-
-    y <- do.call(cbind, lapply(x, function(s) {
-      z <- s[gen_selec(s, v, select[v]), ] # Apply subset
-      z <- z[[v]]
-
-      # Convert character to factor
-      if (has_labels(z) | is.character(z)) {
-        z <- to_factor(z, ordered = TRUE)
+      if (!inherits(data[[col]], c("numeric", "integer", "factor",
+                                   "character", "logical"))) {
+        stop(paste("The class of variable", col, "is",
+                   class(data[[col]]), "and not supported!"))
       }
 
-
-      if (var_class[v] == "category") {
-        r <- c("", unlist(render_cat(z, digits_pct = digits_pct)))
+      # Apply per-variable filter from `select`
+      if (!is.null(select) && col %in% names(select)) {
+        filter_string <- select[[col]]
+        rows_to_keep <- tryCatch({
+          eval(parse(text = filter_string), envir = .SD)
+        }, error = function(e) {
+          warning(paste("Filter failed for variable:", col, "-", e$message))
+          rep(TRUE, nrow(.SD))
+        })
+        rows_to_keep[is.na(rows_to_keep)] <- FALSE
+        val <- .SD[[col]][rows_to_keep]
+      } else {
+        val <- .SD[[col]]
       }
 
-      if (var_class[v] == "logical") {
-        # Impute missing data for logical
-        z[is.na(z)] <- logical_na_impute
+      lbl <- if (has_label(data[[col]])) var_lab(data[[col]]) else col
 
-        r <- with(
-          cat_stat(z, digits_pct = digits_pct)$Yes,
-          c(Missing = sprintf("%s/%s (%s)", FREQ, N, PCTnoNA))
-        )
-        add_missing <- FALSE
-      }
-
-      if (var_class[v] == "numeric") {
-        r <- c("", unlist(
-          render_numeric(z,
-            what = render_num, digits = digits,
-            digits_pct = digits_pct, rounding_fn = rounding_fn
-          )
-        ))
-      }
-
-      names(r)[1] <- variable
-
-      if (add_missing & any_miss[v]) {
+      # Missing summary (computed for everything but logicals)
+      miss <- NULL
+      if (add_missing && sum(is.na(val)) > 0) {
         miss <- with(
-          cat_stat(is.na(z), digits_pct = digits_pct)$Yes,
-          c(Missing = ifelse(FREQ == 0, "",
-            sprintf("%s (%s)", FREQ, PCT)
-          ))
+          cat_stat(is.na(val), digits_pct = digits_pct)$Yes,
+          c(Missing = ifelse(FREQ == 0, "", sprintf("%s (%s)", FREQ, PCT)))
         )
-        r <- c(r, miss)
       }
 
-      r
-    }))
+      stats <- NULL
+      single_row <- FALSE
 
-    y[y == "NA"] <- ""
+      # An all-missing column always uses the numeric rendering path
+      # regardless of its underlying class.
+      if (inherits(data[[col]], c("numeric", "integer")) ||
+          all(is.na(data[[col]]))) {
+        stats <- render_numeric(
+          val,
+          what        = render_num,
+          digits      = digits,
+          digits_pct  = digits_pct,
+          rounding_fn = rounding_fn
+        )
+      } else if (inherits(data[[col]], c("factor", "character"))) {
+        stats <- render_cat(val, digits_pct = digits_pct)
+      } else if (inherits(data[[col]], "logical")) {
+        val[is.na(val)] <- logical_na_impute
+        cs <- cat_stat(val, digits_pct = digits_pct)$Yes
+        # Single-row logical: keep an unnamed (empty-named) Statistic so the
+        # formatter knows to use the variable label as the row name.
+        stats <- setNames(
+          sprintf("%s/%s (%s)", cs$FREQ, cs$N, cs$PCTnoNA),
+          ""
+        )
+        miss <- NULL
+        single_row <- TRUE
+      }
 
-    if (nrow(y) == 1 & all(y == "")) {
-      return(NULL)
+      if (is.null(stats) || length(stats) == 0L) next
+
+      stats <- c(stats, miss)
+      s_names <- names(stats)
+      is_missing <- s_names == "Missing"
+      # Row_Style stamped per-row: "bold" for one-row variables (logicals),
+      # "" for multi-row stats. Banner / header styles are assigned later
+      # by cttab_format when the header rows are inserted.
+      style_vec <- if (single_row) rep("bold", length(stats)) else rep("", length(stats))
+
+      rows_list[[length(rows_list) + 1L]] <- data.table(
+        Group_ID    = var_group_id[i],
+        Group_Label = var_group_label[i],
+        Var_ID      = i,
+        Variable    = lbl,
+        Statistic   = s_names,
+        Value       = as.character(stats),
+        Stat_ID     = seq_along(stats),
+        Is_Missing  = is_missing,
+        Row_Style   = style_vec
+      )
     }
 
-    # Remove Invalid rows
-    if (nrow(y) > 1) {
-      all_val <- rowSums(apply(y, 2, function(x) x == "")) != ncol(y)
-      all_val[1] <- TRUE
-      y <- y[all_val, , drop = FALSE]
-    }
-
-    # Don't report if the variable has no values to report
-    if (nrow(y) == 1 & all(y == "")) {
-      return(NULL)
-    }
-
-    fst <- ifelse(nrow(y) == 1, 3, 2)
-
-    if (var_class[v] == "logical") {
-      fst <- 1
-    }
-
-    structure(y,
-      position = c(fst, rep(3, nrow(y) - 1)),
-      class = c("cttab", class(y))
-    )
-  }))
-
-  return(r)
-}
-
-
-# Generate selection vector function
-# Evaluate the select in the data and generate a logical vector.
-gen_selec <- function(data, var, select = NULL) {
-  if (is.null(select) || !var %in% names(select)) {
-    return(rep(TRUE, length(data[[var]])))
-  } else {
-    r <- eval(str2expression(select[var]), envir = data)
-    r & !is.na(r)
+    if (length(rows_list) == 0L) return(NULL)
+    rbindlist(rows_list, use.names = TRUE)
   }
+
+  include_obs <- isTRUE(add_obs) && !is.null(group)
+  by_cols <- c(group, row_split)  # NULLs drop out
+
+  # Single grouped tabulation; the by argument copes with NULL group/row_split.
+  long_res <- if (length(by_cols)) {
+    data[, process_chunk(.SD, include_obs = include_obs), by = by_cols]
+  } else {
+    process_chunk(data, include_obs = include_obs)
+  }
+
+  # When grouped, append the "Total" column by re-tabulating across groups.
+  if (total && !is.null(group)) {
+    total_res <- if (!is.null(row_split)) {
+      data[, process_chunk(.SD, include_obs = include_obs), by = row_split]
+    } else {
+      process_chunk(data, include_obs = include_obs)
+    }
+    if (!is.null(total_res) && nrow(total_res) > 0) {
+      total_res[, (group) := "Total"]
+      long_res <- rbind(long_res, total_res, fill = TRUE)
+    }
+  }
+
+  if (is.null(long_res) || nrow(long_res) == 0L) return(NULL)
+
+  # Drop stat rows whose Value is empty across every group cell (within the
+  # same row_split, when present). Done first so the := assignments don't
+  # collide with shallow copies caused by the factor reassignments below.
+  setalloccol(long_res)
+  long_res[, .empty := !nzchar(Value)]
+  empty_by <- c(if (!is.null(row_split)) row_split, "Var_ID", "Stat_ID")
+  long_res[Var_ID > 0L, .empty := all(.empty), by = empty_by]
+  long_res <- long_res[!(.empty)]
+  setalloccol(long_res)            # subset returns a fresh DT
+  long_res[, .empty := NULL]
+
+  if (nrow(long_res) == 0L) return(NULL)
+
+  # Order group factor (Total at the end). Use set() instead of [[<-]] to
+  # avoid triggering the data.table shallow-copy warning on subsequent ops.
+  if (!is.null(group)) {
+    grp_orig <- if (is.factor(data[[group]])) levels(data[[group]]) else
+      sort(unique(as.character(data[[group]])))
+    grp_levels <- c(grp_orig, if (total) "Total")
+    set(long_res, j = group,
+        value = factor(as.character(long_res[[group]]), levels = grp_levels))
+  }
+
+  # Order row_split factor following original data order
+  if (!is.null(row_split)) {
+    rs_levels <- if (is.factor(data[[row_split]])) levels(data[[row_split]]) else
+      sort(unique(as.character(data[[row_split]])))
+    set(long_res, j = row_split,
+        value = factor(as.character(long_res[[row_split]]), levels = rs_levels))
+  }
+
+  # Order: row_split / group / variable groupings first, then "Missing"
+  # rows last within each variable, then by Stat_ID.
+  ord_cols <- c(if (!is.null(row_split)) row_split,
+                if (!is.null(group)) group,
+                "Group_ID", "Var_ID", "Is_Missing", "Stat_ID")
+  setorderv(long_res, ord_cols)
+
+  setattr(long_res, "group", group)
+  setattr(long_res, "row_split", row_split)
+  if (!is.null(row_split)) {
+    setattr(long_res, "row_split_label",
+            if (has_label(data[[row_split]])) var_lab(data[[row_split]])
+            else row_split)
+  }
+
+  long_res[]
 }

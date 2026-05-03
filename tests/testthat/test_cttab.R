@@ -123,7 +123,8 @@ test_that("Variable groups", {
     data = df,
     logical_na_impute = NA
   )
-  expect_equal(unname(X1[, 1]), c("30/99 (30.3%)", "20/85 (23.5%)"))
+  expect_equal(unname(cttab_format(X1)[, 1]),
+               c("30/99 (30.3%)", "20/85 (23.5%)"))
 
   # Impute with TRUE
   X <- cttab(
@@ -180,6 +181,72 @@ test_that("By cycle summary", {
     test_path("ref", "table_ctab3.xml"),
     file.path(tmp_dir, "table_1.10.xml")
   ))
+})
+
+test_that("nest = 'var' flips the row hierarchy", {
+  attach_pop("1.10")
+  df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
+
+  X_split <- cttab(
+    x = c("AST", "BILI"),
+    group = "ARM",
+    data = df,
+    row_split = "AVISIT",
+    nest = "split"
+  )
+  X_var <- cttab(
+    x = c("AST", "BILI"),
+    group = "ARM",
+    data = df,
+    row_split = "AVISIT",
+    nest = "var"
+  )
+
+  expect_identical(attr(X_split, "nest"), "split")
+  expect_identical(attr(X_var, "nest"), "var")
+
+  m_split <- cttab_format(X_split)
+  m_var   <- cttab_format(X_var)
+
+  # Same set of rendered rows, just reordered.
+  expect_setequal(rownames(m_split), rownames(m_var))
+
+  # In split-mode the first banner row is the row_split header; in var-mode
+  # it's the Observation banner (var-outer hierarchy).
+  expect_match(rownames(m_split)[1], "^Study Visit =")
+  expect_equal(rownames(m_var)[1], "Observation")
+
+  # In var-mode each variable label sits as the outer banner.
+  ast_idx <- match("Aspartate Aminotransferase (U/L)", rownames(m_var))
+  expect_false(is.na(ast_idx))
+  expect_equal(attr(m_var, "row_style")[ast_idx], "banner")
+})
+
+test_that("Missing rows sort below other stats within a variable / group", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+
+  X <- cttab(c("AGE", "BMIBL"), group = "ARM", data = df)
+  # Within each (group level, variable), the Missing row appears after the
+  # other stat rows (Is_Missing transitions FALSE -> TRUE at most once).
+  X[, expect_true(all(diff(as.integer(Is_Missing)) >= 0L)),
+    by = c("ARM", "Var_ID")]
+})
+
+test_that("as.data.frame.cttab returns a tidy frame", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+
+  X <- cttab(c("AGE", "SEX"), group = "ARM", data = df)
+  tidy <- as.data.frame(X)
+
+  expect_s3_class(tidy, "data.frame")
+  expect_false(any(c("Group_ID", "Group_Label", "Stat_ID",
+                     "Is_Missing", "Row_Style") %in% names(tidy)))
+  # keeps the user-meaningful columns
+  expect_true(all(c("Variable", "Statistic", "Value", "ARM") %in%
+                    names(tidy)))
+  expect_identical(attr(tidy, "group"), "ARM")
 })
 
 test_that("By cycle No treatment arm summary", {
@@ -383,7 +450,8 @@ test_that("Check stat_tab", {
     group = "treat"
   )
 
-  expect_equal(ncol(tab1), 2)
+  # Two grouping levels (Treated/Placebo) become two data columns once formatted
+  expect_equal(ncol(cttab_format(tab1)), 2)
 
   expect_error(
     stat_tab("dates",
@@ -399,15 +467,18 @@ test_that("Check stat_tab", {
     data = dat,
     group = "treat"
   )
-  expect_equal(unname(tab1[2, ]), c("0", "40", "40"))
+  # The 'Valid Obs.' stat row should read 0/40/40 across (Treated, Placebo, Total)
+  ftab <- cttab_format(tab1)
+  expect_equal(unname(ftab[trimws(rownames(ftab)) == "Valid Obs.", ][1, ]),
+               c("0", "40", "40"))
 
   dat$height <- NA
-
+  # All-NA numeric: variable header + Valid Obs. (= "0") + Missing
   expect_equal(
-    dim(stat_tab("height",
+    dim(cttab_format(stat_tab("height",
       data = dat,
       group = "treat"
-    )),
+    ))),
     c(3, 3)
   )
 
@@ -420,11 +491,12 @@ test_that("Check stat_tab", {
     group = "treat"
   ))
 
+  # bmi is converted to factor via val_lab, all NA -> only Missing row + header
   expect_equal(
-    dim(stat_tab("bmi",
+    dim(cttab_format(stat_tab("bmi",
       data = dat,
       group = "treat"
-    )),
+    ))),
     c(2, 3)
   )
 
@@ -434,8 +506,9 @@ test_that("Check stat_tab", {
     data = dat,
     group = "treat"
   )
-  expect_equal(nrow(tab), 2)
-  expect_equal(row.names(tab)[2], "Missing")
+  ftab <- cttab_format(tab)
+  expect_equal(nrow(ftab), 2)
+  expect_equal(trimws(rownames(ftab)[2]), "Missing")
 
   expect_null(stat_tab("bmi",
     data = dat,
@@ -458,13 +531,16 @@ test_that("Check for all missing", {
     data = df,
     group = "ARM"
   )
-  x3_out <- c("48", "", "48 (100%)", "", "0", "48 (100%)")
+  # After df$SEX <- NA / df$AGE <- NA the columns lose their var_lab and
+  # become all-missing logicals; both fall through the all-missing numeric
+  # render path, so each variable shows Valid Obs. + Missing.
+  x3_out <- c("48", "", "0", "48 (100%)", "", "0", "48 (100%)")
   names(x3_out) <- c(
-    "Observation", "Sex", "Missing", "Age",
-    "Valid Obs.", "Missing"
+    "Observation", "SEX", "  Valid Obs.", "  Missing",
+    "AGE", "  Valid Obs.", "  Missing"
   )
 
-  expect_identical(X3[, 1], x3_out)
+  expect_identical(cttab_format(X3)[, 1], x3_out)
   cctu_initialise(root = test_path("Output"))
-  expect_no_error( write_table(X3, directory = test_path("Output/Core")))
+  expect_no_error(write_table(X3, directory = test_path("Output/Core")))
 })

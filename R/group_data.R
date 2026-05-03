@@ -1,39 +1,53 @@
-#' Create Group Header Rows in a data.table
+#' Create Nested Group Header Rows in a data.table
 #'
 #' @description
-#' Transforms a \code{data.table} by inserting a new row above each group. 
-#' By default, other variables in this header row are \code{NA}. If \code{shift} 
-#' is TRUE, the grouping variable label is moved into the first non-grouping 
-#' column and the original grouping columns are removed.
+#' Transforms a \code{data.table} by inserting header rows for each level of
+#' the specified grouping variables. The grouping variables are moved to the
+#' front of the dataset. The nesting level is returned as an
+#' \code{is_header} attribute (1 to N for headers, 0 for data rows).
 #'
 #' @param data A \code{data.table}. If a \code{data.frame} is provided, it will be converted.
-#' @param groups A character vector of column names to group by.
-#' @param shift Logical. If \code{TRUE}, moves the value of the first grouping 
-#'   variable into the first non-grouping column and drops the original group columns.
-#' @param indent Logical. If \code{TRUE} (and \code{shift} is \code{TRUE}), 
-#'   adds three leading spaces to the first non-grouping column in the data rows.
+#' @param groups A character vector of column names to group by (ordered high to low).
+#' @param shift Logical. If \code{TRUE}, moves labels into the first non-grouping column.
+#' @param indent Logical. If \code{TRUE}, indents nested headers and data rows.
+#' @param keep_groups Logical. If \code{TRUE} (and \code{shift} is \code{TRUE}),
+#'   preserves the original grouping columns in the output. Default is \code{FALSE}.
+#' @param passthrough Character vector of column names whose values should be
+#'   carried through unchanged on data rows. The header rows that
+#'   \code{group_data} inserts get \code{NA} in these columns (their type is
+#'   preserved from \code{data}). This is intended for downstream renderers
+#'   (e.g. cttab's \code{Row_Style}) that want to attach per-row metadata
+#'   that survives the nesting transformation.
 #'
-#' @return A \code{data.table} with additional rows for each group.
-#' 
+#' @return A \code{data.table} with nested header rows. The nesting level is
+#'   stored in \code{attr(., "is_header")}.
+#'
 #' @import data.table
 #' @export
 #'
 #' @examples
 #' library(data.table)
 #' dt <- data.table(Region = c("North", "North", "South"),
-#'                  Dept = c("Sales", "Sales", "HR"), 
-#'                  Staff = c("A", "B", "C"), 
+#'                  Dept = c("Sales", "Sales", "HR"),
+#'                  Staff = c("A", "B", "C"),
 #'                  Sales = c(10, 20, 30))
-#' 
+#'
 #' # Standard headers
 #' group_data(dt, groups = "Region")
-#' 
+#'
 #' # Shifted and indented headers for reporting
 #' group_data(dt, groups = "Region", shift = TRUE, indent = TRUE)
 #' # Shifted and indented headers for reporting with multiple grouping levels
 #' group_data(dt, groups = c("Region", "Dept"), shift = TRUE, indent = TRUE)
-#' 
-group_data <- function(data, groups, shift = FALSE, indent = FALSE) {
+#'
+#' # Carry an extra metadata column (e.g. a per-row style flag) through to
+#' # the final layout; header rows get NA in that column.
+#' dt$style <- c("bold", "", "")
+#' group_data(dt, groups = "Region", shift = TRUE, indent = TRUE,
+#'            passthrough = "style")
+#'
+group_data <- function(data, groups, shift = FALSE, indent = FALSE,
+                       keep_groups = FALSE, passthrough = character()) {
 
   # Shallow copy and ensure grouping variables are at the start
   temp_dt <- copy(as.data.table(data))
@@ -72,21 +86,23 @@ group_data <- function(data, groups, shift = FALSE, indent = FALSE) {
     if (shift) {
       target_col <- other_vars[1]
       current_label_col <- groups[i]
-      
+
       # Progressive indentation for headers
       prefix <- if (indent) strrep("   ", i - 1) else ""
-      
+
       # Insert label into the target column
       set(h, j = target_col, value = paste0(prefix, as.character(h[[current_label_col]])))
-      
-      # Ensure other non-grouping variables are NA in headers
-      remaining_vars <- setdiff(other_vars, target_col)
+
+      # Ensure other non-grouping variables are NA in headers, but skip
+      # passthrough columns (they pick up NA via rbindlist fill below,
+      # preserving the source type).
+      remaining_vars <- setdiff(other_vars, c(target_col, passthrough))
       for (col in remaining_vars) {
         set(h, j = col, value = NA)
       }
     } else {
-      # Standard header: all non-grouping vars are NA
-      for (col in other_vars) {
+      # Standard header: all non-grouping vars are NA except passthrough
+      for (col in setdiff(other_vars, passthrough)) {
         set(h, j = col, value = NA)
       }
     }
@@ -115,9 +131,20 @@ group_data <- function(data, groups, shift = FALSE, indent = FALSE) {
   setorderv(res, c(groups, "._sort_idx"), na.last = FALSE)
   
   # 5. Final Cleanup
+  res[, ._sort_idx := NULL]
+
+  if (shift && !keep_groups) {
+    # Remove grouping columns if shifting and user didn't request to keep them
+    res[, (groups) := NULL]
+    setcolorder(res, c(other_vars))
+  } else {
+    # Ensure groups are the first variables, then others, then is_header
+    setcolorder(res, c(groups, other_vars))
+  }
+
   attr(res, "is_header") <- res$is_header
   res[, is_header := NULL]
-  res[, ._sort_idx := NULL]
   
   return(res[])
 }
+

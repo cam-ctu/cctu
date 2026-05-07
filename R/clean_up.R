@@ -27,10 +27,7 @@ clean_up <- function(number,
     )
   }
   obj_list <- ls(frame, all.names = FALSE)
-  keep <- match(reserved, obj_list, nomatch = 0)
-  if (length(keep) > 1 || (length(keep == 1) && all(keep != 0))) {
-    obj_list <- obj_list[-keep]
-  }
+  obj_list <- setdiff(obj_list, reserved)
   rm(list = obj_list, envir = frame)
   if (verbose) {
     cat("\nObjects removed:", obj_list, "\n")

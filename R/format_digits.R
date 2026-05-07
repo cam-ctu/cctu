@@ -170,10 +170,18 @@ format_percent <- function(x, digits = 1, ...) {
 #' @export
 #'
 #' @examples
-#' pv <- c(-1, 0.00001, 0.0042, 0.0601, 0.1335, 0.4999, 0.51, 0.89, 0.9, 1)
+#' pv <- c(0.00001, 0.0042, 0.0601, 0.1335, 0.4999, 0.51, 0.89, 0.9, 1)
 #' format_pval(pv)
 #'
 format_pval <- function(pvals, sig_limit = 10^(-digits), digits = 3) {
+  out_of_range <- !is.na(pvals) & (pvals < 0 | pvals > 1)
+  if (any(out_of_range)) {
+    warning(
+      "p-values should be in [0, 1]; ",
+      sum(out_of_range), " value(s) are out of range and will be formatted as-is."
+    )
+  }
+
   roundr <- function(x, digits = 1) {
     res <- sprintf(paste0("%.", digits, "f"), x)
     zzz <- paste0("0.", paste(rep("0", digits), collapse = ""))

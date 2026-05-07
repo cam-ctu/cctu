@@ -325,14 +325,14 @@ copy_lab <- function(new_var, old_var, strict = TRUE) {
 }
 
 
-#' Replace vector/matrix/data.frame values with corresponding value labels.
+#' Replace vector/data.frame values with corresponding value labels.
 #'
-#' \code{lab2val} replaces vector/matrix/data.frame values with
+#' \code{lab2val} replaces vector/data.frame values with
 #' corresponding value labels. If there are no labels for some values they are
 #' converted to characters in most cases. If there are no labels at all for
 #' variable it remains unchanged.
 #'
-#' @param x vector/matrix/data.frame
+#' @param x vector/data.frame
 #' @return Object of the same form as x but with value labels instead of values.
 #'
 #' @seealso \link{val_lab}, \link{var_lab}
@@ -363,13 +363,6 @@ lab2val.default <- function(x) {
   res_na <- is.na(res)
   if (any(res_na)) res[res_na] <- x[res_na]
   var_lab(res) <- var_lab(x)
-  res
-}
-
-#' @export
-lab2val.matrix <- function(x) {
-  res <- lab2val.default(x)
-  res <- matrix(res, nrow = nrow(x), ncol = ncol(x))
   res
 }
 

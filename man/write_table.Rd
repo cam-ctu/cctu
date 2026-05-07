@@ -2,8 +2,8 @@
 % Please edit documentation in R/write_table.R
 \name{write_table}
 \alias{write_table}
-\title{Function to write a table into xml format in the correct directory, and edit
-TableofTables}
+\title{Function to write a table into xml format in the correct directory, and
+record the calling program in the meta_table.}
 \usage{
 write_table(
   x,
@@ -43,17 +43,19 @@ environment or external files. Defaults to options()$verbose.}
 }
 \value{
 writes an xml version of the input data to file table_number.xml.
- Edits the TableofTables object with the calling programe. No return object.
+ Records the calling program in the meta_table. No return object.
 }
 \description{
-Function to write a table into xml format in the correct directory, and edit
-TableofTables
+Function to write a table into xml format in the correct directory, and
+record the calling program in the meta_table.
 }
 \details{
-Variable names and values will be replace by variable labels and value
-labels respectively if available before writing the data.
-Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be
-written as empty strings globally.
+For the plain (non-styled) path, variable names and values are replaced
+by variable labels and value labels respectively before writing.
+For a \code{cttab} input the labels were already baked in upstream by
+\code{\link{cttab_format}}. Set \code{cctu_options(na_to_empty = TRUE)}
+(or \code{options(cctu_na_to_empty = TRUE)}) to make NA-to-empty the
+global default.
 }
 \seealso{
 \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}}

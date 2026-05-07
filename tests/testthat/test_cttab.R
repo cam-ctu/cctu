@@ -588,3 +588,53 @@ test_that("print.cttab snapshot — numeric, factor, logical with row_split", {
   )
   expect_snapshot(print(X))
 })
+
+
+test_that("rbind.cttab stacks long-format tables and orders Total last", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+  df$ARM <- factor(df$ARM)
+
+  # Two cttab() calls with overlapping group levels.
+  part1 <- cttab(c("AGE") ~ ARM, data = df, print_plot = FALSE)
+  part2 <- cttab(c("SEX") ~ ARM, data = df, print_plot = FALSE)
+
+  out <- rbind(part1, part2)
+
+  expect_s3_class(out, "cttab")
+  expect_identical(attr(out, "group"), "ARM")
+
+  # Total stays at the end of the group factor levels.
+  grp <- out[["ARM"]]
+  expect_true(is.factor(grp))
+  expect_identical(tail(levels(grp), 1), "Total")
+
+  # Var_ID and Group_ID for part2 rows are offset strictly past part1's
+  # max so each part keeps its own Observation row in the rendered output.
+  expect_true(max(out$Var_ID) > max(part1$Var_ID))
+  expect_true(max(out$Group_ID) > max(part1$Group_ID))
+
+  # Total row count: rows from part1 + rows from part2 (no merging).
+  expect_equal(nrow(out), nrow(part1) + nrow(part2))
+})
+
+test_that("rbind.cttab refuses to mix matrix and long-format inputs", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+  long <- cttab(c("AGE") ~ ARM, data = df, print_plot = FALSE)
+  formatted <- cttab_format(long)        # data.frame-with-label, not matrix
+  # Force the matrix flavour to exercise the mixed-shape error.
+  mat <- structure(
+    matrix("x", nrow = 1, ncol = 1, dimnames = list("a", "v")),
+    row_style = "",
+    class = c("cttab", "matrix", "array")
+  )
+  expect_error(rbind(long, mat), "mix of matrix-format and long-format")
+})
+
+test_that("rbind.cttab on a single argument is a no-op", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+  one <- cttab(c("AGE") ~ ARM, data = df, print_plot = FALSE)
+  expect_identical(rbind(one), one)
+})

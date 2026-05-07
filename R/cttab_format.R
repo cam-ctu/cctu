@@ -26,30 +26,21 @@
 #' The actual layout is delegated to \code{\link{group_data}}.
 #'
 #' @param x A \code{cttab} object returned by \code{\link{cttab}}.
-#' @param indent Unused. Kept for backwards compatibility; visual indent
-#'   is now expressed via the \code{"indent"} token in \code{row_style}
-#'   and applied at render time by \code{\link{write_table}} /
-#'   \code{print.cttab}.
 #' @return A \code{data.frame} with a \code{label} column, one column per
 #'   group level (or \code{Total}), a \code{row_style} attribute, and class
 #'   \code{c("cttab", "data.frame")}.
 #' @seealso \code{\link{cttab}}, \code{\link{write_table}},
 #'   \code{\link{group_data}}
 #' @export
-cttab_format <- function(x, indent = "  ") {
-  # Already-formatted: data.frame with row_style + label, OR matrix with
-  # row_style. Both are passed through unchanged.
-  if (!is.null(attr(x, "row_style")) &&
-      (is.matrix(x) ||
-         (is.data.frame(x) && "label" %in% names(x)))) {
-    return(x)
-  }
+cttab_format <- function(x) {
+  # Already-formatted matrix or data.frame-with-label — pass through.
+  if (is_formatted_cttab(x)) return(x)
   if (is.null(x) || !inherits(x, "data.frame") || nrow(x) == 0L) {
     return(.cttab_empty(character(0)))
   }
   # Plain data.frame stamped with cttab class — let write_table render it.
   if (!"Value" %in% names(x)) return(x)
-  .cttab_format_long(x, indent = indent)
+  .cttab_format_long(x)
 }
 
 # Empty-table sentinel, used in three spots in the format pipeline.
@@ -64,7 +55,7 @@ cttab_format <- function(x, indent = "  ") {
 # Internal pre-processor: pivot long-format cttab to wide, sort, attach attrs.
 #' @keywords internal
 #' @import data.table
-.cttab_for_layout <- function(x, indent = "  ") {
+.cttab_for_layout <- function(x) {
   group     <- attr(x, "group")
   row_split <- attr(x, "row_split")
   nest      <- attr(x, "nest") %||% "split"
@@ -98,7 +89,7 @@ cttab_format <- function(x, indent = "  ") {
 
   attrs <- list(group = group, row_split = row_split,
                 row_split_label = rs_lab, nest = nest,
-                data_cols = data_cols, indent = indent)
+                data_cols = data_cols)
   for (nm in names(attrs)) setattr(wide, nm, attrs[[nm]])
   wide
 }
@@ -121,8 +112,8 @@ cttab_format <- function(x, indent = "  ") {
 # collisions (rbind.cttab post-shift "Observation" rows in particular).
 #' @keywords internal
 #' @import data.table
-.cttab_format_long <- function(x, indent = "  ") {
-  wide      <- .cttab_for_layout(x, indent = indent)
+.cttab_format_long <- function(x) {
+  wide      <- .cttab_for_layout(x)
   row_split <- attr(wide, "row_split")
   rs_lab    <- attr(wide, "row_split_label")
   nest      <- attr(wide, "nest")

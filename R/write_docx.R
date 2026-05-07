@@ -344,7 +344,6 @@ write_docx <- function(
   ),
   flags = "-r9Xq"
   )
-  setwd(curr_wd)
   file.copy(file.path(output_dir, "wordfiles/tmp.docx"),
     long_filename,
     overwrite = TRUE

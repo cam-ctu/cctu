@@ -16,10 +16,12 @@ A character scalar containing the table's XML fragment.
 Generic XML renderer for any data.frame / matrix that carries a
 \code{row_style} attribute. \code{row_style} is a per-row character
 vector of \code{;}-joined tokens drawn from
-\code{\{"bold", "bgcol", "span", "indent"\}}; \code{""} marks a plain
-stat row. Tokens are passed through verbatim into the \code{style}
-attribute on each \code{<td>}, where the XSLT in
-\code{inst/extdata/to_word.xslt} interprets them.
+\code{\{"bold", "bgcol", "span", "indent", "col"\}}; \code{""} marks a
+plain stat row. Tokens are passed through verbatim into the
+\code{style} attribute on each \code{<td>}, where the XSLT in
+\code{inst/assets/document.xslt} (used by \code{\link{write_docx}})
+or \code{inst/extdata/to_word.xslt} (used by the legacy
+\code{\link{create_word_xml}}) interprets them.
 }
 \details{
 Two input shapes are accepted:

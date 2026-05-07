@@ -1,5 +1,5 @@
-#' Function to write a table into xml format in the correct directory, and edit
-#' TableofTables
+#' Function to write a table into xml format in the correct directory, and
+#' record the calling program in the meta_table.
 #'
 #' @inheritParams write_ggplot
 #' @param x the data.frame or table to be saved in xml format
@@ -9,19 +9,20 @@
 #'  empty strings. Defaults to false.
 #'
 #' @details
-#' Variable names and values will be replace by variable labels and value
-#' labels respectively if available before writing the data.
-#' Use \code{options(cctu_na_to_empty = TRUE)} to write NA values will be
-#' written as empty strings globally.
+#' For the plain (non-styled) path, variable names and values are replaced
+#' by variable labels and value labels respectively before writing.
+#' For a \code{cttab} input the labels were already baked in upstream by
+#' \code{\link{cttab_format}}. Set \code{cctu_options(na_to_empty = TRUE)}
+#' (or \code{options(cctu_na_to_empty = TRUE)}) to make NA-to-empty the
+#' global default.
 #'
 #' @return writes an xml version of the input data to file table_number.xml.
-#'  Edits the TableofTables object with the calling programe. No return object.
+#'  Records the calling program in the meta_table. No return object.
 #' @export
 #' @seealso \code{\link{write_ggplot}} \code{\link{detect_invalid_utf8}}
 #' \code{\link{remove_invalid_utf8}}
 #' \code{\link{lab2val}} \code{\link{var_lab}} \code{\link{val_lab}}
 #'  \code{\link{apply_macro_dict}}
-#' @importFrom magrittr %>% %<>%
 
 write_table <- function(x,
                         number = cctu_env$number,
@@ -41,26 +42,32 @@ write_table <- function(x,
     add_footnote(number, footnote)
   }
 
+  # Empty / shapeless input: replace with a one-cell "No Data" sentinel.
+  # Runs before the cttab adapter so an empty cttab also degrades to this
+  # rather than producing an empty styled table.
   if (is.null(dim(x)) || dim(x)[1] == 0 || dim(x)[2] == 0) {
-    x <- data.frame(" " = "No Data")
-    colnames(x) <- ""
+    x <- setNames(
+      data.frame("No Data", stringsAsFactors = FALSE),
+      ""
+    )
   }
-
 
   # cttab adapter: a raw long-format cttab gets reshaped into a
   # styled-table data.frame before dispatch so the user-visible API
   # (write_table(my_cttab)) keeps working.
-  if (inherits(x, "cttab") && is.null(attr(x, "row_style"))) {
+  if (inherits(x, "cttab") && !is_formatted_cttab(x)) {
     x <- cttab_format(x)
   }
 
+  # Dispatch on row_style: a styled table (cttab output, or anything the
+  # user stamped via format_table()) goes through styled_table(); plain
+  # data.frames / matrices go through table_data().
   if (!is.null(attr(x, "row_style"))) {
     output_string <- styled_table(x)
   } else {
     output_string <- table_data(x, heading, na_to_empty)
   }
 
-  # directory %<>% normalizePath %>% final_slash
   file_name <- file.path(directory, paste0("table_", number, ".xml"))
 
   cat(output_string, file = file_name, append = FALSE)
@@ -98,24 +105,23 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
     stop("Heading should have the same length as the number of columns")
   }
 
-  if (!is.null(heading)) {
-    for (i in seq_along(heading)) {
-      var_lab(x[[i]]) <- heading[i]
-    }
-  } else {
-    heading <- colnames(x)
-  }
-
-  check <- as.character(rownames(x)) != as.character(seq_len(nrow(x)))
-  if (inherits(x, "matrix") && any(check)) {
-    heading <- c("Variables", heading)
-    x <- data.frame(row_nam = rownames(x), x, row.names = NULL)
-  }
-
-  # Variable names to labels if no variable label
-  with_varlab <- sapply(x, has_label)
+  # Resolve column headings: explicit `heading` wins; otherwise fall back to
+  # variable labels where present, else colnames.
+  if (is.null(heading)) heading <- colnames(x)
+  with_varlab <- vapply(x, has_label, logical(1))
   if (any(with_varlab)) {
-    heading[with_varlab] <- unlist(var_lab(x)[with_varlab])
+    heading[with_varlab] <- vapply(x[with_varlab], var_lab, character(1))
+  }
+
+  # Matrix path: if rownames are non-default, surface them as a leading
+  # "Variables" column. NROW() guards against zero-row matrices where
+  # rownames(x) is NULL.
+  if (inherits(x, "matrix") && NROW(x) > 0L) {
+    rn <- as.character(rownames(x))
+    if (length(rn) && any(rn != as.character(seq_len(nrow(x))))) {
+      heading <- c("Variables", heading)
+      x <- data.frame(row_nam = rn, x, row.names = NULL)
+    }
   }
 
   # Variable values to labels if has value
@@ -136,7 +142,9 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
   th <- paste0("<tr>", th, "</tr>\n")
   thead <- paste0("<thead>\n", th, "</thead>\n")
 
-  # Table body
+  # Table body. apply() coerces each column to character via the matrix
+  # roundtrip; callers are expected to pre-format numerics / dates if they
+  # care about the rendering.
   td <- apply(x, 2, function(c) {
     if (na_to_empty) {
       c <- ifelse(is.na(c), "", c)
@@ -161,10 +169,12 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
 #' Generic XML renderer for any data.frame / matrix that carries a
 #' \code{row_style} attribute. \code{row_style} is a per-row character
 #' vector of \code{;}-joined tokens drawn from
-#' \code{\{"bold", "bgcol", "span", "indent"\}}; \code{""} marks a plain
-#' stat row. Tokens are passed through verbatim into the \code{style}
-#' attribute on each \code{<td>}, where the XSLT in
-#' \code{inst/extdata/to_word.xslt} interprets them.
+#' \code{\{"bold", "bgcol", "span", "indent", "col"\}}; \code{""} marks a
+#' plain stat row. Tokens are passed through verbatim into the
+#' \code{style} attribute on each \code{<td>}, where the XSLT in
+#' \code{inst/assets/document.xslt} (used by \code{\link{write_docx}})
+#' or \code{inst/extdata/to_word.xslt} (used by the legacy
+#' \code{\link{create_word_xml}}) interprets them.
 #'
 #' Two input shapes are accepted:
 #' \itemize{
@@ -182,8 +192,13 @@ styled_table <- function(x) {
     stop("`styled_table()` requires a 'row_style' attribute on `x`.")
   }
 
-  if (!is.matrix(x) && is.data.frame(x) && "label" %in% names(x)) {
-    # data.frame path
+  if (is.matrix(x)) {
+    # Matrix path: prepend rownames as a label column
+    rl     <- rownames(x)
+    xm     <- cbind("Variable" = rl, x)
+    hd_nam <- colnames(xm)
+  } else if ("label" %in% names(x)) {
+    # data.frame with a label column: rename it to "Variable"
     rl      <- as.character(x$label)
     dc      <- setdiff(names(x), "label")
     xm      <- as.matrix(cbind(Variable = rl, x[, dc, drop = FALSE]))
@@ -191,10 +206,11 @@ styled_table <- function(x) {
     xm[is.na(xm)] <- ""
     hd_nam  <- c("Variable", dc)
   } else {
-    # Matrix path
-    rl     <- rownames(x)
-    xm     <- cbind("Variable" = rl, x)
-    hd_nam <- colnames(xm)
+    # Plain data.frame: use columns as-is, no extra label column
+    xm      <- as.matrix(x)
+    mode(xm) <- "character"
+    xm[is.na(xm)] <- ""
+    hd_nam  <- colnames(x)
   }
 
   xm[] <- apply(xm, 2, remove_xml_specials)
@@ -205,6 +221,9 @@ styled_table <- function(x) {
   thead <- paste0("<thead>\n", th, "</thead>\n")
 
   # Per-row CSS class string: tokens from row_style + "firstleft".
+  # The XSLT (inst/assets/document.xslt) reads the row's style attribute
+  # from `td[1]/@style`, so we only stamp the first cell of each row;
+  # the remaining cells inherit the row's behaviour from there.
   al <- "firstleft"
   cls_str <- ifelse(nzchar(rowclass),
                     paste(rowclass, al, sep = ";"),

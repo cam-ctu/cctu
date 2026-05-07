@@ -4,7 +4,16 @@
 \alias{format_table}
 \title{Stamp row-style metadata on a table for `write_table()`.}
 \usage{
-format_table(x, bold = NULL, bgcol = NULL, span = NULL, indent = NULL)
+format_table(
+  x,
+  bold = NULL,
+  bgcol = NULL,
+  bgcol_color = NULL,
+  span = NULL,
+  indent = NULL,
+  col = NULL,
+  col_color = NULL
+)
 }
 \arguments{
 \item{x}{A data.frame or matrix.}
@@ -13,6 +22,15 @@ format_table(x, bold = NULL, bgcol = NULL, span = NULL, indent = NULL)
 that should carry the corresponding style. `NULL` (default) means
 no rows of that style. Indices outside `[1, nrow(x)]` or `NA` are
 rejected with an error.}
+
+\item{bgcol_color}{A color for the background of rows in `bgcol`. Accepts
+any R color name (e.g. `"red"`) or a 6-digit hex string (e.g. `"FF0000"`).
+`NULL` (default) uses the document default grey (`d3d3d3`).}
+
+\item{col}{Integer vector of row indices whose text should be coloured.}
+
+\item{col_color}{A color for the text of rows in `col`. Same format as
+`bgcol_color`. Required when `col` is non-`NULL`.}
 }
 \value{
 `x`, unchanged in shape, with `attr(x, "row_style")` set to
@@ -33,13 +51,17 @@ spans all columns — typically a header / banner row), `"indent"`
 (visual indent — typically a stat row sitting under a header).
 A row may carry any combination, e.g. a banner row appears in
 `bold`, `bgcol`, and `span`. Token order in the assembled string is
-fixed: `bold;bgcol;span;indent`.
+fixed: `bold;bgcol;span;indent;col`.
 }
 \examples{
 df <- data.frame(label = c("Group A", "n", "mean"), value = c("", "10", "3.4"))
 df <- format_table(df, bold = 1, bgcol = 1, span = 1, indent = 2:3)
 attr(df, "row_style")
 # [1] "bold;bgcol;span" "indent"          "indent"
+
+# Custom background and text colors
+df2 <- format_table(df, bgcol = 1, bgcol_color = "steelblue", col = 2:3, col_color = "red")
+attr(df2, "row_style")
 }
 \seealso{
 [styled_table()], [write_table()], [cttab_format()].

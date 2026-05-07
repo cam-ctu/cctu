@@ -70,6 +70,12 @@ format_table <- function(x,
 
   to_hex <- function(color, name) {
     if (is.null(color)) return(NULL)
+    if (length(color) != 1L || !is.character(color)) {
+      stop("`", name, "` must be a single character string.")
+    }
+    if (grepl("^#?[0-9A-Fa-f]{6}$", color)) {
+      return(toupper(sub("^#", "", color)))
+    }
     rgb_vals <- tryCatch(
       grDevices::col2rgb(color)[, 1],
       error = function(e) stop("`", name, "` is not a valid color: ", color)
@@ -96,7 +102,7 @@ format_table <- function(x,
 
   rs <- character(n)
   add_token <- function(rs, idx, token) {
-    if (length(idx) == 0L) return(rs)
+    if (length(idx) == 0L || is.null(token)) return(rs)
     cur <- rs[idx]
     rs[idx] <- ifelse(nzchar(cur), paste(cur, token, sep = ";"), token)
     rs

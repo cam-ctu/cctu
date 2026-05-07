@@ -10,8 +10,7 @@
 #'
 #' @export
 print.cttab <- function(x, ...) {
-  if (!(is.matrix(x) || (is.data.frame(x) && !is.matrix(x) && "label" %in% names(x))) ||
-      is.null(attr(x, "row_style"))) {
+  if (!is_formatted_cttab(x)) {
     x <- cttab_format(x)
   }
 
@@ -20,12 +19,14 @@ print.cttab <- function(x, ...) {
     return(invisible(x))
   }
 
-  rowclass   <- attr(x, "row_style")
+  # A plain data.frame stamped with `cttab` (passed through cttab_format())
+  # has no row_style attribute; treat every row as a plain stat row.
+  rowclass <- attr(x, "row_style") %||% character(nrow(x))
   tokens     <- strsplit(rowclass, ";", fixed = TRUE)
   span_idx   <- vapply(tokens, function(t) "span" %in% t, logical(1))
   indent_idx <- vapply(tokens, function(t) "indent" %in% t, logical(1))
 
-  if (!is.matrix(x) && is.data.frame(x) && "label" %in% names(x)) {
+  if (is.data.frame(x) && "label" %in% names(x)) {
     # data.frame path: convert to character matrix for the rendering logic.
     # Visual indent for stat rows is applied here (the label itself no
     # longer carries leading whitespace).
@@ -39,11 +40,17 @@ print.cttab <- function(x, ...) {
     x <- cbind(" " = labels, mat)
     colnames(x) <- c("", col_names)
   } else {
-    # Legacy matrix path
+    # Legacy matrix / plain-data.frame path. Coerce to a character matrix
+    # so the width-calculation logic below sees a uniform 2D shape.
     align <- c("l", rep("c", ncol(x)))
     col_names <- colnames(x)
     labels <- as.character(rownames(x))
     labels[indent_idx] <- paste0("  ", labels[indent_idx])
+    if (is.data.frame(x)) {
+      mat <- as.matrix(x)
+      mode(mat) <- "character"
+      x <- mat
+    }
     x <- cbind(" " = labels, x)
     colnames(x) <- c("", col_names)
   }
@@ -135,7 +142,7 @@ print.cttab <- function(x, ...) {
 #' @export
 as.data.frame.cttab <- function(x, row.names = NULL, optional = FALSE, ...) {
   # Already-formatted outputs (matrix or data.frame with label column)
-  if (is.matrix(x) || (!is.null(attr(x, "row_style")) && "label" %in% names(x))) {
+  if (is_formatted_cttab(x)) {
     return(NextMethod())
   }
 

@@ -4,15 +4,10 @@
 \alias{cttab_format}
 \title{Convert a long-format cttab to a rendering-ready table.}
 \usage{
-cttab_format(x, indent = "  ")
+cttab_format(x)
 }
 \arguments{
 \item{x}{A \code{cttab} object returned by \code{\link{cttab}}.}
-
-\item{indent}{Unused. Kept for backwards compatibility; visual indent
-is now expressed via the \code{"indent"} token in \code{row_style}
-and applied at render time by \code{\link{write_table}} /
-\code{print.cttab}.}
 }
 \value{
 A \code{data.frame} with a \code{label} column, one column per

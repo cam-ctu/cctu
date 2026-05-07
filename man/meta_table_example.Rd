@@ -30,27 +30,6 @@ a dataset with 10 columns and 3 example rows
  wanted.}
  \item{fontsize}{optional fontsize. Set the font size used in a table in
  units 1/144 of inch. Defaults to 20 if not set.}
-
-
-This is an example of the structure of a meta_table that must exist
-internally to use \code{\link{attach_pop},\link{write_table},
-\link{write_ggplot},\link{create_word_xml}}. All variables are characters,
-including 'number'. The variables 'orientation' and 'item' can only take
- specific values.
-
-Typically one would create raw data using a spreadshee editor and read it
-into R. You may add additional columns to help plan and understand what each
- table or figure will be, and track progress.
-
-See  \code{system.file("extdata", "meta_table.xlsx", package="cctu")}
-
-Then you must set it internally using  \code{\link{set_meta_table}}, and
-possible examine the contents with \code{\link{get_meta_table}}
-
-To preserve troublesome number values '1.10', or '1.1.1' , in excel one can
- prefix the ' character ( to the left of the # key) before the number value
-
-
 }
 }
 \usage{
@@ -58,6 +37,25 @@ meta_table_example
 }
 \description{
 Example of a meta_table data frame
+}
+\details{
+This is an example of the structure of a meta_table that must exist
+internally to use \code{\link{attach_pop}}, \code{\link{write_table}},
+\code{\link{write_ggplot}}, \code{\link{create_word_xml}}. All variables are
+characters, including 'number'. The variables 'orientation' and 'item' can
+only take specific values.
+
+Typically one would create raw data using a spreadsheet editor and read it
+into R. You may add additional columns to help plan and understand what each
+table or figure will be, and track progress.
+
+See \code{system.file("extdata", "meta_table.xlsx", package = "cctu")}.
+
+Then you must set it internally using \code{\link{set_meta_table}}, and
+possibly examine the contents with \code{\link{get_meta_table}}.
+
+To preserve troublesome number values '1.10', or '1.1.1', in Excel one can
+prefix the ' character (to the left of the \# key) before the number value.
 }
 \seealso{
 \code{\link{set_meta_table}} \code{\link{get_meta_table}}

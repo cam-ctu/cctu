@@ -26,16 +26,9 @@
 write_table <- function(x,
                         number = cctu_env$number,
                         heading = NULL,
-                        na_to_empty = getOption("cctu_na_to_empty",
-                          default = FALSE
-                        ),
+                        na_to_empty = cctu_opt("na_to_empty"),
                         clean_up = TRUE,
-                        directory = file.path(
-                          getOption("cctu_output",
-                            default = "Output"
-                          ),
-                          "Core"
-                        ),
+                        directory = file.path(cctu_opt("output"), "Core"),
                         verbose = options()$verbose,
                         footnote = NULL) {
   calling_prog <- cctu_env$parent[1] # get_file_name()
@@ -54,8 +47,15 @@ write_table <- function(x,
   }
 
 
-  if (inherits(x, "cttab")) {
-    output_string <- table_cttab(x)
+  # cttab adapter: a raw long-format cttab gets reshaped into a
+  # styled-table data.frame before dispatch so the user-visible API
+  # (write_table(my_cttab)) keeps working.
+  if (inherits(x, "cttab") && is.null(attr(x, "row_style"))) {
+    x <- cttab_format(x)
+  }
+
+  if (!is.null(attr(x, "row_style"))) {
+    output_string <- styled_table(x)
   } else {
     output_string <- table_data(x, heading, na_to_empty)
   }
@@ -156,78 +156,67 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
 }
 
 
-# For cttab class
-#' @keywords internal
+#' Render a styled table to Word-flavoured XML.
 #'
-table_cttab <- function(x) {
-  if (!is.matrix(x) || is.null(attr(x, "row_style"))) {
-    x <- cttab_format(x)
-  }
-  rl <- rownames(x)
+#' Generic XML renderer for any data.frame / matrix that carries a
+#' \code{row_style} attribute. \code{row_style} is a per-row character
+#' vector of \code{;}-joined tokens drawn from
+#' \code{\{"bold", "bgcol", "span", "indent"\}}; \code{""} marks a plain
+#' stat row. Tokens are passed through verbatim into the \code{style}
+#' attribute on each \code{<td>}, where the XSLT in
+#' \code{inst/extdata/to_word.xslt} interprets them.
+#'
+#' Two input shapes are accepted:
+#' \itemize{
+#'   \item a \code{data.frame} with a \code{label} column (the first
+#'     column of the rendered table) plus one column per data column;
+#'   \item a \code{matrix} whose row-names act as labels.
+#' }
+#'
+#' @param x A data.frame (with a \code{label} column) or matrix.
+#' @return A character scalar containing the table's XML fragment.
+#' @keywords internal
+styled_table <- function(x) {
   rowclass <- attr(x, "row_style")
+  if (is.null(rowclass)) {
+    stop("`styled_table()` requires a 'row_style' attribute on `x`.")
+  }
 
-  if (inherits(x, "matrix")) {
-    x <- cbind("Variable" = rl, x)
-    al <- "firstleft"
-    hd_nam <- colnames(x)
+  if (!is.matrix(x) && is.data.frame(x) && "label" %in% names(x)) {
+    # data.frame path
+    rl      <- as.character(x$label)
+    dc      <- setdiff(names(x), "label")
+    xm      <- as.matrix(cbind(Variable = rl, x[, dc, drop = FALSE]))
+    mode(xm) <- "character"
+    xm[is.na(xm)] <- ""
+    hd_nam  <- c("Variable", dc)
   } else {
-    # Variable names to labels if no variable label
-    with_varlab <- sapply(x, has_label)
-    for (i in names(x)[!with_varlab]) {
-      var_lab(x[[i]]) <- i
-    }
-    hd_nam <- unlist(var_lab(x))
-    # Variable values to labels if has value
-    x <- lab2val(x)
-    al <- ""
-    x[is.na(x)] <- ""
+    # Matrix path
+    rl     <- rownames(x)
+    xm     <- cbind("Variable" = rl, x)
+    hd_nam <- colnames(xm)
   }
 
-  # If the first column carries leading whitespace (set by cttab_format to
-  # express visual indent), apply the "indent" style and strip the spaces
-  # so the Word output isn't double-indented.
-  has_indent <- rep(FALSE, nrow(x))
-  if (ncol(x) >= 1L) {
-    leading_ws <- grepl("^\\s+", x[, 1])
-    has_indent <- leading_ws
-    x[leading_ws, 1] <- sub("^\\s+", "", x[leading_ws, 1])
-  }
-
-  x[] <- apply(x, 2, remove_xml_specials)
+  xm[] <- apply(xm, 2, remove_xml_specials)
 
   # Table header
   th <- paste0("<th>", remove_xml_specials(hd_nam), "</th>", collapse = "")
   th <- paste0("<tr>", th, "</tr>\n")
   thead <- paste0("<thead>\n", th, "</thead>\n")
 
-  # Map row_style -> Word/CSS-style class string. Stat rows have an empty
-  # row_style; their indent comes from the leading-whitespace strip above.
-  style_map <- function(rs, indent) {
-    base <- switch(rs,
-      "banner" = "bold;bgcol;span",
-      "header" = "bold;span",
-      "bold"   = "bold",
-      ""
-    )
-    if (indent) {
-      if (nzchar(base)) paste(base, "indent", sep = ";") else "indent"
-    } else {
-      base
-    }
-  }
-  rowclass <- vapply(seq_along(rowclass),
-                     function(i) style_map(rowclass[i], has_indent[i]),
-                     character(1L))
+  # Per-row CSS class string: tokens from row_style + "firstleft".
+  al <- "firstleft"
+  cls_str <- ifelse(nzchar(rowclass),
+                    paste(rowclass, al, sep = ";"),
+                    al)
+  cls <- matrix("", nrow(xm), ncol(xm))
+  cls[, 1] <- paste0(" style='", cls_str, "'")
 
-  cls <- matrix("", nrow(x), ncol(x))
-  cls[, 1] <- paste0(" style='", paste(rowclass, al, sep = ";"), "'")
-
-  td <- paste0("<td", cls, ">", as.matrix(x), "</td>")
-  dim(td) <- dim(x)
+  td <- paste0("<td", cls, ">", as.matrix(xm), "</td>")
+  dim(td) <- dim(xm)
   td <- apply(td, 1, paste0, collapse = "")
   td <- paste0("<tr>", td, "</tr>\n", collapse = "")
   tbody <- paste0("<tbody>\n", td, "</tbody>\n")
 
-  # Table output
   paste("\n<table>\n", thead, tbody, "</table>\n")
 }

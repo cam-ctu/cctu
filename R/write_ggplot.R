@@ -139,13 +139,8 @@ write_plot <- function(...,
                        dpi = 300,
                        units = "cm",
                        clean_up = TRUE,
-                       directory = file.path(
-                         getOption("cctu_output",
-                           default = "Output"
-                         ),
-                         "Figures"
-                       ),
-                       format = getOption("cctu_fig_format", default = c("png", "eps")),
+                       directory = file.path(cctu_opt("output"), "Figures"),
+                       format = cctu_opt("fig_format"),
                        graphics_args = NULL,
                        verbose = options()$verbose,
                        footnote = NULL,
@@ -295,13 +290,8 @@ write_ggplot <- function(plot = last_plot(),
                          dpi = 300,
                          units = "cm",
                          clean_up = TRUE,
-                         directory = file.path(
-                           getOption("cctu_output",
-                             default = "Output"
-                           ),
-                           "Figures"
-                         ),
-                         format = getOption("cctu_fig_format", default = c("png", "eps")),
+                         directory = file.path(cctu_opt("output"), "Figures"),
+                         format = cctu_opt("fig_format"),
                          graphics_args = NULL,
                          verbose = options()$verbose,
                          footnote = NULL) {

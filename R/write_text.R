@@ -14,17 +14,12 @@
 write_text <- function(x,
                        number = cctu_env$number,
                        clean_up = TRUE,
-                       directory = file.path(
-                         getOption("cctu_output",
-                           default = "Output"
-                         ),
-                         "Core"
-                       ),
+                       directory = file.path(cctu_opt("output"), "Core"),
                        verbose = options()$verbose) {
   calling_prog <- cctu_env$parent[1] # get_file_name()
   if (is.null(calling_prog)) {
     warning(paste(
-      "Unable to identify the code file that created table",
+      "Unable to identify the code file that created text",
       number
     ))
     calling_prog <- "Missing"

@@ -65,8 +65,7 @@
 #' effect on the \code{cttab} function. It is an ideal way to set a global settings
 #' if you want this to be effective globally. Currently, you can set \code{digits},
 #' \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
-#' \code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
-#'  you can suppress the plot from printing by setting \code{options(cctu_print_plot = FALSE)}.
+#' \code{blinded}  in \code{\link{cctu_options}}.
 #'
 #' \strong{2. Formula interface}
 #'
@@ -112,6 +111,7 @@
 #' \code{\link{get_missing_report}}
 #' \code{\link{render_numeric}}
 #' \code{\link{render_cat}}
+#' \code{\link{cctu_options}}
 #' @return A \code{data.table} with class \code{cttab}.
 #'
 #' @example inst/examples/cttab.R
@@ -132,23 +132,23 @@ cttab.default <- function(x,
                           data,
                           group = NULL,
                           row_split = NULL,
-                          nest = c("split", "var"),
+                          nest = cctu_opt("nest"),
                           total = TRUE,
                           select = NULL,
                           add_missing = TRUE,
                           add_obs = TRUE,
-                          digits = getOption("cctu_digits", default = 3),
-                          digits_pct = getOption("cctu_digits_pct", default = 0),
+                          digits = cctu_opt("digits"),
+                          digits_pct = cctu_opt("digits_pct"),
                           rounding_fn = signif_pad,
-                          subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-                          print_plot = getOption("cctu_print_plot", default = TRUE),
-                          render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+                          subjid_string = cctu_opt("subjid_string"),
+                          print_plot = cctu_opt("print_plot"),
+                          render_num = cctu_opt("render_num"),
                           logical_na_impute = c(FALSE, NA, TRUE),
-                          blinded = getOption("cctu_blinded", default = FALSE),
+                          blinded = cctu_opt("blinded"),
                           ...) {
 
   vars <- x
-  nest <- match.arg(nest)
+  nest <- match.arg(nest, choices = c("split", "var"))
   logical_na_impute <- logical_na_impute[1]
   stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
 
@@ -166,6 +166,10 @@ cttab.default <- function(x,
   if (base::anyDuplicated(vars_list)) {
     stop("The variable list, group or row split variable have duplicated variable.")
   }
+
+  # Drop rows with NA in group / row_split before fanning out to stat_tab,
+  # cttab_plot, and report_missing so all three see the same population.
+  data <- cttab_drop_na_grouping(data, c(group, row_split))
 
   flat_vars <- unlist(vars, use.names = FALSE)
 
@@ -186,7 +190,7 @@ cttab.default <- function(x,
   )
 
   if (print_plot) {
-    cctab_plot(flat_vars, data, group, row_split, select)
+    cttab_plot(flat_vars, data, group, row_split, select)
   }
 
   if (add_missing && !is.null(subjid_string)) {
@@ -222,11 +226,16 @@ cttab.formula <- function(x, data, ...) {
   if (!length(f$rhs) %in% c(1, 2)) {
     stop("Invalid formula, multiple split provided.")
   }
-  if (f$rhs[[1]] == ".") {
+  if (identical(f$rhs[[1]], as.name("."))) {
     stop("Invalid formula, dot is not allowed.")
   }
 
-  group <- if (f$rhs[[1]] == 1) NULL else all.vars(f$rhs[[1]])
+  group <- if (identical(f$rhs[[1]], 1) ||
+               identical(f$rhs[[1]], 1L)) {
+    NULL
+  } else {
+    all.vars(f$rhs[[1]])
+  }
   vars  <- all.vars(f$lhs[[1]])
   row_split <- if (length(f$rhs) == 2) all.vars(f$rhs[[2]]) else NULL
 
@@ -279,7 +288,7 @@ stat_tab <- function(vars,
                      row_split = NULL,
                      data,
                      total = TRUE,
-                     add_obs = TRUE,
+                     add_obs = FALSE,
                      select = NULL,
                      add_missing = TRUE,
                      digits = 2,
@@ -301,21 +310,12 @@ stat_tab <- function(vars,
     )
   }
 
-  # Drop rows where the grouping variable is missing, then make the grouping
-  # / row-split / labelled variables into factors so category ordering is
-  # consistent across cells.
-  if (!is.null(group)) {
-    data <- data[!is.na(data[[group]]), env = list(group = I(group))]
-    if (has_labels(data[[group]]) || !is.factor(data[[group]])) {
-      data[[group]] <- to_factor(data[[group]], drop_levels = TRUE)
-    }
+  # Defensive NA-grouping drop for direct callers; cttab.default already
+  # does this (with a message) before invoking stat_tab.
+  for (g in c(group, row_split)) {
+    data <- data[!is.na(data[[g]]), env = list(g = I(g))]
   }
-
-  if (!is.null(row_split)) {
-    if (has_labels(data[[row_split]]) || !is.factor(data[[row_split]])) {
-      data[[row_split]] <- to_factor(data[[row_split]], drop_levels = TRUE)
-    }
-  }
+  cttab_factorise(data, c(group, row_split), drop_levels = TRUE)
 
   cols_toconvert <- vapply(data, function(z) has_labels(z) || is.character(z),
                            logical(1L))
@@ -366,21 +366,9 @@ stat_tab <- function(vars,
       }
 
       # Apply per-variable filter from `select`
-      if (!is.null(select) && col %in% names(select)) {
-        filter_string <- select[[col]]
-        rows_to_keep <- tryCatch({
-          eval(parse(text = filter_string), envir = .SD)
-        }, error = function(e) {
-          warning(paste("Filter failed for variable:", col, "-", e$message))
-          rep(TRUE, nrow(.SD))
-        })
-        rows_to_keep[is.na(rows_to_keep)] <- FALSE
-        val <- .SD[[col]][rows_to_keep]
-      } else {
-        val <- .SD[[col]]
-      }
+      val <- .SD[[col]][cttab_eval_select(.SD, col, select)]
 
-      lbl <- if (has_label(data[[col]])) var_lab(data[[col]]) else col
+      lbl <- cttab_get_label(data[[col]], col)
 
       # Missing summary (computed for everything but logicals)
       miss <- NULL
@@ -394,10 +382,7 @@ stat_tab <- function(vars,
       stats <- NULL
       single_row <- FALSE
 
-      # An all-missing column always uses the numeric rendering path
-      # regardless of its underlying class.
-      if (inherits(data[[col]], c("numeric", "integer")) ||
-          all(is.na(data[[col]]))) {
+      if (inherits(data[[col]], c("numeric", "integer"))) {
         stats <- render_numeric(
           val,
           what        = render_num,
@@ -408,16 +393,28 @@ stat_tab <- function(vars,
       } else if (inherits(data[[col]], c("factor", "character"))) {
         stats <- render_cat(val, digits_pct = digits_pct)
       } else if (inherits(data[[col]], "logical")) {
-        val[is.na(val)] <- logical_na_impute
-        cs <- cat_stat(val, digits_pct = digits_pct)$Yes
-        # Single-row logical: keep an unnamed (empty-named) Statistic so the
-        # formatter knows to use the variable label as the row name.
-        stats <- setNames(
-          sprintf("%s/%s (%s)", cs$FREQ, cs$N, cs$PCTnoNA),
-          ""
-        )
-        miss <- NULL
-        single_row <- TRUE
+        # All-NA logical loses its categorical meaning; fall through to the
+        # numeric render path so the user still sees Valid Obs. + Missing.
+        if (all(is.na(data[[col]]))) {
+          stats <- render_numeric(
+            val,
+            what        = render_num,
+            digits      = digits,
+            digits_pct  = digits_pct,
+            rounding_fn = rounding_fn
+          )
+        } else {
+          val[is.na(val)] <- logical_na_impute
+          cs <- cat_stat(val, digits_pct = digits_pct)$Yes
+          # Single-row logical: keep an unnamed (empty-named) Statistic so the
+          # formatter knows to use the variable label as the row name.
+          stats <- setNames(
+            sprintf("%s/%s (%s)", cs$FREQ, cs$N, cs$PCTnoNA),
+            ""
+          )
+          miss <- NULL
+          single_row <- TRUE
+        }
       }
 
       if (is.null(stats) || length(stats) == 0L) next

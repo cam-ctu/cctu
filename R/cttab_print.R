@@ -10,7 +10,8 @@
 #'
 #' @export
 print.cttab <- function(x, ...) {
-  if (!is.matrix(x) || is.null(attr(x, "row_style"))) {
+  if (!(is.matrix(x) || (is.data.frame(x) && !is.matrix(x) && "label" %in% names(x))) ||
+      is.null(attr(x, "row_style"))) {
     x <- cttab_format(x)
   }
 
@@ -19,18 +20,31 @@ print.cttab <- function(x, ...) {
     return(invisible(x))
   }
 
-  rowclass <- attr(x, "row_style")
-  span_idx <- rowclass %in% c("banner", "header")
+  rowclass   <- attr(x, "row_style")
+  tokens     <- strsplit(rowclass, ";", fixed = TRUE)
+  span_idx   <- vapply(tokens, function(t) "span" %in% t, logical(1))
+  indent_idx <- vapply(tokens, function(t) "indent" %in% t, logical(1))
 
-  # Extract align
-  if (is.null(attr(x, "align"))) {
-    align <- rep("l", ncol(x))
-  }
-
-  if (inherits(x, "matrix")) {
-    align <- c("l", rep("c", ncol(x))) # Row names left align
+  if (!is.matrix(x) && is.data.frame(x) && "label" %in% names(x)) {
+    # data.frame path: convert to character matrix for the rendering logic.
+    # Visual indent for stat rows is applied here (the label itself no
+    # longer carries leading whitespace).
+    data_cols <- setdiff(names(x), "label")
+    mat <- as.matrix(x[, data_cols, drop = FALSE])
+    mode(mat) <- "character"
+    align <- c("l", rep("c", length(data_cols)))
+    col_names <- data_cols
+    labels <- as.character(x$label)
+    labels[indent_idx] <- paste0("  ", labels[indent_idx])
+    x <- cbind(" " = labels, mat)
+    colnames(x) <- c("", col_names)
+  } else {
+    # Legacy matrix path
+    align <- c("l", rep("c", ncol(x)))
     col_names <- colnames(x)
-    x <- cbind(" " = rownames(x), x)
+    labels <- as.character(rownames(x))
+    labels[indent_idx] <- paste0("  ", labels[indent_idx])
+    x <- cbind(" " = labels, x)
     colnames(x) <- c("", col_names)
   }
 
@@ -120,7 +134,10 @@ print.cttab <- function(x, ...) {
 #' @return A \code{data.frame}.
 #' @export
 as.data.frame.cttab <- function(x, row.names = NULL, optional = FALSE, ...) {
-  if (is.matrix(x)) return(NextMethod())
+  # Already-formatted outputs (matrix or data.frame with label column)
+  if (is.matrix(x) || (!is.null(attr(x, "row_style")) && "label" %in% names(x))) {
+    return(NextMethod())
+  }
 
   meta_strip <- c("Group_ID", "Group_Label", "Var_ID", "Stat_ID",
                   "Row_Style", "Is_Missing")

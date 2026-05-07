@@ -10,7 +10,7 @@ stat_tab(
   row_split = NULL,
   data,
   total = TRUE,
-  add_obs = TRUE,
+  add_obs = FALSE,
   select = NULL,
   add_missing = TRUE,
   digits = 2,

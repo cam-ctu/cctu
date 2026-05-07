@@ -9,7 +9,7 @@ report_missing(
   vars,
   select = NULL,
   row_split = NULL,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid")
+  subjid_string = cctu_opt("subjid_string")
 )
 }
 \arguments{

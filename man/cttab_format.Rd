@@ -2,37 +2,51 @@
 % Please edit documentation in R/cttab_format.R
 \name{cttab_format}
 \alias{cttab_format}
-\title{Convert a long-format cttab to a rendering-ready matrix.}
+\title{Convert a long-format cttab to a rendering-ready table.}
 \usage{
 cttab_format(x, indent = "  ")
 }
 \arguments{
 \item{x}{A \code{cttab} object returned by \code{\link{cttab}}.}
 
-\item{indent}{Visual indent string for stat rows. Default two spaces.}
+\item{indent}{Unused. Kept for backwards compatibility; visual indent
+is now expressed via the \code{"indent"} token in \code{row_style}
+and applied at render time by \code{\link{write_table}} /
+\code{print.cttab}.}
 }
 \value{
-A character \code{matrix} with a \code{row_style} attribute and
-  class \code{c("cttab", "matrix")}.
+A \code{data.frame} with a \code{label} column, one column per
+  group level (or \code{Total}), a \code{row_style} attribute, and class
+  \code{c("cttab", "data.frame")}.
 }
 \description{
 Reshapes the long-format object from \code{\link{cttab}} into a wide
-character matrix and stamps an \code{row_style} attribute (one value per
-row) for \code{print.cttab} / \code{\link{write_table}} to consume.
+character data.frame and stamps a \code{row_style} attribute (one
+string per row) for \code{print.cttab} / \code{\link{write_table}} to
+consume. A \code{label} column holds the display label for each row
+(formerly the matrix row-names).
 }
 \details{
 Section banners (the \code{row_split} value, the named-list label) and
-variable-label headers are inserted automatically. The four
-\code{row_style} values are \code{"banner"}, \code{"header"},
-\code{"bold"} (single bold data row, e.g. logical / Observation) and
-\code{""} (ordinary stat row). Stat-row indentation is carried as leading
-whitespace on the row name; \code{\link{write_table}} translates it to a
-Word indent. Empty-stat-row drop is performed upstream by
-\code{\link{cttab}}, so this function only does layout.
+variable-label headers are inserted automatically. \code{row_style}
+is a per-row character vector whose entries are \code{;}-joined
+tokens drawn from \code{\{"bold", "bgcol", "span", "indent"\}}.
+\code{""} marks a plain stat row. Common combinations:
+\tabular{ll}{
+  \code{"bold;bgcol;span"} \tab section banner (grey background, spanned). \cr
+  \code{"bold;span"} \tab variable-label / sub-section header. \cr
+  \code{"bold"} \tab single bold data row (Observation / logical). \cr
+  \code{"indent"} \tab indented stat row. \cr
+  \code{""} \tab plain stat row. \cr
+}
+Empty-stat-row drop is performed upstream by \code{\link{cttab}}, so
+this function only does layout.
 
 The \code{nest} attribute on \code{x} controls the row hierarchy:
 \code{"split"} = row-split outer / variable inner; \code{"var"} flips it.
+The actual layout is delegated to \code{\link{group_data}}.
 }
 \seealso{
-\code{\link{cttab}}, \code{\link{write_table}}
+\code{\link{cttab}}, \code{\link{write_table}},
+  \code{\link{group_data}}
 }

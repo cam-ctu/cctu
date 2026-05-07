@@ -2,7 +2,7 @@
 <w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
   xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
   <w:font w:name="Arial">
-    <w:charset w:val="86" />
+    <w:charset w:val="00" />
     <w:family w:val="roman" />
     <w:pitch w:val="variable" />
   </w:font>

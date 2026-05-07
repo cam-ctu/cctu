@@ -12,7 +12,7 @@ km_ggplot(
   ystratalabs = deprecated(),
   timeby = NULL,
   pval = FALSE,
-  p_digits = getOption("cctu_p_digits", default = 4),
+  p_digits = cctu_opt("p_digits"),
   ...
 )
 }

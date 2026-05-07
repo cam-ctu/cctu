@@ -13,19 +13,19 @@ cttab(x, ...)
   data,
   group = NULL,
   row_split = NULL,
-  nest = c("split", "var"),
+  nest = cctu_opt("nest"),
   total = TRUE,
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
-  digits = getOption("cctu_digits", default = 3),
-  digits_pct = getOption("cctu_digits_pct", default = 0),
+  digits = cctu_opt("digits"),
+  digits_pct = cctu_opt("digits_pct"),
   rounding_fn = signif_pad,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE),
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+  subjid_string = cctu_opt("subjid_string"),
+  print_plot = cctu_opt("print_plot"),
+  render_num = cctu_opt("render_num"),
   logical_na_impute = c(FALSE, NA, TRUE),
-  blinded = getOption("cctu_blinded", default = FALSE),
+  blinded = cctu_opt("blinded"),
   ...
 )
 
@@ -119,8 +119,7 @@ Some of the function parameters can be set with options. This will have an globa
 effect on the \code{cttab} function. It is an ideal way to set a global settings
 if you want this to be effective globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
-\code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
- you can suppress the plot from printing by setting \code{options(cctu_print_plot = FALSE)}.
+\code{blinded}  in \code{\link{cctu_options}}.
 
 \strong{2. Formula interface}
 
@@ -248,4 +247,5 @@ X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
 \code{\link{get_missing_report}}
 \code{\link{render_numeric}}
 \code{\link{render_cat}}
+\code{\link{cctu_options}}
 }

@@ -246,7 +246,25 @@ This is not needed with `write_docx` output.
 
 ## Multiple Versions of Reports
 
-Often you may need to produce slight variations on the same report, such as a closed and open versions. We provide various options() to overwrite the default arguments in `write_**()`  with `options(cctu_output="Other_Output_Folder")`, although you would still need to create this directory and the required sub directories first. Also you can provide `source(file, local=TRUE)` to allow scripts to be run inside a function, rather than in the global environment;  `options(cctu_source_local=TRUE)` overrides the default.  But then your code will need to branch to produce different outputs (e.g. pooling arms or not), depending which version.  You can select subsets of the meta table to remove/include tables or figures in a similar branching logic. 
+Often you may need to produce slight variations on the same report, such as a closed and open versions. We provide various options() to overwrite the default arguments in `write_**()`  with `options(cctu_output="Other_Output_Folder")`, although you would still need to create this directory and the required sub directories first. Also you can provide `source(file, local=TRUE)` to allow scripts to be run inside a function, rather than in the global environment;  `options(cctu_source_local=TRUE)` overrides the default.  But then your code will need to branch to produce different outputs (e.g. pooling arms or not), depending which version.  You can select subsets of the meta table to remove/include tables or figures in a similar branching logic.
+
+#### `cctu_options()` — a single setter for the package's tunables
+
+As an alternative to setting one `options(cctu_*)` at a time, `cctu_options()` collects all of the package's defaults (output folder, digits, p-value digits, render spec, figure formats, etc.) into one place:
+
+```{r, eval=FALSE}
+# Inspect every setting and its current value
+cctu_options()
+
+# Change several at once; previous values are returned invisibly so they
+# can be restored later
+old <- cctu_options(output = "Closed_Output", digits = 4, blinded = TRUE)
+# ... build the closed report ...
+do.call(cctu_options, old)            # restore
+cctu_options(reset = TRUE)            # or just drop back to packaged defaults
+```
+
+`base::options()` still wins. Anything you have already set with `options(cctu_<name> = ...)` (typically in `.Rprofile` or at the top of `main.R`) takes precedence over `cctu_options()`, so existing scripts keep working unchanged. `cctu_options()` will warn if you set a value that is currently being shadowed by a base option.
 
 The idea is to be able to set some differing options  and/or other R objects in a single script that produces all versions of the report with a repeated `source("main.R")`.
 

@@ -9,7 +9,7 @@ write_text(
   x,
   number = cctu_env$number,
   clean_up = TRUE,
-  directory = file.path(getOption("cctu_output", default = "Output"), "Core"),
+  directory = file.path(cctu_opt("output"), "Core"),
   verbose = options()$verbose
 )
 }

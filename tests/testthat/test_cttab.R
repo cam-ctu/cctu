@@ -123,7 +123,8 @@ test_that("Variable groups", {
     data = df,
     logical_na_impute = NA
   )
-  expect_equal(unname(cttab_format(X1)[, 1]),
+  ft1 <- cttab_format(X1)
+  expect_equal(unname(as.character(ft1[[setdiff(names(ft1), "label")[1]]])),
                c("30/99 (30.3%)", "20/85 (23.5%)"))
 
   # Impute with TRUE
@@ -170,9 +171,18 @@ test_that("By cycle summary", {
   expect_identical(X, X1)
 
   mis_rp <- get_missing_report()
-  expect_identical(mis_rp$visit[6], "Baseline")
-  expect_identical(mis_rp$subject_id[4], "1160")
-  expect_identical(mis_rp$form[4], "Derived")
+  expect_identical(
+    mis_rp$visit[mis_rp$subject_id == "1181, 1286, 1259"],
+    "Baseline"
+  )
+  expect_identical(
+    mis_rp$subject_id[mis_rp$visit == "Baseline" & mis_rp$variable == "AST"],
+    "1160"
+  )
+  expect_identical(
+    unique(mis_rp$form[mis_rp$variable == "inrange"]),
+    "Derived"
+  )
 
   cctu_env$parent <- "test"
   write_table(X, directory = tmp_dir)
@@ -209,17 +219,17 @@ test_that("nest = 'var' flips the row hierarchy", {
   m_var   <- cttab_format(X_var)
 
   # Same set of rendered rows, just reordered.
-  expect_setequal(rownames(m_split), rownames(m_var))
+  expect_setequal(m_split$label, m_var$label)
 
   # In split-mode the first banner row is the row_split header; in var-mode
   # it's the Observation banner (var-outer hierarchy).
-  expect_match(rownames(m_split)[1], "^Study Visit =")
-  expect_equal(rownames(m_var)[1], "Observation")
+  expect_match(m_split$label[1], "^Study Visit =")
+  expect_equal(m_var$label[1], "Observation")
 
   # In var-mode each variable label sits as the outer banner.
-  ast_idx <- match("Aspartate Aminotransferase (U/L)", rownames(m_var))
+  ast_idx <- match("Aspartate Aminotransferase (U/L)", m_var$label)
   expect_false(is.na(ast_idx))
-  expect_equal(attr(m_var, "row_style")[ast_idx], "banner")
+  expect_equal(attr(m_var, "row_style")[ast_idx], "bold;bgcol;span")
 })
 
 test_that("Missing rows sort below other stats within a variable / group", {
@@ -290,7 +300,7 @@ test_that("By cycle No treatment arm summary", {
                    "1181, 1286, 1259")
 
   cctu_env$parent <- "test"
-  write_table(X, directory = tmp_dir)
+  write_table(X, directory = tmp_dir, clean_up = FALSE)
 
   expect_true(compare_file_text(
     test_path("ref", "table_ctab5.xml"),
@@ -451,7 +461,7 @@ test_that("Check stat_tab", {
   )
 
   # Two grouping levels (Treated/Placebo) become two data columns once formatted
-  expect_equal(ncol(cttab_format(tab1)), 2)
+  expect_equal(length(setdiff(names(cttab_format(tab1)), "label")), 2)
 
   expect_error(
     stat_tab("dates",
@@ -469,17 +479,22 @@ test_that("Check stat_tab", {
   )
   # The 'Valid Obs.' stat row should read 0/40/40 across (Treated, Placebo, Total)
   ftab <- cttab_format(tab1)
-  expect_equal(unname(ftab[trimws(rownames(ftab)) == "Valid Obs.", ][1, ]),
-               c("0", "40", "40"))
+  valid_row <- ftab[trimws(ftab$label) == "Valid Obs.", ]
+  dc_valid <- setdiff(names(valid_row), "label")
+  expect_equal(
+    unname(unlist(valid_row[, dc_valid, drop = FALSE])),
+    c("0", "40", "40")
+  )
 
   dat$height <- NA
   # All-NA numeric: variable header + Valid Obs. (= "0") + Missing
   expect_equal(
-    dim(cttab_format(stat_tab("height",
-      data = dat,
-      group = "treat"
-    ))),
-    c(3, 3)
+    nrow(cttab_format(stat_tab("height", data = dat, group = "treat"))),
+    3
+  )
+  expect_equal(
+    length(setdiff(names(cttab_format(stat_tab("height", data = dat, group = "treat"))), "label")),
+    3
   )
 
   dat$bmi <- NA
@@ -492,12 +507,10 @@ test_that("Check stat_tab", {
   ))
 
   # bmi is converted to factor via val_lab, all NA -> only Missing row + header
+  expect_equal(nrow(cttab_format(stat_tab("bmi", data = dat, group = "treat"))), 2)
   expect_equal(
-    dim(cttab_format(stat_tab("bmi",
-      data = dat,
-      group = "treat"
-    ))),
-    c(2, 3)
+    length(setdiff(names(cttab_format(stat_tab("bmi", data = dat, group = "treat"))), "label")),
+    3
   )
 
   dat$bmi <- factor(dat$bmi, levels = c(1, 2), labels = c("Over", "Under"))
@@ -508,7 +521,7 @@ test_that("Check stat_tab", {
   )
   ftab <- cttab_format(tab)
   expect_equal(nrow(ftab), 2)
-  expect_equal(trimws(rownames(ftab)[2]), "Missing")
+  expect_equal(trimws(ftab$label[2]), "Missing")
 
   expect_null(stat_tab("bmi",
     data = dat,
@@ -531,16 +544,47 @@ test_that("Check for all missing", {
     data = df,
     group = "ARM"
   )
-  # After df$SEX <- NA / df$AGE <- NA the columns lose their var_lab and
-  # become all-missing logicals; both fall through the all-missing numeric
-  # render path, so each variable shows Valid Obs. + Missing.
-  x3_out <- c("48", "", "0", "48 (100%)", "", "0", "48 (100%)")
+  # data.table preserves column type when assigning NA, so SEX stays
+  # numeric+val_labels (rendered as a factor; all-NA categorical -> only
+  # Missing row) and AGE stays numeric (Valid Obs. = 0 + Missing).
+  x3_out <- c("48", "", "48 (100%)", "", "0", "48 (100%)")
   names(x3_out) <- c(
-    "Observation", "SEX", "  Valid Obs.", "  Missing",
-    "AGE", "  Valid Obs.", "  Missing"
+    "Observation", "Sex", "Missing",
+    "Age", "Valid Obs.", "Missing"
   )
 
-  expect_identical(cttab_format(X3)[, 1], x3_out)
+  ft3 <- cttab_format(X3)
+  first_dc <- setdiff(names(ft3), "label")[1]
+  expect_identical(setNames(as.character(ft3[[first_dc]]), ft3$label), x3_out)
   cctu_initialise(root = test_path("Output"))
   expect_no_error(write_table(X3, directory = test_path("Output/Core")))
+})
+
+test_that("print.cttab snapshot — numeric, factor, logical without row_split", {
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+  df$hi_age <- df$AGE > 65
+  var_lab(df$hi_age) <- "Age > 65"
+
+  X <- cttab(
+    x = c("AGE", "SEX", "hi_age"),
+    group = "ARM",
+    data = df
+  )
+  expect_snapshot(print(X))
+})
+
+test_that("print.cttab snapshot — numeric, factor, logical with row_split", {
+  attach_pop("1.10")
+  df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
+  df$hi_ast <- df$AST > 30
+  var_lab(df$hi_ast) <- "High AST"
+
+  X <- cttab(
+    x = c("AST", "BILI", "hi_ast"),
+    group = "ARM",
+    data = df,
+    row_split = "AVISIT"
+  )
+  expect_snapshot(print(X))
 })

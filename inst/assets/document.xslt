@@ -58,11 +58,6 @@
         <w:t>Date:<xsl:value-of select="datestamp" /></w:t>
       </w:r>
     </w:p>
-    <w:p>
-      <w:r>
-        <w:br w:type="page" />
-      </w:r>
-    </w:p>
   
   </xsl:template>
 
@@ -168,14 +163,6 @@
     <xsl:param name="titletype" />
     <xsl:variable name="previous_section" select="../preceding-sibling::*[1]/heading/section" />
     <xsl:variable name="current_section" select="section" />
-    <!-- Apply Page break only if this is not a new section -->
-    <xsl:if test="../pagesection/orientation = ../preceding-sibling::*[1]/pagesection/orientation">
-    <w:p>
-      <w:r>
-        <w:br w:type="page" />
-      </w:r>
-    </w:p>
-    </xsl:if>
 
     <xsl:if test="not( $previous_section = $current_section)">
       <w:p>
@@ -363,7 +350,17 @@
         <!--Cell
         Color-->
         <xsl:if test="@style and contains(@style, 'bgcol')">
-          <w:shd w:val="clear" w:fill="d3d3d3" />
+          <xsl:variable name="after_bgcol"
+            select="substring-after(concat(';', @style, ';'), ';bgcol')" />
+          <xsl:variable name="bg_color">
+            <xsl:choose>
+              <xsl:when test="starts-with($after_bgcol, ':')">
+                <xsl:value-of select="substring-before(substring-after($after_bgcol, ':'), ';')" />
+              </xsl:when>
+              <xsl:otherwise>d3d3d3</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <w:shd w:val="clear" w:fill="{$bg_color}" />
         </xsl:if>
       </w:tcPr>
 
@@ -390,6 +387,12 @@
             <!--Bold-->
             <xsl:if test="@style and contains(@style, 'bold')">
               <w:b />
+            </xsl:if>
+            <!--Text color-->
+            <xsl:if test="@style and contains(concat(';', @style, ';'), ';col:')">
+              <xsl:variable name="text_color"
+                select="substring-before(substring-after(concat(';', @style, ';'), ';col:'), ';')" />
+              <w:color w:val="{$text_color}" />
             </xsl:if>
             <!--Table
             font size to 9-->
@@ -535,7 +538,7 @@
       <xsl:if test="$footerid != ''">
         <w:footerReference w:type="default" r:id="{$footerid}" />
       </xsl:if>
-      <w:type w:val="continuous" />
+      <w:type w:val="nextPage" />
       <xsl:choose>
         <xsl:when test="$lower_case_orientation='portrait'">
           <w:pgSz w:h="16840" w:w="11900" w:orient="portrait" />

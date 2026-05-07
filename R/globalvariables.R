@@ -2,7 +2,8 @@ utils::globalVariables(c(
   ".",
   "Group_ID", "Var_ID", "Stat_ID", "Group_Label", "Variable",
   "Statistic", "Row_Style", "Value", "Is_Missing",
-  "._sort_idx", "is_header"
+  "._sort_idx", "is_header", "n_miss",
+  ".label", ".vkey"
 ))
 # may well have to add "cctu_env" to the line above. But I can't get
 # devtools::check() to work past installing,
@@ -12,15 +13,17 @@ cctu_env$number <- "0"
 cctu_env$sumby_count <- 0
 cctu_env$nested_run_batch <- FALSE
 
-# Missing data report
+# Missing data report — `missing_report_chunks` is a list of per-cttab()
+# data.frames that get_missing_report() consolidates lazily.
 cctu_env$missing_report_data <- setNames(
   data.frame(matrix(ncol = 8, nrow = 0)),
   c(
     "form", "visit_var", "visit_label",
     "visit", "variable", "label", "missing_pct",
-    "subject_ID"
+    "subject_id"
   )
 )
+cctu_env$missing_report_chunks <- list()
 # Setup DLU file
 cctu_env$dlu <- NULL
 

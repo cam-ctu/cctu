@@ -1,9 +1,14 @@
 utils::globalVariables(c(
   ".",
+  # cttab metadata columns referenced as bare symbols in NSE contexts
   "Group_ID", "Var_ID", "Stat_ID", "Group_Label", "Variable",
-  "Statistic", "Row_Style", "Value", "Is_Missing",
-  "._sort_idx", "is_header", "n_miss",
-  ".label", ".vkey", ".ih", ".row_kind"
+  "Statistic", "Row_Style", "Value",
+  # group_data() internal sort / order columns
+  "._sort_idx", "._row_idx", "._first_occ",
+  # cttab_format() internal helper columns
+  ".vkey", "._idx", "._section",
+  # report_missing() aggregate
+  "n_miss"
 ))
 # may well have to add "cctu_env" to the line above. But I can't get
 # devtools::check() to work past installing,

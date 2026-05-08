@@ -128,9 +128,9 @@ print.cttab <- function(x, ...) {
 #'
 #' Returns a clean long-format \code{data.frame} with one row per
 #' (row_split, group, variable, statistic) cell, dropping the rendering
-#' meta-columns (\code{Group_ID}, \code{Group_Label}, \code{Stat_ID},
-#' \code{Row_Style}, \code{Is_Missing}). Useful for piping \code{cttab}
-#' output into other table tools.
+#' meta-columns (\code{Group_ID}, \code{Group_Label}, \code{Var_ID},
+#' \code{Stat_ID}). Useful for piping \code{cttab} output into other
+#' table tools.
 #'
 #' For an already-formatted matrix \code{cttab}, the standard matrix
 #' coercion is used.
@@ -146,8 +146,7 @@ as.data.frame.cttab <- function(x, row.names = NULL, optional = FALSE, ...) {
     return(NextMethod())
   }
 
-  meta_strip <- c("Group_ID", "Group_Label", "Var_ID", "Stat_ID",
-                  "Row_Style", "Is_Missing")
+  meta_strip <- c("Group_ID", "Group_Label", "Var_ID", "Stat_ID")
   dt <- as.data.table(unclass(x))
   keep <- setdiff(names(dt), meta_strip)
   out <- as.data.frame(dt[, keep, with = FALSE],

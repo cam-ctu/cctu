@@ -18,7 +18,7 @@ library(knitr)
 
 
 
-code_tree <- cctu:::cctu_env$code_tree
+code_tree <- cctu::get_code_tree()
 root <- code_tree[1, 1]
 
 PATH <- gsub("\\\\ROOT$", "", root, perl = TRUE)

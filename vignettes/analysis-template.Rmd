@@ -64,7 +64,7 @@ A set of default local files can be set up using `cctu_initialise` where the out
 
 The code itself is assumed to be modularised into a sequence of code that calls other code using `source`.  Copies of the scripts used in this vignette are available within the package folder `/scripts`.
 
-* `Main.R` at the top with a minimal amount of initialisation: working directory, PATHs, `library(cctu)`, `run_batch()`, then a sequence of `source()`, final calling of `create_word_xml()` and maybe further calls to `render` for other outputs.
+* `main.R` at the top with a minimal amount of initialisation: working directory, PATHs, `library(cctu)`, `run_batch()`, then a sequence of `source()`, final calling of `write_docx()` and maybe further calls to `render` for other outputs.
 * A configuration file, loading packages, setting graphical defaults, loading bespoke functions,
 * Data import and manipulation: where cleaning, merging, creating derived variables maybe, and finally using `create_popn_envir` happens.
 * Analysis: where the actual statistical work happens. May well be modularised further with individual scripts for each section of the study, ordered by Form or chronological ordering of the study.
@@ -76,7 +76,7 @@ It is important to call `library(cctu)` before the first use of `source`. The pa
 
 The step of transferring table and figures to word is facilitated by xml. The tables are stored as a copy on a local drive (in /Output/Core by default) in semi-readable format with tags similar to html tables. 
 
-During the analysis, a block of code to produce a table or figure is put between an `attach_pop()` and a `write_table()` or `write_gglot()`. An argument to `write_table` will be a data frame; `write_ggplot` defaults to using the last plot object, or can take a ggplot object as an argument. A recent addition is `write_plot` which can handle ggplot object or other graphical outputs e.g. a dot_plot from the `eudract` package.
+During the analysis, a block of code to produce a table or figure is put between an `attach_pop()` and a `write_table()` or `write_ggplot()`. An argument to `write_table` will be a data frame; `write_ggplot` defaults to using the last plot object, or can take a ggplot object as an argument. A recent addition is `write_plot` which can handle ggplot object or other graphical outputs e.g. a dot_plot from the `eudract` package.
 
 All `write_*` functions then look up the number of the table called by `attach_pop` (temporarily stored in a private environment); the output is stored on the local drive either an XML file, or graphics file named with a suffix "_X.Y.Z" to identify the output; the name of the code file that created the output is written to meta-table; by default a final call to `clean_up` removes all objects in the global environment (apart from those named in the vector `.reserved`) and detach the population environment.  
 
@@ -84,7 +84,7 @@ After the analysis, the function `write_docx`  glues these files all together al
 
 Previously the command `create_word_xml` was used, which then needed subsequent steps to convert to a fully compliant docx with figures. Included for back compatibility now.
 
-If you want to tweak the style of the word document then you would edit the [xslt file](../extdata/xml_to_word.xslt) totally at your own risk! This is not the case with `write_docx` anymore. You are not allowed to edit this file as the Docx file is complicated. 
+The legacy `create_word_xml()` path emitted a single XML document and applied `inst/extdata/xml_to_word.xslt` as the user-tweakable transform — at your own risk. The current `write_docx()` path is more involved: it ships a Word-compatible XSLT plus a `[Content_Types].xml` / `document.xml.rels` / `header.xml` / `footer.xml` / `core.xml` bundle under `inst/assets/`, and the docx zip needs them in lockstep. Please don't edit those files; if you need a different look, raise it with the package maintainer.
 
 ## Pointers
 
@@ -127,7 +127,7 @@ With the use of `cttab` there are created as a side-effect summaries of missing 
 ## Audit trails  
 
 
-As described already `source()` captures a trail of which code sources other code. There is a demonstration below of how to convert this into a graphical tree representation using a combination of Rmarkdown and latex. Or you can just get a copy `cctu:::cctu_env$code_tree` and write a local copy to a csv file say.
+As described already `source()` captures a trail of which code sources other code. There is a demonstration below of how to convert this into a graphical tree representation using a combination of Rmarkdown and latex. Or you can just call `get_code_tree()` to grab a copy and write a local copy to a csv file say.
 
 In a similar fashion we have some examples of Rmarkdown that can be use to read in the outputs from `write_*` and produce a Html or pdf, or ... version of the main report, depending on what the readers of the report prefer as their format.
 
@@ -156,7 +156,7 @@ rm_output()
 
 If you run just these initial lines, the last command will evoke R CMD BATCH to run the entire set of code and produce a log file "main.Rout", which should be the final step, using the validated server. The `run_batch` line is commented out as the vignette will not work with this though..
 
-This vignette now differs from a standard use, in that the `Main.R` file would now be a sequence of `source()` calls. Here we do run the source files, and then quote the R code they contain. There is a copy of all files and outputs from a standard use starting from [Main.R](Main.R)
+This vignette now differs from a standard use, in that the `main.R` file would now be a sequence of `source()` calls. Here we do run the source files, and then quote the R code they contain. There is a copy of all files and outputs from a standard use starting from [main.R](main.R)
 
 ## Configuration
 
@@ -175,7 +175,7 @@ sourceKnit <- function(path, label) {
 
 ### Library management
 
-If you use the Docker image `shug0131/cctu` then it should be a rare event that you need to install any extra packages.  But if you do then it preferable to manage this using `renv` package. Best practice is to write a list of the  packages needed, including any extra ones, in a DESCRIPTION file at the top level, listing them under the `Imports:` heading.  Running `cctu::initialise()` will by default create this DESCRITPTION file and remind you to edit it.
+If you use the Docker image `shug0131/cctu` then it should be a rare event that you need to install any extra packages.  But if you do then it preferable to manage this using `renv` package. Best practice is to write a list of the  packages needed, including any extra ones, in a DESCRIPTION file at the top level, listing them under the `Imports:` heading.  Running `cctu_initialise()` will by default create this DESCRIPTION file and remind you to edit it.
 
 Then you modify the script in `config.R` to read this file and workout which packages to load.
 The function `library_description()` will do this step for you. 
@@ -240,7 +240,7 @@ date()
 
 The output is [Vignette_Report_bak.docx](../doc/Vignette_Report_bak.docx).  
 
-For the older function `create_word_xml()` output it was neccesary to carry out post-processing in word. To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
+For the older function `create_word_xml()` output it was necessary to carry out post-processing in word. To permanently save, first go to file > Edit Links to Files;  highlight all the figures (shift + scroll), and click "break link". Then File> save as,  and ensure it is Saved As Type a "Word Document (*.docx)".
 
 This is not needed with `write_docx` output. 
 
@@ -248,7 +248,7 @@ This is not needed with `write_docx` output.
 
 Often you may need to produce slight variations on the same report, such as a closed and open versions. We provide various options() to overwrite the default arguments in `write_**()`  with `options(cctu_output="Other_Output_Folder")`, although you would still need to create this directory and the required sub directories first. Also you can provide `source(file, local=TRUE)` to allow scripts to be run inside a function, rather than in the global environment;  `options(cctu_source_local=TRUE)` overrides the default.  But then your code will need to branch to produce different outputs (e.g. pooling arms or not), depending which version.  You can select subsets of the meta table to remove/include tables or figures in a similar branching logic.
 
-#### `cctu_options()` — a single setter for the package's tunables
+### `cctu_options()` — a single setter for the package's tunables
 
 As an alternative to setting one `options(cctu_*)` at a time, `cctu_options()` collects all of the package's defaults (output folder, digits, p-value digits, render spec, figure formats, etc.) into one place:
 

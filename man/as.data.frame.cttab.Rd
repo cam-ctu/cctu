@@ -17,9 +17,9 @@ A \code{data.frame}.
 \description{
 Returns a clean long-format \code{data.frame} with one row per
 (row_split, group, variable, statistic) cell, dropping the rendering
-meta-columns (\code{Group_ID}, \code{Group_Label}, \code{Stat_ID},
-\code{Row_Style}, \code{Is_Missing}). Useful for piping \code{cttab}
-output into other table tools.
+meta-columns (\code{Group_ID}, \code{Group_Label}, \code{Var_ID},
+\code{Stat_ID}). Useful for piping \code{cttab} output into other
+table tools.
 }
 \details{
 For an already-formatted matrix \code{cttab}, the standard matrix

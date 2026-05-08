@@ -139,21 +139,8 @@ variable after the grouping variable and then the row split variable. For exampl
 A long-format \code{data.table} with class \code{cttab} is returned. It carries
 \code{group} and \code{row_split} attributes that record the names of the grouping
 and splitting variables. The function \code{\link{cttab_format}} converts this
-long-format table into a matrix with a \code{row_style} attribute used by the
+table into a \code{data.frame} with a \code{row_style} attribute used by the
 \code{print} method and \code{\link{write_table}} to render the final report.
-Possible \code{row_style} values are:
-\tabular{ll}{
-\code{"banner"} \tab top-level section header: bold, spanned through all
-  columns, grey background in Word. \cr
-\tab \cr
-\code{"header"} \tab variable-label / sub-section header: bold, spanned. \cr
-\tab \cr
-\code{"bold"} \tab single bold data row (Observation, logical summary). \cr
-\tab \cr
-\code{""} \tab regular stat row. Visual indentation is supplied as leading
-  whitespace on the row name; \code{\link{write_table}} converts it to a
-  Word indent. \cr
-}
 }
 \section{Methods (by class)}{
 \itemize{

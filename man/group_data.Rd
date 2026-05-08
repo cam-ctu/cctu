@@ -4,69 +4,30 @@
 \alias{group_data}
 \title{Create Nested Group Header Rows in a data.table}
 \usage{
-group_data(
-  data,
-  groups,
-  shift = FALSE,
-  indent = FALSE,
-  keep_groups = FALSE,
-  passthrough = character(),
-  skip_na_label = TRUE,
-  header_label_fn = NULL,
-  skip_header_fn = NULL,
-  preserve_attrs = TRUE
-)
+group_data(data, groups, shift_to = NULL, indent = FALSE, carry = NULL)
 }
 \arguments{
 \item{data}{A \code{data.table}. If a \code{data.frame} is provided, it will be converted.}
 
 \item{groups}{A character vector of column names to group by (ordered high to low).}
 
-\item{shift}{Logical. If \code{TRUE}, moves labels into the first non-grouping column.}
+\item{shift_to}{Character. The name of the column into which group labels
+are shifted. When \code{NULL} (default) no shifting is performed.}
 
 \item{indent}{Logical. If \code{TRUE}, indents nested headers and data rows.}
 
-\item{keep_groups}{Logical. If \code{TRUE} (and \code{shift} is \code{TRUE}),
-preserves the original grouping columns in the output. Default is \code{FALSE}.}
-
-\item{passthrough}{Character vector of column names whose values should be
-carried through unchanged on data rows. The header rows that
-\code{group_data} inserts get \code{NA} in these columns (their type is
-preserved from \code{data}). This is intended for downstream renderers
-(e.g. cttab's \code{Row_Style}) that want to attach per-row metadata
-that survives the nesting transformation.}
-
-\item{skip_na_label}{Logical. If \code{TRUE} (default), header rows whose
-grouping value is \code{NA} are silently dropped rather than emitted.}
-
-\item{header_label_fn}{A function \code{function(level_idx, value,
-group_name)} that returns the visible string for a header row. When
-\code{NULL} (default) the grouping value is used verbatim (possibly after
-indentation if \code{indent = TRUE}).}
-
-\item{skip_header_fn}{A function \code{function(level_idx, value,
-group_name, sub_data)} returning \code{TRUE} to drop a header row. The
-\code{sub_data} argument is the slice of \code{data} that matches the
-group path leading up to this header, letting callers decide based on
-row-level metadata (e.g. suppress a Variable header when its sub-data is
-a single bold row). When \code{NULL} (default) no headers are dropped
-beyond what \code{skip_na_label} already removes.}
-
-\item{preserve_attrs}{Logical. If \code{TRUE} (default), non-internal
-attributes of \code{data} (i.e. everything except \code{names},
-\code{class}, \code{row.names}, \code{.internal.selfref}, \code{sorted},
-and \code{index}) are copied to the output so that downstream consumers
-can read metadata attached to the original table.}
+\item{carry}{Character vector of column names whose values should be carried
+into header rows rather than set to \code{NA}. Each named column must have
+a unique value within its group at every nesting level — an error is thrown
+if that is not the case.}
 }
 \value{
-A \code{data.table} with nested header rows. The nesting level is
-  stored in \code{attr(., "is_header")}.
+A \code{data.table} with nested header rows.
 }
 \description{
 Transforms a \code{data.table} by inserting header rows for each level of
 the specified grouping variables. The grouping variables are moved to the
-front of the dataset. The nesting level is returned as an
-\code{is_header} attribute (1 to N for headers, 0 for data rows).
+front of the dataset.
 }
 \examples{
 library(data.table)
@@ -79,22 +40,8 @@ dt <- data.table(Region = c("North", "North", "South"),
 group_data(dt, groups = "Region")
 
 # Shifted and indented headers for reporting
-group_data(dt, groups = "Region", shift = TRUE, indent = TRUE)
+group_data(dt, groups = "Region", shift_to = "Staff", indent = TRUE)
 # Shifted and indented headers for reporting with multiple grouping levels
-group_data(dt, groups = c("Region", "Dept"), shift = TRUE, indent = TRUE)
-
-# Carry an extra metadata column (e.g. a per-row style flag) through to
-# the final layout; header rows get NA in that column.
-dt$style <- c("bold", "", "")
-group_data(dt, groups = "Region", shift = TRUE, indent = TRUE,
-           passthrough = "style")
-
-# Skip NA group values
-dt2 <- data.table(G = c("A", NA, "B"), V = 1:3)
-group_data(dt2, groups = "G", skip_na_label = TRUE)
-
-# Custom header label function
-group_data(dt, groups = "Region",
-           header_label_fn = function(lvl, val, grp) paste0("[", val, "]"))
+group_data(dt, groups = c("Region", "Dept"), shift_to = "Staff", indent = TRUE)
 
 }

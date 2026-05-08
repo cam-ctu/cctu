@@ -85,21 +85,8 @@
 #' A long-format \code{data.table} with class \code{cttab} is returned. It carries
 #' \code{group} and \code{row_split} attributes that record the names of the grouping
 #' and splitting variables. The function \code{\link{cttab_format}} converts this
-#' long-format table into a matrix with a \code{row_style} attribute used by the
+#' table into a \code{data.frame} with a \code{row_style} attribute used by the
 #' \code{print} method and \code{\link{write_table}} to render the final report.
-#' Possible \code{row_style} values are:
-#' \tabular{ll}{
-#' \code{"banner"} \tab top-level section header: bold, spanned through all
-#'   columns, grey background in Word. \cr
-#' \tab \cr
-#' \code{"header"} \tab variable-label / sub-section header: bold, spanned. \cr
-#' \tab \cr
-#' \code{"bold"} \tab single bold data row (Observation, logical summary). \cr
-#' \tab \cr
-#' \code{""} \tab regular stat row. Visual indentation is supplied as leading
-#'   whitespace on the row name; \code{\link{write_table}} converts it to a
-#'   Word indent. \cr
-#' }
 #'
 #' @seealso
 #' \code{\link{signif_pad}}
@@ -261,14 +248,7 @@ cttab.formula <- function(x, data, ...) {
 #'   \item \code{Var_ID}, \code{Variable}: per-variable id (0 = "Observation"
 #'     row) and the rendered variable label;
 #'   \item \code{Stat_ID}, \code{Statistic}: per-statistic id and label;
-#'   \item \code{Is_Missing}: \code{TRUE} for the per-variable "Missing"
-#'     summary row so it can be sorted below the other stats;
-#'   \item \code{Value}: the rendered cell value (character);
-#'   \item \code{Row_Style}: rendering hint per row. \code{""} for an
-#'     ordinary stat row, \code{"bold"} for a single-row variable
-#'     (logical / Observation). The \code{"banner"} and \code{"header"}
-#'     styles are assigned by \code{\link{cttab_format}} when it inserts
-#'     the section / variable-label header rows.
+#'   \item \code{Value}: the rendered cell value (character)
 #' }
 #'
 #' @inheritParams cttab
@@ -350,9 +330,7 @@ stat_tab <- function(vars,
         Variable    = "Observation",
         Statistic   = "",
         Value       = as.character(nrow(.SD)),
-        Stat_ID     = 1L,
-        Is_Missing  = FALSE,
-        Row_Style   = "bold"
+        Stat_ID     = 1L
       )
     }
 
@@ -380,7 +358,6 @@ stat_tab <- function(vars,
       }
 
       stats <- NULL
-      single_row <- FALSE
 
       if (inherits(data[[col]], c("numeric", "integer"))) {
         stats <- render_numeric(
@@ -413,30 +390,21 @@ stat_tab <- function(vars,
             ""
           )
           miss <- NULL
-          single_row <- TRUE
         }
       }
 
       if (is.null(stats) || length(stats) == 0L) next
 
       stats <- c(stats, miss)
-      s_names <- names(stats)
-      is_missing <- s_names == "Missing"
-      # Row_Style stamped per-row: "bold" for one-row variables (logicals),
-      # "" for multi-row stats. Banner / header styles are assigned later
-      # by cttab_format when the header rows are inserted.
-      style_vec <- if (single_row) rep("bold", length(stats)) else rep("", length(stats))
 
       rows_list[[length(rows_list) + 1L]] <- data.table(
         Group_ID    = var_group_id[i],
         Group_Label = var_group_label[i],
         Var_ID      = i,
         Variable    = lbl,
-        Statistic   = s_names,
+        Statistic   = names(stats),
         Value       = as.character(stats),
-        Stat_ID     = seq_along(stats),
-        Is_Missing  = is_missing,
-        Row_Style   = style_vec
+        Stat_ID     = seq_along(stats)
       )
     }
 
@@ -482,8 +450,6 @@ stat_tab <- function(vars,
 
   if (nrow(long_res) == 0L) return(NULL)
 
-  # Order group factor (Total at the end). Use set() instead of [[<-]] to
-  # avoid triggering the data.table shallow-copy warning on subsequent ops.
   if (!is.null(group)) {
     grp_orig <- if (is.factor(data[[group]])) levels(data[[group]]) else
       sort(unique(as.character(data[[group]])))
@@ -504,7 +470,7 @@ stat_tab <- function(vars,
   # rows last within each variable, then by Stat_ID.
   ord_cols <- c(if (!is.null(row_split)) row_split,
                 if (!is.null(group)) group,
-                "Group_ID", "Var_ID", "Is_Missing", "Stat_ID")
+                "Group_ID", "Var_ID", "Stat_ID")
   setorderv(long_res, ord_cols)
 
   setattr(long_res, "group", group)
@@ -514,6 +480,10 @@ stat_tab <- function(vars,
             if (has_label(data[[row_split]])) var_lab(data[[row_split]])
             else row_split)
   }
+
+  lead_cols <- intersect(c("Group_ID", "Group_Label", "Var_ID", "Stat_ID"),
+                         names(long_res))
+  setcolorder(long_res, c(lead_cols, setdiff(names(long_res), lead_cols)))
 
   long_res[]
 }

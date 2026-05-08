@@ -91,14 +91,7 @@ The returned \code{data.table} has the following columns:
   \item \code{Var_ID}, \code{Variable}: per-variable id (0 = "Observation"
     row) and the rendered variable label;
   \item \code{Stat_ID}, \code{Statistic}: per-statistic id and label;
-  \item \code{Is_Missing}: \code{TRUE} for the per-variable "Missing"
-    summary row so it can be sorted below the other stats;
-  \item \code{Value}: the rendered cell value (character);
-  \item \code{Row_Style}: rendering hint per row. \code{""} for an
-    ordinary stat row, \code{"bold"} for a single-row variable
-    (logical / Observation). The \code{"banner"} and \code{"header"}
-    styles are assigned by \code{\link{cttab_format}} when it inserts
-    the section / variable-label header rows.
+  \item \code{Value}: the rendered cell value (character)
 }
 }
 \keyword{internal}

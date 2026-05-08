@@ -237,9 +237,11 @@ test_that("Missing rows sort below other stats within a variable / group", {
   df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
 
   X <- cttab(c("AGE", "BMIBL"), group = "ARM", data = df)
-  # Within each (group level, variable), the Missing row appears after the
-  # other stat rows (Is_Missing transitions FALSE -> TRUE at most once).
-  X[, expect_true(all(diff(as.integer(Is_Missing)) >= 0L)),
+  # Within each (group level, variable), the Missing row appears after
+  # the other stat rows. stat_tab assigns Stat_ID = length(stats) to the
+  # Missing row, so the Missing-row indicator (Statistic == "Missing")
+  # transitions FALSE -> TRUE at most once when iterating in Stat_ID order.
+  X[Var_ID > 0L, expect_true(all(diff(as.integer(Statistic == "Missing")) >= 0L)),
     by = c("ARM", "Var_ID")]
 })
 

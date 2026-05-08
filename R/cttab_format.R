@@ -43,6 +43,167 @@ cttab_format <- function(x) {
   .cttab_format_long(x)
 }
 
+# Internal worker -----------------------------------------------------------
+# Reshape the long-format cttab into a renderer-ready data.frame.
+#
+# Variable / Group_Label / row_split values are kept consistent across
+# nest modes (e.g. row_split values are prefixed with "rs_lab = " once
+# upfront) so the same input renders to the same set of labels in
+# nest = "split" and nest = "var".
+#' @keywords internal
+#' @import data.table
+.cttab_format_long <- function(x) {
+  wide      <- .cttab_for_layout(x)
+  row_split <- attr(wide, "row_split")
+  rs_lab    <- attr(wide, "row_split_label")
+  nest      <- attr(wide, "nest")
+  data_cols <- attr(wide, "data_cols")
+
+  if (nrow(wide) == 0L) return(.cttab_empty(data_cols))
+
+  in_var_mode <- nest == "var" && !is.null(row_split)
+
+  if (!is.null(row_split)) {
+    set(wide, j = row_split,
+        value = paste(rs_lab, "=", as.character(wide[[row_split]])))
+  }
+
+  # ---- Identify "bold-merged" rows ----------------------------------------
+  wide[, Row_Style := ""]
+  wide[Var_ID == 0L, Row_Style := "bold"]
+  bm_by <- c(if (!is.null(row_split)) row_split, "Var_ID")
+  wide[Var_ID > 0L,
+       Row_Style := fifelse(.N == 1L & is_empty(Statistic), "bold", Row_Style),
+       by = bm_by]
+
+  is_bold_merged <- wide$Row_Style == "bold"
+  if (in_var_mode) {
+    wide[is_bold_merged, Statistic := as.character(get(row_split))]
+  } else {
+    wide[is_bold_merged, Statistic := Variable]
+  }
+
+  # ---- Inner group_data ---------------------------------------------------
+  if (!in_var_mode) wide[, .vkey := Var_ID]
+  inner_var  <- if (in_var_mode) row_split else ".vkey"
+  carry_cols <- c("Group_ID", "Group_Label", "Var_ID", "Row_Style",
+                  if (!in_var_mode) "Variable")
+
+  .make_table_format <- function(d) {
+    if (nrow(d) == 0L) return(d)
+    res <- group_data(d, groups = inner_var,
+                      carry = carry_cols,
+                      shift_to = "Statistic")
+    res <- res[!(is.na(Stat_ID) & Row_Style %in% "bold"), ]
+    if (!in_var_mode) {
+      hdr <- is.na(res$Stat_ID)
+      if (any(hdr)) {
+        set(res, i = which(hdr), j = "Statistic",
+            value = as.character(res$Variable[hdr]))
+      }
+    }
+    res
+  }
+
+  if (is.null(row_split)) {
+    w <- .make_table_format(wide)
+  } else {
+    if (nest == "split") {
+      lvls <- as.character(unique(wide[[row_split]]))
+      parts <- lapply(lvls, function(lv)
+        .make_table_format(wide[wide[[row_split]] == lv, ]))
+      names(parts) <- lvls   # already in "rs_lab = X" form
+    } else {
+      lvls <- as.character(unique(wide$Variable))
+      parts <- lapply(lvls, function(lv)
+        .make_table_format(wide[Variable == lv, ]))
+      names(parts) <- lvls
+    }
+    w <- rbindlist(parts, idcol = "split", use.names = TRUE, fill = TRUE)
+    w <- group_data(w, groups = "split", shift_to = "Statistic")
+  }
+
+  # ---- Group_Label banners ------------------------------------------------
+  if ("Group_Label" %in% names(w) &&
+      any(!is.na(w$Group_Label) & nzchar(as.character(w$Group_Label)))) {
+    w <- .insert_grplab_banners(w)
+  }
+
+  # ---- Style indices ------------------------------------------------------
+  outer_banner  <- which(is.na(w$Stat_ID) & is.na(w$Var_ID) & is.na(w$Group_ID))
+  grplab_banner <- which(is.na(w$Stat_ID) & is.na(w$Var_ID) & !is.na(w$Group_ID))
+  inner_header  <- which(is.na(w$Stat_ID) & !is.na(w$Var_ID))
+  bold_data     <- which(!is.na(w$Stat_ID) & w$Row_Style %in% "bold")
+  stat_data     <- which(!is.na(w$Stat_ID) & !(w$Row_Style %in% "bold"))
+
+  grplab_collapsed <- integer(0)
+  if (length(grplab_banner)) {
+    nxt_is_bold <- (grplab_banner + 1L) %in% bold_data
+    grplab_collapsed <- grplab_banner[nxt_is_bold]
+  }
+  grplab_banner_bgcol <- setdiff(grplab_banner, grplab_collapsed)
+
+  idx_bold   <- sort(c(outer_banner, grplab_banner, inner_header, bold_data))
+  idx_bgcol  <- sort(c(outer_banner, grplab_banner_bgcol))
+  idx_span   <- sort(c(outer_banner, grplab_banner, inner_header))
+  idx_indent <- stat_data
+
+  for (col in data_cols) {
+    v <- as.character(w[[col]])
+    v[is.na(v)] <- ""
+    set(w, j = col, value = v)
+  }
+
+  out <- data.frame(label = as.character(w$Statistic),
+                    stringsAsFactors = FALSE)
+  for (col in data_cols) out[[col]] <- as.character(w[[col]])
+
+  out <- format_table(out,
+                      bold   = idx_bold,
+                      bgcol  = idx_bgcol,
+                      span   = idx_span,
+                      indent = idx_indent)
+  class(out) <- c("cttab", "data.frame")
+  out
+}
+
+# Insert "Group_Label" banner rows at the top of each Group_ID chunk
+# whose Group_Label is non-NA / non-empty. Banner rows carry Group_ID so
+# the `grplab_banner` style bucket picks them up (Stat_ID / Var_ID stay
+# NA so they don't get classified as inner headers).
+#' @keywords internal
+#' @import data.table
+.insert_grplab_banners <- function(w) {
+  w <- copy(w)
+  w[, ._idx := as.numeric(.I)]
+  is_outer <- is.na(w$Stat_ID) & is.na(w$Var_ID) & is.na(w$Group_ID)
+  w[, ._section := cumsum(is_outer)]
+  first_occ <- w[!is.na(Group_Label) & nzchar(as.character(Group_Label)),
+                 .(insert_at = min(._idx),
+                   label     = as.character(Group_Label[1L])),
+                 by = c("._section", "Group_ID")]
+  w[, ._section := NULL]
+  if (nrow(first_occ) == 0L) {
+    w[, ._idx := NULL]
+    return(w)
+  }
+  banners <- data.table(
+    Statistic   = first_occ$label,
+    Group_ID    = first_occ$Group_ID,
+    Group_Label = NA_character_,
+    Var_ID      = NA_integer_,
+    Stat_ID     = NA_integer_,
+    Row_Style   = NA_character_,
+    ._idx       = first_occ$insert_at - 0.5
+  )
+  combined <- rbindlist(list(w, banners), use.names = TRUE, fill = TRUE)
+  setorder(combined, ._idx)
+  combined[, ._idx := NULL]
+  combined
+}
+
+
+
 # Empty-table sentinel, used in three spots in the format pipeline.
 #' @keywords internal
 .cttab_empty <- function(data_cols) {
@@ -65,7 +226,7 @@ cttab_format <- function(x) {
   # NULL row_split drops out of c() automatically.
   meta_cols <- c(row_split,
                  "Group_ID", "Group_Label", "Var_ID", "Variable",
-                 "Stat_ID", "Statistic", "Is_Missing", "Row_Style")
+                 "Stat_ID", "Statistic")
 
   if (!is.null(group)) {
     f <- as.formula(paste(paste(meta_cols, collapse = " + "), "~", group))
@@ -85,7 +246,8 @@ cttab_format <- function(x) {
   rs_lab <- if (is.null(row_split)) NULL else
     attr(x, "row_split_label") %||% row_split
 
-  setorderv(wide, c(row_split, "Group_ID", "Var_ID", "Is_Missing", "Stat_ID"))
+
+  setorderv(wide, c(row_split, "Group_ID", "Var_ID", "Stat_ID"))
 
   attrs <- list(group = group, row_split = row_split,
                 row_split_label = rs_lab, nest = nest,
@@ -94,173 +256,3 @@ cttab_format <- function(x) {
   wide
 }
 
-# Internal worker -----------------------------------------------------------
-# Lays out the wide table by delegating to group_data(). The hierarchy is:
-#
-#   nest = "split" : row_split  > Group_Label > Variable  > stats
-#   nest = "var"   : Group_Label > Variable   > row_split > stats
-#
-# Single-row "bold" variables (logicals, Observation rows with Var_ID == 0)
-# carry the variable label on the data row itself, so the corresponding
-# header level is suppressed via skip_header_fn (Variable in split mode,
-# inner row_split in var mode). Without row_split, both nests render
-# identically (split-style).
-#
-# Variable / Group_Label are factor-ised in Var_ID / Group_ID order before
-# the call so group_data's setorderv preserves the input ordering rather
-# than alphabetising — and so a Var_ID-keyed grouping survives label
-# collisions (rbind.cttab post-shift "Observation" rows in particular).
-#' @keywords internal
-#' @import data.table
-.cttab_format_long <- function(x) {
-  wide      <- .cttab_for_layout(x)
-  row_split <- attr(wide, "row_split")
-  rs_lab    <- attr(wide, "row_split_label")
-  nest      <- attr(wide, "nest")
-  data_cols <- attr(wide, "data_cols")
-
-  if (nrow(wide) == 0L) return(.cttab_empty(data_cols))
-
-  w <- wide
-
-  # Var_ID-keyed factor for the variable level, with a label-lookup table
-  # for the rendered header text.
-  vid_lab <- unique(w[, .(Var_ID, Variable)])
-  setorderv(vid_lab, "Var_ID")
-  vid_lvls   <- as.character(vid_lab$Var_ID)
-  vid_to_lbl <- setNames(as.character(vid_lab$Variable), vid_lvls)
-  w[, .vkey := factor(as.character(Var_ID), levels = vid_lvls)]
-
-  # Group_Label as factor in Group_ID order (with empty strings normalised
-  # to NA so the banner is suppressed by skip_na_label, matching the prior
-  # nzchar() guard in .maybe_emit_group_label).
-  has_grplab <- "Group_Label" %in% names(w)
-  if (has_grplab) {
-    w[!is.na(Group_Label) & !nzchar(as.character(Group_Label)),
-      Group_Label := NA]
-    gl_ord <- unique(w[!is.na(Group_Label), .(Group_ID, Group_Label)])
-    if (nrow(gl_ord)) {
-      setorderv(gl_ord, "Group_ID")
-      w[, Group_Label := factor(as.character(Group_Label),
-                                levels = unique(as.character(gl_ord$Group_Label)))]
-    }
-    has_grplab <- any(!is.na(w$Group_Label))
-  }
-
-  # Ensure row_split is a factor so user-defined level order is respected
-  # by setorderv inside group_data.
-  if (!is.null(row_split) && !is.factor(w[[row_split]])) {
-    set(w, j = row_split,
-        value = factor(as.character(w[[row_split]]),
-                       levels = as.character(unique(w[[row_split]]))))
-  }
-
-  # Build .label: Statistic for stat rows; the variable label (split /
-  # no-row_split) or "rs_lab = X" sub-section text (var mode) for bold
-  # rows whose owning header has been suppressed. Visual indent for
-  # stat rows is no longer encoded as leading whitespace — it is
-  # carried separately as the "indent" token in row_style and applied
-  # at render time.
-  use_split    <- nest == "split" || is.null(row_split)
-  is_bold_data <- w$Var_ID == 0L | w$Row_Style == "bold"
-  w[, .label := as.character(Statistic)]
-  if (use_split) {
-    w[is_bold_data, .label := as.character(Variable)]
-  } else {
-    w[is_bold_data, .label := paste(rs_lab, "=", as.character(get(row_split)))]
-  }
-
-  grp_cols <- if (use_split) {
-    c(row_split, if (has_grplab) "Group_Label", ".vkey")
-  } else {
-    c(if (has_grplab) "Group_Label", ".vkey", row_split)
-  }
-
-  # Slim w to just the columns group_data needs (groups, label, data,
-  # passthrough metadata for downstream styling).
-  meta_pass <- intersect(c("Var_ID", "Row_Style"), names(w))
-  keep_cols <- c(grp_cols, ".label", data_cols, meta_pass)
-  w <- w[, ..keep_cols]
-
-  hdr_fn <- function(lvl, val, grp) {
-    if (!is.null(row_split) && grp == row_split) paste(rs_lab, "=", val)
-    else if (grp == ".vkey") vid_to_lbl[[val]]
-    else val
-  }
-
-  skip_target <- if (use_split) ".vkey" else row_split
-  skip_fn <- if (is.null(skip_target)) NULL else
-    function(lvl, val, grp, sub) {
-      grp == skip_target && any(sub$Var_ID == 0L | sub$Row_Style == "bold")
-    }
-
-  res <- group_data(w, groups = grp_cols, shift = TRUE, indent = FALSE,
-                    keep_groups = FALSE,
-                    passthrough = c(data_cols, meta_pass),
-                    skip_na_label = TRUE,
-                    header_label_fn = hdr_fn,
-                    skip_header_fn = skip_fn,
-                    preserve_attrs = FALSE)
-
-  if (nrow(res) == 0L) return(.cttab_empty(data_cols))
-
-  # Compute row indices for each style token, then delegate to
-  # format_table() to build the row_style attribute.
-  is_hdr  <- attr(res, "is_header")
-  is_data <- is_hdr == 0L
-
-  # Bold data rows: single-row variables (logicals) and Observation.
-  is_bold <- is_data &
-    ((!is.na(res$Row_Style) & res$Row_Style == "bold") |
-       (!is.na(res$Var_ID)   & res$Var_ID   == 0L))
-
-  # Map each header row to its grouping column.
-  hdr_lvl <- is_hdr
-  hdr_lvl[!is_hdr] <- NA_integer_
-  grp_at <- grp_cols[hdr_lvl]
-
-  is_rowsplit_hdr <- if (is.null(row_split)) {
-    rep(FALSE, nrow(res))
-  } else {
-    !is.na(grp_at) & grp_at == row_split
-  }
-  is_vkey_hdr     <- !is.na(grp_at) & grp_at == ".vkey"
-  is_grplabel_hdr <- !is.na(grp_at) & grp_at == "Group_Label"
-
-  # Group_Label banners collapse to a plain header when immediately above
-  # a bold data row (the bold row already carries the emphasis).
-  nxt_is_bold       <- c(is_bold[-1L], FALSE)
-  is_grplabel_banner <- is_grplabel_hdr & !nxt_is_bold
-  is_grplabel_header <- is_grplabel_hdr &  nxt_is_bold
-
-  # .vkey headers are banners in var-mode, plain headers in split-mode.
-  is_vkey_banner <- is_vkey_hdr &  !use_split
-  is_vkey_header <- is_vkey_hdr &   use_split
-
-  # Collect row indices per token (union of all row types that carry it).
-  idx_bold   <- which(is_bold | is_rowsplit_hdr |
-                        is_grplabel_banner | is_grplabel_header |
-                        is_vkey_banner     | is_vkey_header)
-  idx_bgcol  <- which(is_rowsplit_hdr | is_grplabel_banner | is_vkey_banner)
-  idx_span   <- which(is_rowsplit_hdr |
-                        is_grplabel_banner | is_grplabel_header |
-                        is_vkey_banner     | is_vkey_header)
-  idx_indent <- which(is_data & !is_bold)
-
-  # Empty data cells in headers render as "" rather than NA.
-  for (col in data_cols) {
-    v <- as.character(res[[col]])
-    v[is.na(v)] <- ""
-    set(res, j = col, value = v)
-  }
-
-  out <- data.frame(label = res$.label, stringsAsFactors = FALSE)
-  out[data_cols] <- as.list(res)[data_cols]
-  out <- format_table(out,
-                      bold   = idx_bold,
-                      bgcol  = idx_bgcol,
-                      span   = idx_span,
-                      indent = idx_indent)
-  class(out) <- c("cttab", "data.frame")
-  out
-}

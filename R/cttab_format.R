@@ -33,12 +33,12 @@
 #'   \code{\link{group_data}}
 #' @export
 cttab_format <- function(x) {
-  # Already-formatted matrix or data.frame-with-label — pass through.
+  # Already-formatted matrix or data.frame-with-label - pass through.
   if (is_formatted_cttab(x)) return(x)
   if (is.null(x) || !inherits(x, "data.frame") || nrow(x) == 0L) {
     return(.cttab_empty(character(0)))
   }
-  # Plain data.frame stamped with cttab class — let write_table render it.
+  # Plain data.frame stamped with cttab class - let write_table render it.
   if (!"Value" %in% names(x)) return(x)
   .cttab_format_long(x)
 }

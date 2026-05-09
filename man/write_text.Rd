@@ -14,21 +14,21 @@ write_text(
 )
 }
 \arguments{
-\item{x}{the character string to be saved in xml format}
+\item{x}{the character string (or vector of strings) to be saved in xml
+format. A vector is concatenated into a single text block.}
 
-\item{number}{the number used to as a suffix in the output filename, and to
-link to TableofTables. Default is to use the value in the cctu_env package
- environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used as a suffix in the output filename, and to
+link to the meta_table. Default is to use the value in the cctu_env
+package environment that is set within \code{\link{attach_pop}}.}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
-end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at
+the end. Defaults to \code{TRUE}.}
 
-\item{directory}{where to save the figures within path or current working
-directory. The Output directory can be over-riden with
-options("cctu_output").}
+\item{directory}{where to save the text within path or current working
+directory. Defaults to \code{file.path(cctu_opt("output"), "Core")}.}
 
 \item{verbose}{logical to print information on changes to the global
-environment or external files. Defaults to options()$verbose.}
+environment or external files. Defaults to \code{options()$verbose}.}
 }
 \value{
 writes an xml version of the input data to file text_number.xml .

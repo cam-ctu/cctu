@@ -92,7 +92,7 @@ cctu_options <- function(..., reset = FALSE) {
     )
   }
 
-  prev <- cctu_env$options[nms]
+  prev <- setNames(lapply(nms, cctu_opt), nms)
   for (nm in nms) cctu_env$options[[nm]] <- args[[nm]]
   invisible(prev)
 }
@@ -121,7 +121,7 @@ cctu_opt <- function(name) {
 }
 
 
-# Packaged defaults — single source of truth. Keep alphabetised to make
+# Packaged defaults - single source of truth. Keep alphabetised to make
 # diffs readable when someone adds a new option.
 .cctu_default_opts <- list(
   blinded       = FALSE,

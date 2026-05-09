@@ -47,8 +47,6 @@ write_docx <- function(
     mustWork = FALSE
   )
 
-  figure_format <- match.arg(figure_format)
-
   report_title <- remove_xml_specials(report_title)
   author <- remove_xml_specials(author)
 

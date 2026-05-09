@@ -9,8 +9,14 @@ test_that("format_table assembles row_style tokens in the documented order", {
     attr(out, "row_style"),
     c("bold;bgcol;span", "indent", "indent")
   )
-  # The data shape is preserved.
-  expect_identical(out[, c("label", "value")], df)
+  # The data shape is preserved; class is widened to include "cttab" so
+  # print() dispatches to print.cttab.
+  expect_s3_class(out, "cttab")
+  expect_equal(
+    as.data.frame(unclass(out))[, c("label", "value")],
+    df,
+    ignore_attr = TRUE
+  )
 })
 
 test_that("format_table accepts named and hex colours for bgcol/col", {

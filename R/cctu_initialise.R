@@ -30,10 +30,10 @@ cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
   # root_slash <- root |> final_slash()
   reset_code_tree(root_file = file.path(root, "ROOT"))
   if (!cctu_check_dir(root = root)) {
-    dir.create(file.path(root, output)) &
-      dir.create(file.path(root, output, "Core")) &
-      dir.create(file.path(root, output, "Figures")) &
-      dir.create(file.path(root, output, "Reports"))
+    dir.create(file.path(root, output))
+    dir.create(file.path(root, output, "Core"))
+    dir.create(file.path(root, output, "Figures"))
+    dir.create(file.path(root, output, "Reports"))
   }
   if (scripts) {
     file.copy(

@@ -25,7 +25,7 @@ missingness report's `visit` column. Coercing once via
 [to_factor()] fixes both at the source.
 }
 \details{
-Mutates `data` by reference via [data.table::set()] — pass a `copy()`
+Mutates `data` by reference via [data.table::set()] - pass a `copy()`
 if the caller's `data.table` must remain untouched.
 }
 \keyword{internal}

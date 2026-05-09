@@ -1,6 +1,6 @@
 #' Internal helpers shared by `cttab`, `cttab_plot` and `report_missing`.
 #'
-#' Centralising these so the three call sites stay consistent — variable
+#' Centralising these so the three call sites stay consistent - variable
 #' label lookup, `select` filter evaluation and grouping-column factor
 #' coercion all need to behave identically across the table, the plot and
 #' the missing-data report.
@@ -123,7 +123,7 @@ cttab_drop_na_grouping <- function(data, cols) {
 #' missingness report's `visit` column. Coercing once via
 #' [to_factor()] fixes both at the source.
 #'
-#' Mutates `data` by reference via [data.table::set()] — pass a `copy()`
+#' Mutates `data` by reference via [data.table::set()] - pass a `copy()`
 #' if the caller's `data.table` must remain untouched.
 #'
 #' @param data A `data.table`.

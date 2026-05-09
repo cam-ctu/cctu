@@ -20,6 +20,7 @@
 #'   header with the analysis variables nested inside it. Use \code{"var"}
 #'   to flip the hierarchy so each analysis variable becomes the outer
 #'   section and the row-split levels are nested as sub-sections under it.
+#'   Ignored when \code{row_split} is \code{NULL}.
 #' @param total If a "Total" column will be created (default). Specify
 #' \code{FALSE} to omit the column.
 #' @param select a named vector with as many components as row-variables. Every
@@ -136,6 +137,9 @@ cttab.default <- function(x,
 
   vars <- x
   nest <- match.arg(nest, choices = c("split", "var"))
+  # `nest` only affects layout when `row_split` is supplied; collapse to
+  # the default otherwise so downstream code has one shape to handle.
+  if (is.null(row_split)) nest <- "split"
   logical_na_impute <- logical_na_impute[1]
   stopifnot(logical_na_impute %in% c(FALSE, NA, TRUE))
 

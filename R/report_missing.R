@@ -94,7 +94,7 @@ report_missing <- function(data,
 
   res <- do.call(rbind, res_list)
   if (!is.null(res)) {
-    # Append to a list and consolidate lazily in get_missing_report() —
+    # Append to a list and consolidate lazily in get_missing_report() -
     # an incremental rbind into cctu_env$missing_report_data was O(n^2)
     # over the lifetime of an analysis with hundreds of tables.
     cctu_env$missing_report_chunks <- c(

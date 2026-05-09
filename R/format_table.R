@@ -8,9 +8,9 @@
 #' that the renderer consumes.
 #'
 #' Tokens (the renderer's vocabulary): `"bold"` (bold text), `"bgcol"`
-#' (grey background — typically a banner row), `"span"` (first cell
-#' spans all columns — typically a header / banner row), `"indent"`
-#' (visual indent — typically a stat row sitting under a header).
+#' (grey background - typically a banner row), `"span"` (first cell
+#' spans all columns - typically a header / banner row), `"indent"`
+#' (visual indent - typically a stat row sitting under a header).
 #' A row may carry any combination, e.g. a banner row appears in
 #' `bold`, `bgcol`, and `span`. Token order in the assembled string is
 #' fixed: `bold;bgcol;span;indent;col`.
@@ -114,5 +114,8 @@ format_table <- function(x,
   rs <- add_token(rs, col_i,    col_token)
 
   attr(x, "row_style") <- rs
+  if (!inherits(x, "cttab")) {
+    class(x) <- c("cttab", class(x))
+  }
   x
 }

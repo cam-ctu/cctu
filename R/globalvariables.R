@@ -20,7 +20,7 @@ cctu_env$number <- "0"
 cctu_env$sumby_count <- 0
 cctu_env$nested_run_batch <- FALSE
 
-# Missing data report — `missing_report_chunks` is a list of per-cttab()
+# Missing data report - `missing_report_chunks` is a list of per-cttab()
 # data.frames that get_missing_report() consolidates lazily.
 cctu_env$missing_report_data <- setNames(
   data.frame(matrix(ncol = 8, nrow = 0)),

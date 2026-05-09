@@ -54,7 +54,8 @@ split using this variable. Useful for repeated measures.}
 Default \code{"split"} renders the row-split variable as the outer
 header with the analysis variables nested inside it. Use \code{"var"}
 to flip the hierarchy so each analysis variable becomes the outer
-section and the row-split levels are nested as sub-sections under it.}
+section and the row-split levels are nested as sub-sections under it.
+Ignored when \code{row_split} is \code{NULL}.}
 
 \item{total}{If a "Total" column will be created (default). Specify
 \code{FALSE} to omit the column.}

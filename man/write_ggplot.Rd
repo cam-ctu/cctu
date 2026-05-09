@@ -5,7 +5,7 @@
 \title{Function to save ggplot figures.}
 \usage{
 write_ggplot(
-  plot = last_plot(),
+  plot,
   number = cctu_env$number,
   width = 29.7 * 0.6,
   height = 21 * 0.6,

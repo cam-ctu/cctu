@@ -1,12 +1,21 @@
 #' Function to write a table into xml format in the correct directory, and
 #' record the calling program in the meta_table.
 #'
-#' @inheritParams write_ggplot
 #' @param x the data.frame or table to be saved in xml format
+#' @param number the number used as a suffix in the output filename, and to
+#'   link to the meta_table. Default is to use the value in the cctu_env
+#'   package environment that is set within \code{\link{attach_pop}}.
 #' @param heading character vector of column titles. Defaults to the colnames
-#' of x
+#'   of x
 #' @param na_to_empty logical, if true then any NA values will be written as
-#'  empty strings. Defaults to false.
+#'   empty strings. Defaults to false.
+#' @param clean_up logical to invoke the \code{\link{clean_up}} function at
+#'   the end. Defaults to \code{TRUE}.
+#' @param directory where to save the table within path or current working
+#'   directory. Defaults to \code{file.path(cctu_opt("output"), "Core")}.
+#' @param verbose logical to print information on changes to the global
+#'   environment or external files. Defaults to \code{options()$verbose}.
+#' @param footnote character vector, can be used to add footnotes.
 #'
 #' @details
 #' For the plain (non-styled) path, variable names and values are replaced

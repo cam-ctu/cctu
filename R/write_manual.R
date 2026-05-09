@@ -1,7 +1,13 @@
 #' Function to write to meta-table and clean up without creating a table,text,
 #' or figure. For manual use
 #'
-#' @inheritParams write_ggplot
+#' @param number the number used to link to the meta_table. Default is to use
+#'   the value in the cctu_env package environment that is set within
+#'   \code{\link{attach_pop}}.
+#' @param clean_up logical to invoke the \code{\link{clean_up}} function at
+#'   the end. Defaults to \code{TRUE}.
+#' @param verbose logical to print information on changes to the global
+#'   environment or external files. Defaults to \code{options()$verbose}.
 #' @return Edits the meta_table object with the calling program and optionally
 #' cleans up. No return object.  Meant for use if a table or figure for a
 #' report has been created manually outside of \code{\link{write_ggplot}} or

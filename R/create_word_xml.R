@@ -1,5 +1,9 @@
 #' Produces the final xml file
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function is no longer maintained. Use \code{\link{write_docx}} instead.
+#'
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
 #' @param meta_table a data frame  that contains meta information on tables

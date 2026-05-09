@@ -104,6 +104,10 @@ reference:
   - write_table
   - write_text
   - format_table
+
+- title: "Deprecated"
+  desc: "Kept for backwards compatibility; prefer the replacements noted in each function's help."
+  contents:
   - create_word_xml
 
 - title: "Variable and value labels"

@@ -1,7 +1,21 @@
 #' Produces the final Docx file
 #'
-#' @inheritParams create_word_xml
-#' @param  figure_format it only supports \code{png} format.
+#' @param report_title text string used to label the report title page
+#' @param author text string naming the author
+#' @param meta_table a data frame that contains meta information on tables
+#' (title, population, number). Defaults to \code{get_meta_table()}.
+#' @param filename text string giving the filename/path to output the word
+#' document to.
+#' @param table_path text string giving the filepath to the tables folder.
+#' This is used to directly open table files and copy the content.
+#' @param figure_format it only supports \code{png} format.
+#' @param figure_path text string giving the filepath to the figures folder.
+#' @param popn_labels alternative text string giving labels used for the
+#' population - might want to include the population size. They must match
+#' \code{unique(meta_table$population)}, excluding rows with a blank population.
+#' @inheritParams write_ggplot
+#' @param keep_xml a boolean if the compiled XML should be kept, used for
+#' debugging purposes.
 #' @export
 #' @import xml2
 #' @importFrom xslt xml_xslt

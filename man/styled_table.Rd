@@ -20,8 +20,7 @@ vector of \code{;}-joined tokens drawn from
 plain stat row. Tokens are passed through verbatim into the
 \code{style} attribute on each \code{<td>}, where the XSLT in
 \code{inst/assets/document.xslt} (used by \code{\link{write_docx}})
-or \code{inst/extdata/to_word.xslt} (used by the legacy
-\code{\link{create_word_xml}}) interprets them.
+interprets them.
 }
 \details{
 Two input shapes are accepted:

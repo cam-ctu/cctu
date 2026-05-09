@@ -173,8 +173,7 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
 #' plain stat row. Tokens are passed through verbatim into the
 #' \code{style} attribute on each \code{<td>}, where the XSLT in
 #' \code{inst/assets/document.xslt} (used by \code{\link{write_docx}})
-#' or \code{inst/extdata/to_word.xslt} (used by the legacy
-#' \code{\link{create_word_xml}}) interprets them.
+#' interprets them.
 #'
 #' Two input shapes are accepted:
 #' \itemize{

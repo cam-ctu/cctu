@@ -16,7 +16,7 @@
 #'  \item{margin}{takes values "normal" or "narrow" to determine the page
 #'   margin for each item}
 #'  \item{item}{takes values "table", "figure", or far more rarely "text".
-#'   \code{\link{create_word_xml}} will expect there to exist 'table_XX.xml',
+#'   \code{\link{write_docx}} will expect there to exist 'table_XX.xml',
 #'    'figure_XX.png' or 'text_XX.xml' as appropriate where 'XX' is the number
 #'     value.}
 #'  \item{footnote1}{optional footnote. Use the empty string if no subtitle
@@ -30,7 +30,7 @@
 #' @details
 #' This is an example of the structure of a meta_table that must exist
 #' internally to use \code{\link{attach_pop}}, \code{\link{write_table}},
-#' \code{\link{write_ggplot}}, \code{\link{create_word_xml}}. All variables are
+#' \code{\link{write_ggplot}}, \code{\link{write_docx}}. All variables are
 #' characters, including 'number'. The variables 'orientation' and 'item' can
 #' only take specific values.
 #'

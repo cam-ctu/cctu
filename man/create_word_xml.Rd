@@ -65,7 +65,8 @@ This function is run for its side-effects: creates an xml document
   be opened as a word document.
 }
 \description{
-Produces the final xml file
+`r lifecycle::badge("deprecated")`
+This function is no longer maintained. Use \code{\link{write_docx}} instead.
 }
 \details{
 suggest that \code{\link{file.path}} is used to create non default

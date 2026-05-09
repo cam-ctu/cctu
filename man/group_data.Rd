@@ -18,7 +18,7 @@ are shifted. When \code{NULL} (default) no shifting is performed.}
 
 \item{carry}{Character vector of column names whose values should be carried
 into header rows rather than set to \code{NA}. Each named column must have
-a unique value within its group at every nesting level — an error is thrown
+a unique value within its group at every nesting level - an error is thrown
 if that is not the case.}
 }
 \value{

@@ -55,7 +55,7 @@ Then you must set it internally using \code{\link{set_meta_table}}, and
 possibly examine the contents with \code{\link{get_meta_table}}.
 
 To preserve troublesome number values '1.10', or '1.1.1', in Excel one can
-prefix the ' character (to the left of the \# key) before the number value.
+prefix the ' character (to the left of the # key) before the number value.
 }
 \seealso{
 \code{\link{set_meta_table}} \code{\link{get_meta_table}}

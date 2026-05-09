@@ -12,7 +12,7 @@
 #' @param indent Logical. If \code{TRUE}, indents nested headers and data rows.
 #' @param carry Character vector of column names whose values should be carried
 #'   into header rows rather than set to \code{NA}. Each named column must have
-#'   a unique value within its group at every nesting level — an error is thrown
+#'   a unique value within its group at every nesting level - an error is thrown
 #'   if that is not the case.
 #'
 #' @return A \code{data.table} with nested header rows.
@@ -71,7 +71,7 @@ group_data <- function(data, groups, shift_to = NULL, indent = FALSE,
         if (nrow(bad) > 0) {
           stop(paste0(
             "carry column '", col, "' has non-unique values within group [",
-            paste(current_path, collapse = ", "), "] — cannot carry through."
+            paste(current_path, collapse = ", "), "] - cannot carry through."
           ))
         }
       }

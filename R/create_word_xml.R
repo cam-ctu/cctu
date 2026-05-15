@@ -1,5 +1,9 @@
 #' Produces the final xml file
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#' This function is no longer maintained. Use \code{\link{write_docx}} instead.
+#'
 #' @param report_title text string used to label the report title page
 #' @param author text string naming the author
 #' @param meta_table a data frame  that contains meta information on tables
@@ -44,19 +48,10 @@ create_word_xml <- function(
     author,
     meta_table = get_meta_table(),
     datestamp = format(Sys.time(), format = "%H:%M %d %b %Y"),
-    filename = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Reports", "Report.doc"
-    ),
-    table_path = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Core"
-    ),
+    filename = file.path(cctu_opt("output"), "Reports", "Report.doc"),
+    table_path = file.path(cctu_opt("output"), "Core"),
     figure_format = c("png", "jpeg", "ps"),
-    figure_path = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Figures"
-    ),
+    figure_path = file.path(cctu_opt("output"), "Figures"),
     popn_labels = NULL,
     verbose = options()$verbose,
     xslt_file = system.file("extdata", "to_word.xslt", package = "cctu"),

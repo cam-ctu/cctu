@@ -19,80 +19,90 @@
 #' @keywords internal
 report_missing <- function(data,
                            vars,
-                           select,
+                           select = NULL,
                            row_split = NULL,
-                           subjid_string = getOption("cctu_subjid_string",
-                             default = "subjid"
-                           )) {
-  blnk_miss <- setNames(
-    data.frame(matrix(ncol = 8, nrow = 0)),
-    c(
-      "form", "visit_var", "visit_label", "visit",
-      "variable", "label", "missing_pct", "subject_id"
-    )
-  )
+                           subjid_string = cctu_opt("subjid_string")) {
 
-  dlu <- get_dlu()
-  # If the subjid can not be found in the dataset
-  if (!subjid_string %in% names(data)) {
-    return(blnk_miss)
-  }
-
-  # Generate selection vector function
-  gen_selec <- function(dat, var, select = NULL) {
-    if (is.null(select) || !var %in% names(select)) {
-      return(rep(TRUE, length(dat[[var]])))
-    } else {
-      r <- eval(str2expression(select[var]), envir = dat)
-      r & !is.na(r)
-    }
-  }
+  # If the subjid column is missing there's nothing meaningful to report.
+  if (!subjid_string %in% names(data)) return(invisible(NULL))
 
   vars <- unlist(vars, use.names = FALSE)
+  vars <- vars[vars %in% names(data)]
+  if (length(vars) == 0L) return(invisible(NULL))
 
-  # Check if missing
-  any_miss <- sapply(vars, function(v) sum(is.na(data[[v]]))) > 0
-
-  # If all missing, return blank
-  if (all(!any_miss)) {
-    return(blnk_miss)
+  if (!is.null(row_split) && !row_split %in% names(data)) {
+    warning("row_split variable not found in data. Ignoring row_split.")
+    row_split <- NULL
   }
 
-  # Only report variables with missing
-  vars <- vars[any_miss]
+  # Local copy so the factor coercion below doesn't leak into the caller's
+  # data.table.
+  dt <- data.table::copy(data.table::as.data.table(data))
 
-  res <- lapply(vars, function(v) {
-    variable <- ifelse(has_label(data[[v]]), var_lab(data[[v]]), v)
+  # Coerce row_split to a factor when labelled-numeric so `as.character()` on
+  # the aggregated values returns the visit *labels* (e.g. "Baseline") rather
+  # than the underlying numeric codes.
+  cttab_factorise(dt, row_split)
 
-    z <- data[gen_selec(data, v, select[v]), ]
+  dlu <- get_dlu()
 
-    subid <- z[[subjid_string]][is.na(z[[v]])]
-    pct <- round(100 * length(subid) / length(z[[subjid_string]]), 1)
+  res_list <- lapply(vars, function(v) {
+    keep <- cttab_eval_select(dt, v, select)
+    d_sub <- dt[keep]
 
-    if (v %in% dlu$shortcode) {
-      fm_name <- dlu$form[dlu$shortcode == v]
+    agg <- d_sub[, .(
+      n_miss  = sum(is.na(.v)),
+      n_total = .N,
+      subids  = list(.sid[is.na(.v)])
+    ), by = row_split, env = list(.v = v, .sid = subjid_string)]
+    agg <- agg[n_miss > 0]
+    if (nrow(agg) == 0L) return(NULL)
+
+    fm_name <- if (!is.null(dlu) && v %in% dlu$shortcode) {
+      dlu$form[dlu$shortcode == v]
     } else {
-      fm_name <- "Derived"
+      "Derived"
+    }
+
+    if (!is.null(row_split)) {
+      visit_var   <- row_split
+      visit_label <- cttab_get_label(dt[[row_split]], row_split)
+      visit_val   <- as.character(agg[[row_split]])
+    } else {
+      # Empty strings (not NA) so callers can filter the report with plain
+      # equality checks (`mis_rp$visit == "Baseline"`) without NA-induced
+      # stray matches.
+      visit_var <- ""
+      visit_label <- ""
+      visit_val <- ""
     }
 
     data.frame(
-      form = fm_name,
-      visit_var = NA,
-      visit_label = NA,
-      visit = NA,
-      variable = v,
-      label = variable,
-      missing_pct = paste0(
-        pct, "% (", length(subid), "/",
-        length(z[[subjid_string]]), ")"
-      ),
-      subject_id = paste(subid, collapse = ", "),
-      row.names = NULL
+      form        = fm_name,
+      visit_var   = visit_var,
+      visit_label = visit_label,
+      visit       = visit_val,
+      variable    = v,
+      label       = cttab_get_label(dt[[v]], v),
+      missing_pct = sprintf("%s%% (%d/%d)",
+                            round(100 * agg$n_miss / agg$n_total, 1),
+                            agg$n_miss, agg$n_total),
+      subject_id  = vapply(agg$subids, paste, character(1L), collapse = ", "),
+      stringsAsFactors = FALSE
     )
   })
 
-  res <- do.call(rbind, res)
-  res[res$subject_id != "", ]
+  res <- do.call(rbind, res_list)
+  if (!is.null(res)) {
+    # Append to a list and consolidate lazily in get_missing_report() -
+    # an incremental rbind into cctu_env$missing_report_data was O(n^2)
+    # over the lifetime of an analysis with hundreds of tables.
+    cctu_env$missing_report_chunks <- c(
+      cctu_env$missing_report_chunks,
+      list(res)
+    )
+  }
+  invisible(NULL)
 }
 
 #' @name dump_missing_report
@@ -122,13 +132,26 @@ dump_missing_report <- function(x = "Output/variable_missing_report.csv") {
 #' @rdname dump_missing_report
 #' @export
 get_missing_report <- function() {
-  unique(cctu_env$missing_report_data)
+  chunks <- cctu_env$missing_report_chunks
+  if (length(chunks) == 0L) return(cctu_env$missing_report_data)
+  combined <- rbind(cctu_env$missing_report_data,
+                    do.call(rbind, chunks))
+  combined <- unique(combined)
+  cctu_env$missing_report_data <- combined
+  cctu_env$missing_report_chunks <- list()
+  combined
 }
 
 #' @rdname dump_missing_report
 #' @export
 reset_missing_report <- function() {
-  cctu_env$missing_report_data <- setNames(
+  cctu_env$missing_report_data <- empty_missing_report()
+  cctu_env$missing_report_chunks <- list()
+}
+
+#' @keywords internal
+empty_missing_report <- function() {
+  setNames(
     data.frame(matrix(ncol = 8, nrow = 0)),
     c(
       "form", "visit_var", "visit_label",

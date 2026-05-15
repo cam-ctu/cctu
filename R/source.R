@@ -18,7 +18,7 @@
 #' @export
 
 source <- function(file,
-                   local = getOption("cctu_source_local", default = FALSE),
+                   local = cctu_opt("source_local"),
                    backup = NULL,
                    ...) {
 

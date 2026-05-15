@@ -1,4 +1,17 @@
-utils::globalVariables(c("."))
+utils::globalVariables(c(
+  ".",
+  # cttab metadata columns referenced as bare symbols in NSE contexts
+  "Group_ID", "Var_ID", "Stat_ID", "Group_Label", "Variable",
+  "Statistic", "Row_Style", "Value",
+  # group_data() internal sort / order columns and data.table NSE symbols
+  "._sort_idx", "._row_idx", "._first_occ", "i.._first_occ", "n",
+  # cttab_format() internal helper columns
+  ".vkey", "._idx", "._section",
+  # report_missing() aggregate and NSE symbols
+  "n_miss", ".v", ".sid",
+  # stat_tab() NSE symbol
+  ".empty"
+))
 # may well have to add "cctu_env" to the line above. But I can't get
 # devtools::check() to work past installing,
 # so impossible to check at the moment.
@@ -7,15 +20,17 @@ cctu_env$number <- "0"
 cctu_env$sumby_count <- 0
 cctu_env$nested_run_batch <- FALSE
 
-# Missing data report
+# Missing data report - `missing_report_chunks` is a list of per-cttab()
+# data.frames that get_missing_report() consolidates lazily.
 cctu_env$missing_report_data <- setNames(
   data.frame(matrix(ncol = 8, nrow = 0)),
   c(
     "form", "visit_var", "visit_label",
     "visit", "variable", "label", "missing_pct",
-    "subject_ID"
+    "subject_id"
   )
 )
+cctu_env$missing_report_chunks <- list()
 # Setup DLU file
 cctu_env$dlu <- NULL
 

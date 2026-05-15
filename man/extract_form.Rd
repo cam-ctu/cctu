@@ -10,7 +10,7 @@ extract_form(
   visit = NULL,
   vars_keep = NULL,
   dlu = cctu_env$dlu,
-  rm_empty = getOption("cctu_rm_empty", default = "both")
+  rm_empty = cctu_opt("rm_empty")
 )
 }
 \arguments{

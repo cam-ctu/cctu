@@ -96,7 +96,7 @@ test_that("alternative dimension for table", {
 
   expect_warning(
     write_text("Hello World!", number = "1.10"),
-    "Unable to identify the code file that created table"
+    "Unable to identify the code file that created text"
   )
   # Test of tibble typ objects
 
@@ -164,4 +164,25 @@ test_that("clean up behaviour when piping", {
     dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
     write_table(number = "1.10", directory = ".")
   # expect_false("X" %in% ls())
+})
+
+test_that("write_docx does not change working directory", {
+  .old_meta <- set_meta_table(cctu::meta_table_example)
+  on.exit(set_meta_table(.old_meta), add = TRUE)
+
+  X <- data.frame(x = 1, y = 2)
+  cctu_env$parent <- "test"
+  write_table(X, number = "1.1", directory = tempdir(), clean_up = FALSE)
+
+  orig_wd <- getwd()
+
+  filetemp <- tempfile("report", fileext = ".docx")
+  write_docx("test report", "author",
+    meta_table = get_meta_table() |> dplyr::filter(number == "1.1"),
+    popn_labels = "safety",
+    filename = filetemp
+  )
+  unlink(filetemp)
+
+  expect_equal(getwd(), orig_wd)
 })

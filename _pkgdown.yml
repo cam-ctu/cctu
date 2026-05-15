@@ -18,6 +18,8 @@ reference:
   - cctu_check_dir
   - cctu_initialise
   - cctu_initialize
+  - cctu_options
+  - cctu_opt
   - library_description
   - attach_pop
   - clean_up
@@ -72,12 +74,15 @@ reference:
   - cttab
   - print.cttab
   - rbind.cttab
+  - as.data.frame.cttab
+  - cttab_format
   - render_cat
   - render_numeric
   - cat_stat
   - num_stat
   - sumby
   - sumfig
+  - group_data
   - regression_table
 
 - title: "Plotting"
@@ -98,6 +103,11 @@ reference:
   - write_plot
   - write_table
   - write_text
+  - format_table
+
+- title: "Deprecated"
+  desc: "Kept for backwards compatibility; prefer the replacements noted in each function's help."
+  contents:
   - create_word_xml
 
 - title: "Variable and value labels"

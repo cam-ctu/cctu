@@ -13,38 +13,23 @@ cttab(x, ...)
   data,
   group = NULL,
   row_split = NULL,
+  nest = cctu_opt("nest"),
   total = TRUE,
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
-  digits = getOption("cctu_digits", default = 3),
-  digits_pct = getOption("cctu_digits_pct", default = 0),
+  digits = cctu_opt("digits"),
+  digits_pct = cctu_opt("digits_pct"),
   rounding_fn = signif_pad,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE),
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+  subjid_string = cctu_opt("subjid_string"),
+  print_plot = cctu_opt("print_plot"),
+  render_num = cctu_opt("render_num"),
   logical_na_impute = c(FALSE, NA, TRUE),
-  blinded = getOption("cctu_blinded", default = FALSE),
+  blinded = cctu_opt("blinded"),
   ...
 )
 
-\method{cttab}{formula}(
-  x,
-  data,
-  total = TRUE,
-  select = NULL,
-  add_missing = TRUE,
-  add_obs = TRUE,
-  digits = getOption("cctu_digits", default = 3),
-  digits_pct = getOption("cctu_digits_pct", default = 0),
-  rounding_fn = signif_pad,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE),
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
-  logical_na_impute = c(FALSE, NA, TRUE),
-  blinded = getOption("cctu_blinded", default = FALSE),
-  ...
-)
+\method{cttab}{formula}(x, data, ...)
 }
 \arguments{
 \item{x}{Variables to be used or a \code{formula} for summary table.
@@ -64,6 +49,13 @@ should be taken.}
 
 \item{row_split}{Variable that used for splitting table rows, rows will be
 split using this variable. Useful for repeated measures.}
+
+\item{nest}{Controls the row hierarchy when \code{row_split} is supplied.
+Default \code{"split"} renders the row-split variable as the outer
+header with the analysis variables nested inside it. Use \code{"var"}
+to flip the hierarchy so each analysis variable becomes the outer
+section and the row-split levels are nested as sub-sections under it.
+Ignored when \code{row_split} is \code{NULL}.}
 
 \item{total}{If a "Total" column will be created (default). Specify
 \code{FALSE} to omit the column.}
@@ -115,7 +107,7 @@ in the summary. You can used a named list in \code{x} and stack multiple
 and grouping summary will not be reported.}
 }
 \value{
-A matrix with `cttab` class.
+A \code{data.table} with class \code{cttab}.
 }
 \description{
 This is a wrapper function of \code{stat_tab}, allowing for grouped variables,
@@ -125,11 +117,10 @@ split statistics table by `row_split` variable.
 \strong{1. Parameter settings with global options}
 
 Some of the function parameters can be set with options. This will have an global
-effect on the \code{cctab} function. It is an ideal way to set a global settings
+effect on the \code{cttab} function. It is an ideal way to set a global settings
 if you want this to be effective globally. Currently, you can set \code{digits},
 \code{digits_pct}, \code{subjid_string}, \code{print_plot}, \code{render_num} and
-\code{blinded}  by adding \code{"cctu_"} prefix in the \code{options}. For example,
- you can suppress the plot from printing by setting \code{options(cctu_print_plot = FALSE)}.
+\code{blinded}  in \code{\link{cctu_options}}.
 
 \strong{2. Formula interface}
 
@@ -146,27 +137,20 @@ variable after the grouping variable and then the row split variable. For exampl
 
 \strong{3. Return}
 
-A summary table with some attributes will be reutned, a method has been writen for \code{rbind}.
-So you can use \code{rbind} to combine two tables without losing any attributes. An attribute
-\code{position} will be used to produce a nice table. There are three 4 possible values for each
-rows. Row name printed as the first column in the word table. Some styles will be applied to each
-row based on the \code{position} attributes.
-\tabular{ll}{
-\code{0} \tab indicates the row will be  in bold, spanned through all columns and a grey background
-in the word \cr
-\tab \cr
-\code{1} \tab indicates the row will be in bold \cr
-\tab \cr
-\code{2} \tab the row will be in bold and spanned through all columns \cr
-\tab \cr
-\code{3} \tab indicates the row of the first column will be indented \cr
-}
+A long-format \code{data.table} with class \code{cttab} is returned. It carries
+\code{group} and \code{row_split} attributes that record the names of the grouping
+and splitting variables. The function \code{\link{cttab_format}} converts this
+table into a \code{data.frame} with a \code{row_style} attribute used by the
+\code{print} method and \code{\link{write_table}} to render the final report.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{cttab(default)}: The default interface, where \code{x} is a \code{data.frame}.
+\item \code{cttab(default)}: The default interface, where \code{x} is a \code{character}
+vector or a (optionally named) list of character vectors. A named list inserts
+a banner header row above the corresponding variables.
 
 \item \code{cttab(formula)}: The formula interface, where \code{x} is a \code{formula}.
+Parses the formula then dispatches to \code{cttab.default}.
 
 }}
 \examples{
@@ -245,9 +229,11 @@ X <- cttab(x = list(c("AGE", "SEX", "BMIBL"),
 \code{\link{signif_pad}}
 \code{\link{round_pad}}
 \code{\link{stat_tab}}
+\code{\link{cttab_format}}
 \code{\link{sumby}}
 \code{\link{dump_missing_report}}
 \code{\link{get_missing_report}}
 \code{\link{render_numeric}}
 \code{\link{render_cat}}
+\code{\link{cctu_options}}
 }

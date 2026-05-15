@@ -65,7 +65,7 @@ test_that("alternative dimension for table", {
     mt_tab[mt_tab$number == "1.1", "footnote2"],
     "I am custom footnote"
   )
-  filetemp <- tempfile("report", fileext = ".doc")
+  filetemp <- tempfile("report", fileext = ".docx")
   create_word_xml("test report", "author",
     meta_table = get_meta_table() %>% dplyr::filter(number == "1.1"),
     popn_labels = c("my population"),

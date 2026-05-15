@@ -1,4 +1,7 @@
-Rplots.pdf
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
 **/Output*
 **/output*
 /*.csv

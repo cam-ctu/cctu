@@ -10,7 +10,7 @@ write_text(
   x,
   number = cctu_env$number,
   clean_up = TRUE,
-  directory = file.path(getOption("cctu_output", default = "Output"), "Core"),
+  directory = file.path(cctu_opt("output"), "Core"),
   verbose = options()$verbose
 )
 ```
@@ -19,12 +19,13 @@ write_text(
 
 - x:
 
-  the character string to be saved in xml format
+  the character string (or vector of strings) to be saved in xml format.
+  A vector is concatenated into a single text block.
 
 - number:
 
-  the number used to as a suffix in the output filename, and to link to
-  TableofTables. Default is to use the value in the cctu_env package
+  the number used as a suffix in the output filename, and to link to the
+  meta_table. Default is to use the value in the cctu_env package
   environment that is set within
   [`attach_pop`](https://cam-ctu.github.io/cctu/reference/attach_pop.md).
 
@@ -32,17 +33,17 @@ write_text(
 
   logical to invoke the
   [`clean_up`](https://cam-ctu.github.io/cctu/reference/clean_up.md)
-  function at the end. Defaults to TRUE
+  function at the end. Defaults to `TRUE`.
 
 - directory:
 
-  where to save the figures within path or current working directory.
-  The Output directory can be over-riden with options("cctu_output").
+  where to save the text within path or current working directory.
+  Defaults to `file.path(cctu_opt("output"), "Core")`.
 
 - verbose:
 
   logical to print information on changes to the global environment or
-  external files. Defaults to options()\$verbose.
+  external files. Defaults to `options()$verbose`.
 
 ## Value
 

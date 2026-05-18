@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Produces the final Docx file — write_docx"><meta name="description" content="Produces the final Docx file"><meta property="og:description" content="Produces the final Docx file"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Produces the final Docx file — write_docx"><meta name="description" content="Produces the final Docx file"><meta property="og:description" content="Produces the final Docx file"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Produces the final Docx file</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/write_docx.R" class="external-link"><code>R/write_docx.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/write_docx.R" class="external-link"><code>R/write_docx.R</code></a></small>
       <div class="d-none name"><code>write_docx.Rd</code></div>
     </div>
 
@@ -61,11 +61,10 @@
 <span>  <span class="va">report_title</span>,</span>
 <span>  <span class="va">author</span>,</span>
 <span>  meta_table <span class="op">=</span> <span class="fu"><a href="get_meta_table.html">get_meta_table</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Reports"</span>,</span>
-<span>    <span class="st">"Report.docx"</span><span class="op">)</span>,</span>
-<span>  table_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
+<span>  filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Reports"</span>, <span class="st">"Report.docx"</span><span class="op">)</span>,</span>
+<span>  table_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
 <span>  figure_format <span class="op">=</span> <span class="st">"png"</span>,</span>
-<span>  figure_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Figures"</span><span class="op">)</span>,</span>
+<span>  figure_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Figures"</span><span class="op">)</span>,</span>
 <span>  popn_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">verbose</span>,</span>
 <span>  keep_xml <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -85,13 +84,13 @@
 
 
 <dt id="arg-meta-table">meta_table<a class="anchor" aria-label="anchor" href="#arg-meta-table"></a></dt>
-<dd><p>a data frame  that contains meta information on tables
-(title, population, number). Defaults is get_meta_table()</p></dd>
+<dd><p>a data frame that contains meta information on tables
+(title, population, number). Defaults to <code><a href="get_meta_table.html">get_meta_table()</a></code>.</p></dd>
 
 
 <dt id="arg-filename">filename<a class="anchor" aria-label="anchor" href="#arg-filename"></a></dt>
 <dd><p>text string giving the filename/path to output the word
-document to</p></dd>
+document to.</p></dd>
 
 
 <dt id="arg-table-path">table_path<a class="anchor" aria-label="anchor" href="#arg-table-path"></a></dt>
@@ -104,17 +103,13 @@ This is used to directly open table files and copy the content.</p></dd>
 
 
 <dt id="arg-figure-path">figure_path<a class="anchor" aria-label="anchor" href="#arg-figure-path"></a></dt>
-<dd><p>text string giving the filepath to the figures folder.
-This is used to create a reference within the  word document. Hence it needs
- to be a relative (to the output report) path "../Figures". Likely to lead
-  to empty figures in the report if it is changed.</p></dd>
+<dd><p>text string giving the filepath to the figures folder.</p></dd>
 
 
 <dt id="arg-popn-labels">popn_labels<a class="anchor" aria-label="anchor" href="#arg-popn-labels"></a></dt>
 <dd><p>alternative text string giving labels used for the
-population - might want to include the population size... They must match
- correctly to unique(meta_table$population), excluding rows with a blank,
- or no, population given</p></dd>
+population - might want to include the population size. They must match
+<code>unique(meta_table$population)</code>, excluding rows with a blank population.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -124,7 +119,7 @@ environment or external files. Defaults to options()$verbose.</p></dd>
 
 <dt id="arg-keep-xml">keep_xml<a class="anchor" aria-label="anchor" href="#arg-keep-xml"></a></dt>
 <dd><p>a boolean if the compiled XML should be kept, used for
-debugging purpose.</p></dd>
+debugging purposes.</p></dd>
 
 </dl></div>
     <div class="section level2">

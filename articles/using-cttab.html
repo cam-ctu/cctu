@@ -13,8 +13,8 @@
     }
   };
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Use cttab in the Analysis">
 </head>
@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,9 +76,9 @@
                         <h4 data-toc-skip class="author">Alimu
 Dayimu</h4>
             
-            <h4 data-toc-skip class="date">2026-02-20</h4>
+            <h4 data-toc-skip class="date">2026-05-18</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/vignettes/using-cttab.Rmd" class="external-link"><code>vignettes/using-cttab.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/vignettes/using-cttab.Rmd" class="external-link"><code>vignettes/using-cttab.Rmd</code></a></small>
       <div class="d-none name"><code>using-cttab.Rmd</code></div>
     </div>
 
@@ -151,8 +151,8 @@ labels and convert the variable to factor.</p>
 value label attributes</strong>. Normally it won’t, but you should check
 it before report if you are not sure. For example,
 <code>as.numeric</code>, <code>as.character</code> and
-<code>as.logiac</code> will drop the variable and value label. There are
-<code>to_numeric</code>, <code>to_character</code> and
+<code>as.logical</code> will drop the variable and value label. There
+are <code>to_numeric</code>, <code>to_character</code> and
 <code>to_logical</code> can be used to convert the data type. You can
 also use the <code>copy_lab</code> function to copy the variable and
 value labels from the other variable.</p>
@@ -191,10 +191,10 @@ variable selection will be considered as a variable of the data.</p>
 <span></span>
 <span><span class="co"># But you can't do this for the data.table</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></span>
-<span><span class="va">mtcars</span><span class="op">[</span>, <span class="va">vars</span><span class="op">]</span></span>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">vars</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># You need to add with=FALSE to do that</span></span>
-<span><span class="va">mtcars</span><span class="op">[</span>, <span class="va">vars</span>, with <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">dat</span><span class="op">[</span>, <span class="va">vars</span>, with <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="table-function">Table function<a class="anchor" aria-label="anchor" href="#table-function"></a>
@@ -208,25 +208,32 @@ group, stratify tables by visit. Also, you can report variable based on
 some conditions and group the variable in the report. It generates a
 missing report internally and you can dump the missing report at the
 end. No extra step is needed. It will also produce the summary plots of
-the variables. The produced plots will be arrange to 3 by 3 and new plot
-will be producd if the variables exceeds 9. The remaining of this
+the variables. The produced plots will be arranged to 3 by 3 and a new
+plot will be produced if the variables exceed 9. The remaining of this
 document will show you with a working case.</p>
 </div>
 <div class="section level3">
 <h3 id="setting-options">Setting options<a class="anchor" aria-label="anchor" href="#setting-options"></a>
 </h3>
-<p>The <code>cctab</code> function has a good flexibility, which means
+<p>The <code>cttab</code> function has a good flexibility, which means
 it has lots of parameters you can use. You should check out the manual
-of the <code>cctab</code> function. But, you can use
-<code>options</code> to set the default value of the parameters to be
-used by <code>cctab</code>. Below is setting some of the options, for
-more details please check out the <code>cctab</code> function
-manuals.</p>
+of the <code>cttab</code> function. The recommended way to set defaults
+is <code><a href="../reference/cctu_options.html">cctu_options()</a></code> (and <code><a href="../reference/cctu_opt.html">cctu_opt()</a></code> to read a
+single value back); these honour the same names you’d otherwise pass as
+<code>options(cctu_&lt;name&gt; = …)</code>, but with input
+validation:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>cctu_digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="co"># keep 3 digits for numerical value</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>cctu_digits_pct <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="co"># keep 0 digits for percentage</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>cctu_subjid_string <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span> <span class="co"># Set subject ID string</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>cctu_print_plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># Don't produce plots</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/cctu_options.html">cctu_options</a></span><span class="op">(</span></span>
+<span>  digits        <span class="op">=</span> <span class="fl">3</span>,        <span class="co"># keep 3 significant digits for numerical value</span></span>
+<span>  digits_pct    <span class="op">=</span> <span class="fl">0</span>,        <span class="co"># keep 0 digits for percentage</span></span>
+<span>  subjid_string <span class="op">=</span> <span class="st">"subjid"</span>, <span class="co"># subject ID column name</span></span>
+<span>  print_plot    <span class="op">=</span> <span class="cn">FALSE</span>     <span class="co"># don't produce summary plots</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Read a single option back</span></span>
+<span><span class="fu"><a href="../reference/cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span></span></code></pre></div>
+<p>The plain <code>options(cctu_&lt;name&gt; = …)</code> form is still
+supported for backwards compatibility.</p>
 </div>
 </div>
 <div class="section level2">
@@ -252,7 +259,7 @@ vignette.</p>
 <span><span class="va">clu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pilotdata_clu.csv"</span>, package <span class="op">=</span> <span class="st">"cctu"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
-<h4 id="vertically-splited-multiple-data">Vertically splited multiple data<a class="anchor" aria-label="anchor" href="#vertically-splited-multiple-data"></a>
+<h4 id="vertically-split-multiple-data">Vertically split multiple data<a class="anchor" aria-label="anchor" href="#vertically-split-multiple-data"></a>
 </h4>
 <p>If you have multiple datasets, you should combine them at this stage.
 If multiple datasets are given and they have the same variable name, you
@@ -294,10 +301,10 @@ applying <code>apply_macro_dict</code>. The function can handle variable
 name cleaning by setting <code>clean_names = TRUE</code>, this is
 default behaviour. The <code>apply_macro_dict</code> function will clean
 the variable name in the DLU and CLU, then apply these macro meta data
-to the target dataset. The cleaned DLU data will be sotred internally
+to the target dataset. The cleaned DLU data will be stored internally
 and is further used by <code>cttab</code> to report missingness. You can
 use <code>get_dlu</code> to extract the internal DLU data after applying
-<code>apply_macro_dict</code> to the dataset for further useage or as a
+<code>apply_macro_dict</code> to the dataset for further usage or as a
 reference. Although you can use <code>set_dlu</code> to change the
 internal DLU data stored by <code>apply_macro_dict</code>, this is not
 recommended unless you know what you are doing. This will have an impact
@@ -346,21 +353,17 @@ patients’ BMI.</p>
 <span><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Age                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
 <span><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
@@ -369,7 +372,7 @@ patients’ BMI.</p>
 <div class="section level3">
 <h3 id="formula-interface">Formula interface<a class="anchor" aria-label="anchor" href="#formula-interface"></a>
 </h3>
-<p>One can use formula in the <code>cctab</code> just like
+<p>One can use formula in the <code>cttab</code> just like
 <code>lm</code>, but you will not be able to group variables (described
 in the later section). The left hand side of the formula is the
 variables to be summarised. Right hand side of the formula is the
@@ -430,18 +433,15 @@ selection.</p>
 <span><span class="co">#&gt; |                   │      Total      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Age                                  |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       100       |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   75.1 (7.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│77.0 [56.0, 88.0]|</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Sex                                  |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Female           │  51/100 (51%)   |</span></span>
 <span><span class="co">#&gt; |  Male             │  49/100 (49%)   |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Baseline BMI (kg/m^2)                |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       100       |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   24.5 (4.15)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│24.4 [13.7, 33.6]|</span></span>
@@ -466,21 +466,17 @@ selection.</p>
 <span><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Age                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
 <span><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
@@ -501,7 +497,8 @@ or repeat variable.</p>
 <span>  data <span class="op">=</span> <span class="va">df</span>,</span>
 <span>  row_split <span class="op">=</span> <span class="st">"AVISIT"</span>, <span class="co"># Visit variable</span></span>
 <span>  select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ALT"</span> <span class="op">=</span> <span class="st">"PERF == 1"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Dropped 142 observations with missing 'ARM' / 'AVISIT'.</span></span></code></pre></div>
 <p><img src="using-cttab_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -510,80 +507,84 @@ or repeat variable.</p>
 <span><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Study Visit = Baseline                                                   |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       47        │       52        │       99        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   23.4 (7.09)   │   23.6 (7.05)   │   23.5 (7.04)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 54.0]│21.5 [13.0, 52.0]│23.0 [12.0, 54.0]|</span></span>
 <span><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       46        │       51        │       97        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   10.0 (4.38)   │   11.4 (6.01)   │   10.8 (5.32)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 25.7]│10.3 [5.13, 39.3]│10.3 [5.13, 39.3]|</span></span>
 <span><span class="co">#&gt; |  Missing          │     2 (4%)      │     1 (2%)      │     3 (3%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       45        │       40        │       85        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   18.1 (8.01)   │   22.1 (13.2)   │   20.0 (10.9)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│16.0 [7.00, 50.0]│17.0 [8.00, 64.0]│16.0 [7.00, 64.0]|</span></span>
 <span><span class="co">#&gt; |  Missing          │                 │     2 (5%)      │     2 (2%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Study Visit = Week 4                                                     |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       43        │       44        │       87        |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       41        │       43        │       84        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   25.1 (18.4)   │   23.8 (6.39)   │   24.4 (13.6)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 135] │23.0 [12.0, 43.0]│23.0 [12.0, 135] |</span></span>
 <span><span class="co">#&gt; |  Missing          │     2 (5%)      │     1 (2%)      │     3 (3%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       42        │       44        │       86        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   12.7 (18.2)   │   11.4 (6.51)   │   12.0 (13.5)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 125] │8.55 [5.13, 34.2]│8.55 [5.13, 125] |</span></span>
 <span><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       39        │       38        │       77        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   18.9 (16.1)   │   21.6 (11.0)   │   20.2 (13.8)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│15.0 [7.00, 107] │20.0 [8.00, 61.0]│16.0 [7.00, 107] |</span></span>
 <span><span class="co">#&gt; |  Missing          │                 │     3 (7%)      │     3 (4%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Study Visit = End of Treatment                                           |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       47        │       50        │       97        |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       45        │       48        │       93        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   27.4 (27.9)   │   23.1 (6.04)   │   25.2 (19.9)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│21.0 [14.0, 168] │23.0 [12.0, 39.0]│22.0 [12.0, 168] |</span></span>
 <span><span class="co">#&gt; |  Missing          │     2 (4%)      │     2 (4%)      │     4 (4%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Bilirubin (umol/L)                                                       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       45        │       46        │       91        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   12.5 (17.7)   │   11.5 (6.39)   │   12.0 (13.2)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│8.55 [5.13, 125] │10.3 [3.42, 30.8]│8.55 [3.42, 125] |</span></span>
 <span><span class="co">#&gt; |  Missing          │     2 (4%)      │     4 (8%)      │     6 (6%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       45        │       43        │       88        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   19.6 (21.8)   │   19.7 (8.41)   │   19.6 (16.6)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│14.0 [5.00, 124] │17.0 [9.00, 43.0]│16.0 [5.00, 124] |</span></span>
 <span><span class="co">#&gt; |  Missing          │                 │     1 (2%)      │     1 (1%)      |</span></span>
 <span><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
+<p>When <code>row_split</code> is supplied you can also flip the row
+hierarchy with the <code>nest</code> argument. The default
+<code>nest = "split"</code> puts the row-split levels on the outside (a
+“Study Visit = Baseline” banner with each variable’s stats nested inside
+it). Setting <code>nest = "var"</code> flips it so each variable becomes
+the outer banner and the row-split levels (e.g. each visit) appear as
+sub-sections within it — useful when you want to read one variable
+across all visits at a glance.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">X_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cttab.html">cttab</a></span><span class="op">(</span></span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AST"</span>, <span class="st">"BILI"</span>, <span class="st">"ALT"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"ARM"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">df</span>,</span>
+<span>  row_split <span class="op">=</span> <span class="st">"AVISIT"</span>,</span>
+<span>  nest <span class="op">=</span> <span class="st">"var"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="group-variable">Group variable<a class="anchor" aria-label="anchor" href="#group-variable"></a>
@@ -596,7 +597,7 @@ lab results. The <code>cttab</code> will report the count and percentage
 of <code>TRUE</code>. This is useful if you want to report patient
 numbers for different condition that belong to one category. Below is
 how to do it:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prepare data as before</span></span>
 <span><span class="fu"><a href="../reference/attach_pop.html">attach_pop</a></span><span class="op">(</span><span class="st">"1.1"</span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_form.html">extract_form</a></span><span class="op">(</span><span class="va">dt</span>, <span class="st">"PatientReg"</span>, vars_keep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subjid"</span><span class="op">)</span><span class="op">)</span></span>
@@ -629,52 +630,44 @@ how to do it:</p>
 <span>    <span class="st">"ALT"</span> <span class="op">=</span> <span class="st">"PERF == 1"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="using-cttab_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<p><img src="using-cttab_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700"></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">X</span></span>
 <span><span class="co">#&gt; ┌───────────────────┬─────────────────┬─────────────────┬─────────────────┐</span></span>
 <span><span class="co">#&gt; |                   │     Placebo     │    Research     │      Total      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       48        │       52        │       100       |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Age                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       48        │       52        │       100       |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   │   74.8 (8.04)   │   75.1 (7.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]│77.0 [56.0, 88.0]│77.0 [56.0, 88.0]|</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Sex                                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Female           │   26/48 (54%)   │   25/52 (48%)   │  51/100 (51%)   |</span></span>
 <span><span class="co">#&gt; |  Male             │   22/48 (46%)   │   27/52 (52%)   │  49/100 (49%)   |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                    |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │        5        │        6        │       11        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   27.8 (3.98)   │   24.6 (3.54)   │   26.0 (3.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│27.9 [23.4, 32.8]│23.5 [21.3, 31.4]│24.3 [21.3, 32.8]|</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Blood                                                                    |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Alanine Aminotransferase (U/L)                                           |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       45        │       40        │       85        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   18.1 (8.01)   │   22.1 (13.2)   │   20.0 (10.9)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│16.0 [7.00, 50.0]│17.0 [8.00, 64.0]│16.0 [7.00, 64.0]|</span></span>
 <span><span class="co">#&gt; |  Missing          │                 │     2 (5%)      │     2 (2%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Aspartate Aminotransferase (U/L)                                         |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       47        │       52        │       99        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │   23.4 (7.09)   │   23.6 (7.05)   │   23.5 (7.04)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│23.0 [12.0, 54.0]│21.5 [13.0, 52.0]│23.0 [12.0, 54.0]|</span></span>
 <span><span class="co">#&gt; |  Missing          │     1 (2%)      │                 │     1 (1%)      |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴─────────────────┴─────────────────┤</span></span>
 <span><span class="co">#&gt; |Pts with Abnormal                                                        |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬─────────────────┬─────────────────┤</span></span>
 <span><span class="co">#&gt; |AST abnormal       │   13/48 (27%)   │   17/52 (33%)   │  30/100 (30%)   |</span></span>
 <span><span class="co">#&gt; |ALT abnormal       │   9/48 (19%)    │   11/52 (21%)   │  20/100 (20%)   |</span></span>
 <span><span class="co">#&gt; └───────────────────┴─────────────────┴─────────────────┴─────────────────┘</span></span></code></pre></div>
@@ -689,7 +682,7 @@ rounding function is <code>signif_pad</code>, you can also use
 summary. The <code>format_percent</code> function is used to format the
 percentage values. There is <code>format_pval</code> might be useful to
 you.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cttab.html">cttab</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"SEX"</span>, <span class="st">"BMIBL"</span><span class="op">)</span>, <span class="co"># Variable to report</span></span>
 <span>  group <span class="op">=</span> <span class="st">"ARM"</span>, <span class="co"># Group variable</span></span>
@@ -698,33 +691,181 @@ you.</p>
 <span>  digits_pct <span class="op">=</span> <span class="fl">1</span>, <span class="co"># Keep 1 digits for percentage</span></span>
 <span>  rounding_fn <span class="op">=</span> <span class="va">round</span></span>
 <span><span class="op">)</span> <span class="co"># Use function round for rounding</span></span></code></pre></div>
-<p><img src="using-cttab_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="700"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p><img src="using-cttab_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="700"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">X</span></span>
 <span><span class="co">#&gt; ┌───────────────────┬─────────────────┬──────────────────┬──────────────────┐</span></span>
 <span><span class="co">#&gt; |                   │     Placebo     │     Research     │      Total       |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
 <span><span class="co">#&gt; |Observation        │       48        │        52        │       100        |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
 <span><span class="co">#&gt; |Age                                                                        |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       48        │        52        │       100        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │  75.52 (7.86)   │   74.75 (8.04)   │   75.12 (7.93)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│   78 [57, 88]   │   77 [56, 88]    │   77 [56, 88]    |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
 <span><span class="co">#&gt; |Sex                                                                        |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
 <span><span class="co">#&gt; |  Female           │  26/48 (54.2%)  │  25/52 (48.1%)   │  51/100 (51.0%)  |</span></span>
 <span><span class="co">#&gt; |  Male             │  22/48 (45.8%)  │  27/52 (51.9%)   │  49/100 (49.0%)  |</span></span>
 <span><span class="co">#&gt; ├───────────────────┴─────────────────┴──────────────────┴──────────────────┤</span></span>
 <span><span class="co">#&gt; |Baseline BMI (kg/m^2)                                                      |</span></span>
-<span><span class="co">#&gt; ├───────────────────┬─────────────────┬──────────────────┬──────────────────┤</span></span>
 <span><span class="co">#&gt; |  Valid Obs.       │       48        │        52        │       100        |</span></span>
 <span><span class="co">#&gt; |  Mean (SD)        │  23.55 (4.05)   │   25.29 (4.1)    │   24.45 (4.15)   |</span></span>
 <span><span class="co">#&gt; |  Median [Min, Max]│23.1 [15.1, 33.3]│25.25 [13.7, 33.6]│24.35 [13.7, 33.6]|</span></span>
 <span><span class="co">#&gt; └───────────────────┴─────────────────┴──────────────────┴──────────────────┘</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="what-cttab-returns-and-how-it-renders">What <code>cttab()</code> returns and how it renders<a class="anchor" aria-label="anchor" href="#what-cttab-returns-and-how-it-renders"></a>
+</h3>
+<p>The print method you’ve been using above does a small amount of work
+behind the scenes. <code><a href="../reference/cttab.html">cttab()</a></code> itself returns a
+<em>long-format</em> <code>data.table</code> (one row per
+<code>(row_split, group level, variable, statistic)</code> cell)
+carrying the raw values, before any layout decisions are made:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">X_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cttab.html">cttab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"SEX"</span><span class="op">)</span>, group <span class="op">=</span> <span class="st">"ARM"</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<p><img src="using-cttab_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="700"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">X_long</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "cttab"      "data.table" "data.frame"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">X_long</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ┌───────────────────┬─────────────────┐</span></span>
+<span><span class="co">#&gt; |                   │     Placebo     |</span></span>
+<span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span><span class="co">#&gt; |Observation        │       48        |</span></span>
+<span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span><span class="co">#&gt; |Age                                  |</span></span>
+<span><span class="co">#&gt; |  Valid Obs.       │       48        |</span></span>
+<span><span class="co">#&gt; |  Mean (SD)        │   75.5 (7.86)   |</span></span>
+<span><span class="co">#&gt; |  Median [Min, Max]│78.0 [57.0, 88.0]|</span></span>
+<span><span class="co">#&gt; ├───────────────────┴─────────────────┤</span></span>
+<span><span class="co">#&gt; |Sex                                  |</span></span>
+<span><span class="co">#&gt; |  Female           │   26/48 (54%)   |</span></span>
+<span><span class="co">#&gt; |  Male             │   22/48 (46%)   |</span></span>
+<span><span class="co">#&gt; └───────────────────┴─────────────────┘</span></span></code></pre></div>
+<p>This is the shape you want when you need to post-process the numbers
+— filter rows, edit labels, or bind two tables together
+(<code><a href="../reference/rbind.cttab.html">rbind.cttab()</a></code> is aware of the long format and re-numbers
+<code>Var_ID</code> / <code>Group_ID</code> so the bound parts stay in
+their own sections). It is also what <code><a href="../reference/write_table.html">write_table()</a></code> accepts
+when given an unformatted <code>cttab</code>.</p>
+<p>The rendered shape — section banners inserted, headers stamped with
+bold/bgcol/span tokens, stat rows indented — is produced by
+<code><a href="../reference/cttab_format.html">cttab_format()</a></code>. <code><a href="../reference/print.cttab.html">print.cttab()</a></code> and
+<code><a href="../reference/write_table.html">write_table()</a></code> call it for you, so you normally don’t have
+to. Calling it explicitly is useful when you want to inspect or tweak
+the rendered layout:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">X_fmt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cttab_format.html">cttab_format</a></span><span class="op">(</span><span class="va">X_long</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">X_fmt</span><span class="op">)</span>                   <span class="co"># c("cttab", "data.frame")</span></span>
+<span><span class="co">#&gt; [1] "cttab"      "data.frame"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">X_fmt</span><span class="op">[</span>, <span class="st">"label"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ┌─────────────────┐</span></span>
+<span><span class="co">#&gt; |                 |</span></span>
+<span><span class="co">#&gt; ├─────────────────┤</span></span>
+<span><span class="co">#&gt; |Observation      |</span></span>
+<span><span class="co">#&gt; |Age              |</span></span>
+<span><span class="co">#&gt; |Valid Obs.       |</span></span>
+<span><span class="co">#&gt; |Mean (SD)        |</span></span>
+<span><span class="co">#&gt; |Median [Min, Max]|</span></span>
+<span><span class="co">#&gt; |Sex              |</span></span>
+<span><span class="co">#&gt; |Female           |</span></span>
+<span><span class="co">#&gt; |Male             |</span></span>
+<span><span class="co">#&gt; └─────────────────┘</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">X_fmt</span>, <span class="st">"row_style"</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "bold"      "bold;span" "indent"    "indent"    "indent"    "bold;span"</span></span>
+<span><span class="co">#&gt; [7] "indent"    "indent"</span></span></code></pre></div>
+<p>The result is a <code>data.frame</code> with a <code>label</code>
+column carrying the per-row text and a <code>row_style</code> attribute
+carrying the per-row <code>;</code>-joined style tokens — the same
+vocabulary <code><a href="../reference/format_table.html">format_table()</a></code> exposes (see the next section). A
+few notes:</p>
+<ul>
+<li>
+<code><a href="../reference/cttab_format.html">cttab_format()</a></code> honours the <code>nest</code> attribute
+on <code>X_long</code>, so flipping <code>nest = "split" ↔︎ "var"</code>
+is reflected in the rendered row order without a second function
+call.</li>
+<li>If <code><a href="../reference/cttab_format.html">cttab_format()</a></code> is handed a table that has already
+been formatted (a matrix <code>cttab</code> or any data.frame stamped
+with a <code>row_style</code> attribute and a <code>label</code>
+column), it returns the input unchanged. That makes it safe for
+<code><a href="../reference/write_table.html">write_table()</a></code> and <code><a href="../reference/print.cttab.html">print.cttab()</a></code> to call
+unconditionally.</li>
+<li>If you only want a tidy long-format frame for downstream tools (no
+rendering metadata), use <code>as.data.frame(X_long)</code> — it drops
+the <code>Group_ID</code>, <code>Group_Label</code>,
+<code>Var_ID</code>, <code>Stat_ID</code> book-keeping columns and keeps
+<code>Variable</code>, <code>Statistic</code>, <code>Value</code>, plus
+the <code>group</code> / <code>row_split</code> columns.</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="styling-a-custom-table-with-format_table">Styling a custom table with <code>format_table</code><a class="anchor" aria-label="anchor" href="#styling-a-custom-table-with-format_table"></a>
+</h3>
+<p>Sometimes the table you want to render isn’t a <code>cttab</code>
+summary at all — maybe you’ve built a small <code>data.frame</code> by
+hand, or run a regression and want to drop a tidy version into the
+report. <code><a href="../reference/write_table.html">write_table()</a></code> knows how to render any
+<code>data.frame</code> or <code>matrix</code> styled with a
+<code>row_style</code> attribute, and <code><a href="../reference/format_table.html">format_table()</a></code> is the
+helper that stamps that attribute on for you.</p>
+<p>The styling vocabulary is four tokens — <code>bold</code>,
+<code>bgcol</code>, <code>span</code>, <code>indent</code> — plus an
+optional <code>col</code> token for coloured text. You pass each one a
+vector of row indices, and <code><a href="../reference/format_table.html">format_table()</a></code> assembles the
+per-row <code>;</code>-joined string that the renderer consumes. This is
+the same machinery <code><a href="../reference/cttab_format.html">cttab_format()</a></code> uses internally, so the
+look will match a <code>cttab</code> table.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Demographics"</span>,</span>
+<span>            <span class="st">"Age (years)"</span>, <span class="st">"Mean (SD)"</span>, <span class="st">"Median [Min, Max]"</span>,</span>
+<span>            <span class="st">"Sex"</span>,         <span class="st">"Female"</span>,    <span class="st">"Male"</span><span class="op">)</span>,</span>
+<span>  Treated <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>,          <span class="st">""</span>,          <span class="st">"65.2 (8.1)"</span>, <span class="st">"66 [50, 82]"</span>,</span>
+<span>                           <span class="st">""</span>,          <span class="st">"12 (40%)"</span>,   <span class="st">"18 (60%)"</span><span class="op">)</span>,</span>
+<span>  Control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>,          <span class="st">""</span>,          <span class="st">"63.9 (7.4)"</span>, <span class="st">"64 [49, 80]"</span>,</span>
+<span>                           <span class="st">""</span>,          <span class="st">"15 (50%)"</span>,   <span class="st">"15 (50%)"</span><span class="op">)</span>,</span>
+<span>  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format_table.html">format_table</a></span><span class="op">(</span><span class="va">df</span>,</span>
+<span>  bold   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,  <span class="co"># banner + variable headers</span></span>
+<span>  bgcol  <span class="op">=</span> <span class="fl">1</span>,           <span class="co"># only the top "Demographics" banner gets a fill</span></span>
+<span>  span   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,  <span class="co"># banner + variable headers span all columns</span></span>
+<span>  indent <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"row_style"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "bold;bgcol;span" "bold;span"       "indent"          "indent"         </span></span>
+<span><span class="co">#&gt; [5] "bold;span"       "indent"          "indent"</span></span></code></pre></div>
+<p>A row that should appear as a section banner ends up with
+<code>"bold;bgcol;span"</code>; a plain variable header is
+<code>"bold;span"</code>; stat rows under it are <code>"indent"</code>;
+everything else stays <code>""</code>. Token order in the assembled
+string is fixed (<code>bold;bgcol;span;indent;col</code>), and
+out-of-range / <code>NA</code> row indices are rejected with the column
+name in the error message.</p>
+<p>For coloured fills or text, pass <code>bgcol_color</code> /
+<code>col_color</code>. Both accept either a six-digit hex string or any
+standard R colour name; named colours are converted to hex once so the
+XSLT pipeline only sees one form:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format_table.html">format_table</a></span><span class="op">(</span><span class="va">df</span>,</span>
+<span>  bgcol       <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  bgcol_color <span class="op">=</span> <span class="st">"steelblue"</span>, <span class="co"># banner uses a custom fill</span></span>
+<span>  col         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  col_color   <span class="op">=</span> <span class="st">"#B22222"</span>    <span class="co"># two stat rows in a deep red</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><code>col</code> requires <code>col_color</code> to be set —
+supplying one without the other emits a warning and the colour token is
+dropped. If you want the package default (a light grey fill), just omit
+<code>bgcol_color</code>.</p>
+<p>Once stamped, hand the table off to <code><a href="../reference/write_table.html">write_table()</a></code> (or
+the print method) the same way you would with a <code>cttab</code>:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/write_table.html">write_table</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>   <span class="co"># renders into Output/Core/table_&lt;number&gt;.xml</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

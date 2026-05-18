@@ -9,11 +9,10 @@ write_docx(
   report_title,
   author,
   meta_table = get_meta_table(),
-  filename = file.path(getOption("cctu_output", default = "Output"), "Reports",
-    "Report.docx"),
-  table_path = file.path(getOption("cctu_output", default = "Output"), "Core"),
+  filename = file.path(cctu_opt("output"), "Reports", "Report.docx"),
+  table_path = file.path(cctu_opt("output"), "Core"),
   figure_format = "png",
-  figure_path = file.path(getOption("cctu_output", default = "Output"), "Figures"),
+  figure_path = file.path(cctu_opt("output"), "Figures"),
   popn_labels = NULL,
   verbose = options()$verbose,
   keep_xml = FALSE
@@ -33,11 +32,12 @@ write_docx(
 - meta_table:
 
   a data frame that contains meta information on tables (title,
-  population, number). Defaults is get_meta_table()
+  population, number). Defaults to
+  [`get_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md).
 
 - filename:
 
-  text string giving the filename/path to output the word document to
+  text string giving the filename/path to output the word document to.
 
 - table_path:
 
@@ -50,17 +50,14 @@ write_docx(
 
 - figure_path:
 
-  text string giving the filepath to the figures folder. This is used to
-  create a reference within the word document. Hence it needs to be a
-  relative (to the output report) path "../Figures". Likely to lead to
-  empty figures in the report if it is changed.
+  text string giving the filepath to the figures folder.
 
 - popn_labels:
 
   alternative text string giving labels used for the population - might
-  want to include the population size... They must match correctly to
-  unique(meta_table\$population), excluding rows with a blank, or no,
-  population given
+  want to include the population size. They must match
+  `unique(meta_table$population)`, excluding rows with a blank
+  population.
 
 - verbose:
 
@@ -70,7 +67,7 @@ write_docx(
 - keep_xml:
 
   a boolean if the compiled XML should be kept, used for debugging
-  purpose.
+  purposes.
 
 ## Value
 

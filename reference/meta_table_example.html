@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Example of a meta_table data frame — meta_table_example"><meta name="description" content="Example of a meta_table data frame"><meta property="og:description" content="Example of a meta_table data frame"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Example of a meta_table data frame — meta_table_example"><meta name="description" content="Example of a meta_table data frame"><meta property="og:description" content="Example of a meta_table data frame"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Example of a meta_table data frame</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/meta_table_example.R" class="external-link"><code>R/meta_table_example.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/meta_table_example.R" class="external-link"><code>R/meta_table_example.R</code></a></small>
       <div class="d-none name"><code>meta_table_example.Rd</code></div>
     </div>
 
@@ -91,7 +91,7 @@
 
  <dt>item</dt>
 <dd><p>takes values "table", "figure", or far more rarely "text".
-  <code><a href="create_word_xml.html">create_word_xml</a></code> will expect there to exist 'table_XX.xml',
+  <code><a href="write_docx.html">write_docx</a></code> will expect there to exist 'table_XX.xml',
    'figure_XX.png' or 'text_XX.xml' as appropriate where 'XX' is the number
     value.</p></dd>
 
@@ -108,28 +108,23 @@
  units 1/144 of inch. Defaults to 20 if not set.</p></dd>
 
 
-
-This is an example of the structure of a meta_table that must exist
-internally to use <a href="attach_pop.html">attach_pop</a>,<a href="write_table.html">write_table</a>,
-<a href="write_ggplot.html">write_ggplot</a>,<a href="create_word_xml.html">create_word_xml</a>. All variables are characters,
-including 'number'. The variables 'orientation' and 'item' can only take
- specific values.
-
-Typically one would create raw data using a spreadshee editor and read it
-into R. You may add additional columns to help plan and understand what each
- table or figure will be, and track progress.
-
-See  system.file("extdata", "meta_table.xlsx", package="cctu")
-
-Then you must set it internally using  <a href="get_meta_table.html">set_meta_table</a>, and
-possible examine the contents with <a href="get_meta_table.html">get_meta_table</a>
-
-To preserve troublesome number values '1.10', or '1.1.1' , in excel one can
- prefix the ' character ( to the left of the # key) before the number value
-
-
-
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>This is an example of the structure of a meta_table that must exist
+internally to use <code><a href="attach_pop.html">attach_pop</a></code>, <code><a href="write_table.html">write_table</a></code>,
+<code><a href="write_ggplot.html">write_ggplot</a></code>, <code><a href="write_docx.html">write_docx</a></code>. All variables are
+characters, including 'number'. The variables 'orientation' and 'item' can
+only take specific values.</p>
+<p>Typically one would create raw data using a spreadsheet editor and read it
+into R. You may add additional columns to help plan and understand what each
+table or figure will be, and track progress.</p>
+<p>See <code>system.file("extdata", "meta_table.xlsx", package = "cctu")</code>.</p>
+<p>Then you must set it internally using <code><a href="get_meta_table.html">set_meta_table</a></code>, and
+possibly examine the contents with <code><a href="get_meta_table.html">get_meta_table</a></code>.</p>
+<p>To preserve troublesome number values '1.10', or '1.1.1', in Excel one can
+prefix the ' character (to the left of the # key) before the number value.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="get_meta_table.html">set_meta_table</a></code> <code><a href="get_meta_table.html">get_meta_table</a></code></p></div>

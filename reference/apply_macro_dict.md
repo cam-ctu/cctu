@@ -12,7 +12,7 @@ apply_macro_dict(
   clu = NULL,
   date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d"),
   clean_names = TRUE,
-  rm_empty = getOption("cctu_rm_empty", default = "both"),
+  rm_empty = cctu_opt("rm_empty"),
   check_catvar = FALSE
 )
 ```
@@ -146,6 +146,7 @@ The CLU file contains three columns:
 ## Examples
 
 ``` r
+
 # Read MACRO data
 dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"),
                colClasses = "character")

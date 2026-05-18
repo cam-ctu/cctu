@@ -62,5 +62,5 @@ put values to a vector.
 x <- exp(rnorm(100, 1, 1))
 render_numeric(x)
 #>           Valid Obs.            Mean (SD)    Median [Min, Max] 
-#>                "100"        "4.59 (4.97)" "2.83 [0.308, 23.5]" 
+#>                "100"        "4.36 (5.39)" "2.73 [0.235, 38.4]" 
 ```

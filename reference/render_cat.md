@@ -48,5 +48,5 @@ y <- factor(sample(0:1, 99, replace = TRUE), labels = c("Female", "Male"))
 y[1:10] <- NA
 render_cat(y)
 #>          Female            Male 
-#> "36/89 (40.4%)" "53/89 (59.6%)" 
+#> "42/89 (47.2%)" "47/89 (52.8%)" 
 ```

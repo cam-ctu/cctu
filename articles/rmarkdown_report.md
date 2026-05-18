@@ -28,6 +28,7 @@ tables/figures. There are templates you can use to generate the report.
 Before you start, make sure you do the following in your `main.R` file.
 
 ``` r
+
 write.csv(
   get_meta_table(), 
   file=file.path("Output","meta_table.csv"), row.names = FALSE
@@ -52,6 +53,7 @@ You can use the following code to copy the templates to the current
 working directory.
 
 ``` r
+
 # Copy the templates to the Progs folder under current working directory
 rmd_files <- list.files(system.file("assets/rmd", package = "cctu"),
                         pattern = "*.Rmd",
@@ -67,6 +69,7 @@ After copying the files, you can modify the template as you wish. Then
 use the following code to generate the report.
 
 ``` r
+
 rmarkdown::render(
   # Path to the RMD template file
   file.path("Progs", "_rmarkdown_report.Rmd"), 
@@ -98,6 +101,7 @@ can use Quarto to create a report in HTML format.
 First, you need to copy yhe templates to the current working directory.
 
 ``` r
+
 file.copy(from = system.file("assets/qmd/_quarto-report.qmd", package = "cctu"), 
           to = getwd(), 
           overwrite = TRUE, 
@@ -109,6 +113,7 @@ After copying the files, you can modify the template as you wish. Then
 use the following code to generate the report.
 
 ``` r
+
 quarto::quarto_render(
   input = "_quarto-report.qmd", # Path to the QMD template file
   # Name of the output file

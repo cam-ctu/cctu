@@ -5,7 +5,9 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Produces the final xml file — create_word_xml"><meta name="description" content="Produces the final xml file"><meta property="og:description" content="Produces the final xml file"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Produces the final xml file — create_word_xml"><meta name="description" content='`r lifecycle::badge("deprecated")`
+This function is no longer maintained. Use write_docx instead.'><meta property="og:description" content='`r lifecycle::badge("deprecated")`
+This function is no longer maintained. Use write_docx instead.'></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +15,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,12 +49,13 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Produces the final xml file</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/create_word_xml.R" class="external-link"><code>R/create_word_xml.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/create_word_xml.R" class="external-link"><code>R/create_word_xml.R</code></a></small>
       <div class="d-none name"><code>create_word_xml.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p>Produces the final xml file</p>
+    <p>`r lifecycle::badge("deprecated")`
+This function is no longer maintained. Use <code><a href="write_docx.html">write_docx</a></code> instead.</p>
     </div>
 
     <div class="section level2">
@@ -62,11 +65,10 @@
 <span>  <span class="va">author</span>,</span>
 <span>  meta_table <span class="op">=</span> <span class="fu"><a href="get_meta_table.html">get_meta_table</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  datestamp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%H:%M %d %b %Y"</span><span class="op">)</span>,</span>
-<span>  filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Reports"</span>,</span>
-<span>    <span class="st">"Report.doc"</span><span class="op">)</span>,</span>
-<span>  table_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
+<span>  filename <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Reports"</span>, <span class="st">"Report.doc"</span><span class="op">)</span>,</span>
+<span>  table_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
 <span>  figure_format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"png"</span>, <span class="st">"jpeg"</span>, <span class="st">"ps"</span><span class="op">)</span>,</span>
-<span>  figure_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Figures"</span><span class="op">)</span>,</span>
+<span>  figure_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Figures"</span><span class="op">)</span>,</span>
 <span>  popn_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">verbose</span>,</span>
 <span>  xslt_file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"to_word.xslt"</span>, package <span class="op">=</span> <span class="st">"cctu"</span><span class="op">)</span>,</span>

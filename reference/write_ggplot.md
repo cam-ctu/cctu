@@ -8,15 +8,15 @@ to print `ggplot` object.
 
 ``` r
 write_ggplot(
-  plot = last_plot(),
+  plot,
   number = cctu_env$number,
   width = 29.7 * 0.6,
   height = 21 * 0.6,
   dpi = 300,
   units = "cm",
   clean_up = TRUE,
-  directory = file.path(getOption("cctu_output", default = "Output"), "Figures"),
-  format = getOption("cctu_fig_format", default = c("png", "eps")),
+  directory = file.path(cctu_opt("output"), "Figures"),
+  format = cctu_opt("fig_format"),
   graphics_args = NULL,
   verbose = options()$verbose,
   footnote = NULL

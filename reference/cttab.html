@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate an table of descriptive statistics. — cttab"><meta name="description" content="This is a wrapper function of stat_tab, allowing for grouped variables,
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate an table of descriptive statistics. — cttab"><meta name="description" content="This is a wrapper function of stat_tab, allowing for grouped variables,
 split statistics table by `row_split` variable."><meta property="og:description" content="This is a wrapper function of stat_tab, allowing for grouped variables,
 split statistics table by `row_split` variable."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -15,7 +15,7 @@ split statistics table by `row_split` variable."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ split statistics table by `row_split` variable."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Generate an table of descriptive statistics.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/cttab.R" class="external-link"><code>R/cttab.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/cttab.R" class="external-link"><code>R/cttab.R</code></a></small>
       <div class="d-none name"><code>cttab.Rd</code></div>
     </div>
 
@@ -68,39 +68,24 @@ split statistics table by `row_split` variable.</p>
 <span>  <span class="va">data</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  row_split <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nest <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"nest"</span><span class="op">)</span>,</span>
 <span>  total <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  select <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  add_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  add_obs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_digits"</span>, default <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>  digits_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_digits_pct"</span>, default <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span>,</span>
+<span>  digits_pct <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"digits_pct"</span><span class="op">)</span>,</span>
 <span>  rounding_fn <span class="op">=</span> <span class="va">signif_pad</span>,</span>
-<span>  subjid_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_subjid_string"</span>, default <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span>,</span>
-<span>  print_plot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_print_plot"</span>, default <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  render_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_render_num"</span>, default <span class="op">=</span> <span class="st">"Median [Min, Max]"</span><span class="op">)</span>,</span>
+<span>  subjid_string <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"subjid_string"</span><span class="op">)</span>,</span>
+<span>  print_plot <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"print_plot"</span><span class="op">)</span>,</span>
+<span>  render_num <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"render_num"</span><span class="op">)</span>,</span>
 <span>  logical_na_impute <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  blinded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_blinded"</span>, default <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  blinded <span class="op">=</span> <span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"blinded"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
-<span><span class="fu">cttab</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  <span class="va">data</span>,</span>
-<span>  total <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  select <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  add_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  add_obs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_digits"</span>, default <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>  digits_pct <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_digits_pct"</span>, default <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  rounding_fn <span class="op">=</span> <span class="va">signif_pad</span>,</span>
-<span>  subjid_string <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_subjid_string"</span>, default <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span>,</span>
-<span>  print_plot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_print_plot"</span>, default <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  render_num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_render_num"</span>, default <span class="op">=</span> <span class="st">"Median [Min, Max]"</span><span class="op">)</span>,</span>
-<span>  logical_na_impute <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">NA</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span>  blinded <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_blinded"</span>, default <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">cttab</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -133,6 +118,15 @@ should be taken.</p></dd>
 <dt id="arg-row-split">row_split<a class="anchor" aria-label="anchor" href="#arg-row-split"></a></dt>
 <dd><p>Variable that used for splitting table rows, rows will be
 split using this variable. Useful for repeated measures.</p></dd>
+
+
+<dt id="arg-nest">nest<a class="anchor" aria-label="anchor" href="#arg-nest"></a></dt>
+<dd><p>Controls the row hierarchy when <code>row_split</code> is supplied.
+Default <code>"split"</code> renders the row-split variable as the outer
+header with the analysis variables nested inside it. Use <code>"var"</code>
+to flip the hierarchy so each analysis variable becomes the outer
+section and the row-split levels are nested as sub-sections under it.
+Ignored when <code>row_split</code> is <code>NULL</code>.</p></dd>
 
 
 <dt id="arg-total">total<a class="anchor" aria-label="anchor" href="#arg-total"></a></dt>
@@ -210,17 +204,16 @@ and grouping summary will not be reported.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A matrix with `cttab` class.</p>
+    <p>A <code>data.table</code> with class <code>cttab</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><strong>1. Parameter settings with global options</strong></p>
 <p>Some of the function parameters can be set with options. This will have an global
-effect on the <code>cctab</code> function. It is an ideal way to set a global settings
+effect on the <code>cttab</code> function. It is an ideal way to set a global settings
 if you want this to be effective globally. Currently, you can set <code>digits</code>,
 <code>digits_pct</code>, <code>subjid_string</code>, <code>print_plot</code>, <code>render_num</code> and
-<code>blinded</code>  by adding <code>"cctu_"</code> prefix in the <code>options</code>. For example,
- you can suppress the plot from printing by setting <code>options(cctu_print_plot = FALSE)</code>.</p>
+<code>blinded</code>  in <code><a href="cctu_options.html">cctu_options</a></code>.</p>
 <p><strong>2. Formula interface</strong></p>
 <p>There are two interfaces, the default, which typically takes a variable vector from
 <code>data.frame</code> for <code>x</code>, and the formula interface. The formula interface is
@@ -233,28 +226,33 @@ variable after the grouping variable and then the row split variable. For exampl
  variable by default. A value of <code>1</code> should be provided if there is no grouping variable,
  for example <code>age + sex ~ 1</code> or <code>age + sex ~ 1|visit</code> by visit.</p>
 <p><strong>3. Return</strong></p>
-<p>A summary table with some attributes will be reutned, a method has been writen for <code>rbind</code>.
-So you can use <code>rbind</code> to combine two tables without losing any attributes. An attribute
-<code>position</code> will be used to produce a nice table. There are three 4 possible values for each
-rows. Row name printed as the first column in the word table. Some styles will be applied to each
-row based on the <code>position</code> attributes.</p><table class="table table"><tr><td><code>0</code></td><td>indicates the row will be  in bold, spanned through all columns and a grey background
-in the word</td></tr><tr><td></td><td></td></tr><tr><td><code>1</code></td><td>indicates the row will be in bold</td></tr><tr><td></td><td></td></tr><tr><td><code>2</code></td><td>the row will be in bold and spanned through all columns</td></tr><tr><td></td><td></td></tr><tr><td><code>3</code></td><td>indicates the row of the first column will be indented</td></tr></table></div>
+<p>A long-format <code>data.table</code> with class <code>cttab</code> is returned. It carries
+<code>group</code> and <code>row_split</code> attributes that record the names of the grouping
+and splitting variables. The function <code><a href="cttab_format.html">cttab_format</a></code> converts this
+table into a <code>data.frame</code> with a <code>row_style</code> attribute used by the
+<code>print</code> method and <code><a href="write_table.html">write_table</a></code> to render the final report.</p>
+    </div>
     <div class="section level2">
     <h2 id="methods-by-class-">Methods (by class)<a class="anchor" aria-label="anchor" href="#methods-by-class-"></a></h2>
 
-<ul><li><p><code>cttab(default)</code>: The default interface, where <code>x</code> is a <code>data.frame</code>.</p></li>
-<li><p><code>cttab(formula)</code>: The formula interface, where <code>x</code> is a <code>formula</code>.</p></li>
+<ul><li><p><code>cttab(default)</code>: The default interface, where <code>x</code> is a <code>character</code>
+vector or a (optionally named) list of character vectors. A named list inserts
+a banner header row above the corresponding variables.</p></li>
+<li><p><code>cttab(formula)</code>: The formula interface, where <code>x</code> is a <code>formula</code>.
+Parses the formula then dispatches to <code>cttab.default</code>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="signif_pad.html">signif_pad</a></code>
 <code><a href="signif_pad.html">round_pad</a></code>
 <code><a href="stat_tab.html">stat_tab</a></code>
+<code><a href="cttab_format.html">cttab_format</a></code>
 <code><a href="sumby.html">sumby</a></code>
 <code><a href="dump_missing_report.html">dump_missing_report</a></code>
 <code><a href="dump_missing_report.html">get_missing_report</a></code>
 <code><a href="render_numeric.html">render_numeric</a></code>
-<code><a href="render_cat.html">render_cat</a></code></p></div>
+<code><a href="render_cat.html">render_cat</a></code>
+<code><a href="cctu_options.html">cctu_options</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -309,6 +307,7 @@ in the word</td></tr><tr><td></td><td></td></tr><tr><td><code>1</code></td><td>i
 <span class="r-in"><span>                  data <span class="op">=</span> <span class="va">df</span>,</span></span>
 <span class="r-in"><span>                  row_split <span class="op">=</span> <span class="st">"AVISIT"</span>,</span></span>
 <span class="r-in"><span>                  select <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ALT"</span> <span class="op">=</span> <span class="st">"PERF == 1"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Dropped 142 observations with missing 'ARM' / 'AVISIT'.</span>
 <span class="r-plt img"><img src="cttab-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">############################################</span></span></span>

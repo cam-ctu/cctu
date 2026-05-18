@@ -14,39 +14,24 @@ cttab(
   data,
   group = NULL,
   row_split = NULL,
+  nest = cctu_opt("nest"),
   total = TRUE,
   select = NULL,
   add_missing = TRUE,
   add_obs = TRUE,
-  digits = getOption("cctu_digits", default = 3),
-  digits_pct = getOption("cctu_digits_pct", default = 0),
+  digits = cctu_opt("digits"),
+  digits_pct = cctu_opt("digits_pct"),
   rounding_fn = signif_pad,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE),
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
+  subjid_string = cctu_opt("subjid_string"),
+  print_plot = cctu_opt("print_plot"),
+  render_num = cctu_opt("render_num"),
   logical_na_impute = c(FALSE, NA, TRUE),
-  blinded = getOption("cctu_blinded", default = FALSE),
+  blinded = cctu_opt("blinded"),
   ...
 )
 
 # S3 method for class 'formula'
-cttab(
-  x,
-  data,
-  total = TRUE,
-  select = NULL,
-  add_missing = TRUE,
-  add_obs = TRUE,
-  digits = getOption("cctu_digits", default = 3),
-  digits_pct = getOption("cctu_digits_pct", default = 0),
-  rounding_fn = signif_pad,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid"),
-  print_plot = getOption("cctu_print_plot", default = TRUE),
-  render_num = getOption("cctu_render_num", default = "Median [Min, Max]"),
-  logical_na_impute = c(FALSE, NA, TRUE),
-  blinded = getOption("cctu_blinded", default = FALSE),
-  ...
-)
+cttab(x, data, ...)
 ```
 
 ## Arguments
@@ -77,6 +62,15 @@ cttab(
 
   Variable that used for splitting table rows, rows will be split using
   this variable. Useful for repeated measures.
+
+- nest:
+
+  Controls the row hierarchy when `row_split` is supplied. Default
+  `"split"` renders the row-split variable as the outer header with the
+  analysis variables nested inside it. Use `"var"` to flip the hierarchy
+  so each analysis variable becomes the outer section and the row-split
+  levels are nested as sub-sections under it. Ignored when `row_split`
+  is `NULL`.
 
 - total:
 
@@ -157,19 +151,18 @@ cttab(
 
 ## Value
 
-A matrix with \`cttab\` class.
+A `data.table` with class `cttab`.
 
 ## Details
 
 **1. Parameter settings with global options**
 
 Some of the function parameters can be set with options. This will have
-an global effect on the `cctab` function. It is an ideal way to set a
+an global effect on the `cttab` function. It is an ideal way to set a
 global settings if you want this to be effective globally. Currently,
 you can set `digits`, `digits_pct`, `subjid_string`, `print_plot`,
-`render_num` and `blinded` by adding `"cctu_"` prefix in the `options`.
-For example, you can suppress the plot from printing by setting
-`options(cctu_print_plot = FALSE)`.
+`render_num` and `blinded` in
+[`cctu_options`](https://cam-ctu.github.io/cctu/reference/cctu_options.md).
 
 **2. Formula interface**
 
@@ -188,43 +181,41 @@ example `age + sex ~ 1` or `age + sex ~ 1|visit` by visit.
 
 **3. Return**
 
-A summary table with some attributes will be reutned, a method has been
-writen for `rbind`. So you can use `rbind` to combine two tables without
-losing any attributes. An attribute `position` will be used to produce a
-nice table. There are three 4 possible values for each rows. Row name
-printed as the first column in the word table. Some styles will be
-applied to each row based on the `position` attributes.
-
-|     |                                                                                                  |
-|-----|--------------------------------------------------------------------------------------------------|
-| `0` | indicates the row will be in bold, spanned through all columns and a grey background in the word |
-|     |                                                                                                  |
-| `1` | indicates the row will be in bold                                                                |
-|     |                                                                                                  |
-| `2` | the row will be in bold and spanned through all columns                                          |
-|     |                                                                                                  |
-| `3` | indicates the row of the first column will be indented                                           |
+A long-format `data.table` with class `cttab` is returned. It carries
+`group` and `row_split` attributes that record the names of the grouping
+and splitting variables. The function
+[`cttab_format`](https://cam-ctu.github.io/cctu/reference/cttab_format.md)
+converts this table into a `data.frame` with a `row_style` attribute
+used by the `print` method and
+[`write_table`](https://cam-ctu.github.io/cctu/reference/write_table.md)
+to render the final report.
 
 ## Methods (by class)
 
-- `cttab(default)`: The default interface, where `x` is a `data.frame`.
+- `cttab(default)`: The default interface, where `x` is a `character`
+  vector or a (optionally named) list of character vectors. A named list
+  inserts a banner header row above the corresponding variables.
 
 - `cttab(formula)`: The formula interface, where `x` is a `formula`.
+  Parses the formula then dispatches to `cttab.default`.
 
 ## See also
 
 [`signif_pad`](https://cam-ctu.github.io/cctu/reference/signif_pad.md)
 [`round_pad`](https://cam-ctu.github.io/cctu/reference/signif_pad.md)
 [`stat_tab`](https://cam-ctu.github.io/cctu/reference/stat_tab.md)
+[`cttab_format`](https://cam-ctu.github.io/cctu/reference/cttab_format.md)
 [`sumby`](https://cam-ctu.github.io/cctu/reference/sumby.md)
 [`dump_missing_report`](https://cam-ctu.github.io/cctu/reference/dump_missing_report.md)
 [`get_missing_report`](https://cam-ctu.github.io/cctu/reference/dump_missing_report.md)
 [`render_numeric`](https://cam-ctu.github.io/cctu/reference/render_numeric.md)
 [`render_cat`](https://cam-ctu.github.io/cctu/reference/render_cat.md)
+[`cctu_options`](https://cam-ctu.github.io/cctu/reference/cctu_options.md)
 
 ## Examples
 
 ``` r
+
 # Read data
 dt <- read.csv(system.file("extdata", "pilotdata.csv", package="cctu"))
 dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package="cctu"))
@@ -274,6 +265,7 @@ X <- cttab(x = c("AST", "BILI", "ALT"),
                   data = df,
                   row_split = "AVISIT",
                   select = c("ALT" = "PERF == 1"))
+#> Dropped 142 observations with missing 'ARM' / 'AVISIT'.
 
 
 ############################################

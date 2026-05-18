@@ -80,13 +80,13 @@ The code itself is assumed to be modularised into a sequence of code
 that calls other code using `source`. Copies of the scripts used in this
 vignette are available within the package folder `/scripts`.
 
-- `Main.R` at the top with a minimal amount of initialisation: working
+- `main.R` at the top with a minimal amount of initialisation: working
   directory, PATHs, [`library(cctu)`](https://cam-ctu.github.io/cctu/),
   [`run_batch()`](https://cam-ctu.github.io/cctu/reference/run_batch.md),
   then a sequence of
   [`source()`](https://cam-ctu.github.io/cctu/reference/source.md),
   final calling of
-  [`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
+  [`write_docx()`](https://cam-ctu.github.io/cctu/reference/write_docx.md)
   and maybe further calls to `render` for other outputs.
 - A configuration file, loading packages, setting graphical defaults,
   loading bespoke functions,
@@ -118,11 +118,13 @@ between an
 [`attach_pop()`](https://cam-ctu.github.io/cctu/reference/attach_pop.md)
 and a
 [`write_table()`](https://cam-ctu.github.io/cctu/reference/write_table.md)
-or `write_gglot()`. An argument to `write_table` will be a data frame;
-`write_ggplot` defaults to using the last plot object, or can take a
-ggplot object as an argument. A recent addition is `write_plot` which
-can handle ggplot object or other graphical outputs e.g. a dot_plot from
-the `eudract` package.
+or
+[`write_ggplot()`](https://cam-ctu.github.io/cctu/reference/write_ggplot.md).
+An argument to `write_table` will be a data frame; `write_ggplot`
+defaults to using the last plot object, or can take a ggplot object as
+an argument. A recent addition is `write_plot` which can handle ggplot
+object or other graphical outputs e.g. a dot_plot from the `eudract`
+package.
 
 All `write_*` functions then look up the number of the table called by
 `attach_pop` (temporarily stored in a private environment); the output
@@ -144,11 +146,17 @@ Previously the command `create_word_xml` was used, which then needed
 subsequent steps to convert to a fully compliant docx with figures.
 Included for back compatibility now.
 
-If you want to tweak the style of the word document then you would edit
-the [xslt file](https://cam-ctu.github.io/cctu/extdata/xml_to_word.xslt)
-totally at your own risk! This is not the case with `write_docx`
-anymore. You are not allowed to edit this file as the Docx file is
-complicated.
+The legacy
+[`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
+path emitted a single XML document and applied
+`inst/extdata/xml_to_word.xslt` as the user-tweakable transform — at
+your own risk. The current
+[`write_docx()`](https://cam-ctu.github.io/cctu/reference/write_docx.md)
+path is more involved: it ships a Word-compatible XSLT plus a
+`[Content_Types].xml` / `document.xml.rels` / `header.xml` /
+`footer.xml` / `core.xml` bundle under `inst/assets/`, and the docx zip
+needs them in lockstep. Please don’t edit those files; if you need a
+different look, raise it with the package maintainer.
 
 ### Pointers
 
@@ -214,8 +222,9 @@ As described already
 captures a trail of which code sources other code. There is a
 demonstration below of how to convert this into a graphical tree
 representation using a combination of Rmarkdown and latex. Or you can
-just get a copy `cctu:::cctu_env$code_tree` and write a local copy to a
-csv file say.
+just call
+[`get_code_tree()`](https://cam-ctu.github.io/cctu/reference/get_code_tree.md)
+to grab a copy and write a local copy to a csv file say.
 
 In a similar fashion we have some examples of Rmarkdown that can be use
 to read in the outputs from `write_*` and produce a Html or pdf, or …
@@ -246,6 +255,7 @@ In the the top level this is a file called “main.R”
 ### Initial lines
 
 ``` r
+
 rm(list = ls())
 # if using renv for extra packages need this line for R CMD BATCH
 # renv::load()
@@ -269,12 +279,12 @@ which should be the final step, using the validated server. The
 `run_batch` line is commented out as the vignette will not work with
 this though..
 
-This vignette now differs from a standard use, in that the `Main.R` file
+This vignette now differs from a standard use, in that the `main.R` file
 would now be a sequence of
 [`source()`](https://cam-ctu.github.io/cctu/reference/source.md) calls.
 Here we do run the source files, and then quote the R code they contain.
 There is a copy of all files and outputs from a standard use starting
-from [Main.R](https://cam-ctu.github.io/cctu/articles/Main.R)
+from [main.R](https://cam-ctu.github.io/cctu/articles/main.R)
 
 ### Configuration
 
@@ -291,8 +301,9 @@ event that you need to install any extra packages. But if you do then it
 preferable to manage this using `renv` package. Best practice is to
 write a list of the packages needed, including any extra ones, in a
 DESCRIPTION file at the top level, listing them under the `Imports:`
-heading. Running `cctu::initialise()` will by default create this
-DESCRITPTION file and remind you to edit it.
+heading. Running
+[`cctu_initialise()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
+will by default create this DESCRIPTION file and remind you to edit it.
 
 Then you modify the script in `config.R` to read this file and workout
 which packages to load. The function
@@ -305,10 +316,12 @@ create the `renv.lock` file correctly to get the package versions of
 everything that you need.
 
 ``` r
+
 source("Progs/config.R")
 ```
 
 ``` r
+
 options(verbose = TRUE)
 
 library_description()
@@ -367,10 +380,12 @@ Here we grab a ready prepared ‘dirty’ raw data typical of MACRO DB and
 apply some of these concepts.
 
 ``` r
+
 source("Progs/data_import.R")
 ```
 
 ``` r
+
 options(stringsAsFactors = FALSE)
 
 data_table <- data.frame(
@@ -440,10 +455,12 @@ further functions: `apply_macro_dict`, and/or `var_lab`
 ### Analysis
 
 ``` r
+
 source("Progs/analysis.R")
 ```
 
 ``` r
+
 attach_pop("1.1")
 X <- rbind_space(
   sumby(age, treatment , data=data),
@@ -485,6 +502,7 @@ Need to create names for the population labels, including the number of
 subjects. Good to name the report ending with the suffix “.docx”.
 
 ``` r
+
 pop_size <- sapply(popn[, names(popn) != "subjid"], sum)
 pop_name <- unique(get_meta_table()$population)
 index <- match(pop_name, names(pop_size))
@@ -504,11 +522,11 @@ Sys.info()
 #>                                               sysname 
 #>                                               "Linux" 
 #>                                               release 
-#>                                   "6.11.0-1018-azure" 
+#>                                   "6.17.0-1013-azure" 
 #>                                               version 
-#> "#18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025" 
+#> "#13~24.04.1-Ubuntu SMP Wed Apr 15 16:52:17 UTC 2026" 
 #>                                              nodename 
-#>                                       "runnervmwffz4" 
+#>                                       "runnervmrw5os" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -518,9 +536,9 @@ Sys.info()
 #>                                        effective_user 
 #>                                              "runner"
 sessionInfo()
-#> R version 4.5.2 (2025-10-31)
+#> R version 4.6.0 (2026-04-24)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.3 LTS
+#> Running under: Ubuntu 24.04.4 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -539,29 +557,25 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#>  [1] survival_3.8-3 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.30
-#>  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.51     ggplot2_4.0.2  dplyr_1.2.0   
-#> [11] cctu_0.8.11   
+#>  [1] survival_3.8-6 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.31
+#>  [6] readxl_1.5.0   magrittr_2.0.5 knitr_1.51     ggplot2_4.0.3  dplyr_1.2.1   
+#> [11] cctu_0.8.12   
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] sass_0.4.10         generics_0.1.4      lattice_0.22-7     
-#>  [4] digest_0.6.39       evaluate_1.0.5      grid_4.5.2         
-#>  [7] RColorBrewer_1.1-3  fastmap_1.2.0       cellranger_1.1.0   
-#> [10] jsonlite_2.0.0      Matrix_1.7-4        gridExtra_2.3      
-#> [13] httr_1.4.8          purrr_1.2.1         scales_1.4.0       
-#> [16] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          
-#> [19] rlang_1.1.7         splines_4.5.2       xslt_1.5.1         
-#> [22] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
-#> [25] tools_4.5.2         png_0.1-8           vctrs_0.7.1        
-#> [28] R6_2.6.1            lifecycle_1.0.5     htmlwidgets_1.6.4  
-#> [31] ragg_1.5.0          pkgconfig_2.0.3     pillar_1.11.1      
-#> [34] bslib_0.10.0        gtable_0.3.6        data.table_1.18.2.1
-#> [37] glue_1.8.0          Rcpp_1.1.1          systemfonts_1.3.1  
-#> [40] xfun_0.56           tibble_3.3.1        tidyselect_1.2.1   
-#> [43] farver_2.1.2        htmltools_0.5.9     patchwork_1.3.2    
-#> [46] labeling_0.4.3      compiler_4.5.2      S7_0.2.1
+#>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     digest_0.6.39     
+#>  [5] evaluate_1.0.5     grid_4.6.0         RColorBrewer_1.1-3 fastmap_1.2.0     
+#>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-5       gridExtra_2.3     
+#> [13] httr_1.4.8         purrr_1.2.2        scales_1.4.0       textshaping_1.0.5 
+#> [17] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        splines_4.6.0     
+#> [21] xslt_1.5.1         withr_3.0.2        cachem_1.1.0       yaml_2.3.12       
+#> [25] tools_4.6.0        png_0.1-9          vctrs_0.7.3        R6_2.6.1          
+#> [29] lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.2         pkgconfig_2.0.3   
+#> [33] pillar_1.11.1      bslib_0.11.0       gtable_0.3.6       data.table_1.18.4 
+#> [37] glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2  xfun_0.57         
+#> [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   
+#> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.6.0     S7_0.2.2
 date()
-#> [1] "Fri Feb 20 14:09:33 2026"
+#> [1] "Mon May 18 11:25:42 2026"
 ```
 
 The output is
@@ -569,7 +583,7 @@ The output is
 
 For the older function
 [`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
-output it was neccesary to carry out post-processing in word. To
+output it was necessary to carry out post-processing in word. To
 permanently save, first go to file \> Edit Links to Files; highlight all
 the figures (shift + scroll), and click “break link”. Then File\> save
 as, and ensure it is Saved As Type a “Word Document (\*.docx)“.
@@ -589,6 +603,36 @@ run inside a function, rather than in the global environment;
 code will need to branch to produce different outputs (e.g. pooling arms
 or not), depending which version. You can select subsets of the meta
 table to remove/include tables or figures in a similar branching logic.
+
+#### `cctu_options()` — a single setter for the package’s tunables
+
+As an alternative to setting one `options(cctu_*)` at a time,
+[`cctu_options()`](https://cam-ctu.github.io/cctu/reference/cctu_options.md)
+collects all of the package’s defaults (output folder, digits, p-value
+digits, render spec, figure formats, etc.) into one place:
+
+``` r
+
+# Inspect every setting and its current value
+cctu_options()
+
+# Change several at once; previous values are returned invisibly so they
+# can be restored later
+old <- cctu_options(output = "Closed_Output", digits = 4, blinded = TRUE)
+# ... build the closed report ...
+do.call(cctu_options, old)            # restore
+cctu_options(reset = TRUE)            # or just drop back to packaged defaults
+```
+
+[`base::options()`](https://rdrr.io/r/base/options.html) still wins.
+Anything you have already set with `options(cctu_<name> = ...)`
+(typically in `.Rprofile` or at the top of `main.R`) takes precedence
+over
+[`cctu_options()`](https://cam-ctu.github.io/cctu/reference/cctu_options.md),
+so existing scripts keep working unchanged.
+[`cctu_options()`](https://cam-ctu.github.io/cctu/reference/cctu_options.md)
+will warn if you set a value that is currently being shadowed by a base
+option.
 
 The idea is to be able to set some differing options and/or other R
 objects in a single script that produces all versions of the report with
@@ -626,6 +670,7 @@ figures, reformatting of output as desired…
 You can use the following example to produces a code tree pdf.
 
 ``` r
+
 ctfile <- get_code_tree()
 pdf("codetree.pdf", width=13, height=7)
 plot(ctfile)

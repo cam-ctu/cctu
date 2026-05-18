@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Function to write a text into xml format in the correct directory, and edit TableofTables — write_text"><meta name="description" content="Function to write a text into xml format in the correct directory, and edit
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Function to write a text into xml format in the correct directory, and edit TableofTables — write_text"><meta name="description" content="Function to write a text into xml format in the correct directory, and edit
 TableofTables"><meta property="og:description" content="Function to write a text into xml format in the correct directory, and edit
 TableofTables"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -15,7 +15,7 @@ TableofTables"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ TableofTables"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to write a text into xml format in the correct directory, and edit TableofTables</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/write_text.R" class="external-link"><code>R/write_text.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/write_text.R" class="external-link"><code>R/write_text.R</code></a></small>
       <div class="d-none name"><code>write_text.Rd</code></div>
     </div>
 
@@ -64,7 +64,7 @@ TableofTables</p>
 <span>  <span class="va">x</span>,</span>
 <span>  number <span class="op">=</span> <span class="va">cctu_env</span><span class="op">$</span><span class="va">number</span>,</span>
 <span>  clean_up <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  directory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"cctu_output"</span>, default <span class="op">=</span> <span class="st">"Output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
+<span>  directory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="cctu_opt.html">cctu_opt</a></span><span class="op">(</span><span class="st">"output"</span><span class="op">)</span>, <span class="st">"Core"</span><span class="op">)</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">verbose</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -74,29 +74,29 @@ TableofTables</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>the character string to be saved in xml format</p></dd>
+<dd><p>the character string (or vector of strings) to be saved in xml
+format. A vector is concatenated into a single text block.</p></dd>
 
 
 <dt id="arg-number">number<a class="anchor" aria-label="anchor" href="#arg-number"></a></dt>
-<dd><p>the number used to as a suffix in the output filename, and to
-link to TableofTables. Default is to use the value in the cctu_env package
- environment that is set within <code><a href="attach_pop.html">attach_pop</a></code>.</p></dd>
+<dd><p>the number used as a suffix in the output filename, and to
+link to the meta_table. Default is to use the value in the cctu_env
+package environment that is set within <code><a href="attach_pop.html">attach_pop</a></code>.</p></dd>
 
 
 <dt id="arg-clean-up">clean_up<a class="anchor" aria-label="anchor" href="#arg-clean-up"></a></dt>
-<dd><p>logical to invoke the <code><a href="clean_up.html">clean_up</a></code> function at the
-end. Defaults to TRUE</p></dd>
+<dd><p>logical to invoke the <code><a href="clean_up.html">clean_up</a></code> function at
+the end. Defaults to <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-directory">directory<a class="anchor" aria-label="anchor" href="#arg-directory"></a></dt>
-<dd><p>where to save the figures within path or current working
-directory. The Output directory can be over-riden with
-options("cctu_output").</p></dd>
+<dd><p>where to save the text within path or current working
+directory. Defaults to <code>file.path(cctu_opt("output"), "Core")</code>.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
 <dd><p>logical to print information on changes to the global
-environment or external files. Defaults to options()$verbose.</p></dd>
+environment or external files. Defaults to <code>options()$verbose</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

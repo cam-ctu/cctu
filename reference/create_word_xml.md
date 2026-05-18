@@ -1,6 +1,9 @@
 # Produces the final xml file
 
-Produces the final xml file
+\`r lifecycle::badge("deprecated")\` This function is no longer
+maintained. Use
+[`write_docx`](https://cam-ctu.github.io/cctu/reference/write_docx.md)
+instead.
 
 ## Usage
 
@@ -10,11 +13,10 @@ create_word_xml(
   author,
   meta_table = get_meta_table(),
   datestamp = format(Sys.time(), format = "%H:%M %d %b %Y"),
-  filename = file.path(getOption("cctu_output", default = "Output"), "Reports",
-    "Report.doc"),
-  table_path = file.path(getOption("cctu_output", default = "Output"), "Core"),
+  filename = file.path(cctu_opt("output"), "Reports", "Report.doc"),
+  table_path = file.path(cctu_opt("output"), "Core"),
   figure_format = c("png", "jpeg", "ps"),
-  figure_path = file.path(getOption("cctu_output", default = "Output"), "Figures"),
+  figure_path = file.path(cctu_opt("output"), "Figures"),
   popn_labels = NULL,
   verbose = options()$verbose,
   xslt_file = system.file("extdata", "to_word.xslt", package = "cctu"),

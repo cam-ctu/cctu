@@ -13,8 +13,8 @@
     }
   };
 </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Analysis Template">
 </head>
@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,9 +73,9 @@
       <h1>Analysis Template</h1>
                         <h4 data-toc-skip class="author">Simon Bond</h4>
             
-            <h4 data-toc-skip class="date">2026-02-20</h4>
+            <h4 data-toc-skip class="date">2026-05-18</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/vignettes/analysis-template.Rmd" class="external-link"><code>vignettes/analysis-template.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/vignettes/analysis-template.Rmd" class="external-link"><code>vignettes/analysis-template.Rmd</code></a></small>
       <div class="d-none name"><code>analysis-template.Rmd</code></div>
     </div>
 
@@ -163,11 +163,11 @@ used in this vignette are available within the package folder
 <code>/scripts</code>.</p>
 <ul>
 <li>
-<code>Main.R</code> at the top with a minimal amount of
+<code>main.R</code> at the top with a minimal amount of
 initialisation: working directory, PATHs, <code><a href="https://cam-ctu.github.io/cctu/">library(cctu)</a></code>,
 <code><a href="../reference/run_batch.html">run_batch()</a></code>, then a sequence of <code><a href="../reference/source.html">source()</a></code>,
-final calling of <code><a href="../reference/create_word_xml.html">create_word_xml()</a></code> and maybe further calls
-to <code>render</code> for other outputs.</li>
+final calling of <code><a href="../reference/write_docx.html">write_docx()</a></code> and maybe further calls to
+<code>render</code> for other outputs.</li>
 <li>A configuration file, loading packages, setting graphical defaults,
 loading bespoke functions,</li>
 <li>Data import and manipulation: where cleaning, merging, creating
@@ -194,12 +194,13 @@ by default) in semi-readable format with tags similar to html
 tables.</p>
 <p>During the analysis, a block of code to produce a table or figure is
 put between an <code><a href="../reference/attach_pop.html">attach_pop()</a></code> and a
-<code><a href="../reference/write_table.html">write_table()</a></code> or <code>write_gglot()</code>. An argument to
-<code>write_table</code> will be a data frame; <code>write_ggplot</code>
-defaults to using the last plot object, or can take a ggplot object as
-an argument. A recent addition is <code>write_plot</code> which can
-handle ggplot object or other graphical outputs e.g. a dot_plot from the
-<code>eudract</code> package.</p>
+<code><a href="../reference/write_table.html">write_table()</a></code> or <code><a href="../reference/write_ggplot.html">write_ggplot()</a></code>. An argument
+to <code>write_table</code> will be a data frame;
+<code>write_ggplot</code> defaults to using the last plot object, or can
+take a ggplot object as an argument. A recent addition is
+<code>write_plot</code> which can handle ggplot object or other
+graphical outputs e.g. a dot_plot from the <code>eudract</code>
+package.</p>
 <p>All <code>write_*</code> functions then look up the number of the
 table called by <code>attach_pop</code> (temporarily stored in a private
 environment); the output is stored on the local drive either an XML
@@ -216,11 +217,16 @@ used by MS Word, so it can be opened directly.</p>
 <p>Previously the command <code>create_word_xml</code> was used, which
 then needed subsequent steps to convert to a fully compliant docx with
 figures. Included for back compatibility now.</p>
-<p>If you want to tweak the style of the word document then you would
-edit the <a href="../extdata/xml_to_word.xslt">xslt file</a> totally at
-your own risk! This is not the case with <code>write_docx</code>
-anymore. You are not allowed to edit this file as the Docx file is
-complicated.</p>
+<p>The legacy <code><a href="../reference/create_word_xml.html">create_word_xml()</a></code> path emitted a single XML
+document and applied <code>inst/extdata/xml_to_word.xslt</code> as the
+user-tweakable transform — at your own risk. The current
+<code><a href="../reference/write_docx.html">write_docx()</a></code> path is more involved: it ships a
+Word-compatible XSLT plus a <code>[Content_Types].xml</code> /
+<code>document.xml.rels</code> / <code>header.xml</code> /
+<code>footer.xml</code> / <code>core.xml</code> bundle under
+<code>inst/assets/</code>, and the docx zip needs them in lockstep.
+Please don’t edit those files; if you need a different look, raise it
+with the package maintainer.</p>
 </div>
 <div class="section level3">
 <h3 id="pointers">Pointers<a class="anchor" aria-label="anchor" href="#pointers"></a>
@@ -309,9 +315,8 @@ summaries of missing data. See these functions</p>
 <p>As described already <code><a href="../reference/source.html">source()</a></code> captures a trail of which
 code sources other code. There is a demonstration below of how to
 convert this into a graphical tree representation using a combination of
-Rmarkdown and latex. Or you can just get a copy
-<code>cctu:::cctu_env$code_tree</code> and write a local copy to a csv
-file say.</p>
+Rmarkdown and latex. Or you can just call <code><a href="../reference/get_code_tree.html">get_code_tree()</a></code>
+to grab a copy and write a local copy to a csv file say.</p>
 <p>In a similar fashion we have some examples of Rmarkdown that can be
 use to read in the outputs from <code>write_*</code> and produce a Html
 or pdf, or … version of the main report, depending on what the readers
@@ -362,10 +367,10 @@ CMD BATCH to run the entire set of code and produce a log file
 The <code>run_batch</code> line is commented out as the vignette will
 not work with this though..</p>
 <p>This vignette now differs from a standard use, in that the
-<code>Main.R</code> file would now be a sequence of
+<code>main.R</code> file would now be a sequence of
 <code><a href="../reference/source.html">source()</a></code> calls. Here we do run the source files, and then
 quote the R code they contain. There is a copy of all files and outputs
-from a standard use starting from <a href="Main.R">Main.R</a></p>
+from a standard use starting from <a href="main.R">main.R</a></p>
 </div>
 <div class="section level3">
 <h3 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
@@ -385,7 +390,7 @@ do then it preferable to manage this using <code>renv</code> package.
 Best practice is to write a list of the packages needed, including any
 extra ones, in a DESCRIPTION file at the top level, listing them under
 the <code>Imports:</code> heading. Running
-<code>cctu::initialise()</code> will by default create this DESCRITPTION
+<code><a href="../reference/cctu_initialise.html">cctu_initialise()</a></code> will by default create this DESCRIPTION
 file and remind you to edit it.</p>
 <p>Then you modify the script in <code>config.R</code> to read this file
 and workout which packages to load. The function
@@ -587,11 +592,11 @@ of subjects. Good to name the report ending with the suffix “.docx”.</p>
 <span><span class="co">#&gt;                                               sysname </span></span>
 <span><span class="co">#&gt;                                               "Linux" </span></span>
 <span><span class="co">#&gt;                                               release </span></span>
-<span><span class="co">#&gt;                                   "6.11.0-1018-azure" </span></span>
+<span><span class="co">#&gt;                                   "6.17.0-1013-azure" </span></span>
 <span><span class="co">#&gt;                                               version </span></span>
-<span><span class="co">#&gt; "#18~24.04.1-Ubuntu SMP Sat Jun 28 04:46:03 UTC 2025" </span></span>
+<span><span class="co">#&gt; "#13~24.04.1-Ubuntu SMP Wed Apr 15 16:52:17 UTC 2026" </span></span>
 <span><span class="co">#&gt;                                              nodename </span></span>
-<span><span class="co">#&gt;                                       "runnervmwffz4" </span></span>
+<span><span class="co">#&gt;                                       "runnervmrw5os" </span></span>
 <span><span class="co">#&gt;                                               machine </span></span>
 <span><span class="co">#&gt;                                              "x86_64" </span></span>
 <span><span class="co">#&gt;                                                 login </span></span>
@@ -601,9 +606,9 @@ of subjects. Good to name the report ending with the suffix “.docx”.</p>
 <span><span class="co">#&gt;                                        effective_user </span></span>
 <span><span class="co">#&gt;                                              "runner"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.5.2 (2025-10-31)</span></span>
+<span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.3 LTS</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
 <span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -622,32 +627,28 @@ of subjects. Good to name the report ending with the suffix “.docx”.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] survival_3.8-3 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.30</span></span>
-<span><span class="co">#&gt;  [6] readxl_1.4.5   magrittr_2.0.4 knitr_1.51     ggplot2_4.0.2  dplyr_1.2.0   </span></span>
-<span><span class="co">#&gt; [11] cctu_0.8.11   </span></span>
+<span><span class="co">#&gt;  [1] survival_3.8-6 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.31</span></span>
+<span><span class="co">#&gt;  [6] readxl_1.5.0   magrittr_2.0.5 knitr_1.51     ggplot2_4.0.3  dplyr_1.2.1   </span></span>
+<span><span class="co">#&gt; [11] cctu_0.8.12   </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] sass_0.4.10         generics_0.1.4      lattice_0.22-7     </span></span>
-<span><span class="co">#&gt;  [4] digest_0.6.39       evaluate_1.0.5      grid_4.5.2         </span></span>
-<span><span class="co">#&gt;  [7] RColorBrewer_1.1-3  fastmap_1.2.0       cellranger_1.1.0   </span></span>
-<span><span class="co">#&gt; [10] jsonlite_2.0.0      Matrix_1.7-4        gridExtra_2.3      </span></span>
-<span><span class="co">#&gt; [13] httr_1.4.8          purrr_1.2.1         scales_1.4.0       </span></span>
-<span><span class="co">#&gt; [16] textshaping_1.0.4   jquerylib_0.1.4     cli_3.6.5          </span></span>
-<span><span class="co">#&gt; [19] rlang_1.1.7         splines_4.5.2       xslt_1.5.1         </span></span>
-<span><span class="co">#&gt; [22] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        </span></span>
-<span><span class="co">#&gt; [25] tools_4.5.2         png_0.1-8           vctrs_0.7.1        </span></span>
-<span><span class="co">#&gt; [28] R6_2.6.1            lifecycle_1.0.5     htmlwidgets_1.6.4  </span></span>
-<span><span class="co">#&gt; [31] ragg_1.5.0          pkgconfig_2.0.3     pillar_1.11.1      </span></span>
-<span><span class="co">#&gt; [34] bslib_0.10.0        gtable_0.3.6        data.table_1.18.2.1</span></span>
-<span><span class="co">#&gt; [37] glue_1.8.0          Rcpp_1.1.1          systemfonts_1.3.1  </span></span>
-<span><span class="co">#&gt; [40] xfun_0.56           tibble_3.3.1        tidyselect_1.2.1   </span></span>
-<span><span class="co">#&gt; [43] farver_2.1.2        htmltools_0.5.9     patchwork_1.3.2    </span></span>
-<span><span class="co">#&gt; [46] labeling_0.4.3      compiler_4.5.2      S7_0.2.1</span></span>
+<span><span class="co">#&gt;  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     digest_0.6.39     </span></span>
+<span><span class="co">#&gt;  [5] evaluate_1.0.5     grid_4.6.0         RColorBrewer_1.1-3 fastmap_1.2.0     </span></span>
+<span><span class="co">#&gt;  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-5       gridExtra_2.3     </span></span>
+<span><span class="co">#&gt; [13] httr_1.4.8         purrr_1.2.2        scales_1.4.0       textshaping_1.0.5 </span></span>
+<span><span class="co">#&gt; [17] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        splines_4.6.0     </span></span>
+<span><span class="co">#&gt; [21] xslt_1.5.1         withr_3.0.2        cachem_1.1.0       yaml_2.3.12       </span></span>
+<span><span class="co">#&gt; [25] tools_4.6.0        png_0.1-9          vctrs_0.7.3        R6_2.6.1          </span></span>
+<span><span class="co">#&gt; [29] lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.2         pkgconfig_2.0.3   </span></span>
+<span><span class="co">#&gt; [33] pillar_1.11.1      bslib_0.11.0       gtable_0.3.6       data.table_1.18.4 </span></span>
+<span><span class="co">#&gt; [37] glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2  xfun_0.57         </span></span>
+<span><span class="co">#&gt; [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   </span></span>
+<span><span class="co">#&gt; [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.6.0     S7_0.2.2</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/date.html" class="external-link">date</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "Fri Feb 20 14:09:33 2026"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "Mon May 18 11:25:42 2026"</span></span></code></pre></div>
 <p>The output is <a href="../doc/Vignette_Report_bak.docx">Vignette_Report_bak.docx</a>.</p>
 <p>For the older function <code><a href="../reference/create_word_xml.html">create_word_xml()</a></code> output it was
-neccesary to carry out post-processing in word. To permanently save,
+necessary to carry out post-processing in word. To permanently save,
 first go to file &gt; Edit Links to Files; highlight all the figures
 (shift + scroll), and click “break link”. Then File&gt; save as, and
 ensure it is Saved As Type a “Word Document (*.docx)“.</p>
@@ -669,6 +670,31 @@ then your code will need to branch to produce different outputs
 (e.g. pooling arms or not), depending which version. You can select
 subsets of the meta table to remove/include tables or figures in a
 similar branching logic.</p>
+<div class="section level4">
+<h4 id="cctu_options-a-single-setter-for-the-packages-tunables">
+<code>cctu_options()</code> — a single setter for the package’s
+tunables<a class="anchor" aria-label="anchor" href="#cctu_options-a-single-setter-for-the-packages-tunables"></a>
+</h4>
+<p>As an alternative to setting one <code>options(cctu_*)</code> at a
+time, <code><a href="../reference/cctu_options.html">cctu_options()</a></code> collects all of the package’s defaults
+(output folder, digits, p-value digits, render spec, figure formats,
+etc.) into one place:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Inspect every setting and its current value</span></span>
+<span><span class="fu"><a href="../reference/cctu_options.html">cctu_options</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Change several at once; previous values are returned invisibly so they</span></span>
+<span><span class="co"># can be restored later</span></span>
+<span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cctu_options.html">cctu_options</a></span><span class="op">(</span>output <span class="op">=</span> <span class="st">"Closed_Output"</span>, digits <span class="op">=</span> <span class="fl">4</span>, blinded <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># ... build the closed report ...</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">cctu_options</span>, <span class="va">old</span><span class="op">)</span>            <span class="co"># restore</span></span>
+<span><span class="fu"><a href="../reference/cctu_options.html">cctu_options</a></span><span class="op">(</span>reset <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>            <span class="co"># or just drop back to packaged defaults</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/options.html" class="external-link">base::options()</a></code> still wins. Anything you have already
+set with <code>options(cctu_&lt;name&gt; = ...)</code> (typically in
+<code>.Rprofile</code> or at the top of <code>main.R</code>) takes
+precedence over <code><a href="../reference/cctu_options.html">cctu_options()</a></code>, so existing scripts keep
+working unchanged. <code><a href="../reference/cctu_options.html">cctu_options()</a></code> will warn if you set a
+value that is currently being shadowed by a base option.</p>
 <p>The idea is to be able to set some differing options and/or other R
 objects in a single script that produces all versions of the report with
 a repeated <code>source("main.R")</code>.</p>
@@ -686,6 +712,7 @@ for all versions of the reports.</p>
 <p>We’d recommend using a master script approach for simplicity and
 readability, unless good reason not.</p>
 </div>
+</div>
 <div class="section level3">
 <h3 id="other-outputs">Other Outputs<a class="anchor" aria-label="anchor" href="#other-outputs"></a>
 </h3>
@@ -701,7 +728,7 @@ the figures, reformatting of output as desired…</p>
 <h4 id="code-tree">Code Tree<a class="anchor" aria-label="anchor" href="#code-tree"></a>
 </h4>
 <p>You can use the following example to produces a code tree pdf.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ctfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_code_tree.html">get_code_tree</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html" class="external-link">pdf</a></span><span class="op">(</span><span class="st">"codetree.pdf"</span>, width<span class="op">=</span><span class="fl">13</span>, height<span class="op">=</span><span class="fl">7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ctfile</span><span class="op">)</span></span>

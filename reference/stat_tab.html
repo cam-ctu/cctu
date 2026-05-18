@@ -5,17 +5,13 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate a descriptive summary statistics table. — stat_tab"><meta name="description" content="It is important to use variable label and value label to produce a proper
-descriptive table. Variables with value labels will be converted to ordered
-factor with same order as the value labels (to_factor). And variable
-labels will be used in the output. The first row will be blank with row names
-of variable label. Variable name will be used if the variable does not have
-a variable label."><meta property="og:description" content="It is important to use variable label and value label to produce a proper
-descriptive table. Variables with value labels will be converted to ordered
-factor with same order as the value labels (to_factor). And variable
-labels will be used in the output. The first row will be blank with row names
-of variable label. Variable name will be used if the variable does not have
-a variable label."></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Generate a descriptive summary statistics table. — stat_tab"><meta name="description" content="Internal long-format summariser that powers cttab. Variable
+value labels are honoured (variables with labels are converted to ordered
+factors). Variable labels are used in the output when present; the variable
+name is used otherwise."><meta property="og:description" content="Internal long-format summariser that powers cttab. Variable
+value labels are honoured (variables with labels are converted to ordered
+factors). Variable labels are used in the output when present; the variable
+name is used otherwise."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -23,7 +19,7 @@ a variable label."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,17 +53,15 @@ a variable label."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Generate a descriptive summary statistics table.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/dev/R/cttab.R" class="external-link"><code>R/cttab.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/cttab.R" class="external-link"><code>R/cttab.R</code></a></small>
       <div class="d-none name"><code>stat_tab.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
-    <p>It is important to use variable label and value label to produce a proper
-descriptive table. Variables with value labels will be converted to ordered
-factor with same order as the value labels (<code>to_factor</code>). And variable
-labels will be used in the output. The first row will be blank with row names
-of variable label. Variable name will be used if the variable does not have
-a variable label.</p>
+    <p>Internal long-format summariser that powers <code><a href="cttab.html">cttab</a></code>. Variable
+value labels are honoured (variables with labels are converted to ordered
+factors). Variable labels are used in the output when present; the variable
+name is used otherwise.</p>
     </div>
 
     <div class="section level2">
@@ -75,8 +69,10 @@ a variable label.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stat_tab</span><span class="op">(</span></span>
 <span>  <span class="va">vars</span>,</span>
 <span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  row_split <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">data</span>,</span>
 <span>  total <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  add_obs <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  select <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  add_missing <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  digits <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -92,7 +88,13 @@ a variable label.</p>
 
 
 <dl><dt id="arg-group">group<a class="anchor" aria-label="anchor" href="#arg-group"></a></dt>
-<dd><p>Name of the grouping variable.</p></dd>
+<dd><p>Name of the grouping variable, length 0/1. When supplied each
+level becomes a column in the rendered table (plus an extra "Total" column
+if <code>total = TRUE</code>).</p></dd>
+
+
+<dt id="arg-row-split">row_split<a class="anchor" aria-label="anchor" href="#arg-row-split"></a></dt>
+<dd><p>Variable used for splitting table rows, length 0/1.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
@@ -103,6 +105,10 @@ should be taken.</p></dd>
 <dt id="arg-total">total<a class="anchor" aria-label="anchor" href="#arg-total"></a></dt>
 <dd><p>If a "Total" column will be created (default). Specify
 <code>FALSE</code> to omit the column.</p></dd>
+
+
+<dt id="arg-add-obs">add_obs<a class="anchor" aria-label="anchor" href="#arg-add-obs"></a></dt>
+<dd><p>Add an observation row (default).</p></dd>
 
 
 <dt id="arg-select">select<a class="anchor" aria-label="anchor" href="#arg-select"></a></dt>
@@ -156,8 +162,21 @@ in the summary. You can used a named list in <code>x</code> and stack multiple
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class "cttab".</p>
+    <p>A long-format <code>data.table</code>. <code>NULL</code> when there is nothing
+to summarise.</p>
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The returned <code>data.table</code> has the following columns:</p><ul><li><p>the row-split variable, when <code>row_split</code> is supplied;</p></li>
+<li><p>the grouping variable when <code>group</code> is supplied (a factor whose
+    levels finish with <code>"Total"</code> when <code>total = TRUE</code>);</p></li>
+<li><p><code>Group_ID</code>, <code>Group_Label</code>: identifier and (optional) banner
+    label produced when <code>vars</code> is a named list;</p></li>
+<li><p><code>Var_ID</code>, <code>Variable</code>: per-variable id (0 = "Observation"
+    row) and the rendered variable label;</p></li>
+<li><p><code>Stat_ID</code>, <code>Statistic</code>: per-statistic id and label;</p></li>
+<li><p><code>Value</code>: the rendered cell value (character)</p></li>
+</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

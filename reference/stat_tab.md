@@ -1,11 +1,10 @@
 # Generate a descriptive summary statistics table.
 
-It is important to use variable label and value label to produce a
-proper descriptive table. Variables with value labels will be converted
-to ordered factor with same order as the value labels (`to_factor`). And
-variable labels will be used in the output. The first row will be blank
-with row names of variable label. Variable name will be used if the
-variable does not have a variable label.
+Internal long-format summariser that powers
+[`cttab`](https://cam-ctu.github.io/cctu/reference/cttab.md). Variable
+value labels are honoured (variables with labels are converted to
+ordered factors). Variable labels are used in the output when present;
+the variable name is used otherwise.
 
 ## Usage
 
@@ -13,8 +12,10 @@ variable does not have a variable label.
 stat_tab(
   vars,
   group = NULL,
+  row_split = NULL,
   data,
   total = TRUE,
+  add_obs = FALSE,
   select = NULL,
   add_missing = TRUE,
   digits = 2,
@@ -29,7 +30,13 @@ stat_tab(
 
 - group:
 
-  Name of the grouping variable.
+  Name of the grouping variable, length 0/1. When supplied each level
+  becomes a column in the rendered table (plus an extra "Total" column
+  if `total = TRUE`).
+
+- row_split:
+
+  Variable used for splitting table rows, length 0/1.
 
 - data:
 
@@ -39,6 +46,10 @@ stat_tab(
 
   If a "Total" column will be created (default). Specify `FALSE` to omit
   the column.
+
+- add_obs:
+
+  Add an observation row (default).
 
 - select:
 
@@ -95,4 +106,23 @@ stat_tab(
 
 ## Value
 
-An object of class "cttab".
+A long-format `data.table`. `NULL` when there is nothing to summarise.
+
+## Details
+
+The returned `data.table` has the following columns:
+
+- the row-split variable, when `row_split` is supplied;
+
+- the grouping variable when `group` is supplied (a factor whose levels
+  finish with `"Total"` when `total = TRUE`);
+
+- `Group_ID`, `Group_Label`: identifier and (optional) banner label
+  produced when `vars` is a named list;
+
+- `Var_ID`, `Variable`: per-variable id (0 = "Observation" row) and the
+  rendered variable label;
+
+- `Stat_ID`, `Statistic`: per-statistic id and label;
+
+- `Value`: the rendered cell value (character)

@@ -9,6 +9,10 @@ Functions to setup studies
   [`cctu_check_dir()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
   [`rm_output()`](https://cam-ctu.github.io/cctu/reference/cctu_initialise.md)
   : initialise objects for using cctu package
+- [`cctu_options()`](https://cam-ctu.github.io/cctu/reference/cctu_options.md)
+  : Get or set cctu package options
+- [`cctu_opt()`](https://cam-ctu.github.io/cctu/reference/cctu_opt.md) :
+  Internal accessor for a single cctu option
 - [`library_description()`](https://cam-ctu.github.io/cctu/reference/library_description.md)
   : loads all the packages listed in the DESCRIPTION file
 - [`attach_pop()`](https://cam-ctu.github.io/cctu/reference/attach_pop.md)
@@ -100,7 +104,11 @@ Functions to create summary statistics
 - [`print(`*`<cttab>`*`)`](https://cam-ctu.github.io/cctu/reference/print.cttab.md)
   : Print
 - [`rbind(`*`<cttab>`*`)`](https://cam-ctu.github.io/cctu/reference/rbind.cttab.md)
-  : Combine descriptive statistics table by rows
+  : Combine descriptive statistics tables by rows.
+- [`as.data.frame(`*`<cttab>`*`)`](https://cam-ctu.github.io/cctu/reference/as.data.frame.cttab.md)
+  : Coerce a cttab to a tidy data frame.
+- [`cttab_format()`](https://cam-ctu.github.io/cctu/reference/cttab_format.md)
+  : Convert a long-format cttab to a rendering-ready table.
 - [`render_cat()`](https://cam-ctu.github.io/cctu/reference/render_cat.md)
   : Render categorical values for table output.
 - [`render_numeric()`](https://cam-ctu.github.io/cctu/reference/render_numeric.md)
@@ -114,6 +122,8 @@ Functions to create summary statistics
 - [`sumfig()`](https://cam-ctu.github.io/cctu/reference/sumfig.md) :
   Produce ggplot to represent summary statistics graphically, either
   boxplot or barchart
+- [`group_data()`](https://cam-ctu.github.io/cctu/reference/group_data.md)
+  : Create Nested Group Header Rows in a data.table
 - [`regression_table()`](https://cam-ctu.github.io/cctu/reference/regression_table.md)
   : Produce a table summarising a regression model for a study report
 
@@ -145,10 +155,18 @@ Functions to write tables, figures and report
   : Function to save plot figures
 - [`write_table()`](https://cam-ctu.github.io/cctu/reference/write_table.md)
   : Function to write a table into xml format in the correct directory,
-  and edit TableofTables
+  and record the calling program in the meta_table.
 - [`write_text()`](https://cam-ctu.github.io/cctu/reference/write_text.md)
   : Function to write a text into xml format in the correct directory,
   and edit TableofTables
+- [`format_table()`](https://cam-ctu.github.io/cctu/reference/format_table.md)
+  : Stamp row-style metadata on a table for \`write_table()\`.
+
+## Deprecated
+
+Kept for backwards compatibility; prefer the replacements noted in each
+function’s help.
+
 - [`create_word_xml()`](https://cam-ctu.github.io/cctu/reference/create_word_xml.md)
   : Produces the final xml file
 
@@ -171,8 +189,7 @@ Functions for labels
 - [`copy_lab()`](https://cam-ctu.github.io/cctu/reference/copy_lab.md) :
   Copy variable label and value labels
 - [`lab2val()`](https://cam-ctu.github.io/cctu/reference/lab2val.md) :
-  Replace vector/matrix/data.frame values with corresponding value
-  labels.
+  Replace vector/data.frame values with corresponding value labels.
 
 ## Miscellaneous
 

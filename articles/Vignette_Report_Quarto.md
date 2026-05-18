@@ -24,7 +24,9 @@ January 12, 2026
 | gender      | Male       | 1/3 (33%)   | 1/1 (100%) | 2/4 (50%)   |
 |             | Female     | 2/3 (67%)   | 0/1 (0%)   | 2/4 (50%)   |
 
-Note A \[Population-full\]
+Note A \[Population-full\] {#tinytable_j9ed3bjlurl8d9r0q854 .tinytable
+style="width: auto; margin-left: auto; margin-right: auto;"
+quarto-disable-processing="true"}
 
 fictitious data
 
@@ -42,7 +44,9 @@ Program: /home/rstudio/Documents/GitHub/cctu/vignettes/Progs/analysis.R
 | Gender   | Male       | 1/3 (33%)   | 2/3 (67%)   | 3/6 (50%)   |
 |          | Female     | 2/3 (67%)   | 1/3 (33%)   | 3/6 (50%)   |
 
-Note A \[Population-safety\]
+Note A \[Population-safety\] {#tinytable_4czg9pc2ydxhxysk8zme .tinytable
+style="width: auto; margin-left: auto; margin-right: auto;"
+quarto-disable-processing="true"}
 
 fictitious data
 
@@ -58,7 +62,9 @@ Program: /home/rstudio/Documents/GitHub/cctu/vignettes/Progs/analysis.R
 | Residual SE            | 17.1          |             |         |
 | Number of Observations | 6             |             |         |
 
-Note A \[Population-safety\]
+Note A \[Population-safety\] {#tinytable_nky0az52bwadmigl00eo .tinytable
+style="width: auto; margin-left: auto; margin-right: auto;"
+quarto-disable-processing="true"}
 
 fictitious data
 
@@ -98,12 +104,14 @@ Program: /home/rstudio/Documents/GitHub/cctu/vignettes/Progs/analysis.R
 
 ## 9 Imported Data
 
-| name  | file          | folder                                     | mod_time            | full_file_path                                           |
-|-------|---------------|--------------------------------------------|---------------------|----------------------------------------------------------|
-| data  | dirtydata.csv | /usr/local/lib/R/site-library/cctu/extdata | 2025-11-18 09:26:59 | /usr/local/lib/R/site-library/cctu/extdata/dirtydata.csv |
-| codes | codes.csv     | /usr/local/lib/R/site-library/cctu/extdata | 2025-11-18 09:26:59 | /usr/local/lib/R/site-library/cctu/extdata/codes.csv     |
+| name | file | folder | mod_time | full_file_path |
+|----|----|----|----|----|
+| data | dirtydata.csv | /usr/local/lib/R/site-library/cctu/extdata | 2025-11-18 09:26:59 | /usr/local/lib/R/site-library/cctu/extdata/dirtydata.csv |
+| codes | codes.csv | /usr/local/lib/R/site-library/cctu/extdata | 2025-11-18 09:26:59 | /usr/local/lib/R/site-library/cctu/extdata/codes.csv |
 
-NA \[Population-NA\]
+NA \[Population-NA\] {#tinytable_pgyc94t8bx77nzofcmnz .tinytable
+style="width: auto; margin-left: auto; margin-right: auto;"
+quarto-disable-processing="true"}
 
 Program:
 /home/rstudio/Documents/GitHub/cctu/vignettes/Progs/data_import.R

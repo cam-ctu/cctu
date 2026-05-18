@@ -13,7 +13,7 @@ km_ggplot(
   ystratalabs = deprecated(),
   timeby = NULL,
   pval = FALSE,
-  p_digits = getOption("cctu_p_digits", default = 4),
+  p_digits = cctu_opt("p_digits"),
   ...
 )
 ```
@@ -64,9 +64,9 @@ km_ggplot(
 
 a list of ggplot objects is made: the top figure and a table of counts.
 The object has a print and plot method that uses
-[`wrap_plots`](https://patchwork.data-imaginist.com/reference/wrap_plots.html)
-to glue together. The user can access and modify the ggplot components
-as desired.
+[`wrap_plots`](https://rdrr.io/pkg/patchwork/man/wrap_plots.html) to
+glue together. The user can access and modify the ggplot components as
+desired.
 
 ## Details
 

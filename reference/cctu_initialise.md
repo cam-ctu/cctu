@@ -10,7 +10,7 @@ cctu_initialise(
   scripts = FALSE,
   rm = FALSE,
   description = TRUE,
-  output = getOption("cctu_output", default = "Output"),
+  output = cctu_opt("output"),
   check_gitignore = TRUE
 )
 
@@ -19,18 +19,14 @@ cctu_initialize(
   scripts = FALSE,
   rm = FALSE,
   description = TRUE,
-  output = getOption("cctu_output", default = "Output"),
+  output = cctu_opt("output"),
   check_gitignore = TRUE
 )
 
-cctu_check_dir(
-  root = getwd(),
-  warnings = FALSE,
-  output = getOption("cctu_output", default = "Output")
-)
+cctu_check_dir(root = getwd(), warnings = FALSE, output = cctu_opt("output"))
 
 rm_output(
-  output = getOption("cctu_output", default = "Output"),
+  output = cctu_opt("output"),
   core = TRUE,
   figures = TRUE,
   reports = TRUE,

@@ -31,7 +31,7 @@ row of blank values in-between. Useful for formatting
 
 ## Details
 
-based largely on the [`rbind`](https://rdrr.io/r/base/cbind.html)
-function. Use in conjunction with
-[`Reduce`](https://rdrr.io/r/base/funprog.html) to join up more than two
-tables.
+based largely on the
+[`rbind`](https://rdrr.io/pkg/data.table/man/rbindlist.html) function.
+Use in conjunction with [`Reduce`](https://rdrr.io/r/base/funprog.html)
+to join up more than two tables.

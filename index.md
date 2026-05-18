@@ -15,6 +15,7 @@ population is always used.
 You can install the GitHub version of cctu with:
 
 ``` r
+
 install.packages("devtools")
 devtools::install_github("shug0131/cctu")
 ```
@@ -24,6 +25,7 @@ devtools::install_github("shug0131/cctu")
 Go and read the vignettes
 
 ``` r
+
 browseVignettes("cctu")
 #> No vignettes found by browseVignettes("cctu")
 ```

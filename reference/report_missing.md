@@ -12,9 +12,9 @@ This is internal function, not intend to use it directly by user.
 report_missing(
   data,
   vars,
-  select,
+  select = NULL,
   row_split = NULL,
-  subjid_string = getOption("cctu_subjid_string", default = "subjid")
+  subjid_string = cctu_opt("subjid_string")
 )
 ```
 

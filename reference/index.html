@@ -5,7 +5,7 @@
       fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
     }
   };
-</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Package index"></head><body>
+</script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet"><link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet"><script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Package index"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.11</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.12</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,20 @@
 
         </dt>
         <dd>initialise objects for using cctu package</dd>
+
+        <dt>
+
+          <code><a href="cctu_options.html">cctu_options()</a></code>
+
+        </dt>
+        <dd>Get or set cctu package options</dd>
+
+        <dt>
+
+          <code><a href="cctu_opt.html">cctu_opt()</a></code>
+
+        </dt>
+        <dd>Internal accessor for a single cctu option</dd>
 
         <dt>
 
@@ -301,7 +315,21 @@
           <code><a href="rbind.cttab.html">rbind(<i>&lt;cttab&gt;</i>)</a></code>
 
         </dt>
-        <dd>Combine descriptive statistics table by rows</dd>
+        <dd>Combine descriptive statistics tables by rows.</dd>
+
+        <dt>
+
+          <code><a href="as.data.frame.cttab.html">as.data.frame(<i>&lt;cttab&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Coerce a cttab to a tidy data frame.</dd>
+
+        <dt>
+
+          <code><a href="cttab_format.html">cttab_format()</a></code>
+
+        </dt>
+        <dd>Convert a long-format cttab to a rendering-ready table.</dd>
 
         <dt>
 
@@ -337,6 +365,13 @@
 
         </dt>
         <dd>Produce ggplot to represent summary statistics graphically, either boxplot or barchart</dd>
+
+        <dt>
+
+          <code><a href="group_data.html">group_data()</a></code>
+
+        </dt>
+        <dd>Create Nested Group Header Rows in a data.table</dd>
 
         <dt>
 
@@ -424,7 +459,7 @@
           <code><a href="write_table.html">write_table()</a></code>
 
         </dt>
-        <dd>Function to write a table into xml format in the correct directory, and edit TableofTables</dd>
+        <dd>Function to write a table into xml format in the correct directory, and record the calling program in the meta_table.</dd>
 
         <dt>
 
@@ -434,6 +469,22 @@
         <dd>Function to write a text into xml format in the correct directory, and edit TableofTables</dd>
 
         <dt>
+
+          <code><a href="format_table.html">format_table()</a></code>
+
+        </dt>
+        <dd>Stamp row-style metadata on a table for `write_table()`.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="deprecated">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated"></a></h2>
+
+      <div class="section-desc"><p>Kept for backwards compatibility; prefer the replacements noted in each function’s help.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="create_word_xml.html">create_word_xml()</a></code>
 
@@ -482,7 +533,7 @@
           <code><a href="lab2val.html">lab2val()</a></code>
 
         </dt>
-        <dd>Replace vector/matrix/data.frame values with corresponding value labels.</dd>
+        <dd>Replace vector/data.frame values with corresponding value labels.</dd>
       </dl></div><div class="section level2">
       <h2 id="miscellaneous">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous"></a></h2>
 

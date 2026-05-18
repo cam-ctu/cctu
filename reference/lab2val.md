@@ -1,9 +1,9 @@
-# Replace vector/matrix/data.frame values with corresponding value labels.
+# Replace vector/data.frame values with corresponding value labels.
 
-`lab2val` replaces vector/matrix/data.frame values with corresponding
-value labels. If there are no labels for some values they are converted
-to characters in most cases. If there are no labels at all for variable
-it remains unchanged.
+`lab2val` replaces vector/data.frame values with corresponding value
+labels. If there are no labels for some values they are converted to
+characters in most cases. If there are no labels at all for variable it
+remains unchanged.
 
 ## Usage
 
@@ -15,7 +15,7 @@ lab2val(x)
 
 - x:
 
-  vector/matrix/data.frame
+  vector/data.frame
 
 ## Value
 

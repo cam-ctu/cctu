@@ -17,21 +17,20 @@ write_manual(
 
 - number:
 
-  the number used to as a suffix in the output filename, and to link to
-  TableofTables. Default is to use the value in the cctu_env package
-  environment that is set within
+  the number used to link to the meta_table. Default is to use the value
+  in the cctu_env package environment that is set within
   [`attach_pop`](https://cam-ctu.github.io/cctu/reference/attach_pop.md).
 
 - clean_up:
 
   logical to invoke the
   [`clean_up`](https://cam-ctu.github.io/cctu/reference/clean_up.md)
-  function at the end. Defaults to TRUE
+  function at the end. Defaults to `TRUE`.
 
 - verbose:
 
   logical to print information on changes to the global environment or
-  external files. Defaults to options()\$verbose.
+  external files. Defaults to `options()$verbose`.
 
 ## Value
 

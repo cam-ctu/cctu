@@ -47,6 +47,7 @@ A list of three data.frame
 ## Examples
 
 ``` r
+
 # Read example data
 dt_a <- read.csv(system.file("extdata", "test_A.csv", package="cctu"),
                  colClasses = "character")

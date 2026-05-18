@@ -6,12 +6,7 @@ what file was called and from which file
 ## Usage
 
 ``` r
-source(
-  file,
-  local = getOption("cctu_source_local", default = FALSE),
-  backup = NULL,
-  ...
-)
+source(file, local = cctu_opt("source_local"), backup = NULL, ...)
 ```
 
 ## Arguments

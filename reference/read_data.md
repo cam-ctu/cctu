@@ -133,8 +133,8 @@ data_table_summary(data_table)
 #> 1 dirtydata   dirtydata.csv /home/runner/work/_temp/Library/cctu/extdata
 #> 2      meta meta_table.xlsx /home/runner/work/_temp/Library/cctu/extdata
 #>              mod_time
-#> 1 2026-02-20 14:08:37
-#> 2 2026-02-20 14:08:37
+#> 1 2026-05-18 11:24:39
+#> 2 2026-05-18 11:24:39
 #>                                                 full_file_path
 #> 1   /home/runner/work/_temp/Library/cctu/extdata/dirtydata.csv
 #> 2 /home/runner/work/_temp/Library/cctu/extdata/meta_table.xlsx
@@ -144,61 +144,61 @@ read_data(data_table)
 #> now dyn.load("/home/runner/work/_temp/Library/readxl/libs/readxl.so") ...
 #> object created in : meta
 summary(dirtydata)
-#>    Subject_Id        age           gender            Treatment  
-#>  Min.   :1.00   Min.   :19.00   Length:8           Min.   :1.0  
-#>  1st Qu.:2.25   1st Qu.:24.50   Class :character   1st Qu.:1.0  
-#>  Median :3.50   Median :40.00   Mode  :character   Median :1.5  
-#>  Mean   :3.50   Mean   :38.33                      Mean   :1.5  
-#>  3rd Qu.:4.75   3rd Qu.:51.75                      3rd Qu.:2.0  
-#>  Max.   :6.00   Max.   :56.00                      Max.   :2.0  
-#>  NA's   :2      NA's   :2                          NA's   :2    
-#>   start_date           outcome    missing        comments      
-#>  Length:8           Min.   :0.0   Mode:logical   Mode:logical  
-#>  Class :character   1st Qu.:0.0   NA's:8         NA's:8        
-#>  Mode  :character   Median :0.5                                
-#>                     Mean   :0.5                                
-#>                     3rd Qu.:1.0                                
-#>                     Max.   :1.0                                
-#>                     NA's   :2                                  
+#>    Subject_Id        age              gender    Treatment       start_date
+#>  Min.   :1.00   Min.   :19.00   Length   :8   Min.   :1.0   Length   : 8  
+#>  1st Qu.:2.25   1st Qu.:24.50   N.unique :3   1st Qu.:1.0   N.unique : 7  
+#>  Median :3.50   Median :40.00   N.blank  :2   Median :1.5   N.blank  : 2  
+#>  Mean   :3.50   Mean   :38.33   Min.nchar:0   Mean   :1.5   Min.nchar: 0  
+#>  3rd Qu.:4.75   3rd Qu.:51.75   Max.nchar:6   3rd Qu.:2.0   Max.nchar:10  
+#>  Max.   :6.00   Max.   :56.00                 Max.   :2.0                 
+#>  NAs    :2      NAs    :2                     NAs    :2                   
+#>     outcome    missing        comments      
+#>  Min.   :0.0   Mode:logical   Mode:logical  
+#>  1st Qu.:0.0   NAs :8         NAs :8        
+#>  Median :0.5                                
+#>  Mean   :0.5                                
+#>  3rd Qu.:1.0                                
+#>  Max.   :1.0                                
+#>  NAs    :2                                  
 summary(meta)
-#>   Completed         Checked          Section             Title          
-#>  Length:4           Mode:logical   Length:4           Length:4          
-#>  Class :character   NA's:4         Class :character   Class :character  
-#>  Mode  :character                  Mode  :character   Mode  :character  
+#>      Completed Checked             Section        Title         Subtitle
+#>  Length   :4   Mode:logical   Length   :4   Length   : 4   Length   :4  
+#>  N.unique :1   NAs :4         N.unique :2   N.unique : 3   N.unique :2  
+#>  N.blank  :0                  N.blank  :0   N.blank  : 0   N.blank  :0  
+#>  Min.nchar:2                  Min.nchar:6   Min.nchar: 6   Min.nchar:6  
+#>  Max.nchar:2                  Max.nchar:8   Max.nchar:14   Max.nchar:6  
+#>  NAs      :1                                               NAs      :1  
 #>                                                                         
-#>                                                                         
-#>                                                                         
-#>                                                                         
-#>    Subtitle            Number           Population        Orientation       
-#>  Length:4           Length:4           Length:4           Length:4          
-#>  Class :character   Class :character   Class :character   Class :character  
-#>  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-#>                                                                             
-#>                                                                             
-#>                                                                             
-#>                                                                             
-#>  Program            Item             Junk         Endpoint      
-#>  Mode:logical   Length:4           Mode:logical   Mode:logical  
-#>  NA's:4         Class :character   NA's:4         NA's:4        
-#>                 Mode  :character                                
-#>                                                                 
-#>                                                                 
-#>                                                                 
-#>                                                                 
-#>  Time Points or how to conglomerate Covariates or Subgroups Summary Statistics
-#>  Length:4                           Length:4                Length:4          
-#>  Class :character                   Class :character        Class :character  
-#>  Mode  :character                   Mode  :character        Mode  :character  
-#>                                                                               
-#>                                                                               
-#>                                                                               
-#>                                                                               
-#>  Formal Analysis  Footnote1         Footnote2         fontsize 
-#>  Mode:logical    Length:4           Mode:logical   Min.   :16  
-#>  NA's:4          Class :character   NA's:4         1st Qu.:17  
-#>                  Mode  :character                  Median :18  
-#>                                                    Mean   :18  
-#>                                                    3rd Qu.:19  
-#>                                                    Max.   :20  
-#>                                                    NA's   :1   
+#>        Number      Population    Orientation Program               Item  
+#>  Length   :4   Length   :4    Length   :4    Mode:logical   Length   :4  
+#>  N.unique :4   N.unique :2    N.unique :2    NAs :4         N.unique :3  
+#>  N.blank  :0   N.blank  :0    N.blank  :0                   N.blank  :0  
+#>  Min.nchar:3   Min.nchar:4    Min.nchar:8                   Min.nchar:4  
+#>  Max.nchar:5   Max.nchar:6    Max.nchar:9                   Max.nchar:6  
+#>                                                                          
+#>                                                                          
+#>    Junk         Endpoint       Time Points or how to conglomerate
+#>  Mode:logical   Mode:logical   Length   : 4                      
+#>  NAs :4         NAs :4         N.unique : 1                      
+#>                                N.blank  : 0                      
+#>                                Min.nchar:15                      
+#>                                Max.nchar:15                      
+#>                                NAs      : 1                      
+#>                                                                  
+#>  Covariates or Subgroups Summary Statistics Formal Analysis     Footnote1 
+#>  Length   :4             Length   :4        Mode:logical    Length   : 4  
+#>  N.unique :1             N.unique :1        NAs :4          N.unique : 1  
+#>  N.blank  :0             N.blank  :0                        N.blank  : 0  
+#>  Min.nchar:4             Min.nchar:4                        Min.nchar:15  
+#>  Max.nchar:4             Max.nchar:4                        Max.nchar:15  
+#>  NAs      :3             NAs      :3                        NAs      : 2  
+#>                                                                           
+#>  Footnote2         fontsize 
+#>  Mode:logical   Min.   :16  
+#>  NAs :4         1st Qu.:17  
+#>                 Median :18  
+#>                 Mean   :18  
+#>                 3rd Qu.:19  
+#>                 Max.   :20  
+#>                 NAs    :1   
 ```

@@ -1,7 +1,7 @@
-# Function to write a table into xml format in the correct directory, and edit TableofTables
+# Function to write a table into xml format in the correct directory, and record the calling program in the meta_table.
 
 Function to write a table into xml format in the correct directory, and
-edit TableofTables
+record the calling program in the meta_table.
 
 ## Usage
 
@@ -10,9 +10,9 @@ write_table(
   x,
   number = cctu_env$number,
   heading = NULL,
-  na_to_empty = getOption("cctu_na_to_empty", default = FALSE),
+  na_to_empty = cctu_opt("na_to_empty"),
   clean_up = TRUE,
-  directory = file.path(getOption("cctu_output", default = "Output"), "Core"),
+  directory = file.path(cctu_opt("output"), "Core"),
   verbose = options()$verbose,
   footnote = NULL
 )
@@ -26,8 +26,8 @@ write_table(
 
 - number:
 
-  the number used to as a suffix in the output filename, and to link to
-  TableofTables. Default is to use the value in the cctu_env package
+  the number used as a suffix in the output filename, and to link to the
+  meta_table. Default is to use the value in the cctu_env package
   environment that is set within
   [`attach_pop`](https://cam-ctu.github.io/cctu/reference/attach_pop.md).
 
@@ -44,17 +44,17 @@ write_table(
 
   logical to invoke the
   [`clean_up`](https://cam-ctu.github.io/cctu/reference/clean_up.md)
-  function at the end. Defaults to TRUE
+  function at the end. Defaults to `TRUE`.
 
 - directory:
 
-  where to save the figures within path or current working directory.
-  The Output directory can be over-riden with options("cctu_output").
+  where to save the table within path or current working directory.
+  Defaults to `file.path(cctu_opt("output"), "Core")`.
 
 - verbose:
 
   logical to print information on changes to the global environment or
-  external files. Defaults to options()\$verbose.
+  external files. Defaults to `options()$verbose`.
 
 - footnote:
 
@@ -62,15 +62,18 @@ write_table(
 
 ## Value
 
-writes an xml version of the input data to file table_number.xml. Edits
-the TableofTables object with the calling programe. No return object.
+writes an xml version of the input data to file table_number.xml.
+Records the calling program in the meta_table. No return object.
 
 ## Details
 
-Variable names and values will be replace by variable labels and value
-labels respectively if available before writing the data. Use
-`options(cctu_na_to_empty = TRUE)` to write NA values will be written as
-empty strings globally.
+For the plain (non-styled) path, variable names and values are replaced
+by variable labels and value labels respectively before writing. For a
+`cttab` input the labels were already baked in upstream by
+[`cttab_format`](https://cam-ctu.github.io/cctu/reference/cttab_format.md).
+Set `cctu_options(na_to_empty = TRUE)` (or
+`options(cctu_na_to_empty = TRUE)`) to make NA-to-empty the global
+default.
 
 ## See also
 

@@ -43,7 +43,7 @@
 regression_table <- function(x, labels = names(coef(x)),
                              digits = cctu_opt("digits"),
                              p_digits = cctu_opt("p_digits"),
-                             trans = if (class(x)[1] %in% c("glm", "coxph")) {
+                             trans = if (get_class(x)[1] %in% c("glm", "coxph")) {
                                exp
                              } else {
                                NULL
@@ -291,3 +291,57 @@ guess_col_names.gls <- function(x, trans, ...) {
     c("Parameter", "Log Est (SE)", "Ratio", "Ratio C.I.", "p-value")
   }
 }
+
+
+##  MICE input
+
+
+get_class <- function(x) {
+  if (inherits(x ,"mira")) {
+    class(x$analyses[[1]])
+  } else {
+    class(x)
+  }
+}
+
+#' @export
+coef_table.mira <- function(x, level = 0.95, ...) {
+  x_pool <- mice::pool(x)
+  output <- mice:::summary.mipo(x_pool, conf.int = TRUE, conf.level = level)
+  output <- output[, c("estimate", "std.error", "p.value", "conf.low", "conf.high")]
+  colnames(output) <- c("beta", "se", "p", "lower", "upper")
+  output
+}
+
+#' @export
+coef.mira <- function(x, ...) {
+  x_pool <- mice::pool(x)
+  output <- x_pool$pooled$estimate
+  names(output) <- x_pool$pooled$term
+  output
+}
+#' @export
+covar.mira <- function(x, digits = 2, ...) {
+  # for covar want complete and effective sample size
+  #  pooled$glanced$nobs
+  x_pool <- mice::pool(x)
+  n_complete <- x_pool$glanced$nobs[1]
+  # pooled$pooled$fmi  (one for each param, so take average)
+  n_effect <- mean(n_complete * (1 - x_pool$pooled$fmi))
+  output <- cbind(
+    contrast = c("N Complete Obs", "N Effective"),
+    beta = c(n_complete, round(n_effect, digits = digits))
+  )
+  output
+}
+# warning about estimates of dispersion/residual error
+
+#' @export
+guess_col_names.mira <- function(x, trans, ...) {
+  model_class <- get_class(x)
+  class(x) <- model_class
+  guess_col_names(x, trans, ...)
+}
+
+
+

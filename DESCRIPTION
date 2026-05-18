@@ -14,23 +14,24 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
 Imports: 
-  ggplot2, 
-  stats, 
-  magrittr, 
-  grDevices, 
-  utils, 
-  xml2, 
-  xslt, 
-  data.table, 
-  grid, 
-  gridExtra, 
   base64enc, 
+  data.table, 
+  ggplot2, 
+  grDevices, 
+  grid, 
+  gridExtra,
+  lifecycle, 
+  magrittr,
+  mice,
+  patchwork,
   png, 
   rlang, 
-  lifecycle, 
-  patchwork,
+  stats, 
   survival, 
-  svglite
+  svglite,
+  utils, 
+  xml2, 
+  xslt 
 Suggests: 
   igraph, 
   testthat, 

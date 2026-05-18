@@ -139,13 +139,8 @@ write_plot <- function(...,
                        dpi = 300,
                        units = "cm",
                        clean_up = TRUE,
-                       directory = file.path(
-                         getOption("cctu_output",
-                           default = "Output"
-                         ),
-                         "Figures"
-                       ),
-                       format = getOption("cctu_fig_format", default = c("png", "eps")),
+                       directory = file.path(cctu_opt("output"), "Figures"),
+                       format = cctu_opt("fig_format"),
                        graphics_args = NULL,
                        verbose = options()$verbose,
                        footnote = NULL,
@@ -288,25 +283,19 @@ write_plot <- function(...,
 #' @export
 #' @importFrom magrittr %>% %<>%
 
-write_ggplot <- function(plot = last_plot(),
+write_ggplot <- function(plot,
                          number = cctu_env$number,
                          width = 29.7 * 0.6,
                          height = 21 * 0.6,
                          dpi = 300,
                          units = "cm",
                          clean_up = TRUE,
-                         directory = file.path(
-                           getOption("cctu_output",
-                             default = "Output"
-                           ),
-                           "Figures"
-                         ),
-                         format = getOption("cctu_fig_format", default = c("png", "eps")),
+                         directory = file.path(cctu_opt("output"), "Figures"),
+                         format = cctu_opt("fig_format"),
                          graphics_args = NULL,
                          verbose = options()$verbose,
                          footnote = NULL) {
-  # Collect all arguments
-  args_list <- as.list(environment())
+  if (missing(plot)) plot <- last_plot()
 
   if (!inherits(plot, c("gtable", "gTree", "grob", "ggplot"))) {
     stop(
@@ -316,8 +305,19 @@ write_ggplot <- function(plot = last_plot(),
     )
   }
 
-  names(args_list)[names(args_list) == "plot"] <- "x"
-  args_list$plot_fn <- grid::grid.draw
-
-  do.call(write_plot, args_list)
+  write_plot(
+    x = plot,
+    number = number,
+    width = width,
+    height = height,
+    dpi = dpi,
+    units = units,
+    clean_up = clean_up,
+    directory = directory,
+    format = format,
+    graphics_args = graphics_args,
+    verbose = verbose,
+    footnote = footnote,
+    plot_fn = grid::grid.draw
+  )
 }

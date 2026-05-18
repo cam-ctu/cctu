@@ -23,11 +23,6 @@
       </w:r>
     </w:p>
     <w:p>
-      <w:r>
-        <w:br w:type="page"/>
-      </w:r>
-    </w:p>
-    <w:p>
       <w:pPr>
         <w:jc w:val="center"/>
         <w:outlineLvl w:val="1"/>
@@ -460,17 +455,12 @@
         <w:sectPr>
           <w:headerReference w:type="default" r:id="rId7"/>
           <w:footerReference w:type="default" r:id="rId12"/>
-          <w:type w:val="continuous"/>
+          <w:type w:val="nextPage"/>
           <w:pgSz w:h="16840" w:w="11900" w:orient="portrait"/>
           <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0"/>
           <w:cols w:space="720"/>
         </w:sectPr>
       </w:pPr>
-    </w:p>
-    <w:p>
-      <w:r>
-        <w:br w:type="page"/>
-      </w:r>
     </w:p>
     <w:p>
       <w:pPr>
@@ -898,17 +888,12 @@
         <w:sectPr>
           <w:headerReference w:type="default" r:id="rId8"/>
           <w:footerReference w:type="default" r:id="rId13"/>
-          <w:type w:val="continuous"/>
+          <w:type w:val="nextPage"/>
           <w:pgSz w:h="16840" w:w="11900" w:orient="portrait"/>
           <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0"/>
           <w:cols w:space="720"/>
         </w:sectPr>
       </w:pPr>
-    </w:p>
-    <w:p>
-      <w:r>
-        <w:br w:type="page"/>
-      </w:r>
     </w:p>
     <w:p>
       <w:pPr>
@@ -1339,7 +1324,7 @@
         <w:sectPr>
           <w:headerReference w:type="default" r:id="rId9"/>
           <w:footerReference w:type="default" r:id="rId14"/>
-          <w:type w:val="continuous"/>
+          <w:type w:val="nextPage"/>
           <w:pgSz w:h="16840" w:w="11900" w:orient="portrait"/>
           <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0"/>
           <w:cols w:space="720"/>
@@ -1433,7 +1418,7 @@
         <w:sectPr>
           <w:headerReference w:type="default" r:id="rId10"/>
           <w:footerReference w:type="default" r:id="rId15"/>
-          <w:type w:val="continuous"/>
+          <w:type w:val="nextPage"/>
           <w:pgSz w:w="16840" w:h="11900" w:orient="landscape"/>
           <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0"/>
           <w:cols w:space="720"/>
@@ -1499,7 +1484,7 @@
     <w:sectPr>
       <w:headerReference w:type="default" r:id="rId11"/>
       <w:footerReference w:type="default" r:id="rId16"/>
-      <w:type w:val="continuous"/>
+      <w:type w:val="nextPage"/>
       <w:pgSz w:h="16840" w:w="11900" w:orient="portrait"/>
       <w:pgMar w:top="1440" w:right="1800" w:bottom="1440" w:left="1800" w:header="720" w:footer="720" w:gutter="0"/>
       <w:cols w:space="720"/>

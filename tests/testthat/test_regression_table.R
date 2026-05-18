@@ -167,3 +167,38 @@ test_that("poisson", {
   X <- regression_table(glm.D93)
   expect_true("RR" %in% names(X))
 })
+
+
+
+
+
+test_that("MICE example coxph regression", {
+  library(survival)
+  library(mice)
+  load(file = test_path("fixtures", "survival.Rdata"))
+
+  lung_mi <- mice(lung )
+
+  cfit1 <- with(lung_mi,
+                coxph(Surv(time, status) ~ age + sex + wt.loss))
+  output_mi <- regression_table(cfit1, digits = 5)
+
+  output_cc <- coxph(Surv(time, status) ~ age + sex + wt.loss, data=lung) |>
+    regression_table()
+
+  # check the CI overlap. An informal check
+  limits_mi <- output_mi$`Conf. Int.` |> strsplit(split=",") |>
+  lapply(as.numeric)
+
+  limits_cc <- output_cc$`Conf. Int.` |> strsplit(split=",") |>
+    lapply(as.numeric)
+
+
+  mapply(   \(x,y){y[1] < x[2] & x[1] < y[2]   }, limits_cc[1:3], limits_mi[1:3]) |>
+    all() |>
+    expect_true()
+
+
+
+})
+

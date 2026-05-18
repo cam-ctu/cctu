@@ -1,7 +1,21 @@
 #' Produces the final Docx file
 #'
-#' @inheritParams create_word_xml
-#' @param  figure_format it only supports \code{png} format.
+#' @param report_title text string used to label the report title page
+#' @param author text string naming the author
+#' @param meta_table a data frame that contains meta information on tables
+#' (title, population, number). Defaults to \code{get_meta_table()}.
+#' @param filename text string giving the filename/path to output the word
+#' document to.
+#' @param table_path text string giving the filepath to the tables folder.
+#' This is used to directly open table files and copy the content.
+#' @param figure_format it only supports \code{png} format.
+#' @param figure_path text string giving the filepath to the figures folder.
+#' @param popn_labels alternative text string giving labels used for the
+#' population - might want to include the population size. They must match
+#' \code{unique(meta_table$population)}, excluding rows with a blank population.
+#' @inheritParams write_ggplot
+#' @param keep_xml a boolean if the compiled XML should be kept, used for
+#' debugging purposes.
 #' @export
 #' @import xml2
 #' @importFrom xslt xml_xslt
@@ -13,26 +27,14 @@
 #' @details  suggest that \code{\link{file.path}} is used to create non default
 #' file paths, to cope with OS vaguaries.
 
-
-
-
 write_docx <- function(
     report_title,
     author,
     meta_table = get_meta_table(),
-    filename = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Reports", "Report.docx"
-    ),
-    table_path = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Core"
-    ),
+    filename = file.path(cctu_opt("output"), "Reports", "Report.docx"),
+    table_path = file.path(cctu_opt("output"), "Core"),
     figure_format = "png",
-    figure_path = file.path(
-      getOption("cctu_output", default = "Output"),
-      "Figures"
-    ),
+    figure_path = file.path(cctu_opt("output"), "Figures"),
     popn_labels = NULL,
     verbose = options()$verbose,
     keep_xml = FALSE) {
@@ -44,8 +46,6 @@ write_docx <- function(
     ),
     mustWork = FALSE
   )
-
-  figure_format <- match.arg(figure_format)
 
   report_title <- remove_xml_specials(report_title)
   author <- remove_xml_specials(author)
@@ -135,8 +135,8 @@ write_docx <- function(
 
   ## Figure ID
   fig_id <- meta_table$item == "figure"
-  meta_table$figuerid <- cumsum(fig_id) + max(meta_table$footerid)
-  meta_table$figuerid[meta_table$item != "figure"] <- NA
+  meta_table$figureid <- cumsum(fig_id) + max(meta_table$footerid)
+  meta_table$figureid[meta_table$item != "figure"] <- NA
 
   cat(
     "\n <Report>\n<frontpage>
@@ -231,7 +231,7 @@ write_docx <- function(
 
       # Add figure relationships
       xml_add_child(doc_rels, "Relationship",
-        Id = sprintf("rId%i", meta_table[i, "figuerid"]),
+        Id = sprintf("rId%i", meta_table[i, "figureid"]),
         Type = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
         Target = sprintf("media/%s", basename(fig_path))
       )
@@ -264,7 +264,7 @@ write_docx <- function(
           "\n <MetaFigure> \n", headers[i],
           sprintf(
             "<rid>%i</rid><width>%.0f</width><height>%.0f</height>",
-            meta_table[i, "figuerid"], img_wh[1], img_wh[2]
+            meta_table[i, "figureid"], img_wh[1], img_wh[2]
           ),
           footnote[i], "\n </MetaFigure> \n"
         ),
@@ -345,6 +345,7 @@ write_docx <- function(
 
   curr_wd <- getwd()
   setwd(file.path(output_dir, "wordfiles"))
+  on.exit(setwd(curr_wd), add = TRUE)
   # cmd <- paste0("zip -r tmp.docx *")
   # system(cmd)
   utils::zip("tmp.docx", list.files(
@@ -395,10 +396,8 @@ to_wml_footer <- function(author, program) {
   )
   str2 <- sprintf("Program: %s", program)
 
-  nd1 <- xml_find_all(x, xpath = "//w:r/w:t[1]")
-  xml_text(nd1) <- str1
-
-  nd2 <- xml_find_all(x, xpath = "//w:r/w:t[2]")
-  xml_text(nd2) <- str2
+  nd_all <- xml_find_all(x, xpath = "//w:r/w:t")
+  xml_text(nd_all[[1]]) <- str1
+  xml_text(nd_all[[length(nd_all)]]) <- str2
   x
 }

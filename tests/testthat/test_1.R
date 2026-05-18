@@ -129,19 +129,19 @@ test_that("create snapshots", {
   meta_tbl$program <- gsub("\\\\", "/", meta_tbl$program)
   meta_tbl$program <- gsub(getwd(), "", meta_tbl$program)
 
-  expect_warning(
+  lifecycle::expect_deprecated(
     create_word_xml("Test <Report>",
       "Simon & Bond's",
       meta_table = meta_tbl,
       datestamp = "Test Date",
       popn_labels = popn_labels,
-      filename = test_path("Output", "Reports", "Report2.doc"),
+      filename = test_path("Output", "Reports", "Report2.docx"),
       table_path = test_path("Output/Core"),
       figure_path = test_path("Output/Figures")
       # xslt_file = system.file("extdata", "trial_xml_to_word.xslt", package="cctu")
       # table_path = "Output/Core",
       # figure_path="Output/Figures",
-    ), "This function is no longer being maintained"
+    )
   )
 
 
@@ -213,7 +213,7 @@ operating_system <-    Sys.info()["sysname"]
 
 
 test_that("Creation of files", {
-  expect_true(file.exists(test_path("Output", "Reports", "Report2.doc")))
+  expect_true(file.exists(test_path("Output", "Reports", "Report2.docx")))
   expect_true(file.exists(test_path("Output", "Reports", "Report_final.docx")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists(test_path("Output", "Core", "table_1.1.1.xml")))

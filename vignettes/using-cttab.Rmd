@@ -55,7 +55,7 @@ var_lab(mtcars$am)
 table(to_factor(mtcars$am))
 ```
 
-But be cautious, **some R process might drop the variable or value label attributes**. Normally it won't, but you should check it before report if you are not sure. For example, `as.numeric`, `as.character` and `as.logiac` will drop the variable and value label. There are `to_numeric`, `to_character` and `to_logical` can be used to convert the data type. You can also use the `copy_lab` function to copy the variable and value labels from the other variable. 
+But be cautious, **some R process might drop the variable or value label attributes**. Normally it won't, but you should check it before report if you are not sure. For example, `as.numeric`, `as.character` and `as.logical` will drop the variable and value label. There are `to_numeric`, `to_character` and `to_logical` can be used to convert the data type. You can also use the `copy_lab` function to copy the variable and value labels from the other variable.
 
 You can use `var_lab` to extract the variable label or assign one. And use `has_label` to check if the variable has any variable label with it. You may also want to use `drop_lab` to drop the variable label.    
 
@@ -75,26 +75,33 @@ mtcars[, vars]
 
 # But you can't do this for the data.table
 dat <- data.table::data.table(mtcars)
-mtcars[, vars]
+dat[, vars]
 
 # You need to add with=FALSE to do that
-mtcars[, vars, with = FALSE]
+dat[, vars, with = FALSE]
 ```
 
 ## Table function
 
-You might already knew how to use the `sumby` function, but now a new function called `cttab` has been added. The difference between these two functions are the latter can handle variable label and value labels. You can feed the labelled data to this function and it will populate a summary table. Report data by treatment group, stratify tables by visit. Also, you can report variable based on some conditions and group the variable in the report. It generates a missing report internally and you can dump the missing report at the end. No extra step is needed. It will also produce the summary plots of the variables. The produced plots will be arrange to 3 by 3 and new plot will be producd if the variables exceeds 9. The remaining of this document will show you with a working case. 
+You might already knew how to use the `sumby` function, but now a new function called `cttab` has been added. The difference between these two functions are the latter can handle variable label and value labels. You can feed the labelled data to this function and it will populate a summary table. Report data by treatment group, stratify tables by visit. Also, you can report variable based on some conditions and group the variable in the report. It generates a missing report internally and you can dump the missing report at the end. No extra step is needed. It will also produce the summary plots of the variables. The produced plots will be arranged to 3 by 3 and a new plot will be produced if the variables exceed 9. The remaining of this document will show you with a working case.
 
 ## Setting options
 
-The `cctab` function has a good flexibility, which means it has lots of parameters you can use. You should check out the manual of the `cctab` function. But, you can use `options` to set the default value of the parameters to be used by `cctab`. Below is setting some of the options, for more details please check out the `cctab` function manuals.
+The `cttab` function has a good flexibility, which means it has lots of parameters you can use. You should check out the manual of the `cttab` function. The recommended way to set defaults is `cctu_options()` (and `cctu_opt()` to read a single value back); these honour the same names you'd otherwise pass as `options(cctu_<name> = …)`, but with input validation:
 
 ```{r eval = FALSE}
-options(cctu_digits = 3) # keep 3 digits for numerical value
-options(cctu_digits_pct = 0) # keep 0 digits for percentage
-options(cctu_subjid_string = "subjid") # Set subject ID string
-options(cctu_print_plot = FALSE) # Don't produce plots
+cctu_options(
+  digits        = 3,        # keep 3 significant digits for numerical value
+  digits_pct    = 0,        # keep 0 digits for percentage
+  subjid_string = "subjid", # subject ID column name
+  print_plot    = FALSE     # don't produce summary plots
+)
+
+# Read a single option back
+cctu_opt("digits")
 ```
+
+The plain `options(cctu_<name> = …)` form is still supported for backwards compatibility.
 
 
 # Working example
@@ -114,7 +121,7 @@ clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu"))
 ```
 
 
-### Vertically splited multiple data
+### Vertically split multiple data
 If you have multiple datasets, you should combine them at this stage. If multiple datasets are given and they have the same variable name, you can use `rbind` function to combine data together. If you have different datasets with different variable names except for some key variables, you can use `merge_data` function to combine them together.
 
 ```{r eval=FALSE, echo=TRUE}
@@ -144,7 +151,7 @@ clu <- res$clu # Extract combined CLU data
 
 ## Apply macro dictionary
 
-Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour. The `apply_macro_dict` function will clean the variable name in the DLU and CLU, then apply these macro meta data to the target dataset. The cleaned DLU data will be sotred internally and is further used by `cttab` to report missingness. You can use `get_dlu` to extract the internal DLU data after applying `apply_macro_dict` to the dataset for further useage or as a reference. Although you can use `set_dlu` to change the internal DLU data stored by `apply_macro_dict`, this is not recommended unless you know what you are doing. This will have an impact on the missing report. 
+Next, we will apply the DLU and CLU files to the dataset. **Do not clean variable name** in the dataset and DLU/CLU files before applying `apply_macro_dict`. The function can handle variable name cleaning by setting `clean_names = TRUE`, this is default behaviour. The `apply_macro_dict` function will clean the variable name in the DLU and CLU, then apply these macro meta data to the target dataset. The cleaned DLU data will be stored internally and is further used by `cttab` to report missingness. You can use `get_dlu` to extract the internal DLU data after applying `apply_macro_dict` to the dataset for further usage or as a reference. Although you can use `set_dlu` to change the internal DLU data stored by `apply_macro_dict`, this is not recommended unless you know what you are doing. This will have an impact on the missing report.
 
 ```{r echo=TRUE}
 # Create subjid
@@ -197,7 +204,7 @@ X
 
 ## Formula interface
 
-One can use formula in the `cctab` just like `lm`, but you will not be able to group variables (described in the later section). The left hand side of the formula is the variables to be summarised. Right hand side of the formula is the grouping and/or row splitting variables. The by visit variable should be separated by `|` with grouping variable, use `1` if there is no grouping variables. No `group` or `row_split` parameters to be used in the formula interface. All the other parameters are the same.
+One can use formula in the `cttab` just like `lm`, but you will not be able to group variables (described in the later section). The left hand side of the formula is the variables to be summarised. Right hand side of the formula is the grouping and/or row splitting variables. The by visit variable should be separated by `|` with grouping variable, use `1` if there is no grouping variables. No `group` or `row_split` parameters to be used in the formula interface. All the other parameters are the same.
 ```{r eval=FALSE}
 # No grouping
 X <- cttab(AGE + SEX + BMIBL ~ 1, data = df)
@@ -259,7 +266,7 @@ X
 
 ## Split table row by visit
 
-You can define `row_split` parameter to the name of visit or repeat variable. 
+You can define `row_split` parameter to the name of visit or repeat variable.
 ```{r echo=TRUE}
 attach_pop("1.1")
 df <- extract_form(dt, "Lab", vars_keep = c("subjid", "ARM"))
@@ -273,6 +280,18 @@ X <- cttab(
 )
 
 X
+```
+
+When `row_split` is supplied you can also flip the row hierarchy with the `nest` argument. The default `nest = "split"` puts the row-split levels on the outside (a "Study Visit = Baseline" banner with each variable's stats nested inside it). Setting `nest = "var"` flips it so each variable becomes the outer banner and the row-split levels (e.g. each visit) appear as sub-sections within it — useful when you want to read one variable across all visits at a glance.
+
+```{r eval=FALSE}
+X_var <- cttab(
+  x = c("AST", "BILI", "ALT"),
+  group = "ARM",
+  data = df,
+  row_split = "AVISIT",
+  nest = "var"
+)
 ```
 
 ## Group variable
@@ -333,8 +352,81 @@ X <- cttab(
 X
 ```
 
+## What `cttab()` returns and how it renders
 
+The print method you've been using above does a small amount of work behind the scenes. `cttab()` itself returns a *long-format* `data.table` (one row per `(row_split, group level, variable, statistic)` cell) carrying the raw values, before any layout decisions are made:
 
+```{r echo=TRUE}
+X_long <- cttab(c("AGE", "SEX"), group = "ARM", data = df)
+class(X_long)
+head(X_long, 6)
+```
+
+This is the shape you want when you need to post-process the numbers — filter rows, edit labels, or bind two tables together (`rbind.cttab()` is aware of the long format and re-numbers `Var_ID` / `Group_ID` so the bound parts stay in their own sections). It is also what `write_table()` accepts when given an unformatted `cttab`.
+
+The rendered shape — section banners inserted, headers stamped with bold/bgcol/span tokens, stat rows indented — is produced by `cttab_format()`. `print.cttab()` and `write_table()` call it for you, so you normally don't have to. Calling it explicitly is useful when you want to inspect or tweak the rendered layout:
+
+```{r echo=TRUE}
+X_fmt <- cttab_format(X_long)
+class(X_fmt)                   # c("cttab", "data.frame")
+head(X_fmt[, "label", drop = FALSE], 8)
+attr(X_fmt, "row_style")[1:8]
+```
+
+The result is a `data.frame` with a `label` column carrying the per-row text and a `row_style` attribute carrying the per-row `;`-joined style tokens — the same vocabulary `format_table()` exposes (see the next section). A few notes:
+
+* `cttab_format()` honours the `nest` attribute on `X_long`, so flipping `nest = "split" ↔ "var"` is reflected in the rendered row order without a second function call.
+* If `cttab_format()` is handed a table that has already been formatted (a matrix `cttab` or any data.frame stamped with a `row_style` attribute and a `label` column), it returns the input unchanged. That makes it safe for `write_table()` and `print.cttab()` to call unconditionally.
+* If you only want a tidy long-format frame for downstream tools (no rendering metadata), use `as.data.frame(X_long)` — it drops the `Group_ID`, `Group_Label`, `Var_ID`, `Stat_ID` book-keeping columns and keeps `Variable`, `Statistic`, `Value`, plus the `group` / `row_split` columns.
+
+## Styling a custom table with `format_table`
+
+Sometimes the table you want to render isn't a `cttab` summary at all — maybe you've built a small `data.frame` by hand, or run a regression and want to drop a tidy version into the report. `write_table()` knows how to render any `data.frame` or `matrix` styled with a `row_style` attribute, and `format_table()` is the helper that stamps that attribute on for you.
+
+The styling vocabulary is four tokens — `bold`, `bgcol`, `span`, `indent` — plus an optional `col` token for coloured text. You pass each one a vector of row indices, and `format_table()` assembles the per-row `;`-joined string that the renderer consumes. This is the same machinery `cttab_format()` uses internally, so the look will match a `cttab` table.
+
+```{r echo=TRUE}
+df <- data.frame(
+  label = c("Demographics",
+            "Age (years)", "Mean (SD)", "Median [Min, Max]",
+            "Sex",         "Female",    "Male"),
+  Treated = c("",          "",          "65.2 (8.1)", "66 [50, 82]",
+                           "",          "12 (40%)",   "18 (60%)"),
+  Control = c("",          "",          "63.9 (7.4)", "64 [49, 80]",
+                           "",          "15 (50%)",   "15 (50%)"),
+  stringsAsFactors = FALSE
+)
+
+df <- format_table(df,
+  bold   = c(1, 2, 5),  # banner + variable headers
+  bgcol  = 1,           # only the top "Demographics" banner gets a fill
+  span   = c(1, 2, 5),  # banner + variable headers span all columns
+  indent = c(3, 4, 6, 7)
+)
+
+attr(df, "row_style")
+```
+
+A row that should appear as a section banner ends up with `"bold;bgcol;span"`; a plain variable header is `"bold;span"`; stat rows under it are `"indent"`; everything else stays `""`. Token order in the assembled string is fixed (`bold;bgcol;span;indent;col`), and out-of-range / `NA` row indices are rejected with the column name in the error message.
+
+For coloured fills or text, pass `bgcol_color` / `col_color`. Both accept either a six-digit hex string or any standard R colour name; named colours are converted to hex once so the XSLT pipeline only sees one form:
+
+```{r echo=TRUE, eval=FALSE}
+df <- format_table(df,
+  bgcol       = 1,
+  bgcol_color = "steelblue", # banner uses a custom fill
+  col         = c(3, 4),
+  col_color   = "#B22222"    # two stat rows in a deep red
+)
+```
+
+`col` requires `col_color` to be set — supplying one without the other emits a warning and the colour token is dropped. If you want the package default (a light grey fill), just omit `bgcol_color`.
+
+Once stamped, hand the table off to `write_table()` (or the print method) the same way you would with a `cttab`:
+
+```{r eval=FALSE}
+write_table(df)   # renders into Output/Core/table_<number>.xml
+```
 
 
 

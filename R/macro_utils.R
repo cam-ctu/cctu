@@ -88,9 +88,7 @@ apply_macro_dict <- function(data,
                              clu = NULL,
                              date_format = c("%d/%m/%Y", "%Y-%m-%d", "%Y/%m/%d"),
                              clean_names = TRUE,
-                             rm_empty = getOption("cctu_rm_empty",
-                               default = "both"
-                             ),
+                             rm_empty = cctu_opt("rm_empty"),
                              check_catvar = FALSE) {
   data <- data.table::as.data.table(data)
 
@@ -159,15 +157,11 @@ apply_macro_dict <- function(data,
     }
 
     val <- tryCatch(date_fn(val, tryFormats = date_format),
-      error = function(e) {
-        "ERROR"
-      },
-      warning = function(w) {
-        "ERROR"
-      }
+      error = function(e) e,
+      warning = function(w) w
     )
 
-    if ("ERROR" %in% val) {
+    if (inherits(val, "condition")) {
       invalid_dates <- c(invalid_dates, j)
       next
     }
@@ -366,9 +360,7 @@ extract_form <- function(data,
                          visit = NULL,
                          vars_keep = NULL,
                          dlu = cctu_env$dlu,
-                         rm_empty = getOption("cctu_rm_empty",
-                           default = "both"
-                         )) {
+                         rm_empty = cctu_opt("rm_empty")) {
   rm_empty <- match.arg(rm_empty, choices = c("both", "none", "rows", "cols"))
 
   if (ncol(dlu) == 4 && names(dlu)[2] == "visit.form.question") {

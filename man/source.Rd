@@ -5,12 +5,7 @@
 \title{A modified version of the source() function to capture in a data.frame what
 file was called and from which file}
 \usage{
-source(
-  file,
-  local = getOption("cctu_source_local", default = FALSE),
-  backup = NULL,
-  ...
-)
+source(file, local = cctu_opt("source_local"), backup = NULL, ...)
 }
 \arguments{
 \item{file}{a \link[base]{connection} or a character string giving the

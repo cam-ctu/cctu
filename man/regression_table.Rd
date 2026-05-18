@@ -7,9 +7,9 @@
 regression_table(
   x,
   labels = names(coef(x)),
-  digits = getOption("cctu_digits", default = 3),
-  p_digits = getOption("cctu_p_digits", default = 4),
-  trans = if (class(x)[1] \%in\% c("glm", "coxph")) {
+  digits = cctu_opt("digits"),
+  p_digits = cctu_opt("p_digits"),
+  trans = if (get_class(x)[1] \%in\% c("glm", "coxph")) {
      exp
  } else {
      NULL

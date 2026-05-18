@@ -118,13 +118,14 @@ local_mocked_bindings(
 # now use snapshots...
 
 test_that("create snapshots", {
-  expect_warning(
+  lifecycle::expect_deprecated(
     create_word_xml("Test <Report>",
       "Simon & Bond's",
       get_meta_table(),
       datestamp = "Test Date",
       popn_labels = popn_labels,
-    ), "This function is no longer being maintained"
+      filename=file.path(cctu_opt("output"), "Reports", "Report2.docx")
+    )
   )
 
 
@@ -160,7 +161,7 @@ test_that("create snapshots", {
 
 
 test_that("Creation of files", {
-  expect_true(file.exists(test_path("Output_other", "Reports", "Report.doc")))
+  expect_true(file.exists(test_path("Output_other", "Reports", "Report2.docx")))
   expect_true(file.exists(test_path("Output_other", "Reports", "Report.docx")))
   # expect_true(file.exists("Output/Reports/ReportJpg.doc"))
   expect_true(file.exists(test_path("Output_other", "Core", "table_1.1.1.xml")))

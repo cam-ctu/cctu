@@ -2,11 +2,16 @@
 
 options(verbose = TRUE)
 
-mylibs <- c("readxl", "dplyr", "ggplot2", "magrittr","tidyr","rmarkdown","knitr","xml2","rvest")
+# edite the DESCRIPTION file to add in packages you need
+library_description()
 
-for(package in mylibs){
-  library(package, character.only = TRUE)
-}
+# Old fashioned way to do this
+
+# mylibs <- c("readxl", "dplyr", "ggplot2", "magrittr","tidyr","rmarkdown","knitr","xml2","rvest")
+#
+# for(package in mylibs){
+#   library(package, character.only = TRUE)
+# }
 
 # read in all function files
 my_functions <- list.files("Progs\\functions")
@@ -33,5 +38,5 @@ graphical_theme <- theme_bw() + theme(
 )
 
 # remove anything no longer required
-rm(mylibs, package, my_functions, file)
+rm( my_functions, file)
 

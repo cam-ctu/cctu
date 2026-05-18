@@ -8,6 +8,7 @@
 #' @param description logical,  whether to create a DESCRIPTION file if one does not exist.
 #' @param output character string giving the name of the output folder. Can be
 #' overriden by setting the option("cctu_output").
+#' @param check_gitignore logical on whether to run the function \code{gitignore_init} to create or edit a .gitignore file
 #' @return cctu_initialise gives an invisible return of logical indicating if
 #' the directories have been created. The directories needed are "Output", and
 #' within "Output", "Core", "Figures", "Reports".
@@ -22,17 +23,17 @@
 #'  if needed.
 cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
                             description = TRUE,
-                            output = getOption("cctu_output",
-                              default = "Output"
-                            )) {
+                            output = cctu_opt("output"),
+                            check_gitignore = TRUE
+                            ) {
   root <- root |> normalizePath()
   # root_slash <- root |> final_slash()
   reset_code_tree(root_file = file.path(root, "ROOT"))
   if (!cctu_check_dir(root = root)) {
-    dir.create(file.path(root, output)) &
-      dir.create(file.path(root, output, "Core")) &
-      dir.create(file.path(root, output, "Figures")) &
-      dir.create(file.path(root, output, "Reports"))
+    dir.create(file.path(root, output))
+    dir.create(file.path(root, output, "Core"))
+    dir.create(file.path(root, output, "Figures"))
+    dir.create(file.path(root, output, "Reports"))
   }
   if (scripts) {
     file.copy(
@@ -65,6 +66,9 @@ Use  library_description()  to load them all automatically")
   if (rm) {
     rm_output()
   }
+
+  if (check_gitignore) gitignore_init()
+
 }
 
 
@@ -81,9 +85,7 @@ cctu_initialize <- cctu_initialise
 #' @export
 
 cctu_check_dir <- function(root = getwd(), warnings = FALSE,
-                           output = getOption("cctu_output",
-                             default = "Output"
-                           )) {
+                           output = cctu_opt("output")) {
   root <- normalizePath(root) # |> final_slash
   check <- dir.exists(file.path(root, output)) &
     dir.exists(file.path(root, output, "Core")) &
@@ -106,7 +108,7 @@ cctu_check_dir <- function(root = getwd(), warnings = FALSE,
 #' @param top logical delete top level files that are not in core/figures/reports.
 #' @export
 
-rm_output <- function(output = getOption("cctu_output", default = "Output"),
+rm_output <- function(output = cctu_opt("output"),
                       core = TRUE, figures = TRUE, reports = TRUE, top = TRUE) {
   if (top) {
     files <- list.files(output, recursive = FALSE)

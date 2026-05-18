@@ -57,7 +57,7 @@ km_ggplot <- function(sfit,
                       ystratalabs = deprecated(),
                       timeby = NULL,
                       pval = FALSE,
-                      p_digits = getOption("cctu_p_digits", default = 4),
+                      p_digits = cctu_opt("p_digits"),
                       ...) {
   if (is_present(ystratalabs)) {
     deprecate_warn("0.8.4", "km_ggplot(ystratalabs)", "km_ggplot(strata_labs)")

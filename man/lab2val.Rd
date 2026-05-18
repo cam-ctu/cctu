@@ -2,18 +2,18 @@
 % Please edit documentation in R/labels.R
 \name{lab2val}
 \alias{lab2val}
-\title{Replace vector/matrix/data.frame values with corresponding value labels.}
+\title{Replace vector/data.frame values with corresponding value labels.}
 \usage{
 lab2val(x)
 }
 \arguments{
-\item{x}{vector/matrix/data.frame}
+\item{x}{vector/data.frame}
 }
 \value{
 Object of the same form as x but with value labels instead of values.
 }
 \description{
-\code{lab2val} replaces vector/matrix/data.frame values with
+\code{lab2val} replaces vector/data.frame values with
 corresponding value labels. If there are no labels for some values they are
 converted to characters in most cases. If there are no labels at all for
 variable it remains unchanged.

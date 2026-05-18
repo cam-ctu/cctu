@@ -12,15 +12,15 @@ write_manual(
 )
 }
 \arguments{
-\item{number}{the number used to as a suffix in the output filename, and to
-link to TableofTables. Default is to use the value in the cctu_env package
- environment that is set within \code{\link{attach_pop}}.}
+\item{number}{the number used to link to the meta_table. Default is to use
+the value in the cctu_env package environment that is set within
+\code{\link{attach_pop}}.}
 
-\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at the
-end. Defaults to TRUE}
+\item{clean_up}{logical to invoke the \code{\link{clean_up}} function at
+the end. Defaults to \code{TRUE}.}
 
 \item{verbose}{logical to print information on changes to the global
-environment or external files. Defaults to options()$verbose.}
+environment or external files. Defaults to \code{options()$verbose}.}
 }
 \value{
 Edits the meta_table object with the calling program and optionally

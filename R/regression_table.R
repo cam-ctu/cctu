@@ -307,19 +307,20 @@ get_class <- function(x) {
 #' @export
 coef_table.mira <- function(x, level = 0.95, ...) {
   x_pool <- mice::pool(x)
-  output <- mice:::summary.mipo(x_pool, conf.int = TRUE, conf.level = level)
+  output <- summary(x_pool, conf.int = TRUE, conf.level = level)
   output <- output[, c("estimate", "std.error", "p.value", "conf.low", "conf.high")]
   colnames(output) <- c("beta", "se", "p", "lower", "upper")
   output
 }
 
 #' @export
-coef.mira <- function(x, ...) {
-  x_pool <- mice::pool(x)
+coef.mira <- function(object, ...) {
+  x_pool <- mice::pool(object)
   output <- x_pool$pooled$estimate
   names(output) <- x_pool$pooled$term
   output
 }
+
 #' @export
 covar.mira <- function(x, digits = 2, ...) {
   # for covar want complete and effective sample size

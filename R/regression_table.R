@@ -298,10 +298,12 @@ guess_col_names.gls <- function(x, trans, ...) {
 
 get_class <- function(x) {
   if (inherits(x ,"mira")) {
-    class(x$analyses[[1]])
+     out <-  class(x$analyses[[1]])
   } else {
-    class(x)
+   out <- class(x)
   }
+  ifelse( out == "coxme", "coxph", out)
+  out
 }
 
 #' @export

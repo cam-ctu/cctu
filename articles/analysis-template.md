@@ -522,11 +522,11 @@ Sys.info()
 #>                                               sysname 
 #>                                               "Linux" 
 #>                                               release 
-#>                                   "6.17.0-1013-azure" 
+#>                                   "6.17.0-1015-azure" 
 #>                                               version 
-#> "#13~24.04.1-Ubuntu SMP Wed Apr 15 16:52:17 UTC 2026" 
+#> "#15~24.04.1-Ubuntu SMP Wed May  6 22:37:49 UTC 2026" 
 #>                                              nodename 
-#>                                       "runnervmrw5os" 
+#>                                       "runnervm3jyl0" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -559,7 +559,7 @@ sessionInfo()
 #> other attached packages:
 #>  [1] survival_3.8-6 xml2_1.5.2     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.31
 #>  [6] readxl_1.5.0   magrittr_2.0.5 knitr_1.51     ggplot2_4.0.3  dplyr_1.2.1   
-#> [11] cctu_0.8.12   
+#> [11] cctu_0.8.13   
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     digest_0.6.39     
@@ -571,11 +571,11 @@ sessionInfo()
 #> [25] tools_4.6.0        png_0.1-9          vctrs_0.7.3        R6_2.6.1          
 #> [29] lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.2         pkgconfig_2.0.3   
 #> [33] pillar_1.11.1      bslib_0.11.0       gtable_0.3.6       data.table_1.18.4 
-#> [37] glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2  xfun_0.57         
+#> [37] glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2  xfun_0.58         
 #> [41] tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2       htmltools_0.5.9   
 #> [45] patchwork_1.3.2    labeling_0.4.3     compiler_4.6.0     S7_0.2.2
 date()
-#> [1] "Mon May 18 11:34:57 2026"
+#> [1] "Thu Jun  4 09:13:47 2026"
 ```
 
 The output is

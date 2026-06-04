@@ -10,9 +10,10 @@ regression_table(
   labels = names(coef(x)),
   digits = cctu_opt("digits"),
   p_digits = cctu_opt("p_digits"),
-  trans = if (get_class(x)[1] %in% c("glm", "coxph")) {
+  trans = if (get_class(x)[1] %in% c("glm", "coxph", "coxme")) {
      exp
  } else {
+   
      NULL
  },
   level = 0.95,

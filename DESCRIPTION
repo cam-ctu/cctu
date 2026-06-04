@@ -54,7 +54,8 @@ Suggests:
   ragg,
   eudract,
   quarto,
-  tinytable
+  tinytable,
+  coxme
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3

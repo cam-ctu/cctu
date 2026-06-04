@@ -43,7 +43,7 @@
 regression_table <- function(x, labels = names(coef(x)),
                              digits = cctu_opt("digits"),
                              p_digits = cctu_opt("p_digits"),
-                             trans = if (get_class(x)[1] %in% c("glm", "coxph")) {
+                             trans = if (get_class(x)[1] %in% c("glm", "coxph", "coxme")) {
                                exp
                              } else {
                                NULL
@@ -85,10 +85,10 @@ regression_table <- function(x, labels = names(coef(x)),
   names(y) <- names(xx)
   xx <- rbind_space(xx, y)
   names(xx) <- col_names
-  if (inherits(x, c("gls", "lme", "gee"))) {
+  if (inherits(x, c("gls", "lme", "gee","coxme"))) {
     warning(
-      "The variance-correlation structure is not included as it is too general consider summary(x),
-      coef(x$modelStruct$corStruct, uncons=FALSE), or coef(x$modelStruct$varStruct, uncons=FALSE)"
+      "The variance-correlation structure is not included as it is too general. Consider summary(x),
+      VarCorr(X), coef(x$modelStruct$corStruct, uncons=FALSE), or coef(x$modelStruct$varStruct, uncons=FALSE)"
     )
   }
   xx
@@ -122,6 +122,10 @@ coef_table.coxph <- function(x, level = 0.95, ...) {
   colnames(output) <- c("beta", "se", "p", "lower", "upper")
   output
 }
+
+#' @export
+coef_table.coxme <-coef_table.coxph
+
 
 #' @export
 coef_table.lme <- function(x, level = 0.95, ...) {
@@ -204,6 +208,9 @@ covar.coxph <- function(x, ...) {
 }
 
 #' @export
+covar.coxme <- covar.coxph
+
+#' @export
 covar.lme <- function(x, digits = 3, ...) {
   xx <- nlme::VarCorr(x)
   xx <- rbind(colnames(xx), xx)
@@ -279,9 +286,13 @@ guess_col_names.glm <- function(x, trans, ...) {
 }
 
 #' @export
-guess_col_names.coxme <- guess_col_names.coxph <- function(x, trans, ...) {
+guess_col_names.coxph <- function(x, trans, ...) {
   c("Parameter", "Log HR (SE)", "HR", "Conf. Int.", "p-value")
 }
+
+
+#' @export
+guess_col_names.coxme <- guess_col_names.coxph
 
 #' @export
 guess_col_names.gls <- function(x, trans, ...) {

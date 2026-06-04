@@ -202,3 +202,16 @@ test_that("MICE example coxph regression", {
 
 })
 
+test_that("coxme",{
+  library(coxme)
+  #  see https://cran.r-project.org/web/packages/coxme/vignettes/coxme.pdf
+
+  efit3 <- coxme(Surv(y, uncens) ~ trt + (1 | center/trt), eortc)
+  output <- regression_table(efit3)
+  est <- gsub("(.*)\\(.*\\)", "\\1",output[1,2]) |> as.numeric()
+  compare_with_rounding(est,  0.7420388) |>
+  expect_true()
+
+})
+
+

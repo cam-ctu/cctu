@@ -279,7 +279,7 @@ guess_col_names.glm <- function(x, trans, ...) {
 }
 
 #' @export
-guess_col_names.coxph <- function(x, trans, ...) {
+guess_col_names.coxme <- guess_col_names.coxph <- function(x, trans, ...) {
   c("Parameter", "Log HR (SE)", "HR", "Conf. Int.", "p-value")
 }
 
@@ -302,7 +302,6 @@ get_class <- function(x) {
   } else {
    out <- class(x)
   }
-  ifelse( out == "coxme", "coxph", out)
   out
 }
 

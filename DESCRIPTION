@@ -1,7 +1,7 @@
 Package: cctu
 Title: In-House Functions for Report Writing at Cambridge Clinical Trials Unit
-Version: 0.8.12
-Date: 2026-05-15
+Version: 0.8.13
+Date: 2026-06-04
 Authors@R: c(
   person("Simon", "Bond", email = "simon.bond7@nhs.net", role = c("aut", "cre")),
   person("Alimu", "Dayimu", role = "aut")
@@ -54,7 +54,8 @@ Suggests:
   ragg,
   eudract,
   quarto,
-  tinytable
+  tinytable,
+  coxme
 VignetteBuilder: knitr
 Repository: local-cran
 Config/testthat/edition: 3

@@ -86,6 +86,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -100,6 +103,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -114,6 +120,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -128,6 +137,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -142,6 +154,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -519,6 +534,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -533,6 +551,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -547,6 +568,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -561,6 +585,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -575,6 +602,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -955,6 +985,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -969,6 +1002,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -983,6 +1019,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -997,6 +1036,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -1011,6 +1053,9 @@
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>

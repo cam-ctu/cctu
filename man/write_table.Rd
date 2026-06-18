@@ -13,7 +13,8 @@ write_table(
   clean_up = TRUE,
   directory = file.path(cctu_opt("output"), "Core"),
   verbose = options()$verbose,
-  footnote = NULL
+  footnote = NULL,
+  spanner_sep = NULL
 )
 }
 \arguments{
@@ -39,6 +40,14 @@ directory. Defaults to \code{file.path(cctu_opt("output"), "Core")}.}
 environment or external files. Defaults to \code{options()$verbose}.}
 
 \item{footnote}{character vector, can be used to add footnotes.}
+
+\item{spanner_sep}{\code{NULL} (default) for a single-row header,
+byte-for-byte as before. A separator string (e.g. \code{"_"}) builds a
+two-level header by splitting each data-column name on its first
+occurrence of the separator: the text before becomes a group spanner
+above, the text after the leaf label below. Column 1 is always the row
+label and is never split. Useful for \code{\link{shift_table}} output
+with \code{col_groups}, whose columns are named \code{group_leaf}.}
 }
 \value{
 writes an xml version of the input data to file table_number.xml.

@@ -275,6 +275,28 @@
   <xsl:template match="th" name="th">
     <xsl:param name="fontsize" select="$fontsize" />
     <w:tc>
+      <!--Header cell properties. @colspan/@vmerge drive the two-row spanner
+      headers; @rborder draws the vertical rule between adjacent groups. All
+      header cells are bottom-aligned (vAlign), so single-row headers are a
+      visual no-op while spanned headers line their stub/leaf labels up along
+      the bottom. tcPr children are emitted in CT_TcPr schema order.-->
+      <w:tcPr>
+        <xsl:if test="@colspan">
+          <w:gridSpan w:val="{@colspan}" />
+        </xsl:if>
+        <xsl:if test="@vmerge='restart'">
+          <w:vMerge w:val="restart" />
+        </xsl:if>
+        <xsl:if test="@vmerge='cont'">
+          <w:vMerge />
+        </xsl:if>
+        <xsl:if test="@rborder">
+          <w:tcBorders>
+            <w:right w:val="single" w:sz="5" w:space="0" />
+          </w:tcBorders>
+        </xsl:if>
+        <w:vAlign w:val="bottom" />
+      </w:tcPr>
       <w:p>
         <w:pPr>
           <w:jc w:val="center" />

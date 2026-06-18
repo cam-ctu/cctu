@@ -1,9 +1,16 @@
-#' Functions to handle meta_table
+#' The meta_table: get, set and an example
 #'
-#' @param meta_table a data.frame to be  set as the meta_table internal object
-#' @return get_table returns the global object, set_table invisibly returns
-#' the previous version
-#' @details \code{set_meta_table(NULL)} will remove the meta_table .
+#' The meta_table is the index of every output in a report - one row per table,
+#' figure or text item. \code{set_meta_table} stores it in the internal
+#' \code{cctu} environment (after cleaning); \code{get_meta_table} returns the
+#' stored copy; and \code{meta_table_example} is an example data frame showing
+#' the expected structure.
+#'
+#' @param meta_table a data.frame to be set as the meta_table internal object
+#' @return \code{get_meta_table} returns the internal object;
+#'  \code{set_meta_table} invisibly returns the previous version;
+#'  \code{meta_table_example} is a data frame.
+#' @details \code{set_meta_table(NULL)} will remove the meta_table.
 
 #' @describeIn get_meta_table  gets a copy of the internal object
 #' @export
@@ -69,7 +76,8 @@ clean_meta_table <- function(meta_table) {
   options(stringsAsFactors = FALSE)
   columns_needed <- c(
     "section", "title", "subtitle", "number", "population",
-    "orientation", "program", "item", "footnote1", "footnote2", "fontsize"
+    "orientation", "margin", "program", "item", "footnote1", "footnote2",
+    "fontsize"
   )
 
   # makes empty columns are characters - read_excel will make them logicals.

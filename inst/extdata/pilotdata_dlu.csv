@@ -22,3 +22,12 @@
 "ALT2","ENDTRT/Lab/ALT","Alanine Aminotransferase (U/L)",Real
 "AST2","ENDTRT/Lab/AST","Aspartate Aminotransferase (U/L)",Real
 "SUBJID2","ENDTRT/Lab/SUBJID","Unique Subject Identifier",IntegerData
+"AESOC","AE/AE/AESOC","AE System Organ Class (SOC)",Category
+"AEPT","AE/AE/AEPT","AE Preferred Term (PT)",Text
+"AETOXGR","AE/AE/AETOXGR","AE CTCAE Grade",Category
+"ECGINT","SCREENING/ECG/ECGINT","ECG Interpretation",Category
+"ECGINT1","TRT/ECG/ECGINT","ECG Interpretation",Category
+"ECGINT2","ENDTRT/ECG/ECGINT","ECG Interpretation",Category
+"ECOG","SCREENING/ECOG/ECOG","ECOG Performance Status",Category
+"ECOG1","TRT/ECOG/ECOG","ECOG Performance Status",Category
+"ECOG2","ENDTRT/ECOG/ECOG","ECOG Performance Status",Category

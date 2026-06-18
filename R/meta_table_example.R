@@ -1,6 +1,7 @@
-#' Example of a meta_table data frame
+#' @rdname get_meta_table
 #'
-#' @format a dataset with 10 columns and 3 example rows
+#' @format \code{meta_table_example} is a data frame with 10 columns and 3
+#' example rows:
 #' \describe{
 #'  \item{section}{Section label to help subdivide a report}
 #'  \item{title}{title of each individual item in a repoert}
@@ -28,7 +29,7 @@
 #' }
 #'
 #' @details
-#' This is an example of the structure of a meta_table that must exist
+#' \code{meta_table_example} shows the structure of a meta_table that must exist
 #' internally to use \code{\link{attach_pop}}, \code{\link{write_table}},
 #' \code{\link{write_ggplot}}, \code{\link{write_docx}}. All variables are
 #' characters, including 'number'. The variables 'orientation' and 'item' can
@@ -46,6 +47,8 @@
 #' To preserve troublesome number values '1.10', or '1.1.1', in Excel one can
 #' prefix the ' character (to the left of the # key) before the number value.
 #'
-#' @seealso \code{\link{set_meta_table}} \code{\link{get_meta_table}}
+#' @seealso \code{\link{attach_pop}}, \code{\link{write_table}},
+#'  \code{\link{write_ggplot}}, \code{\link{write_docx}},
+#'  \code{\link{create_popn_envir}}
 #'
 "meta_table_example"

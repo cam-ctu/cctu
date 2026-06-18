@@ -100,7 +100,7 @@ write_table <- function(x,
 
 #' Build the `<thead>` fragment, optionally with two-level spanner headers.
 #'
-#' Shared by both the plain (\code{\link{table_data}}) and styled
+#' Shared by both the plain (\code{table_data}) and styled
 #' (\code{\link{styled_table}}) write paths so the header logic lives in one
 #' place. With \code{spanner_sep = NULL} it emits today's single-row header,
 #' byte-for-byte. With a separator string it splits each data-column name on

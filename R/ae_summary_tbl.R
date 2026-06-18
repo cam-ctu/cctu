@@ -81,7 +81,7 @@ ae_summary <- function(data, adsl,
                        min_pct    = 0,
                        class_sort = c("freq", "alpha"),
                        any_label  = "Participants with any event") {
-  
+
   class_sort   <- match.arg(class_sort)
   grade_layout <- match.arg(grade_layout)
   grade_count  <- match.arg(grade_count)
@@ -94,6 +94,17 @@ ae_summary <- function(data, adsl,
   vertical     <- grade_layout == "vertical" && has_grade
   if (grade_report == "high")
     stopifnot(is.numeric(grade_high), length(grade_high) == 1, grade_high >= 1)
+
+  # data.table NSE column names (internal `_`-prefixed columns, `i.`-prefixed
+  # join columns and the `..by_cols` selector), bound locally so R CMD check /
+  # the object_usage linter don't flag them as undefined globals. Lexical scope
+  # makes them visible to the nested build_level() helper too.
+  # nolint start: object_name_linter.
+  `_id` <- `_class` <- `_term` <- `_arm` <- `_trtvar` <- `_gradevar` <-
+    `_grade` <- `_grank` <- `..by_cols` <- N <- np <- rn <- label <-
+    max_pct <- class_order <- term_order <- grade_order <-
+    i.class_order <- i.term_order <- NULL
+  # nolint end
 
   # ---- 1. Validate and copy to internal names ------------------------------
   stopifnot(
@@ -108,14 +119,15 @@ ae_summary <- function(data, adsl,
   )
   if (!is.null(trt_var))   stopifnot(trt_var %in% names(adsl))
   if (!is.null(grade_var)) stopifnot(grade_var %in% names(data))
-  
+
   # Work on copies so we don't mutate the caller's data, and rename to
   # stable internal names. This keeps the rest of the function readable
   # and sidesteps quasi-quotation gymnastics inside data.table calls.
   d <- as.data.table(data)
   a <- as.data.table(adsl)
-  d <- copy(d); a <- copy(a)
-  
+  d <- copy(d)
+  a <- copy(a)
+
   if (has_class) {
     setnames(d, c(id_var, class_var, term_var), c("_id", "_class", "_term"))
   } else {
@@ -127,9 +139,9 @@ ae_summary <- function(data, adsl,
   setnames(a, id_var, "_id")
   if (!is.null(grade_var)) setnames(d, grade_var, "_gradevar")
   if (!is.null(trt_var))   setnames(a, trt_var,   "_trtvar")
-  
+
   d <- d[`_id` %in% a$`_id`, ]
-  
+
   # ---- 2. Arms and denominators from ADSL ----------------------------------
   if (is.null(trt_var)) {
     a[, `_arm` := "Total"]
@@ -138,17 +150,17 @@ ae_summary <- function(data, adsl,
     a[, `_arm` := as.character(`_trtvar`)]
     arms <- sort(unique(a$`_arm`))
   }
-  
+
   # Bring arm into the event data from ADSL, never from the events themselves
   d <- merge(d, a[, .(`_id`, `_arm`)], by = "_id", all.x = TRUE)
-  
+
   denom <- a[, .(N = uniqueN(`_id`)), by = `_arm`]
   if (overall && !is.null(trt_var)) {
     denom <- rbind(denom,
                    data.table(`_arm` = "Total", N = uniqueN(a$`_id`)))
     arms  <- c(arms, "Total")
   }
-  
+
   # ---- 3. Grade strata -----------------------------------------------------
   # `grade_levels` is the list of reported groups: "Any grade" plus either every
   # grade ("all") or a single "Grade >= k" group ("high"). `ggroup_fun` maps an
@@ -163,8 +175,9 @@ ae_summary <- function(data, adsl,
     observed <- sort(unique(d$`_grade`))
 
     # Integer embedded in a grade label, e.g. "Grade 3" -> 3, "3" -> 3.
-    parse_gnum <- function(x)
+    parse_gnum <- function(x) {
       suppressWarnings(as.integer(sub("\\D*([0-9]+).*$", "\\1", x)))
+    }
 
     # Severity rank (ascending; worst = highest). Prefer caller-supplied order,
     # then numeric grade, else alphabetical with a warning for worst-grade use.
@@ -190,9 +203,10 @@ ae_summary <- function(data, adsl,
              "(e.g. \"Grade 3\"); none could be parsed. Use ",
              "grade_report = \"all\" or supply numeric grades.")
       high_label    <- sprintf("Grade >=%d", as.integer(grade_high))
-      ggroup_fun    <- function(x)
+      ggroup_fun    <- function(x) {
         data.table::fifelse(parse_gnum(x) >= grade_high, high_label,
                             NA_character_)
+      }
       report_groups <- high_label
     } else {
       report_groups <- sev_levels[order(rank_of(sev_levels))]
@@ -202,7 +216,7 @@ ae_summary <- function(data, adsl,
     grade_levels <- c("Any grade", report_groups)
     if (worst) d[, `_grank` := rank_of(`_grade`)]
   }
-  
+
   # ---- 4. Builder for each level -------------------------------------------
   build_level <- function(by_cols, label_fn, level) {
     # Worst-grade: collapse to one row per subject x key at the maximum grade,
@@ -214,7 +228,9 @@ ae_summary <- function(data, adsl,
                                       as.numeric(`_grank`)))],
                by = c("_id", by_cols)]$V1
       d[ord]
-    } else d
+    } else {
+      d
+    }
     grp <- if (has_grade) ggroup_fun(base[["_grade"]]) else NULL
 
     parts <- list()
@@ -223,7 +239,7 @@ ae_summary <- function(data, adsl,
       for (arm in arms) {
         s <- if (arm == "Total" && overall && !is.null(trt_var)) sub
         else sub[`_arm` == arm]
-        
+
         if (nrow(s) == 0) {
           empty <- if (length(by_cols) == 0) data.table(n = 0L)
           else cbind(unique(d[, ..by_cols]), n = 0L)
@@ -241,11 +257,11 @@ ae_summary <- function(data, adsl,
     out[, label := label_fn(out)]
     out
   }
-  
+
   any_ev <- build_level(character(0),
                         function(x) any_label, level = 0L)
   any_ev[, `:=`(`_class` = NA_character_, `_term` = NA_character_)]
-  
+
   if (has_class) {
     cls <- build_level("_class",
                        function(x) x$`_class`, level = 1L)
@@ -255,7 +271,7 @@ ae_summary <- function(data, adsl,
   trm <- build_level(c("_class", "_term"),
                      function(x) x$`_term`,
                      level = if (has_class) 2L else 1L)
-  
+
   # ---- 5. Term-level frequency filter --------------------------------------
   if (min_pct > 0) {
     any_grade_lab <- grade_levels[1]
@@ -266,7 +282,7 @@ ae_summary <- function(data, adsl,
     trm <- trm[keep, on = c("_class", "_term")]
     if (has_class) cls <- cls[`_class` %in% unique(keep$`_class`)]
   }
-  
+
   # ---- 6. Class and term ordering ------------------------------------------
   if (class_sort == "freq") {
     class_rank <- d[, .(rn = uniqueN(`_id`)), by = `_class`]
@@ -275,11 +291,11 @@ ae_summary <- function(data, adsl,
     class_rank <- data.table(`_class` = sort(unique(d$`_class`)))
   }
   class_rank[, class_order := .I]
-  
+
   if (has_class) cls[class_rank, class_order := i.class_order, on = "_class"]
   trm   [class_rank, class_order := i.class_order, on = "_class"]
   any_ev[, class_order := 0L]
-  
+
   any_grade_lab <- grade_levels[1]
   term_rank <- trm[`_grade` == any_grade_lab,
                    .(rn = sum(n)), by = .(`_class`, `_term`)]
@@ -294,7 +310,7 @@ ae_summary <- function(data, adsl,
   trm   [, grade_order := match(`_grade`, grade_levels) - 1L]
   if (has_class) cls[, grade_order := match(`_grade`, grade_levels) - 1L]
   any_ev[, grade_order := match(`_grade`, grade_levels) - 1L]
-  
+
   # ---- 7. Format and pivot wide --------------------------------------------
   # Vertical layout: term/class/overall rows show the any-grade count; the
   # per-grade rows are pulled out of `trm` and re-levelled as indented sub-rows
@@ -327,8 +343,7 @@ ae_summary <- function(data, adsl,
   lhs  <- c("class_order", "term_order", "level", "label",
             if (vertical) "grade_order",
             if (has_class) "_class", "_term")
-  form <- as.formula(
-    paste(paste0("`", lhs, "`", collapse = " + "), "~ col"))
+  form <- as.formula(paste(paste0("`", lhs, "`", collapse = " + "), "~ col"))
   wide <- dcast(tbl, form, value.var = "np", fill = "0")
   # term_order before level so each term is immediately followed by its grades.
   sort_cols <- c("class_order", "term_order", "level",

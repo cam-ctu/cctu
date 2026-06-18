@@ -75,6 +75,12 @@ shift_table <- function(data,
   drop_empty <- match.arg(drop_empty)
   pct        <- match.arg(pct)
 
+  # data.table NSE column names, bound locally so R CMD check / the
+  # object_usage linter don't flag them as undefined globals. These are
+  # columns of `dt` / `out`, not variables. (`worst` and `pct` are real
+  # arguments and are deliberately excluded.)
+  `..bl` <- baseline <- N <- cell <- n_row_margin <- n_col_margin <- NULL # nolint: object_name_linter.
+
   dt     <- data.table::copy(data.table::as.data.table(data))
   groups <- c(row_groups, col_groups)
   miss   <- setdiff(c(id, visit, value, groups), names(dt))
@@ -105,10 +111,11 @@ shift_table <- function(data,
   worst_pos <- function(x, dir) {
     i <- as.integer(x)
     if (all(is.na(i))) return(NA_integer_)
-    i[ if (dir == "max") which.max(i) else which.min(i) ]
+    i[if (dir == "max") which.max(i) else which.min(i)]
   }
   one_pos <- function(x) {            # single baseline value, or NA
-    i <- as.integer(x); i <- i[!is.na(i)]
+    i <- as.integer(x)
+    i <- i[!is.na(i)]
     if (length(i)) i[1L] else NA_integer_
   }
 
@@ -129,7 +136,8 @@ shift_table <- function(data,
 
   ## full grid incl. zero cells, preserving group factor ordering
   glev <- lapply(groups, function(g) {
-    x <- red[[g]]; if (is.factor(x)) factor(levels(x), levels(x)) else sort(unique(x))
+    x <- red[[g]]
+    if (is.factor(x)) factor(levels(x), levels(x)) else sort(unique(x))
   })
   names(glev) <- groups
   grid <- do.call(data.table::CJ,
@@ -160,12 +168,14 @@ shift_table <- function(data,
     out[, worst    := droplevels(worst)]
   }
 
-  ## percentages
-  if (pct == "row")   out[, denom := sum(N), by = c(groups, "baseline")]
-  if (pct == "total") out[, denom := sum(N), by = groups]
+  ## percentages: the denominator is the by-group total, folded into the `:=`
+  ## so no temporary `denom` column is needed.
   if (pct != "none") {
-    out[, pct := data.table::fifelse(denom > 0, 100 * N / denom, NA_real_)]
-    out[, denom := NULL]
+    pct_by <- if (pct == "row") c(groups, "baseline") else groups
+    out[, pct := {
+      d <- sum(N)            # by-group denominator (scalar within the group)
+      if (d > 0) 100 * N / d else NA_real_
+    }, by = pct_by]
   }
 
   data.table::setkeyv(out, c(groups, "baseline", "worst"))

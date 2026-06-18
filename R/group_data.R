@@ -38,6 +38,11 @@
 group_data <- function(data, groups, shift_to = NULL, indent = FALSE,
                        carry = NULL) {
 
+  # data.table NSE sort/order helper columns (incl. the `i.`-prefixed join
+  # column), bound locally so the object_usage linter / R CMD check don't treat
+  # them as undefined globals.
+  `._sort_idx` <- `._row_idx` <- `._first_occ` <- `i.._first_occ` <- NULL # nolint: object_name_linter.
+
   # Shallow copy and ensure grouping variables are at the start
   temp_dt <- copy(as.data.table(data))
   orig_attrs <- attributes(data)

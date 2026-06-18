@@ -1,16 +1,16 @@
 utils::globalVariables(c(
   ".",
-  # cttab metadata columns referenced as bare symbols in NSE contexts
+  # cttab metadata columns referenced as bare symbols in NSE contexts across
+  # several cttab files (cttab.R, cttab_format.R, cttab_helpers.R, ...)
   "Group_ID", "Var_ID", "Stat_ID", "Group_Label", "Variable",
   "Statistic", "Row_Style", "Value",
-  # group_data() internal sort / order columns and data.table NSE symbols
-  "._sort_idx", "._row_idx", "._first_occ", "i.._first_occ", "n",
-  # cttab_format() internal helper columns
-  ".vkey", "._idx", "._section",
-  # report_missing() aggregate and NSE symbols
-  "n_miss", ".v", ".sid",
-  # stat_tab() NSE symbol
-  ".empty"
+  # data.table count column shared by several summarisers (group_data, ...)
+  "n"
+  # NOTE: function-specific NSE column names are now bound locally as `NULL`
+  # at the top of the function that uses them (the data.table-recommended
+  # idiom), rather than declared here. See e.g. group_data(),
+  # cttab_format()'s helpers, report_missing(), stat_tab(), shift_table()
+  # and ae_summary().
 ))
 # may well have to add "cctu_env" to the line above. But I can't get
 # devtools::check() to work past installing,

@@ -18,7 +18,7 @@
 #' @param footnote character vector, can be used to add footnotes. Use
 #'   \code{@ref\{number\}} anywhere in the text to insert a clickable
 #'   cross-reference to another table or figure by its number, e.g.
-#'   \code{"See @ref\{1.1\} for details"} renders as \code{"See Table 1.1 for
+#'   \code{"See @ref{1.1} for details"} renders as \code{"See Table 1.1 for
 #'   details"} with "Table 1.1" linking to that table's heading.
 #' @param spanner_sep \code{NULL} (default) for a single-row header,
 #'   byte-for-byte as before. A separator string (e.g. \code{"_"}) builds a

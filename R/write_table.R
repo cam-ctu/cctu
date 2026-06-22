@@ -15,7 +15,11 @@
 #'   directory. Defaults to \code{file.path(cctu_opt("output"), "Core")}.
 #' @param verbose logical to print information on changes to the global
 #'   environment or external files. Defaults to \code{options()$verbose}.
-#' @param footnote character vector, can be used to add footnotes.
+#' @param footnote character vector, can be used to add footnotes. Use
+#'   \code{@ref\{number\}} anywhere in the text to insert a clickable
+#'   cross-reference to another table or figure by its number, e.g.
+#'   \code{"See @ref\{1.1\} for details"} renders as \code{"See Table 1.1 for
+#'   details"} with "Table 1.1" linking to that table's heading.
 #' @param spanner_sep \code{NULL} (default) for a single-row header,
 #'   byte-for-byte as before. A separator string (e.g. \code{"_"}) builds a
 #'   two-level header by splitting each data-column name on its first

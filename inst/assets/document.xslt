@@ -445,17 +445,46 @@
     </xsl:choose>
   </xsl:template>
 
-  <!--Footnote-->
+  <!--Footnote. -->
   <xsl:template match="footnote" name="footnote">
-    <w:r>
-        <!--Convert line break-->
-        <xsl:call-template name="insertBreaks" />
-    </w:r>
+    <xsl:apply-templates select="node()" mode="footnote" />
     <!-- Page break
     <w:r>
       <w:br w:type="page" />
     </w:r>
   -->
+  </xsl:template>
+
+  <!--Footnote plain-text run (preserving line breaks)-->
+  <xsl:template match="text()" mode="footnote">
+    <w:r>
+      <xsl:call-template name="insertBreaks">
+        <xsl:with-param name="pText" select="." />
+      </xsl:call-template>
+    </w:r>
+  </xsl:template>
+
+  <!--Footnote cross-reference-->
+  <xsl:template match="xref" mode="footnote">
+    <w:r>
+      <w:fldChar w:fldCharType="begin" />
+    </w:r>
+    <w:r>
+      <w:instrText xml:space="preserve"> REF <xsl:value-of select="@bookmark" /> \h </w:instrText>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="separate" />
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:color w:val="0563C1" />
+        <w:u w:val="single" />
+      </w:rPr>
+      <w:t xml:space="preserve"><xsl:value-of select="@label" /></w:t>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="end" />
+    </w:r>
   </xsl:template>
 
   <!--Image-->

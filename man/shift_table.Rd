@@ -7,7 +7,7 @@
 shift_table(
   data,
   value,
-  id = cctu_opt("subjid_string"),
+  id_var = cctu_opt("subjid_string"),
   visit = "AVISIT",
   bl_value = "Baseline",
   row_groups = NULL,
@@ -25,7 +25,7 @@ shift_table(
 
 \item{value}{ordered-factor column holding the categories (best -> worst).}
 
-\item{id}{subject identifier column.}
+\item{id_var}{subject identifier column.}
 
 \item{visit}{visit column.}
 
@@ -85,7 +85,7 @@ dt <- data.table(
 dt[, AVALC := factor(AVALC, levels = c("Low", "Normal", "High"),
                      ordered = TRUE)]
 # PARAM as bold row-group banners (down), ARM across, baseline rows indented.
-shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
             bl_value = "Baseline", row_groups = "PARAM", col_groups = "ARM",
             pct = "none")
 }

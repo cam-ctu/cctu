@@ -432,12 +432,10 @@
     <xsl:param name="pText" select="." />
     <xsl:choose>
       <xsl:when test="not(contains($pText, '&#xA;'))">
-        <w:t><xsl:value-of select="$pText" /></w:t>
+        <w:t xml:space="preserve"><xsl:value-of select="$pText" /></w:t>
       </xsl:when>
       <xsl:otherwise>
-        <w:t>
-        <xsl:value-of select="substring-before($pText, '&#xA;')" />
-      </w:t><w:br />
+        <w:t xml:space="preserve"><xsl:value-of select="substring-before($pText, '&#xA;')" /></w:t><w:br />
         <xsl:call-template name="insertBreaks">
             <xsl:with-param name="pText" select="substring-after($pText, '&#xA;')" />
         </xsl:call-template>

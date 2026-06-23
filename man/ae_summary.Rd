@@ -7,9 +7,9 @@
 ae_summary(
   data,
   adsl,
-  id_var,
-  class_var = NULL,
+  id_var = cctu_opt("subjid_string"),
   term_var,
+  class_var = NULL,
   trt_var = NULL,
   overall = TRUE,
   grade_var = NULL,
@@ -31,11 +31,11 @@ ae_summary(
 \item{id_var}{Subject ID column name (string). Must exist in both
 `data` and `adsl`.}
 
+\item{term_var}{Preferred term column name in `data` (string).}
+
 \item{class_var}{Class/SOC column name in `data` (string), or `NULL`.
 When `NULL`, the table is flat: a top "any event" row
 followed by term-level rows, with no class grouping.}
-
-\item{term_var}{Preferred term column name in `data` (string).}
 
 \item{trt_var}{Optional treatment column in both `adsl` and `data`.}
 

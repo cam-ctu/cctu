@@ -9,10 +9,10 @@
 #' @param adsl     Subject-level dataset providing denominators.
 #' @param id_var   Subject ID column name (string). Must exist in both
 #'                 `data` and `adsl`.
+#' @param term_var Preferred term column name in `data` (string).
 #' @param class_var Class/SOC column name in `data` (string), or `NULL`.
 #'                  When `NULL`, the table is flat: a top "any event" row
 #'                  followed by term-level rows, with no class grouping.
-#' @param term_var Preferred term column name in `data` (string).
 #' @param trt_var  Optional treatment column in both `adsl` and `data`.
 #' @param overall  Add a Total column when `trt_var` is given.
 #' @param grade_var Optional grade/severity column in `data`.
@@ -69,7 +69,9 @@
 #' # Flat table (no class): a single bold any-event row over indented terms.
 #' ae_summary(ae, adsl, id_var = "id", term_var = "pt", trt_var = "arm")
 ae_summary <- function(data, adsl,
-                       id_var, class_var = NULL, term_var,
+                       id_var = cctu_opt("subjid_string"),
+                       term_var,
+                       class_var = NULL, 
                        trt_var    = NULL,
                        overall    = TRUE,
                        grade_var  = NULL,

@@ -16,7 +16,7 @@ shift_demo_data <- function() {
 
 test_that("shift_table styled wide uses group_data: bold banners, indented rows", {
   dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
                      bl_value = "Baseline", row_groups = "PARAM",
                      col_groups = "ARM", pct = "none")
 
@@ -39,7 +39,7 @@ test_that("shift_table styled wide uses group_data: bold banners, indented rows"
 
 test_that("shift_table banner rows are blank in the count columns", {
   dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
                      bl_value = "Baseline", row_groups = "PARAM",
                      col_groups = "ARM", pct = "none")
 
@@ -51,7 +51,7 @@ test_that("shift_table banner rows are blank in the count columns", {
 
 test_that("shift_table with no row_groups returns plain (unstyled) rows", {
   dt  <- shift_demo_data()[PARAM == "ALT"]
-  out <- shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
                      bl_value = "Baseline", col_groups = "ARM",
                      pct = "none")
 
@@ -67,7 +67,7 @@ test_that("shift_table errors on more than one baseline per subject x group", {
   dup <- dt[PARAM == "ALT" & USUBJID == "S01" & AVISIT == "Baseline"]
   dt2 <- rbind(dt, dup)
   expect_error(
-    shift_table(dt2, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+    shift_table(dt2, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
                 bl_value = "Baseline", row_groups = "PARAM"),
     "more than one"
   )
@@ -75,7 +75,7 @@ test_that("shift_table errors on more than one baseline per subject x group", {
 
 test_that("shift_table renders row percentages within baseline blocks", {
   dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
                      bl_value = "Baseline", row_groups = "PARAM",
                      col_groups = "ARM", pct = "row")
   # Cells are "n (pct)" strings on data rows; banners stay blank.

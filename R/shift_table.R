@@ -16,7 +16,7 @@
 #'
 #' @param data long data.table: one row per subject-visit(-parameter).
 #' @param value ordered-factor column holding the categories (best -> worst).
-#' @param id subject identifier column.
+#' @param id_var subject identifier column.
 #' @param visit visit column.
 #' @param bl_value value(s) of `visit` that mark baseline (length >= 1).
 #' @param row_groups groups spanning vertically (stacked row blocks).
@@ -53,12 +53,12 @@
 #' dt[, AVALC := factor(AVALC, levels = c("Low", "Normal", "High"),
 #'                      ordered = TRUE)]
 #' # PARAM as bold row-group banners (down), ARM across, baseline rows indented.
-#' shift_table(dt, value = "AVALC", id = "USUBJID", visit = "AVISIT",
+#' shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
 #'             bl_value = "Baseline", row_groups = "PARAM", col_groups = "ARM",
 #'             pct = "none")
 shift_table <- function(data,
                         value,
-                        id          = cctu_opt("subjid_string"),
+                        id_var      = cctu_opt("subjid_string"),
                         visit       = "AVISIT",
                         bl_value    = "Baseline",
                         row_groups  = NULL,
@@ -83,7 +83,7 @@ shift_table <- function(data,
 
   dt     <- data.table::copy(data.table::as.data.table(data))
   groups <- c(row_groups, col_groups)
-  miss   <- setdiff(c(id, visit, value, groups), names(dt))
+  miss   <- setdiff(c(id_var, visit, value, groups), names(dt))
   if (length(miss)) stop("Columns not found: ", paste(miss, collapse = ", "))
 
   ## value must already be an ordered factor
@@ -98,12 +98,12 @@ shift_table <- function(data,
   dt[, `..bl` := as.character(get(visit)) %in% bl_value]
 
   ## exactly one baseline row per subject x group
-  bcount <- dt[`..bl` == TRUE, .N, by = c(id, groups)]
+  bcount <- dt[`..bl` == TRUE, .N, by = c(id_var, groups)]
   if (nrow(bcount) && any(bcount$N > 1L)) {
     nbad <- sum(bcount$N > 1L)
     stop("Found ", nbad, " subject/group combination(s) with more than one ",
          "baseline row (", visit, " %in% bl_value). Expected exactly one per ",
-         paste(c(id, groups), collapse = " x "), "; resolve baseline upstream.")
+         paste(c(id_var, groups), collapse = " x "), "; resolve baseline upstream.")
   }
 
   ## reduce to one row per subject x group: baseline + worst post-baseline
@@ -123,7 +123,7 @@ shift_table <- function(data,
     bl <- one_pos(.SD[[value]][`..bl`])
     wp <- worst_pos(.SD[[value]][!`..bl`], worst)
     .(baseline = bl, worst = wp)
-  }, by = c(id, groups), .SDcols = value]
+  }, by = c(id_var, groups), .SDcols = value]
 
   ## attach labels (+ Missing / No post-baseline) as ordered display factors
   bl_lv <- c(lv, missing_baseline)

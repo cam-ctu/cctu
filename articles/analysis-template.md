@@ -525,7 +525,7 @@ Sys.info()
 #>                                               version 
 #> "#18~24.04.1-Ubuntu SMP Thu May 28 16:39:11 UTC 2026" 
 #>                                              nodename 
-#>                                       "runnervmmklqx" 
+#>                                       "runnervm7b5n9" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -575,7 +575,7 @@ sessionInfo()
 #> [45] htmltools_0.5.9    patchwork_1.3.2    labeling_0.4.3     compiler_4.6.0    
 #> [49] S7_0.2.2
 date()
-#> [1] "Wed Jun 24 13:27:49 2026"
+#> [1] "Wed Jun 24 13:36:33 2026"
 ```
 
 The output is

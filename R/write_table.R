@@ -15,7 +15,18 @@
 #'   directory. Defaults to \code{file.path(cctu_opt("output"), "Core")}.
 #' @param verbose logical to print information on changes to the global
 #'   environment or external files. Defaults to \code{options()$verbose}.
-#' @param footnote character vector, can be used to add footnotes.
+#' @param footnote character vector, can be used to add footnotes. Use
+#'   \code{@ref\{number\}} anywhere in the text to insert a clickable
+#'   cross-reference to another table or figure by its number, e.g.
+#'   \code{"See @ref{1.1} for details"} renders as \code{"See Table 1.1 for
+#'   details"} with "Table 1.1" linking to that table's heading.
+#' @param spanner_sep \code{NULL} (default) for a single-row header,
+#'   byte-for-byte as before. A separator string (e.g. \code{"_"}) builds a
+#'   two-level header by splitting each data-column name on its first
+#'   occurrence of the separator: the text before becomes a group spanner
+#'   above, the text after the leaf label below. Column 1 is always the row
+#'   label and is never split. Useful for \code{\link{shift_table}} output
+#'   with \code{col_groups}, whose columns are named \code{group_leaf}.
 #'
 #' @details
 #' For the plain (non-styled) path, variable names and values are replaced
@@ -40,7 +51,8 @@ write_table <- function(x,
                         clean_up = TRUE,
                         directory = file.path(cctu_opt("output"), "Core"),
                         verbose = options()$verbose,
-                        footnote = NULL) {
+                        footnote = NULL,
+                        spanner_sep = NULL) {
   calling_prog <- cctu_env$parent[1] # get_file_name()
   if (is.null(calling_prog)) {
     warning("Unable to identify the code file that created table", number)
@@ -72,9 +84,9 @@ write_table <- function(x,
   # user stamped via format_table()) goes through styled_table(); plain
   # data.frames / matrices go through table_data().
   if (!is.null(attr(x, "row_style"))) {
-    output_string <- styled_table(x)
+    output_string <- styled_table(x, spanner_sep)
   } else {
-    output_string <- table_data(x, heading, na_to_empty)
+    output_string <- table_data(x, heading, na_to_empty, spanner_sep)
   }
 
   file_name <- file.path(directory, paste0("table_", number, ".xml"))
@@ -87,6 +99,88 @@ write_table <- function(x,
   if (clean_up) {
     clean_up(number, frame = parent.frame(), verbose = verbose)
   }
+}
+
+
+#' Build the `<thead>` fragment, optionally with two-level spanner headers.
+#'
+#' Shared by both the plain (\code{table_data}) and styled
+#' (\code{\link{styled_table}}) write paths so the header logic lives in one
+#' place. With \code{spanner_sep = NULL} it emits today's single-row header,
+#' byte-for-byte. With a separator string it splits each data-column name on
+#' its first occurrence of \code{spanner_sep} into a (group, leaf) pair and
+#' emits a two-row header: an arm/group spanner row above the leaf row, with
+#' the first (stub) column vertically merged across both rows.
+#'
+#' @param headings character vector of column headings. The first element is
+#'   the row-label/stub and is never split.
+#' @param spanner_sep \code{NULL} (single-row header) or a separator string
+#'   used to split the data-column names.
+#' @return a character scalar: the full \code{<thead>...</thead>\\n} fragment.
+#' @keywords internal
+build_thead <- function(headings, spanner_sep = NULL) {
+  esc <- remove_xml_specials
+
+  # Single-row header: default behaviour, or nothing to group (stub only).
+  if (is.null(spanner_sep) || length(headings) < 2L) {
+    th <- paste0("<th>", esc(headings), "</th>", collapse = "")
+    return(paste0("<thead>\n<tr>", th, "</tr>\n</thead>\n"))
+  }
+
+  stub      <- headings[1L]
+  data_head <- headings[-1L]
+
+  # Split each data-column name on its first occurrence of `spanner_sep`.
+  # Before = group label, after = leaf label. No separator => empty group.
+  pos   <- regexpr(spanner_sep, data_head, fixed = TRUE)
+  has   <- pos > 0L
+  group <- ifelse(has, substr(data_head, 1L, pos - 1L), "")
+  leaf  <- ifelse(has,
+                  substr(data_head, pos + nchar(spanner_sep), nchar(data_head)),
+                  data_head)
+
+  # Run-length-encode the group labels and build the two header rows in
+  # parallel. Consecutive equal non-empty groups collapse into one spanning
+  # cell above their leaf cells. Ungrouped columns (empty group) instead
+  # vertically merge across both rows, carrying their label in the top cell so
+  # it sits beside the leaf row (bottom alignment comes from the XSLT). A
+  # right-border (`rborder`) separates two adjacent non-empty groups, stamped
+  # on both the spanner cell and the group's rightmost leaf cell so the rule
+  # is continuous across both header rows.
+  runs <- rle(group)
+  top_cells <- character(0)
+  bot_cells <- character(0)
+  idx <- 0L
+  for (i in seq_along(runs$lengths)) {
+    k    <- runs$lengths[i]
+    g    <- runs$values[i]
+    cols <- seq.int(idx + 1L, idx + k)
+    if (nzchar(g)) {
+      rb <- if (i < length(runs$values) && nzchar(runs$values[i + 1L])) {
+        " rborder='1'"
+      } else {
+        ""
+      }
+      top_cells <- c(top_cells,
+                     paste0("<th colspan='", k, "'", rb, ">", esc(g), "</th>"))
+      lc    <- paste0("<th>", esc(leaf[cols]), "</th>")
+      lc[k] <- paste0("<th", rb, ">", esc(leaf[cols][k]), "</th>")
+      bot_cells <- c(bot_cells, lc)
+    } else {
+      top_cells <- c(top_cells,
+                     paste0("<th vmerge='restart'>", esc(leaf[cols]), "</th>"))
+      bot_cells <- c(bot_cells, rep("<th vmerge='cont'></th>", k))
+    }
+    idx <- idx + k
+  }
+
+  # Stub corner: vMerge across both rows, label in the (restart) top cell.
+  top <- paste0("<tr><th vmerge='restart'>", esc(stub), "</th>",
+                paste0(top_cells, collapse = ""), "</tr>\n")
+  bottom <- paste0("<tr><th vmerge='cont'></th>",
+                   paste0(bot_cells, collapse = ""), "</tr>\n")
+
+  paste0("<thead>\n", top, bottom, "</thead>\n")
 }
 
 
@@ -109,7 +203,8 @@ remove_xml_specials <- function(x) {
 # For normal
 #' @keywords internal
 #' @importFrom utils capture.output
-table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
+table_data <- function(x, heading = NULL, na_to_empty = FALSE,
+                       spanner_sep = NULL) {
   if (!is.null(heading) && ncol(x) != length(heading)) {
     stop("Heading should have the same length as the number of columns")
   }
@@ -146,10 +241,8 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
   }
 
 
-  # Table header
-  th <- paste0("<th>", remove_xml_specials(heading), "</th>", collapse = "")
-  th <- paste0("<tr>", th, "</tr>\n")
-  thead <- paste0("<thead>\n", th, "</thead>\n")
+  # Table header (single- or two-row depending on `spanner_sep`)
+  thead <- build_thead(heading, spanner_sep)
 
   # Table body. apply() coerces each column to character via the matrix
   # roundtrip; callers are expected to pre-format numerics / dates if they
@@ -192,9 +285,12 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE) {
 #' }
 #'
 #' @param x A data.frame (with a \code{label} column) or matrix.
+#' @param spanner_sep \code{NULL} for a single-row header, or a separator
+#'   string passed to \code{\link{build_thead}} to build two-level spanner
+#'   headers from the data-column names.
 #' @return A character scalar containing the table's XML fragment.
 #' @keywords internal
-styled_table <- function(x) {
+styled_table <- function(x, spanner_sep = NULL) {
   rowclass <- attr(x, "row_style")
   if (is.null(rowclass)) {
     stop("`styled_table()` requires a 'row_style' attribute on `x`.")
@@ -223,10 +319,8 @@ styled_table <- function(x) {
 
   xm[] <- apply(xm, 2, remove_xml_specials)
 
-  # Table header
-  th <- paste0("<th>", remove_xml_specials(hd_nam), "</th>", collapse = "")
-  th <- paste0("<tr>", th, "</tr>\n")
-  thead <- paste0("<thead>\n", th, "</thead>\n")
+  # Table header (single- or two-row depending on `spanner_sep`)
+  thead <- build_thead(hd_nam, spanner_sep)
 
   # Per-row CSS class string: tokens from row_style + "firstleft".
   # The XSLT (inst/assets/document.xslt) reads the row's style attribute

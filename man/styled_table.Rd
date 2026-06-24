@@ -4,10 +4,14 @@
 \alias{styled_table}
 \title{Render a styled table to Word-flavoured XML.}
 \usage{
-styled_table(x)
+styled_table(x, spanner_sep = NULL)
 }
 \arguments{
 \item{x}{A data.frame (with a \code{label} column) or matrix.}
+
+\item{spanner_sep}{\code{NULL} for a single-row header, or a separator
+string passed to \code{\link{build_thead}} to build two-level spanner
+headers from the data-column names.}
 }
 \value{
 A character scalar containing the table's XML fragment.

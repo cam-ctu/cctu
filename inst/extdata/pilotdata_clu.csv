@@ -27,3 +27,36 @@ AVISIT2,3,Week 16
 AVISIT2,4,End of Treatment
 PERF2,0,No
 PERF2,1,Yes
+AESOC,1,Gastrointestinal disorders
+AESOC,2,Nervous system disorders
+AESOC,3,Skin and subcutaneous tissue disorders
+AESOC,4,General disorders and administration site conditions
+AESOC,5,Infections and infestations
+AETOXGR,1,Grade 1
+AETOXGR,2,Grade 2
+AETOXGR,3,Grade 3
+AETOXGR,4,Grade 4
+ECGINT,1,Normal
+ECGINT,2,Abnormal - not clinically significant
+ECGINT,3,Abnormal - clinically significant
+ECGINT1,1,Normal
+ECGINT1,2,Abnormal - not clinically significant
+ECGINT1,3,Abnormal - clinically significant
+ECGINT2,1,Normal
+ECGINT2,2,Abnormal - not clinically significant
+ECGINT2,3,Abnormal - clinically significant
+ECOG,0,Fully active
+ECOG,1,Restricted in strenuous activity
+ECOG,2,Ambulatory and self-care
+ECOG,3,Limited self-care
+ECOG,4,Completely disabled
+ECOG1,0,Fully active
+ECOG1,1,Restricted in strenuous activity
+ECOG1,2,Ambulatory and self-care
+ECOG1,3,Limited self-care
+ECOG1,4,Completely disabled
+ECOG2,0,Fully active
+ECOG2,1,Restricted in strenuous activity
+ECOG2,2,Ambulatory and self-care
+ECOG2,3,Limited self-care
+ECOG2,4,Completely disabled

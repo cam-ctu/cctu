@@ -275,6 +275,28 @@
   <xsl:template match="th" name="th">
     <xsl:param name="fontsize" select="$fontsize" />
     <w:tc>
+      <!--Header cell properties. @colspan/@vmerge drive the two-row spanner
+      headers; @rborder draws the vertical rule between adjacent groups. All
+      header cells are bottom-aligned (vAlign), so single-row headers are a
+      visual no-op while spanned headers line their stub/leaf labels up along
+      the bottom. tcPr children are emitted in CT_TcPr schema order.-->
+      <w:tcPr>
+        <xsl:if test="@colspan">
+          <w:gridSpan w:val="{@colspan}" />
+        </xsl:if>
+        <xsl:if test="@vmerge='restart'">
+          <w:vMerge w:val="restart" />
+        </xsl:if>
+        <xsl:if test="@vmerge='cont'">
+          <w:vMerge />
+        </xsl:if>
+        <xsl:if test="@rborder">
+          <w:tcBorders>
+            <w:right w:val="single" w:sz="5" w:space="0" />
+          </w:tcBorders>
+        </xsl:if>
+        <w:vAlign w:val="bottom" />
+      </w:tcPr>
       <w:p>
         <w:pPr>
           <w:jc w:val="center" />
@@ -410,12 +432,10 @@
     <xsl:param name="pText" select="." />
     <xsl:choose>
       <xsl:when test="not(contains($pText, '&#xA;'))">
-        <w:t><xsl:value-of select="$pText" /></w:t>
+        <w:t xml:space="preserve"><xsl:value-of select="$pText" /></w:t>
       </xsl:when>
       <xsl:otherwise>
-        <w:t>
-        <xsl:value-of select="substring-before($pText, '&#xA;')" />
-      </w:t><w:br />
+        <w:t xml:space="preserve"><xsl:value-of select="substring-before($pText, '&#xA;')" /></w:t><w:br />
         <xsl:call-template name="insertBreaks">
             <xsl:with-param name="pText" select="substring-after($pText, '&#xA;')" />
         </xsl:call-template>
@@ -423,17 +443,46 @@
     </xsl:choose>
   </xsl:template>
 
-  <!--Footnote-->
+  <!--Footnote. -->
   <xsl:template match="footnote" name="footnote">
-    <w:r>
-        <!--Convert line break-->
-        <xsl:call-template name="insertBreaks" />
-    </w:r>
+    <xsl:apply-templates select="node()" mode="footnote" />
     <!-- Page break
     <w:r>
       <w:br w:type="page" />
     </w:r>
   -->
+  </xsl:template>
+
+  <!--Footnote plain-text run (preserving line breaks)-->
+  <xsl:template match="text()" mode="footnote">
+    <w:r>
+      <xsl:call-template name="insertBreaks">
+        <xsl:with-param name="pText" select="." />
+      </xsl:call-template>
+    </w:r>
+  </xsl:template>
+
+  <!--Footnote cross-reference-->
+  <xsl:template match="xref" mode="footnote">
+    <w:r>
+      <w:fldChar w:fldCharType="begin" />
+    </w:r>
+    <w:r>
+      <w:instrText xml:space="preserve"> REF <xsl:value-of select="@bookmark" /> \h </w:instrText>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="separate" />
+    </w:r>
+    <w:r>
+      <w:rPr>
+        <w:color w:val="0563C1" />
+        <w:u w:val="single" />
+      </w:rPr>
+      <w:t xml:space="preserve"><xsl:value-of select="@label" /></w:t>
+    </w:r>
+    <w:r>
+      <w:fldChar w:fldCharType="end" />
+    </w:r>
   </xsl:template>
 
   <!--Image-->

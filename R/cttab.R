@@ -281,6 +281,10 @@ stat_tab <- function(vars,
                      render_num = "Median [Min, Max]",
                      logical_na_impute = FALSE) {
 
+  # data.table NSE helper column, bound locally so the object_usage linter /
+  # R CMD check don't treat it as an undefined global.
+  .empty <- NULL
+
   data <- copy(as.data.table(data))
 
   # Validate variable presence

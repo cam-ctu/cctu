@@ -84,6 +84,8 @@ reference:
   - sumfig
   - group_data
   - regression_table
+  - ae_summary
+  - shift_table
 
 - title: "Plotting"
   desc: "Functions to create plots"

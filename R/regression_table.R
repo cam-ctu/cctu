@@ -19,8 +19,8 @@
 #' points and residual error variance.
 #'
 #' @details methods exists when x is of the following classes:
-#' \code{lm, glm, gls, lme, coxph, gee}. Extensions to other classes may be
-#' written by defining methods for \code{coef_table} and \code{covar}
+#' \code{lm, glm, gls, lme, coxph, gee, coxme, mira}. Extensions to other classes may be
+#' written by defining methods for \code{coef_table}, \code{guess_col_names} and \code{covar}
 #' functions
 #' @examples
 #' library(survival)

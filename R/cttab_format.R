@@ -53,6 +53,7 @@ cttab_format <- function(x) {
 #' @keywords internal
 #' @import data.table
 .cttab_format_long <- function(x) {
+  .vkey <- NULL  # data.table NSE helper column (see globalvariables.R note)
   wide      <- .cttab_for_layout(x)
   row_split <- attr(wide, "row_split")
   rs_lab    <- attr(wide, "row_split_label")
@@ -174,6 +175,8 @@ cttab_format <- function(x) {
 #' @keywords internal
 #' @import data.table
 .insert_grplab_banners <- function(w) {
+  # data.table NSE helper columns (see globalvariables.R note).
+  `._idx` <- `._section` <- NULL # nolint: object_name_linter.
   w <- copy(w)
   w[, ._idx := as.numeric(.I)]
   is_outer <- is.na(w$Stat_ID) & is.na(w$Var_ID) & is.na(w$Group_ID)

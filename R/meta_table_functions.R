@@ -1,9 +1,16 @@
-#' Functions to handle meta_table
+#' The meta_table: get, set and an example
 #'
-#' @param meta_table a data.frame to be  set as the meta_table internal object
-#' @return get_table returns the global object, set_table invisibly returns
-#' the previous version
-#' @details \code{set_meta_table(NULL)} will remove the meta_table .
+#' The meta_table is the index of every output in a report - one row per table,
+#' figure or text item. \code{set_meta_table} stores it in the internal
+#' \code{cctu} environment (after cleaning); \code{get_meta_table} returns the
+#' stored copy; and \code{meta_table_example} is an example data frame showing
+#' the expected structure.
+#'
+#' @param meta_table a data.frame to be set as the meta_table internal object
+#' @return \code{get_meta_table} returns the internal object;
+#'  \code{set_meta_table} invisibly returns the previous version;
+#'  \code{meta_table_example} is a data frame.
+#' @details \code{set_meta_table(NULL)} will remove the meta_table.
 
 #' @describeIn get_meta_table  gets a copy of the internal object
 #' @export
@@ -61,6 +68,67 @@ add_footnote <- function(number, footnote) {
 
 
 
+#' Resolve cross-references in footnote text
+#'
+#' Replaces \code{@ref\{number\}} tokens in footnote strings with an
+#' \code{<xref>} element that carries the target Word bookmark name and a
+#' display label (e.g. \code{"Table 1.1"} or \code{"Figure 2.3"}). The XSLT in
+#' \code{inst/assets/document.xslt} turns each \code{<xref>} into a clickable
+#' \code{REF} field pointing at the bookmark that the heading template stamps
+#' on every table/figure (\code{<titletype>_<digits-of-number>}). Using a
+#' \code{REF} field means the reference tracks the heading number when fields
+#' are updated in Word, rather than being frozen text. The label
+#' prefix and bookmark are derived from the \code{item} column of the meta_table
+#' (\code{"table"} -> \code{"Table"}, \code{"figure"} -> \code{"Figure"}; text
+#' items are rendered as \code{"Table"} headings by the XSLT, so they share that
+#' bookmark prefix). If a referenced number is not found in the meta_table a
+#' warning is issued and the token is replaced with \code{"[ref: <number>]"}.
+#'
+#' @param footnote character vector of footnote strings, each potentially
+#'   containing one or more \code{@ref\{number\}} tokens.
+#' @param meta_table a data frame with at least \code{number} and \code{item}
+#'   columns, as returned by \code{\link{get_meta_table}}.
+#' @return character vector the same length as \code{footnote} with all
+#'   \code{@ref\{\}} tokens replaced by \code{<xref>} elements.
+#' @keywords internal
+resolve_footnote_refs <- function(footnote, meta_table = get_meta_table()) {
+  pattern <- "@ref\\{([^}]+)\\}"
+  vapply(footnote, function(fn) {
+    if (!grepl(pattern, fn, perl = TRUE)) {
+      return(fn)
+    }
+    matches <- regmatches(fn, gregexpr(pattern, fn, perl = TRUE))[[1]]
+    nums <- sub(pattern, "\\1", matches, perl = TRUE)
+    for (i in seq_along(matches)) {
+      idx <- match(nums[i], meta_table$number)
+      if (is.na(idx)) {
+        warning(sprintf("@ref{%s} not found in meta_table", nums[i]),
+                call. = FALSE)
+        replacement <- sprintf("[ref: %s]", nums[i])
+      } else {
+        # Bookmark prefix must match the `titletype` the XSLT stamps on each
+        # heading; text items are rendered as 'Table' headings there too.
+        item_type <- tolower(meta_table$item[idx])
+        prefix <- switch(item_type,
+          table  = "Table",
+          figure = "Figure",
+          text   = "Table",
+          tools::toTitleCase(item_type)
+        )
+        # Bookmark name mirrors document.xslt: <titletype>_<digits-of-number>.
+        bookmark <- paste0(prefix, "_", gsub("[. ]", "", nums[i]))
+        label <- paste(prefix, nums[i])
+        replacement <- sprintf(
+          "<xref bookmark=\"%s\" label=\"%s\"/>", bookmark, label
+        )
+      }
+      fn <- sub(matches[i], replacement, fn, fixed = TRUE)
+    }
+    fn
+  }, character(1), USE.NAMES = FALSE)
+}
+
+
 #' @keywords internal
 #'
 
@@ -69,7 +137,8 @@ clean_meta_table <- function(meta_table) {
   options(stringsAsFactors = FALSE)
   columns_needed <- c(
     "section", "title", "subtitle", "number", "population",
-    "orientation", "program", "item", "footnote1", "footnote2", "fontsize"
+    "orientation", "margin", "program", "item", "footnote1", "footnote2",
+    "fontsize"
   )
 
   # makes empty columns are characters - read_excel will make them logicals.

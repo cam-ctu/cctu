@@ -42,7 +42,11 @@
 #' package installed, it will use \link[ragg]{agg_png} for \code{"png"} and
 #' \link[ragg]{agg_jpeg} for \code{"jpg"} and \code{"jpeg"} for better quality.
 #' The \link[svglite]{svglite} is used for \code{"svg"} file.
-#' @param footnote character vector, can be used to add footnotes.
+#' @param footnote character vector, can be used to add footnotes. Use
+#'   \code{@ref\{number\}} anywhere in the text to insert a clickable
+#'   cross-reference to another table or figure by its number, e.g.
+#'   \code{"See @ref{1.1} for details"} renders as \code{"See Table 1.1 for
+#'   details"} with "Table 1.1" linking to that table's heading.
 #'
 #' @details
 #'

@@ -68,7 +68,11 @@ The \link[svglite]{svglite} is used for \code{"svg"} file.}
 \item{verbose}{logical to print information on changes to the global
 environment or external files. Defaults to options()$verbose.}
 
-\item{footnote}{character vector, can be used to add footnotes.}
+\item{footnote}{character vector, can be used to add footnotes. Use
+\code{@ref\{number\}} anywhere in the text to insert a clickable
+cross-reference to another table or figure by its number, e.g.
+\code{"See @ref{1.1} for details"} renders as \code{"See Table 1.1 for
+details"} with "Table 1.1" linking to that table's heading.}
 
 \item{plot_args}{Deprecated, kept here for backcompatibility. A named list
 arguments for \code{plot_fn}.}

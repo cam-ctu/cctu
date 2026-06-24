@@ -191,6 +191,7 @@ write_docx <- function(
     r <- r[r != ""]
     paste(r, collapse = "\n")
   })
+  footnote <- resolve_footnote_refs(footnote, meta_table)
   footnote <- paste("<footnote>", footnote, "</footnote>")
 
   # Write documents

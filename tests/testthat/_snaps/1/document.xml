@@ -86,6 +86,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -95,11 +98,14 @@
                 <w:b/>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Variable</w:t>
+              <w:t xml:space="preserve">Variable</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -109,11 +115,14 @@
                 <w:b/>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Statistics with a long line of text to check folding</w:t>
+              <w:t xml:space="preserve">Statistics with a long line of text to check folding</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -123,11 +132,14 @@
                 <w:b/>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>A</w:t>
+              <w:t xml:space="preserve">A</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -137,11 +149,14 @@
                 <w:b/>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>B</w:t>
+              <w:t xml:space="preserve">B</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -151,7 +166,7 @@
                 <w:b/>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Total</w:t>
+              <w:t xml:space="preserve">Total</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -167,7 +182,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Endpoint</w:t>
+              <w:t xml:space="preserve">Endpoint</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -181,7 +196,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>n</w:t>
+              <w:t xml:space="preserve">n</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -195,7 +210,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>50</w:t>
+              <w:t xml:space="preserve">50</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -209,7 +224,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>40</w:t>
+              <w:t xml:space="preserve">40</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -223,79 +238,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>90</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-      </w:tr>
-      <w:tr>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="16"/>
-              </w:rPr>
-              <w:t/>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="16"/>
-              </w:rPr>
-              <w:t>Mean (SD)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="16"/>
-              </w:rPr>
-              <w:t>-0.0020 (0.928)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="16"/>
-              </w:rPr>
-              <w:t> 0.0602 (1.195)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="16"/>
-              </w:rPr>
-              <w:t> 0.0257 (1.049)</w:t>
+              <w:t xml:space="preserve">90</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -311,7 +254,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -325,7 +268,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Median</w:t>
+              <w:t xml:space="preserve">Mean (SD)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -339,7 +282,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>-0.015</w:t>
+              <w:t xml:space="preserve">-0.0020 (0.928)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -353,7 +296,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>0.075</w:t>
+              <w:t xml:space="preserve"> 0.0602 (1.195)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -367,7 +310,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>0.045</w:t>
+              <w:t xml:space="preserve"> 0.0257 (1.049)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -383,7 +326,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -397,7 +340,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>Min, Max</w:t>
+              <w:t xml:space="preserve">Median</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -411,7 +354,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>-2.13, 2.44</w:t>
+              <w:t xml:space="preserve">-0.015</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -425,7 +368,7 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>-3.11, 1.97</w:t>
+              <w:t xml:space="preserve">0.075</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -439,7 +382,79 @@
               <w:rPr>
                 <w:sz w:val="16"/>
               </w:rPr>
-              <w:t>-3.11, 2.44</w:t>
+              <w:t xml:space="preserve">0.045</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t xml:space="preserve"/>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t xml:space="preserve">Min, Max</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-2.13, 2.44</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 1.97</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="16"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 2.44</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -447,7 +462,7 @@
     </w:tbl>
     <w:p>
       <w:r>
-        <w:t> fictitious data </w:t>
+        <w:t xml:space="preserve"> fictitious data </w:t>
       </w:r>
     </w:p>
     <w:p>
@@ -519,6 +534,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -528,11 +546,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Variable</w:t>
+              <w:t xml:space="preserve">Variable</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -542,11 +563,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Statistics</w:t>
+              <w:t xml:space="preserve">Statistics</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -556,11 +580,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>A</w:t>
+              <w:t xml:space="preserve">A</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -570,11 +597,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>B</w:t>
+              <w:t xml:space="preserve">B</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -584,7 +614,7 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Total</w:t>
+              <w:t xml:space="preserve">Total</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -600,7 +630,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Endpoint</w:t>
+              <w:t xml:space="preserve">Endpoint</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -614,7 +644,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>n</w:t>
+              <w:t xml:space="preserve">n</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -628,7 +658,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>50</w:t>
+              <w:t xml:space="preserve">50</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -642,7 +672,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>40</w:t>
+              <w:t xml:space="preserve">40</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -656,79 +686,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>90</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-      </w:tr>
-      <w:tr>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t/>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t>Mean (SD)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t>-0.0020 (0.928)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t> 0.0602 (1.195)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t> 0.0257 (1.049)</w:t>
+              <w:t xml:space="preserve">90</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -744,7 +702,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -758,7 +716,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Median</w:t>
+              <w:t xml:space="preserve">Mean (SD)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -772,7 +730,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-0.015</w:t>
+              <w:t xml:space="preserve">-0.0020 (0.928)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -786,7 +744,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>0.075</w:t>
+              <w:t xml:space="preserve"> 0.0602 (1.195)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -800,7 +758,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>0.045</w:t>
+              <w:t xml:space="preserve"> 0.0257 (1.049)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -816,7 +774,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -830,7 +788,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Min, Max</w:t>
+              <w:t xml:space="preserve">Median</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -844,7 +802,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-2.13, 2.44</w:t>
+              <w:t xml:space="preserve">-0.015</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -858,7 +816,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-3.11, 1.97</w:t>
+              <w:t xml:space="preserve">0.075</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -872,7 +830,79 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-3.11, 2.44</w:t>
+              <w:t xml:space="preserve">0.045</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve"/>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">Min, Max</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-2.13, 2.44</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 1.97</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 2.44</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -880,7 +910,7 @@
     </w:tbl>
     <w:p>
       <w:r>
-        <w:t>  </w:t>
+        <w:t xml:space="preserve">  </w:t>
       </w:r>
     </w:p>
     <w:p>
@@ -955,6 +985,9 @@
           <w:tblHeader/>
         </w:trPr>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -964,11 +997,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Variable</w:t>
+              <w:t xml:space="preserve">Variable</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -978,11 +1014,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Statistics</w:t>
+              <w:t xml:space="preserve">Statistics</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -992,11 +1031,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>A</w:t>
+              <w:t xml:space="preserve">A</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -1006,11 +1048,14 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>B</w:t>
+              <w:t xml:space="preserve">B</w:t>
             </w:r>
           </w:p>
         </w:tc>
         <w:tc>
+          <w:tcPr>
+            <w:vAlign w:val="bottom"/>
+          </w:tcPr>
           <w:p>
             <w:pPr>
               <w:jc w:val="center"/>
@@ -1020,7 +1065,7 @@
                 <w:b/>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Total</w:t>
+              <w:t xml:space="preserve">Total</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1036,7 +1081,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Endpoint</w:t>
+              <w:t xml:space="preserve">Endpoint</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1050,7 +1095,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>n</w:t>
+              <w:t xml:space="preserve">n</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1064,7 +1109,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>50</w:t>
+              <w:t xml:space="preserve">50</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1078,7 +1123,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>50</w:t>
+              <w:t xml:space="preserve">50</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1092,79 +1137,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>100</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-      </w:tr>
-      <w:tr>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t/>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t>Mean (SD)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t>-0.0020 (0.928)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t> 0.0490 (1.125)</w:t>
-            </w:r>
-          </w:p>
-        </w:tc>
-        <w:tc>
-          <w:tcPr/>
-          <w:p>
-            <w:pPr>
-              <w:jc w:val="left"/>
-            </w:pPr>
-            <w:r>
-              <w:rPr>
-                <w:sz w:val="20"/>
-              </w:rPr>
-              <w:t> 0.0235 (1.026)</w:t>
+              <w:t xml:space="preserve">100</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1180,7 +1153,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -1194,7 +1167,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Median</w:t>
+              <w:t xml:space="preserve">Mean (SD)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1208,7 +1181,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-0.015</w:t>
+              <w:t xml:space="preserve">-0.0020 (0.928)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1222,7 +1195,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>0.045</w:t>
+              <w:t xml:space="preserve"> 0.0490 (1.125)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1236,7 +1209,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>0.04</w:t>
+              <w:t xml:space="preserve"> 0.0235 (1.026)</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1252,7 +1225,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t/>
+              <w:t xml:space="preserve"/>
             </w:r>
           </w:p>
         </w:tc>
@@ -1266,7 +1239,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>Min, Max</w:t>
+              <w:t xml:space="preserve">Median</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1280,7 +1253,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-2.13, 2.44</w:t>
+              <w:t xml:space="preserve">-0.015</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1294,7 +1267,7 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-3.11, 1.97</w:t>
+              <w:t xml:space="preserve">0.045</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1308,7 +1281,79 @@
               <w:rPr>
                 <w:sz w:val="20"/>
               </w:rPr>
-              <w:t>-3.11, 2.44</w:t>
+              <w:t xml:space="preserve">0.04</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve"/>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">Min, Max</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-2.13, 2.44</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 1.97</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr/>
+          <w:p>
+            <w:pPr>
+              <w:jc w:val="left"/>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="20"/>
+              </w:rPr>
+              <w:t xml:space="preserve">-3.11, 2.44</w:t>
             </w:r>
           </w:p>
         </w:tc>
@@ -1316,7 +1361,7 @@
     </w:tbl>
     <w:p>
       <w:r>
-        <w:t> fictitious data </w:t>
+        <w:t xml:space="preserve"> fictitious data </w:t>
       </w:r>
     </w:p>
     <w:p>
@@ -1410,7 +1455,7 @@
     </w:p>
     <w:p>
       <w:r>
-        <w:t>  </w:t>
+        <w:t xml:space="preserve">  </w:t>
       </w:r>
     </w:p>
     <w:p>
@@ -1468,14 +1513,14 @@
         <w:jc w:val="center"/>
       </w:pPr>
       <w:r>
-        <w:t/>
+        <w:t xml:space="preserve"/>
         <w:br/>
-        <w:t> There were no deaths </w:t>
+        <w:t xml:space="preserve"> There were no deaths </w:t>
       </w:r>
     </w:p>
     <w:p>
       <w:r>
-        <w:t>  </w:t>
+        <w:t xml:space="preserve">  </w:t>
       </w:r>
     </w:p>
     <w:p>

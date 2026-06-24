@@ -23,6 +23,11 @@ report_missing <- function(data,
                            row_split = NULL,
                            subjid_string = cctu_opt("subjid_string")) {
 
+  # data.table NSE symbols: `.v`/`.sid` are `env=` substitution tokens and
+  # `n_miss` an aggregated column; bound locally so the object_usage linter /
+  # R CMD check don't treat them as undefined globals.
+  .v <- .sid <- n_miss <- NULL
+
   # If the subjid column is missing there's nothing meaningful to report.
   if (!subjid_string %in% names(data)) return(invisible(NULL))
 

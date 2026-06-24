@@ -15,7 +15,7 @@ for an overview and starting point.
 
 ## Key Functions
 
-- [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/meta_table_example.md)
+- [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
 
 - [`create_popn_envir`](https://cam-ctu.github.io/cctu/reference/create_popn_envir.md)
 

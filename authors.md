@@ -9,16 +9,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/cam-ctu/cctu/blob/0.8.13/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/cam-ctu/cctu/blob/master/DESCRIPTION)
 
 Bond S, Dayimu A (2026). *cctu: In-House Functions for Report Writing at
-Cambridge Clinical Trials Unit*. R package version 0.8.13,
+Cambridge Clinical Trials Unit*. R package version 0.8.14,
 <https://cam-ctu.github.io/cctu/>.
 
     @Manual{,
       title = {cctu: In-House Functions for Report Writing at Cambridge Clinical Trials Unit},
       author = {Simon Bond and Alimu Dayimu},
       year = {2026},
-      note = {R package version 0.8.13},
+      note = {R package version 0.8.14},
       url = {https://cam-ctu.github.io/cctu/},
     }

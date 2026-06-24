@@ -27,7 +27,7 @@ interprets them.'></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.14</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ interprets them.'></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Render a styled table to Word-flavoured XML.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.13/R/write_table.R" class="external-link"><code>R/write_table.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/write_table.R" class="external-link"><code>R/write_table.R</code></a></small>
       <div class="d-none name"><code>styled_table.Rd</code></div>
     </div>
 
@@ -78,7 +78,7 @@ interprets them.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">styled_table</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">styled_table</span><span class="op">(</span><span class="va">x</span>, spanner_sep <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,6 +87,12 @@ interprets them.</p>
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>A data.frame (with a <code>label</code> column) or matrix.</p></dd>
+
+
+<dt id="arg-spanner-sep">spanner_sep<a class="anchor" aria-label="anchor" href="#arg-spanner-sep"></a></dt>
+<dd><p><code>NULL</code> for a single-row header, or a separator
+string passed to <code><a href="build_thead.html">build_thead</a></code> to build two-level spanner
+headers from the data-column names.</p></dd>
 
 </dl></div>
     <div class="section level2">

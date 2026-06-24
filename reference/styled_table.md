@@ -12,7 +12,7 @@ interprets them.
 ## Usage
 
 ``` r
-styled_table(x)
+styled_table(x, spanner_sep = NULL)
 ```
 
 ## Arguments
@@ -20,6 +20,12 @@ styled_table(x)
 - x:
 
   A data.frame (with a `label` column) or matrix.
+
+- spanner_sep:
+
+  `NULL` for a single-row header, or a separator string passed to
+  [`build_thead`](https://cam-ctu.github.io/cctu/reference/build_thead.md)
+  to build two-level spanner headers from the data-column names.
 
 ## Value
 

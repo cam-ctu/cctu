@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.14</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Produce a table summarising a regression model for a study report</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.13/R/regression_table.R" class="external-link"><code>R/regression_table.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/regression_table.R" class="external-link"><code>R/regression_table.R</code></a></small>
       <div class="d-none name"><code>regression_table.Rd</code></div>
     </div>
 
@@ -121,8 +121,8 @@ points and residual error variance.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>methods exists when x is of the following classes:
-<code>lm, glm, gls, lme, coxph, gee</code>. Extensions to other classes may be
-written by defining methods for <code>coef_table</code> and <code>covar</code>
+<code>lm, glm, gls, lme, coxph, gee, coxme, mira</code>. Extensions to other classes may be
+written by defining methods for <code>coef_table</code>, <code>guess_col_names</code> and <code>covar</code>
 functions</p>
     </div>
 

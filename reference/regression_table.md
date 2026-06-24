@@ -65,8 +65,9 @@ and residual error variance.
 ## Details
 
 methods exists when x is of the following classes:
-`lm, glm, gls, lme, coxph, gee`. Extensions to other classes may be
-written by defining methods for `coef_table` and `covar` functions
+`lm, glm, gls, lme, coxph, gee, coxme, mira`. Extensions to other
+classes may be written by defining methods for `coef_table`,
+`guess_col_names` and `covar` functions
 
 ## Examples
 

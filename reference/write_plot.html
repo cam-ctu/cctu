@@ -15,7 +15,7 @@ this function is particularly useful in that situation."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.14</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ this function is particularly useful in that situation."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to save plot figures</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.13/R/write_ggplot.R" class="external-link"><code>R/write_ggplot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/write_ggplot.R" class="external-link"><code>R/write_ggplot.R</code></a></small>
       <div class="d-none name"><code>write_plot.Rd</code></div>
     </div>
 
@@ -153,7 +153,11 @@ environment or external files. Defaults to options()$verbose.</p></dd>
 
 
 <dt id="arg-footnote">footnote<a class="anchor" aria-label="anchor" href="#arg-footnote"></a></dt>
-<dd><p>character vector, can be used to add footnotes.</p></dd>
+<dd><p>character vector, can be used to add footnotes. Use
+<code>@ref{number}</code> anywhere in the text to insert a clickable
+cross-reference to another table or figure by its number, e.g.
+<code>"See @ref{1.1} for details"</code> renders as <code>"See Table 1.1 for
+details"</code> with "Table 1.1" linking to that table's heading.</p></dd>
 
 
 <dt id="arg-plot-args">plot_args<a class="anchor" aria-label="anchor" href="#arg-plot-args"></a></dt>

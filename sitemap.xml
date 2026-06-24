@@ -9,10 +9,12 @@
 <url><loc>https://cam-ctu.github.io/cctu/authors.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/index.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/news/index.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/reference/ae_summary.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/all_is_numeric.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/apply_macro_dict.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/as.data.frame.cttab.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/attach_pop.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/reference/build_thead.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/cctu-package.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/cctu_initialise.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/cctu_opt.html</loc></url>
@@ -52,7 +54,6 @@
 <url><loc>https://cam-ctu.github.io/cctu/reference/lab2val.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/library_description.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/merge_data.html</loc></url>
-<url><loc>https://cam-ctu.github.io/cctu/reference/meta_table_example.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/num_stat.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/order_dewey.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/p_format.html</loc></url>
@@ -69,9 +70,11 @@
 <url><loc>https://cam-ctu.github.io/cctu/reference/render_cat.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/render_numeric.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/report_missing.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/reference/resolve_footnote_refs.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/rm_envir.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/run_batch.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/set_dlu.html</loc></url>
+<url><loc>https://cam-ctu.github.io/cctu/reference/shift_table.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/signif_pad.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/source.html</loc></url>
 <url><loc>https://cam-ctu.github.io/cctu/reference/stat_tab.html</loc></url>

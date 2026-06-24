@@ -59,9 +59,10 @@ Functions to setup studies
   : Provides a summary with date stamps of external data files.
 - [`order_dewey()`](https://cam-ctu.github.io/cctu/reference/order_dewey.md)
   : sorts inputs that look like Dewey decimal numbering
-- [`get_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
+- [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
+  [`get_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
   [`set_meta_table()`](https://cam-ctu.github.io/cctu/reference/get_meta_table.md)
-  : Functions to handle meta_table
+  : The meta_table: get, set and an example
 - [`get_code_tree()`](https://cam-ctu.github.io/cctu/reference/get_code_tree.md)
   [`reset_code_tree()`](https://cam-ctu.github.io/cctu/reference/get_code_tree.md)
   : track which files of code are called by which oher files
@@ -80,8 +81,6 @@ Functions to setup studies
   what file was called and from which file
 - [`read_data()`](https://cam-ctu.github.io/cctu/reference/read_data.md)
   : Automatic reading in data from a meta-table of external data sets.
-- [`meta_table_example`](https://cam-ctu.github.io/cctu/reference/meta_table_example.md)
-  : Example of a meta_table data frame
 - [`gitignore_init()`](https://cam-ctu.github.io/cctu/reference/gitignore_init.md)
   : checks to see if a .gitignore needs to be create or edited based on
   the template file
@@ -158,6 +157,10 @@ Functions to create summary statistics
   : Create Nested Group Header Rows in a data.table
 - [`regression_table()`](https://cam-ctu.github.io/cctu/reference/regression_table.md)
   : Produce a table summarising a regression model for a study report
+- [`ae_summary()`](https://cam-ctu.github.io/cctu/reference/ae_summary.md)
+  : Summarise subject-level events by class and term
+- [`shift_table()`](https://cam-ctu.github.io/cctu/reference/shift_table.md)
+  : Baseline x worst-post-baseline shift table
 
 ## Plotting
 

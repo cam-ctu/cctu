@@ -97,13 +97,13 @@ ae_summary <- function(data, adsl,
   if (grade_report == "high")
     stopifnot(is.numeric(grade_high), length(grade_high) == 1, grade_high >= 1)
 
-  # data.table NSE column names (internal `_`-prefixed columns, `i.`-prefixed
-  # join columns and the `..by_cols` selector), bound locally so R CMD check /
-  # the object_usage linter don't flag them as undefined globals. Lexical scope
-  # makes them visible to the nested build_level() helper too.
+  # data.table NSE column names (internal `_`-prefixed columns and `i.`-prefixed
+  # join columns), bound locally so R CMD check / the object_usage linter don't
+  # flag them as undefined globals. Lexical scope makes them visible to the
+  # nested build_level() helper too.
   # nolint start: object_name_linter.
   `_id` <- `_class` <- `_term` <- `_arm` <- `_trtvar` <- `_gradevar` <-
-    `_grade` <- `_grank` <- `..by_cols` <- N <- np <- rn <- label <-
+    `_grade` <- `_grank` <- N <- np <- rn <- label <-
     max_pct <- class_order <- term_order <- grade_order <-
     i.class_order <- i.term_order <- NULL
   # nolint end
@@ -244,7 +244,7 @@ ae_summary <- function(data, adsl,
 
         if (nrow(s) == 0) {
           empty <- if (length(by_cols) == 0) data.table(n = 0L)
-          else cbind(unique(d[, ..by_cols]), n = 0L)
+          else cbind(unique(d[, .SD, .SDcols = by_cols]), n = 0L)
           empty[, `:=`(`_arm` = arm, `_grade` = g)]
           parts[[length(parts) + 1L]] <- empty
         } else {

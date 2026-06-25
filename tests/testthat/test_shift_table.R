@@ -1,85 +1,92 @@
-# Small synthetic shift data: 6 subjects, baseline + one post-baseline visit,
-# two parameters, two arms. `value` is an ordered factor (best -> worst).
-shift_demo_data <- function() {
-  dt <- data.table::data.table(
-    USUBJID = rep(sprintf("S%02d", 1:6), each = 2),
-    AVISIT  = rep(c("Baseline", "Week 4"), times = 6),
-    PARAM   = rep(c("ALT", "AST"), each = 6),
-    ARM     = rep(c("A", "B"), each = 2, length.out = 12),
-    AVALC   = c("Normal", "High", "Normal", "Normal", "High", "High",
-                "Normal", "High", "Low", "Normal", "Normal", "High")
-  )
-  dt[, AVALC := factor(AVALC, levels = c("Low", "Normal", "High"),
-                       ordered = TRUE)]
-  dt[]
-}
+# shift_table is exercised on the pilot ECG / ECOG forms, mirroring the worked
+# examples in demo/Progs/analysis.R (outputs 2.6 and 2.7). Snapshots pin the
+# rendered tables so both the styling and every count are checked against a
+# saved reference.
 
-test_that("shift_table styled wide uses group_data: bold banners, indented rows", {
-  dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
-                     bl_value = "Baseline", row_groups = "PARAM",
-                     col_groups = "ARM", pct = "none")
+dt  <- read.csv(system.file("extdata", "pilotdata.csv", package = "cctu"),
+                colClasses = "character")
+dlu <- read.csv(system.file("extdata", "pilotdata_dlu.csv", package = "cctu"))
+clu <- read.csv(system.file("extdata", "pilotdata_clu.csv", package = "cctu"))
+dt$subjid <- substr(dt$USUBJID, 8, 11)
+dt <- apply_macro_dict(dt, dlu = dlu, clu = clu, clean_names = FALSE)
+options("cctu_digits_pct" = 1)
 
-  expect_s3_class(out, "cttab")
-  expect_equal(names(out)[1], "label")
-  expect_length(attr(out, "row_style"), nrow(out))
-  # The row-group column is folded into the label and dropped.
-  expect_false("PARAM" %in% names(out))
+adsl <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+adsl$ARM <- to_factor(adsl$ARM)
+arm_lk <- unique(adsl[, c("subjid", "ARM")])
 
-  rs <- attr(out, "row_style")
-  # One bold banner per row-group level (ALT, AST).
-  banners <- which(trimws(out$label) %in% c("ALT", "AST"))
-  expect_equal(length(banners), 2L)
-  expect_true(all(grepl("bold", rs[banners])))
-  # Every baseline (non-banner) row is indented, none bold.
-  data_rows <- setdiff(seq_len(nrow(out)), banners)
-  expect_true(all(grepl("indent", rs[data_rows])))
-  expect_false(any(grepl("bold", rs[data_rows])))
+ecg <- merge(extract_form(dt, "ECG", vars_keep = "subjid"), arm_lk, by = "subjid")
+ecg$ECG <- factor(to_factor(ecg$ECGINT),
+                  levels = c("Normal",
+                             "Abnormal - not clinically significant",
+                             "Abnormal - clinically significant"),
+                  ordered = TRUE)
+
+ecog <- merge(extract_form(dt, "ECOG", vars_keep = "subjid"), arm_lk, by = "subjid")
+ecog$ECOG <- factor(to_factor(ecog$ECOG),
+                    levels = c("Fully active",
+                               "Restricted in strenuous activity",
+                               "Ambulatory and self-care",
+                               "Limited self-care",
+                               "Completely disabled"),
+                    ordered = TRUE)
+
+test_that("shift_table ECG worst-shift across arms (analysis.R 2.6)", {
+  X <- shift_table(ecg, value = "ECG", id_var = "subjid", visit = "form_visit",
+                   bl_value = "SCREENING", col_groups = "ARM", pct = "none")
+  expect_s3_class(X, "cttab")
+  # col_groups only -> plain rows (no row-group banners, no styling).
+  expect_true(all(attr(X, "row_style") == ""))
+  expect_snapshot(print(X))
 })
 
-test_that("shift_table banner rows are blank in the count columns", {
-  dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
-                     bl_value = "Baseline", row_groups = "PARAM",
-                     col_groups = "ARM", pct = "none")
-
-  banners   <- which(trimws(out$label) %in% c("ALT", "AST"))
-  data_cols <- setdiff(names(out), "label")
-  banner_cells <- unlist(out[banners, data_cols])
-  expect_true(all(banner_cells == ""))
+test_that("shift_table ECOG with arm row-group banners (analysis.R 2.7)", {
+  X <- shift_table(ecog, value = "ECOG", id_var = "subjid", visit = "form_visit",
+                   bl_value = "SCREENING", row_groups = "ARM", pct = "none")
+  expect_s3_class(X, "cttab")
+  # ARM (a factor) folds into bold banner rows above indented baseline rows.
+  rs <- attr(X, "row_style")
+  expect_true(any(grepl("bold", rs)))
+  expect_true(any(grepl("indent", rs)))
+  expect_snapshot(print(X))
 })
 
-test_that("shift_table with no row_groups returns plain (unstyled) rows", {
-  dt  <- shift_demo_data()[PARAM == "ALT"]
-  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
-                     bl_value = "Baseline", col_groups = "ARM",
-                     pct = "none")
-
-  expect_s3_class(out, "cttab")
-  expect_equal(names(out)[1], "label")
-  # No grouping -> no banners, no bold/indent: row_style is all empty.
-  expect_true(all(attr(out, "row_style") == ""))
+test_that("shift_table row percentages, empty-margin and no-post dropping", {
+  ecg2 <- ecg
+  ecg2$ARM <- as.character(ecg2$ARM)   # character group -> non-factor grid path
+  X <- shift_table(ecg2, value = "ECG", id_var = "subjid", visit = "form_visit",
+                   bl_value = "SCREENING", col_groups = "ARM", pct = "row",
+                   drop_empty = "both", drop_no_postbaseline = TRUE)
+  # drop_no_postbaseline removes the "No post-baseline" category entirely.
+  expect_false(any(grepl("No post-baseline", names(X))))
+  expect_snapshot(print(X))
 })
 
-test_that("shift_table errors on more than one baseline per subject x group", {
-  dt <- shift_demo_data()
-  # Duplicate the ALT baseline row for S01 -> two baselines.
-  dup <- dt[PARAM == "ALT" & USUBJID == "S01" & AVISIT == "Baseline"]
-  dt2 <- rbind(dt, dup)
+test_that("shift_table validates inputs and warns on absent baseline levels", {
+  # Unknown grouping column.
   expect_error(
-    shift_table(dt2, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
-                bl_value = "Baseline", row_groups = "PARAM"),
-    "more than one"
-  )
-})
+    shift_table(ecg, value = "ECG", id_var = "subjid", visit = "form_visit",
+                bl_value = "SCREENING", row_groups = "NOPE"),
+    "Columns not found")
 
-test_that("shift_table renders row percentages within baseline blocks", {
-  dt  <- shift_demo_data()
-  out <- shift_table(dt, value = "AVALC", id_var = "USUBJID", visit = "AVISIT",
-                     bl_value = "Baseline", row_groups = "PARAM",
-                     col_groups = "ARM", pct = "row")
-  # Cells are "n (pct)" strings on data rows; banners stay blank.
-  data_rows <- which(!trimws(out$label) %in% c("ALT", "AST"))
-  cells <- unlist(out[data_rows, setdiff(names(out), "label")])
-  expect_true(any(grepl("\\([0-9.]+\\)", cells)))
+  # `value` must be an ordered factor (levels best -> worst).
+  ecg_chr <- ecg
+  ecg_chr$ECG <- as.character(ecg_chr$ECG)
+  expect_error(
+    shift_table(ecg_chr, value = "ECG", id_var = "subjid", visit = "form_visit",
+                bl_value = "SCREENING", col_groups = "ARM"),
+    "ordered factor")
+
+  # A bl_value level that never appears in `visit` warns but still builds.
+  expect_warning(
+    shift_table(ecg, value = "ECG", id_var = "subjid", visit = "form_visit",
+                bl_value = c("SCREENING", "NOPE"), col_groups = "ARM"),
+    "bl_value")
+
+  # More than one baseline per subject x group.
+  dup <- rbind(ecg, subset(ecg, form_visit == "SCREENING")[1, ])
+  expect_error(
+    shift_table(dup, value = "ECG", id_var = "subjid", visit = "form_visit",
+                bl_value = "SCREENING", col_groups = "ARM"),
+    "more than one")
 })

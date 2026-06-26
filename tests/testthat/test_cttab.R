@@ -62,12 +62,21 @@ test_that("Start from data reading", {
   expect_equal(nrow(get_missing_report()), 0)
 
   cctu_env$parent <- "test"
-  write_table(X, directory = tmp_dir)
+  write_table(X, directory = tmp_dir, clean_up = FALSE)
 
   expect_true(compare_file_text(
     test_path("ref", "table_ctab1.xml"),
     file.path(tmp_dir, "table_1.1.xml")
   ))
+
+  # Make sure the write_table() method works with a data.frame and data.table input
+  expect_s3_class(df, "data.table")
+  expect_no_error(write_table(df,
+                              directory = tmp_dir,
+                              clean_up = FALSE))
+  expect_snapshot_file(file.path(tmp_dir, "table_1.1.xml"),
+                       name = "table_1.1.xml")
+  expect_no_error(write_table(as.data.frame(df), directory = tmp_dir))
 })
 
 test_that("Variable groups", {

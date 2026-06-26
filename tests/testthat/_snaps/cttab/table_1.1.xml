@@ -1,0 +1,108 @@
+
+<table>
+ <thead>
+<tr><th>subjid</th><th>Treatment Arm</th><th>Age</th><th>Race (N)</th><th>Sex</th><th>Baseline BMI (kg/m^2)</th><th>form_visit</th><th>Treatment Arm</th></tr>
+</thead>
+ <tbody>
+<tr><td>1133</td><td>Research</td><td>81</td><td>WHITE</td><td>Female</td><td>28.1</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1148</td><td>Research</td><td>57</td><td>WHITE</td><td>Male</td><td>28.3</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1153</td><td>Placebo</td><td>79</td><td>WHITE</td><td>Female</td><td>23.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1180</td><td>Research</td><td>56</td><td>WHITE</td><td>Male</td><td>27.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1181</td><td>Research</td><td>79</td><td>WHITE</td><td>Female</td><td>27.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1239</td><td>Research</td><td>56</td><td>WHITE</td><td>Male</td><td>33.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1275</td><td>Research</td><td>61</td><td>6</td><td>Male</td><td>NA</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1302</td><td>Research</td><td>61</td><td>WHITE</td><td>Male</td><td>26.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1345</td><td>Placebo</td><td>63</td><td>WHITE</td><td>Female</td><td>18.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1383</td><td>Research</td><td>72</td><td>WHITE</td><td>Female</td><td>31.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1387</td><td>Placebo</td><td>87</td><td>WHITE</td><td>Female</td><td>22.5</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1392</td><td>Placebo</td><td>78</td><td>WHITE</td><td>Male</td><td>28.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1415</td><td>Placebo</td><td>85</td><td>WHITE</td><td>Male</td><td>25.0</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1440</td><td>Placebo</td><td>70</td><td>WHITE</td><td>Male</td><td>20.2</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1042</td><td>Placebo</td><td>64</td><td>WHITE</td><td>Male</td><td>23.5</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1175</td><td>Placebo</td><td>75</td><td>WHITE</td><td>Male</td><td>26.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1258</td><td>Research</td><td>78</td><td>WHITE</td><td>Female</td><td>24.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1295</td><td>Research</td><td>88</td><td>WHITE</td><td>Female</td><td>22.7</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1299</td><td>Placebo</td><td>81</td><td>WHITE</td><td>Female</td><td>19.2</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1335</td><td>Research</td><td>67</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>23.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1403</td><td>Research</td><td>67</td><td>WHITE</td><td>Male</td><td>25.4</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1008</td><td>Research</td><td>76</td><td>WHITE</td><td>Female</td><td>21.3</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1017</td><td>Research</td><td>77</td><td>WHITE</td><td>Male</td><td>21.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1074</td><td>Research</td><td>80</td><td>WHITE</td><td>Female</td><td>27.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1127</td><td>Placebo</td><td>84</td><td>WHITE</td><td>Female</td><td>15.1</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1241</td><td>Research</td><td>86</td><td>WHITE</td><td>Male</td><td>25.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1266</td><td>Research</td><td>82</td><td>WHITE</td><td>Male</td><td>29.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1332</td><td>Research</td><td>80</td><td>WHITE</td><td>Male</td><td>26.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1351</td><td>Placebo</td><td>70</td><td>WHITE</td><td>Male</td><td>23.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1388</td><td>Placebo</td><td>81</td><td>WHITE</td><td>Male</td><td>18.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1435</td><td>Placebo</td><td>74</td><td>WHITE</td><td>Male</td><td>27.1</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1445</td><td>Placebo</td><td>75</td><td>WHITE</td><td>Male</td><td>22.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1018</td><td>Placebo</td><td>69</td><td>WHITE</td><td>Female</td><td>22.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1059</td><td>Placebo</td><td>66</td><td>WHITE</td><td>Female</td><td>20.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1186</td><td>Placebo</td><td>84</td><td>WHITE</td><td>Female</td><td>19.7</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1280</td><td>Research</td><td>56</td><td>WHITE</td><td>Female</td><td>28.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1281</td><td>Research</td><td>73</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>31.4</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1282</td><td>Placebo</td><td>70</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>30.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1303</td><td>Research</td><td>72</td><td>WHITE</td><td>Male</td><td>27.5</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1087</td><td>Placebo</td><td>74</td><td>WHITE</td><td>Female</td><td>26.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1158</td><td>Placebo</td><td>81</td><td>WHITE</td><td>Female</td><td>27.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1178</td><td>Research</td><td>77</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>23.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1213</td><td>Research</td><td>76</td><td>WHITE</td><td>Female</td><td>15.3</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1236</td><td>Research</td><td>86</td><td>WHITE</td><td>Female</td><td>23.4</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1253</td><td>Placebo</td><td>61</td><td>WHITE</td><td>Male</td><td>22.1</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1286</td><td>Placebo</td><td>80</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>32.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1296</td><td>Placebo</td><td>57</td><td>BLACK OR AFRICAN AMERICAN</td><td>Male</td><td>27.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1336</td><td>Research</td><td>73</td><td>WHITE</td><td>Male</td><td>24.1</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1342</td><td>Placebo</td><td>59</td><td>WHITE</td><td>Female</td><td>20.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1378</td><td>Placebo</td><td>67</td><td>BLACK OR AFRICAN AMERICAN</td><td>Male</td><td>24.3</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1001</td><td>Placebo</td><td>76</td><td>WHITE</td><td>Female</td><td>25.2</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1029</td><td>Research</td><td>82</td><td>WHITE</td><td>Male</td><td>23.1</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1099</td><td>Research</td><td>79</td><td>WHITE</td><td>Female</td><td>19.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1168</td><td>Research</td><td>72</td><td>WHITE</td><td>Female</td><td>27.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1259</td><td>Placebo</td><td>82</td><td>WHITE</td><td>Male</td><td>21.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1306</td><td>Placebo</td><td>60</td><td>WHITE</td><td>Female</td><td>18.5</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1309</td><td>Research</td><td>65</td><td>WHITE</td><td>Male</td><td>24.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1312</td><td>Placebo</td><td>68</td><td>WHITE</td><td>Female</td><td>20.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1329</td><td>Research</td><td>70</td><td>WHITE</td><td>Male</td><td>26.5</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1339</td><td>Placebo</td><td>81</td><td>WHITE</td><td>Male</td><td>25.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1424</td><td>Research</td><td>77</td><td>WHITE</td><td>Male</td><td>22.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1006</td><td>Research</td><td>77</td><td>WHITE</td><td>Male</td><td>25.1</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1021</td><td>Research</td><td>79</td><td>BLACK OR AFRICAN AMERICAN</td><td>Male</td><td>21.3</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1027</td><td>Placebo</td><td>83</td><td>WHITE</td><td>Male</td><td>24.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1060</td><td>Placebo</td><td>82</td><td>WHITE</td><td>Male</td><td>21.0</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1070</td><td>Research</td><td>85</td><td>WHITE</td><td>Female</td><td>21.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1078</td><td>Placebo</td><td>81</td><td>WHITE</td><td>Female</td><td>18.0</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1137</td><td>Research</td><td>79</td><td>BLACK OR AFRICAN AMERICAN</td><td>Female</td><td>24.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1183</td><td>Placebo</td><td>80</td><td>WHITE</td><td>Female</td><td>21.2</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1187</td><td>Research</td><td>78</td><td>WHITE</td><td>Female</td><td>20.8</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1249</td><td>Research</td><td>79</td><td>WHITE</td><td>Male</td><td>25.4</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1264</td><td>Placebo</td><td>78</td><td>WHITE</td><td>Male</td><td>29.1</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1278</td><td>Research</td><td>81</td><td>WHITE</td><td>Male</td><td>22.7</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1314</td><td>Placebo</td><td>78</td><td>WHITE</td><td>Female</td><td>22.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1354</td><td>Research</td><td>73</td><td>WHITE</td><td>Male</td><td>26.7</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1368</td><td>Placebo</td><td>88</td><td>WHITE</td><td>Female</td><td>15.7</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1012</td><td>Research</td><td>67</td><td>WHITE</td><td>Female</td><td>28.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1036</td><td>Placebo</td><td>70</td><td>BLACK OR AFRICAN AMERICAN</td><td>Male</td><td>23.4</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1106</td><td>Research</td><td>74</td><td>WHITE</td><td>Male</td><td>19.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1209</td><td>Research</td><td>77</td><td>WHITE</td><td>Female</td><td>19.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1269</td><td>Placebo</td><td>73</td><td>WHITE</td><td>Male</td><td>21.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1375</td><td>Placebo</td><td>78</td><td>WHITE</td><td>Female</td><td>25.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1425</td><td>Research</td><td>81</td><td>WHITE</td><td>Male</td><td>29.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1207</td><td>Placebo</td><td>78</td><td>WHITE</td><td>Female</td><td>21.3</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1397</td><td>Placebo</td><td>76</td><td>WHITE</td><td>Female</td><td>28.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1026</td><td>Placebo</td><td>73</td><td>WHITE</td><td>Female</td><td>33.3</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1030</td><td>Research</td><td>83</td><td>WHITE</td><td>Female</td><td>33.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1071</td><td>Research</td><td>78</td><td>WHITE</td><td>Female</td><td>32.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1160</td><td>Placebo</td><td>83</td><td>WHITE</td><td>Female</td><td>24.1</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1189</td><td>Research</td><td>81</td><td>WHITE</td><td>Male</td><td>27.4</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1229</td><td>Research</td><td>73</td><td>WHITE</td><td>Female</td><td>24.6</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1373</td><td>Research</td><td>74</td><td>WHITE</td><td>Male</td><td>32.0</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1418</td><td>Research</td><td>80</td><td>WHITE</td><td>Female</td><td>25.3</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1441</td><td>Placebo</td><td>85</td><td>WHITE</td><td>Male</td><td>27.5</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1109</td><td>Research</td><td>84</td><td>WHITE</td><td>Male</td><td>13.7</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1174</td><td>Research</td><td>73</td><td>WHITE</td><td>Male</td><td>24.2</td><td>COVER</td><td>Research</td></tr>
+<tr><td>1201</td><td>Placebo</td><td>85</td><td>WHITE</td><td>Female</td><td>26.6</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1172</td><td>Placebo</td><td>74</td><td>WHITE</td><td>Male</td><td>21.9</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1355</td><td>Placebo</td><td>79</td><td>WHITE</td><td>Male</td><td>20.8</td><td>COVER</td><td>Placebo</td></tr>
+<tr><td>1371</td><td>Research</td><td>69</td><td>WHITE</td><td>Female</td><td>27.8</td><td>COVER</td><td>Research</td></tr>
+</tbody>
+ </table>

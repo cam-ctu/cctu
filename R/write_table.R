@@ -214,7 +214,7 @@ table_data <- function(x, heading = NULL, na_to_empty = FALSE,
   if (is.null(heading)) heading <- colnames(x)
   with_varlab <- vapply(x, has_label, logical(1))
   if (any(with_varlab)) {
-    heading[with_varlab] <- vapply(x[with_varlab], var_lab, character(1))
+    heading[with_varlab] <- unlist(var_lab(x)[with_varlab])
   }
 
   # Matrix path: if rownames are non-default, surface them as a leading

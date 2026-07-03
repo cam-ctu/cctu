@@ -525,7 +525,7 @@ Sys.info()
 #>                                               version 
 #> "#18~24.04.1-Ubuntu SMP Thu May 28 16:39:11 UTC 2026" 
 #>                                              nodename 
-#>                                       "runnervm7b5n9" 
+#>                                       "runnervmkkn4f" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -535,7 +535,7 @@ Sys.info()
 #>                                        effective_user 
 #>                                              "runner"
 sessionInfo()
-#> R version 4.6.0 (2026-04-24)
+#> R version 4.6.1 (2026-06-24)
 #> Platform: x86_64-pc-linux-gnu
 #> Running under: Ubuntu 24.04.4 LTS
 #> 
@@ -558,24 +558,24 @@ sessionInfo()
 #> other attached packages:
 #>  [1] survival_3.8-6 xml2_1.6.0     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.31
 #>  [6] readxl_1.5.0   magrittr_2.0.5 knitr_1.51     ggplot2_4.0.3  dplyr_1.2.1   
-#> [11] cctu_0.8.14   
+#> [11] cctu_0.8.15   
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     digest_0.6.39     
-#>  [5] evaluate_1.0.5     grid_4.6.0         RColorBrewer_1.1-3 fastmap_1.2.0     
-#>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-5       gridExtra_2.3     
+#>  [5] evaluate_1.0.5     grid_4.6.1         RColorBrewer_1.1-3 fastmap_1.2.0     
+#>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-5       gridExtra_2.3.1   
 #> [13] httr_1.4.8         purrr_1.2.2        scales_1.4.0       textshaping_1.0.5 
-#> [17] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        splines_4.6.0     
+#> [17] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        splines_4.6.1     
 #> [21] xslt_1.5.1         withr_3.0.3        cachem_1.1.0       yaml_2.3.12       
-#> [25] otel_0.2.0         tools_4.6.0        png_0.1-9          vctrs_0.7.3       
+#> [25] otel_0.2.0         tools_4.6.1        png_0.1-9          vctrs_0.7.3       
 #> [29] R6_2.6.1           lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.2        
 #> [33] pkgconfig_2.0.3    pillar_1.11.1      bslib_0.11.0       gtable_0.3.6      
 #> [37] data.table_1.18.4  glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2 
 #> [41] xfun_0.59          tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2      
-#> [45] htmltools_0.5.9    patchwork_1.3.2    labeling_0.4.3     compiler_4.6.0    
+#> [45] htmltools_0.5.9    patchwork_1.3.2    labeling_0.4.3     compiler_4.6.1    
 #> [49] S7_0.2.2
 date()
-#> [1] "Wed Jun 24 13:36:33 2026"
+#> [1] "Fri Jul  3 13:01:21 2026"
 ```
 
 The output is

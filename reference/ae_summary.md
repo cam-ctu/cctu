@@ -145,8 +145,6 @@ ae <- data.frame(
 # Class -> term hierarchy with worst-grade sub-rows and a Total column.
 ae_summary(ae, adsl, id_var = "id", class_var = "soc", term_var = "pt",
            trt_var = "arm", grade_var = "gr")
-#> Warning: Both 'by_cols' and '..by_cols' exist in calling scope. Please remove the '..by_cols' variable in calling scope for clarity.
-#> Warning: Both 'by_cols' and '..by_cols' exist in calling scope. Please remove the '..by_cols' variable in calling scope for clarity.
 #> ┌───────────────────────────┬────────┬────────┬────────┐
 #> |                           │ Active │Placebo │ Total  |
 #> ├───────────────────────────┴────────┴────────┴────────┤

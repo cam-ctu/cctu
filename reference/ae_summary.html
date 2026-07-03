@@ -19,7 +19,7 @@ concomitant medications, or anything with a class/term hierarchy."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">cctu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.14</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.8.15</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@ concomitant medications, or anything with a class/term hierarchy."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Summarise subject-level events by class and term</h1>
-      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/0.8.14/R/ae_summary_tbl.R" class="external-link"><code>R/ae_summary_tbl.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cam-ctu/cctu/blob/master/R/ae_summary_tbl.R" class="external-link"><code>R/ae_summary_tbl.R</code></a></small>
       <div class="d-none name"><code>ae_summary.Rd</code></div>
     </div>
 
@@ -203,8 +203,6 @@ or "Subjects with any medical history" to match context.</p></dd>
 <span class="r-in"><span><span class="co"># Class -&gt; term hierarchy with worst-grade sub-rows and a Total column.</span></span></span>
 <span class="r-in"><span><span class="fu">ae_summary</span><span class="op">(</span><span class="va">ae</span>, <span class="va">adsl</span>, id_var <span class="op">=</span> <span class="st">"id"</span>, class_var <span class="op">=</span> <span class="st">"soc"</span>, term_var <span class="op">=</span> <span class="st">"pt"</span>,</span></span>
 <span class="r-in"><span>           trt_var <span class="op">=</span> <span class="st">"arm"</span>, grade_var <span class="op">=</span> <span class="st">"gr"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Both 'by_cols' and '..by_cols' exist in calling scope. Please remove the '..by_cols' variable in calling scope for clarity.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Both 'by_cols' and '..by_cols' exist in calling scope. Please remove the '..by_cols' variable in calling scope for clarity.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ┌───────────────────────────┬────────┬────────┬────────┐</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> |                           │ Active │Placebo │ Total  |</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ├───────────────────────────┴────────┴────────┴────────┤</span>

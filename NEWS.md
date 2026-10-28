@@ -1,4 +1,4 @@
-# cctu (development)
+# cctu 0.8.16
 
 Correctness review of `cttab()` and the statistics it renders. Each of the bugs below could silently put a wrong or missing number into a report; all now have regression tests.
 
@@ -35,6 +35,7 @@ Correctness review of `cttab()` and the statistics it renders. Each of the bugs 
 
 * Documentation corrections: `cat_stat()` no longer claims zero-count levels are rendered (`render_cat()` blanks them), and `num_stat()` no longer documents `q25`/`q50`/`q75` aliases that do not exist.
 
+* Correcting a bug in `read_data()`  whereby mixing optional arguments for different file types caused an error.
 
 # cctu 0.8.11
 

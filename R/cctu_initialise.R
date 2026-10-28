@@ -21,11 +21,12 @@
 
 #' @describeIn cctu_initialise create the standard directories for outputs
 #'  if needed.
-cctu_initialise <- function(root = getwd(), scripts = FALSE, rm = FALSE,
-                            description = TRUE,
-                            output = cctu_opt("output"),
-                            check_gitignore = TRUE
-                            ) {
+cctu_initialise <- function(
+    root = getwd(), scripts = FALSE, rm = FALSE,
+    description = TRUE,
+    output = cctu_opt("output"),
+    check_gitignore = TRUE
+) {
   root <- root |> normalizePath()
   # root_slash <- root |> final_slash()
   reset_code_tree(root_file = file.path(root, "ROOT"))

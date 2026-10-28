@@ -521,11 +521,11 @@ Sys.info()
 #>                                               sysname 
 #>                                               "Linux" 
 #>                                               release 
-#>                                   "6.17.0-1018-azure" 
+#>                                    "7.0.0-1017-azure" 
 #>                                               version 
-#> "#18~24.04.1-Ubuntu SMP Thu May 28 16:39:11 UTC 2026" 
+#> "#17-Ubuntu SMP PREEMPT Thu Sep 24 15:54:51 UTC 2026" 
 #>                                              nodename 
-#>                                       "runnervmkkn4f" 
+#>                                       "runnervmr9t6g" 
 #>                                               machine 
 #>                                              "x86_64" 
 #>                                                 login 
@@ -537,11 +537,11 @@ Sys.info()
 sessionInfo()
 #> R version 4.6.1 (2026-06-24)
 #> Platform: x86_64-pc-linux-gnu
-#> Running under: Ubuntu 24.04.4 LTS
+#> Running under: Ubuntu 26.04.1 LTS
 #> 
 #> Matrix products: default
 #> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 #> 
 #> locale:
 #>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -556,26 +556,30 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#>  [1] survival_3.8-6 xml2_1.6.0     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.31
-#>  [6] readxl_1.5.0   magrittr_2.0.5 knitr_1.51     ggplot2_4.0.3  dplyr_1.2.1   
-#> [11] cctu_0.8.15   
+#>  [1] survival_3.8-6 xml2_1.6.0     rvest_1.0.5    tidyr_1.3.2    rmarkdown_2.32
+#>  [6] readxl_1.6.0   magrittr_2.0.5 knitr_1.52     ggplot2_4.0.3  dplyr_1.2.1   
+#> [11] cctu_0.8.16   
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] sass_0.4.10        generics_0.1.4     lattice_0.22-9     digest_0.6.39     
-#>  [5] evaluate_1.0.5     grid_4.6.1         RColorBrewer_1.1-3 fastmap_1.2.0     
-#>  [9] cellranger_1.1.0   jsonlite_2.0.0     Matrix_1.7-5       gridExtra_2.3.1   
-#> [13] httr_1.4.8         purrr_1.2.2        scales_1.4.0       textshaping_1.0.5 
-#> [17] jquerylib_0.1.4    cli_3.6.6          rlang_1.2.0        splines_4.6.1     
-#> [21] xslt_1.5.1         withr_3.0.3        cachem_1.1.0       yaml_2.3.12       
-#> [25] otel_0.2.0         tools_4.6.1        png_0.1-9          vctrs_0.7.3       
-#> [29] R6_2.6.1           lifecycle_1.0.5    htmlwidgets_1.6.4  ragg_1.5.2        
-#> [33] pkgconfig_2.0.3    pillar_1.11.1      bslib_0.11.0       gtable_0.3.6      
-#> [37] data.table_1.18.4  glue_1.8.1         Rcpp_1.1.1-1.1     systemfonts_1.3.2 
-#> [41] xfun_0.59          tibble_3.3.1       tidyselect_1.2.1   farver_2.1.2      
-#> [45] htmltools_0.5.9    patchwork_1.3.2    labeling_0.4.3     compiler_4.6.1    
+#>  [1] sass_0.4.10         generics_0.1.4      lattice_0.22-9     
+#>  [4] digest_0.6.39       evaluate_1.0.5      grid_4.6.1         
+#>  [7] RColorBrewer_1.1-3  fastmap_1.2.0       cellranger_1.1.0   
+#> [10] jsonlite_2.0.0      Matrix_1.7-5        gridExtra_2.3.1    
+#> [13] httr_1.4.9          purrr_1.2.2         scales_1.4.0       
+#> [16] textshaping_1.0.5   jquerylib_0.1.4     cli_3.6.6          
+#> [19] rlang_1.3.0         splines_4.6.1       xslt_1.5.1         
+#> [22] withr_3.0.3         cachem_1.1.0        yaml_2.3.12        
+#> [25] otel_0.2.0          tools_4.6.1         png_0.1-9          
+#> [28] vctrs_0.7.3         R6_2.6.1            lifecycle_1.0.5    
+#> [31] htmlwidgets_1.6.4   ragg_1.5.2          pkgconfig_2.0.3    
+#> [34] pillar_1.11.1       bslib_0.12.0        gtable_0.3.6       
+#> [37] data.table_1.18.6.1 glue_1.8.1          Rcpp_1.1.2         
+#> [40] systemfonts_1.3.2   xfun_0.62           tibble_3.3.1       
+#> [43] tidyselect_1.2.1    farver_2.1.2        htmltools_0.5.9    
+#> [46] patchwork_1.3.2     labeling_0.4.3      compiler_4.6.1     
 #> [49] S7_0.2.2
 date()
-#> [1] "Fri Jul  3 13:08:41 2026"
+#> [1] "Wed Oct 28 13:37:03 2026"
 ```
 
 The output is

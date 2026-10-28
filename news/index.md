@@ -1,5 +1,87 @@
 # Changelog
 
+## cctu 0.8.16
+
+Correctness review of
+[`cttab()`](https://cam-ctu.github.io/cctu/reference/cttab.md) and the
+statistics it renders. Each of the bugs below could silently put a wrong
+or missing number into a report; all now have regression tests.
+
+- `select` filters that reference the `group` or `row_split` variable
+  are now an error. Such a filter previously left the group columns
+  unfiltered while still filtering the Total column, so Total reported a
+  single group rather than the whole population. Grouping variables can
+  only be used as `group` or `row_split`.
+
+- [`rbind()`](https://rdrr.io/r/base/cbind.html) of `cttab` objects with
+  different `row_split` variables is now an error. It previously
+  replaced every value in the combined table — including the well-formed
+  part’s — with a row count. Stack tables that share a row split, or
+  format them separately.
+
+- A `group` level named `"Total"` is now an error, as it collides with
+  the generated Total column. Rename the level or pass `total = FALSE`.
+
+- `select` filters now evaluate against the original values rather than
+  value-label text. A filter such as `c(BMIBL = "RACEN != 1")` was
+  silently ignored when `RACEN` was also being summarised, because it
+  had been converted to a factor first.
+
+- `select` filters are evaluated against the data columns and base
+  functions only; they no longer see the user’s workspace.
+
+- [`round_pad()`](https://cam-ctu.github.io/cctu/reference/signif_pad.md)
+  now rounds negative numbers away from zero. `round_pad(-0.135, 2)`
+  returned `-0.13` instead of `-0.14`, systematically biasing signed
+  values (e.g. change from baseline) toward zero.
+
+- [`render_numeric()`](https://cam-ctu.github.io/cctu/reference/render_numeric.md)
+  no longer substitutes a statistic name inside a longer one that
+  contains it — `"Mean (GMean)"` rendered as `"25.0 (G25.0)"`.
+
+- A statistic that cannot be computed renders `NA` when it sits beside
+  one that could (e.g. `Mean (SD)` for a single observation reads
+  `"5.00 (NA)"`), and blank when nothing in the cell could be computed.
+  Previously the two rendering paths disagreed — `"5.00 (NA)"` from one,
+  `""` from the other — for the same input.
+
+- `CV` is reported as unavailable when the mean is zero, instead of
+  `"Inf%"` or `"NaN"`.
+
+- `Inf` values are no longer silently dropped from rendered statistics.
+
+- A categorical variable that is entirely missing now reports `Missing`
+  instead of disappearing from the table.
+
+- [`cttab_plot()`](https://cam-ctu.github.io/cctu/reference/cttab_plot.md)
+  evaluates all `select` filters before applying any, so the plot agrees
+  with the table and no longer depends on the order of the names in
+  `select`.
+
+- [`group_data()`](https://cam-ctu.github.io/cctu/reference/group_data.md)
+  no longer returns a `data.table` carrying a stale key describing the
+  input’s row order.
+
+- [`cttab_format()`](https://cam-ctu.github.io/cctu/reference/cttab_format.md)
+  refuses to render a table whose rows are not uniquely identified,
+  rather than silently emitting row counts in place of statistics.
+
+- [`cttab_plot()`](https://cam-ctu.github.io/cctu/reference/cttab_plot.md)
+  returns its list of plots invisibly.
+
+- Documentation corrections:
+  [`cat_stat()`](https://cam-ctu.github.io/cctu/reference/num_stat.md)
+  no longer claims zero-count levels are rendered
+  ([`render_cat()`](https://cam-ctu.github.io/cctu/reference/render_cat.md)
+  blanks them), and
+  [`num_stat()`](https://cam-ctu.github.io/cctu/reference/num_stat.md)
+  no longer documents `q25`/`q50`/`q75` aliases that do not exist.
+
+- Correcting a bug in
+  [`read_data()`](https://cam-ctu.github.io/cctu/reference/read_data.md)
+  whereby mixing optional arguments for different file types caused an
+  error.
+
 ## cctu 0.8.11
 
 Trying to fix links in Package Down.

@@ -3,7 +3,9 @@
 Values of type `factor`, `character` and `logical` are treated as
 categorical. For logicals, the two categories are given the labels
 \`Yes\` for `TRUE`, and \`No\` for `FALSE`. Factor levels with zero
-counts are retained.
+counts are retained here, but note that
+[`render_cat`](https://cam-ctu.github.io/cctu/reference/render_cat.md)
+renders a zero count as an empty cell rather than `"0"`.
 
 ## Usage
 
@@ -63,12 +65,11 @@ A list. For numeric `x`, the list contains the numeric elements:
 - `GSD`: the geometric standard deviation of the non-missing values if
   non-negative, or `NA`
 
-- `Q1`: the first quartile of the non-missing values (alias `q25`)
+- `Q1`: the first quartile of the non-missing values
 
-- `Q2`: the second quartile of the non-missing values (alias `q50` or
-  `Median`)
+- `Q2`: the second quartile of the non-missing values (same as `MEDIAN`)
 
-- `Q3`: the third quartile of the non-missing values (alias `q75`)
+- `Q3`: the third quartile of the non-missing values
 
 - `IQR`: the inter-quartile range of the non-missing values (i.e.,
   `Q3 - Q1`)

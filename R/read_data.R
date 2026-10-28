@@ -122,12 +122,14 @@ read_data.character <- function(x,
 
   if (is.null(fun)) {
     fun <- utils::read.csv
+    allowed_args <- names(formals(utils::read.table))
     # some sort of intelligent setting of fun
     if (grepl("\\.xlsx?$", file)) {
       if (!requireNamespace("readxl", quietly = TRUE)) {
         stop("Package \"readxl\" needed for this function to load excel files")
       }
       fun <- readxl::read_excel
+      allowed_args <- names(formals(readxl::read_excel))
     }
   } else if (all(!grepl("read", deparse(substitute(fun))))) {
     warning(
@@ -136,9 +138,14 @@ read_data.character <- function(x,
         paste(deparse(substitute(fun)), collapse = ", ")
       )
     )
+    allowed_args <- names(formals(fun))
   }
+  # Checking dots for acceptable arguments
+  dots <- list(...)
+  # 3. Filter the dots list to match only valid parameters
+  relevant_args <- dots[names(dots) %in% allowed_args]
 
-  output <- do.call(fun, c(list(file), ... = ...))
+  output <- do.call(fun, c(list(file), relevant_args))
   if (clean_names_option) {
     clean_names(output)
   }

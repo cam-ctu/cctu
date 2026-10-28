@@ -70,7 +70,7 @@ cttab_eval_select <- function(data, var, select) {
     return(rep(TRUE, nrow(data)))
   }
   keep <- tryCatch(
-    eval(parse(text = select[[var]]), envir = data),
+    eval(parse(text = select[[var]]), envir = as.list(data), enclos = baseenv()),
     error = function(e) {
       warning("Filter failed for variable: ", var, " - ", e$message)
       rep(TRUE, nrow(data))
@@ -78,6 +78,41 @@ cttab_eval_select <- function(data, var, select) {
   )
   keep[is.na(keep)] <- FALSE
   keep
+}
+
+
+#' Reject `select` filters that reference a grouping variable.
+#'
+#' The grouping / row-split variables are only valid as `group` and
+#' `row_split`. Referencing one in a `select` filter is meaningless, and used
+#' to produce a silently wrong table rather than an error: `.SD` excludes the
+#' `by` columns, so per-group cells could not resolve the group variable and
+#' went unfiltered, while the ungrouped Total chunk did filter -- leaving Total
+#' equal to a single group rather than the whole population.
+#'
+#' @param select Named filter list (or `NULL`).
+#' @param grouping_vars Character vector of grouping / row-split variable names
+#'   (`NULL` entries drop out, so `c(group, row_split)` works).
+#'
+#' @return `NULL`, invisibly. Errors when a filter references a grouping
+#'   variable.
+#'
+#' @keywords internal
+cttab_check_select_vars <- function(select, grouping_vars) {
+  if (is.null(select) || length(grouping_vars) == 0L) {
+    return(invisible(NULL))
+  }
+  for (var in names(select)) {
+    refs <- tryCatch(all.vars(parse(text = select[[var]])),
+                     error = function(e) character(0))
+    bad <- intersect(refs, grouping_vars)
+    if (length(bad) > 0) {
+      stop("The select filter for '", var, "' references the grouping or row ",
+           "split variable ", paste(sQuote(bad, q = FALSE), collapse = ", "),
+           ". Grouping variables can only be used as `group` or `row_split`.")
+    }
+  }
+  invisible(NULL)
 }
 
 
@@ -251,6 +286,23 @@ rbind.cttab <- function(...) {
     stop("Cannot rbind cttab objects with different `group` variables: ",
          paste(vapply(group_unique, function(g) if (g == "") "<none>" else g,
                       character(1L)), collapse = ", "))
+  }
+
+  # `row_split` must match for the same reason `group` must. Taking part 1's
+  # attribute unchecked meant a mismatched part's split column was left out of
+  # the dcast key in `.cttab_for_layout()`; the key then no longer identified
+  # rows uniquely, dcast fell back to `fun.aggregate = length`, and EVERY cell
+  # in the table -- including the well-formed part's -- became a row count.
+  # Reversed argument order instead filed correct numbers under a fabricated
+  # "<split> = NA" section. Both were silent.
+  splits <- lapply(parts, attr, which = "row_split")
+  split_unique <- unique(lapply(splits, function(s)
+    if (is.null(s)) "" else s))
+  if (length(split_unique) > 1L) {
+    stop("Cannot rbind cttab objects with different `row_split` variables: ",
+         paste(vapply(split_unique, function(s) if (s == "") "<none>" else s,
+                      character(1L)), collapse = ", "),
+         ". Stack tables that share a row split, or format them separately.")
   }
 
   # Offset Group_ID / Var_ID across parts so each part stays in its own

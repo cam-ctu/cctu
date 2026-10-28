@@ -22,10 +22,20 @@ cttab_plot <- function(vars,
 
   # Apply per-variable `select` filters by NA-ing out the excluded rows;
   # subsequent `na.rm = TRUE` in geoms then drops them from the plot.
+  #
+  # Evaluate every mask against the untouched data BEFORE applying any of them.
+  # Interleaving the two let one variable's freshly-written NAs feed the next
+  # variable's filter: with select = c(RACEN = "AGE > 60", BMIBL = "RACEN != 1")
+  # NA-ing RACEN first turns "RACEN != 1" into NA (which counts as excluded),
+  # so the plot showed fewer points than the table and the result depended on
+  # the order of the names in `select`. stat_tab() evaluates each mask
+  # independently against an unmutated `.SD`; the plot has to agree with it.
   if (!is.null(select)) {
-    for (i in intersect(names(select), vars)) {
-      keep <- cttab_eval_select(data, i, select)
-      data.table::set(data, i = which(!keep), j = i, value = NA)
+    sel_vars <- intersect(names(select), vars)
+    keeps <- lapply(sel_vars, function(v) cttab_eval_select(data, v, select))
+    names(keeps) <- sel_vars
+    for (v in sel_vars) {
+      data.table::set(data, i = which(!keeps[[v]]), j = v, value = NA)
     }
   }
 
@@ -179,5 +189,7 @@ cttab_plot <- function(vars,
     )
   }
 
-  invisible(NULL)
+  # Returned (invisibly) so the filtered plot data can be asserted on; the
+  # function is called for its side effect of drawing.
+  invisible(p_list)
 }

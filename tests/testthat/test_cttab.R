@@ -41,13 +41,13 @@ test_that("Start from data reading", {
   )
 
   X <- cttab(
-    x = c("AGE", "SEX", "BMIBL"),
+    x = c("AGE", "RACEN", "SEX", "BMIBL"),
     group = "ARM",
     data = df,
     select = c("BMIBL" = "RACEN != 1")
   )
 
-  X1 <- cttab(AGE + SEX + BMIBL ~ ARM,
+  X1 <- cttab(AGE + RACEN + SEX + BMIBL ~ ARM,
     data = df,
     select = c("BMIBL" = "RACEN != 1")
   )
@@ -57,7 +57,7 @@ test_that("Start from data reading", {
   testthat_print(X)
 
   mis_rp <- get_missing_report()
-  expect_identical(mis_rp$subject_id, "1275")
+  expect_identical(mis_rp$subject_id[1], "1275")
   reset_missing_report()
   expect_equal(nrow(get_missing_report()), 0)
 
@@ -75,7 +75,9 @@ test_that("Start from data reading", {
                               directory = tmp_dir,
                               clean_up = FALSE))
   expect_snapshot_file(file.path(tmp_dir, "table_1.1.xml"),
-                       name = "table_1.1.xml")
+                       name = "table_1.1.xml",
+                       compare = compare_file_text
+                       )
   expect_no_error(write_table(as.data.frame(df), directory = tmp_dir))
 })
 
@@ -99,15 +101,16 @@ test_that("Variable groups", {
   df$BMIBL[df$RACEN == 6] <- NA
 
   X <- cttab(
-    x = list(c("AGE", "SEX", "BMIBL"),
-      "Blood" = c("ALT", "AST"),
+    x = list(c("AGE", "RACEN", "SEX", "BMIBL"),
+      "Blood" = c("PERF", "ALT", "AST"),
       "Patients with Abnormal" = c("ABNORMAST", "ABNORMALT")
     ),
     group = "ARM",
     data = df,
     select = c(
       "BMIBL" = "RACEN != 1",
-      "ALT" = "PERF == 1"
+      "ALT" = "PERF == 1",
+      "ABNORMALT" = "PERF == 1"
     )
   )
 
@@ -648,4 +651,178 @@ test_that("rbind.cttab on a single argument is a no-op", {
   df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
   one <- cttab(c("AGE") ~ ARM, data = df, print_plot = FALSE)
   expect_identical(rbind(one), one)
+})
+
+test_that("a select filter referencing the grouping variable is rejected", {
+  # `.SD` excludes the `by` columns, so a filter naming the group could not be
+  # resolved in the per-group cells (silently unfiltered) while the ungrouped
+  # Total chunk DID apply it - leaving Total equal to a single arm rather than
+  # the whole population. Worse, a same-named object in the workspace made the
+  # per-group cells resolve to the global with no warning at all.
+  d <- data.frame(
+    trt = rep(c("A", "B"), each = 6),
+    vis = rep(c("V1", "V2"), 6),
+    age = c(10, 20, 30, 40, 50, 60, 11, 21, 31, 41, 51, 61)
+  )
+
+  expect_error(
+    cttab("age", group = "trt", data = d, select = c(age = "trt == 'A'"),
+          print_plot = FALSE),
+    "references the grouping or row split variable"
+  )
+  expect_error(
+    cttab("age", group = "trt", data = d, row_split = "vis",
+          select = c(age = "vis == 'V1'"), print_plot = FALSE),
+    "references the grouping or row split variable"
+  )
+  # stat_tab() is the choke point where the damage happened - guard it too.
+  expect_error(
+    stat_tab("age", group = "trt", data = d, select = c(age = "trt == 'A'")),
+    "references the grouping or row split variable"
+  )
+  # A filter on an ordinary column is still fine.
+  expect_no_error(
+    cttab("age", group = "trt", data = d, select = c(age = "vis == 'V1'"),
+          print_plot = FALSE)
+  )
+})
+
+test_that("select filters see the data and base functions, never the workspace", {
+  # A filter is data-driven and must not depend on hidden session state. It is
+  # evaluated with `enclos = baseenv()`, so column names and base functions
+  # resolve but a name that is neither -- e.g. a same-named global -- does not.
+  # This keeps a report reproducible from its data alone.
+  d <- data.table::data.table(
+    age = c(10, 20, 30, 40),
+    grp = c("apple", "ant", "bee", "cat")
+  )
+
+  # Base operators and functions work.
+  expect_identical(which(cttab_eval_select(d, "age", c(age = "age > 25"))),
+                   c(3L, 4L))
+  expect_identical(
+    which(cttab_eval_select(d, "age", c(age = "grepl('^a', grp)"))),
+    c(1L, 2L)
+  )
+
+  # A global object of the same name as a non-existent column must NOT be
+  # picked up: the filter fails cleanly (warn + keep all) rather than silently
+  # matching the workspace value.
+  assign(".cttab_shadow", c(TRUE, FALSE, TRUE, FALSE), envir = globalenv())
+  on.exit(rm(".cttab_shadow", envir = globalenv()), add = TRUE)
+  expect_warning(
+    keep <- cttab_eval_select(d, "age", c(age = ".cttab_shadow")),
+    "Filter failed"
+  )
+  expect_identical(keep, rep(TRUE, 4L))
+})
+
+test_that("an all-missing categorical still reports its missingness", {
+  # to_factor() derives levels from observed values, so an all-NA/all-blank
+  # character became a 0-level factor, render_cat returned nothing, and the
+  # variable was dropped from the table entirely - indistinguishable from
+  # "not requested". A labelled numeric in the same state reported Missing, so
+  # the two disagreed on identical data.
+  d <- data.frame(trt = rep(c("A", "B"), each = 4),
+                  site = NA_character_,
+                  blank = "   ",
+                  age = 1:8)
+
+  X <- stat_tab(c("site", "blank", "age"), group = "trt", data = d)
+  expect_true(all(c("site", "blank", "age") %in% X$Variable))
+  expect_identical(
+    X[X$Variable == "site" & X$trt == "A"]$Statistic, "Missing"
+  )
+  expect_identical(
+    X[X$Variable == "site" & X$trt == "A"]$Value, "4 (100%)"
+  )
+})
+
+test_that("a group level named 'Total' is refused rather than silently colliding", {
+  # The synthetic Total column is written as the literal string "Total", so a
+  # real level of that name is indistinguishable from it. This surfaced as a
+  # bare "factor level [3] is duplicated"; had the level rebuild not errored
+  # first, the cast key would have collided and rendered row COUNTS.
+  d <- data.frame(trt = c("A", "A", "Total", "Total"), age = c(1, 2, 3, 4))
+  expect_error(
+    stat_tab("age", group = "trt", data = d, total = TRUE),
+    "has a level named 'Total'"
+  )
+  # Opting out of the Total column makes it legal again.
+  expect_no_error(stat_tab("age", group = "trt", data = d, total = FALSE))
+})
+
+test_that("cttab_plot applies every select filter to the unfiltered data", {
+  # The select loop evaluated and applied masks interleaved, so one variable's
+  # freshly-written NAs fed the next variable's filter: the plot showed fewer
+  # points than the table, and the answer depended on the order of the names
+  # in `select`.
+  d <- data.frame(
+    AGE   = c(50, 55, 65, 70, 75, 80),
+    RACEN = c(1, 2, 1, 2, 2, 2),
+    BMIBL = c(20, 21, 22, 23, 24, 25)
+  )
+  select <- c(RACEN = "AGE > 60", BMIBL = "RACEN != 1")
+
+  ps <- cttab_plot(c("RACEN", "BMIBL"), data = d, select = select)
+  bmibl <- ps[[2]]$data$BMIBL
+
+  # stat_tab's reference: each mask evaluated against unmutated data.
+  expect_identical(which(!is.na(bmibl)), c(2L, 4L, 5L, 6L))
+
+  # Reversing the names must not change the outcome.
+  ps_rev <- cttab_plot(c("RACEN", "BMIBL"), data = d,
+                       select = select[c("BMIBL", "RACEN")])
+  expect_identical(ps_rev[[2]]$data$BMIBL, bmibl)
+})
+
+test_that("rbind.cttab refuses to mix different row_split variables", {
+  # .rbind_cttab_long validated `group` but took `row_split` from part 1
+  # unchecked. The mismatched part's split column was then left out of the
+  # dcast key, the key stopped identifying rows uniquely, dcast fell back to
+  # fun.aggregate = length, and EVERY value in the table - including the
+  # well-formed part's - silently became a row COUNT. Reversing the arguments
+  # instead filed correct numbers under a fabricated "<split> = NA" section.
+  d <- data.frame(
+    treat = rep(c("A", "B"), each = 4),
+    visit = rep(c("V1", "V2"), 4),
+    cycle = rep(c("C1", "C2"), each = 4),
+    age = c(50, 52, 54, 56, 48, 50, 52, 54),
+    bmi = c(20, 21, 22, 23, 24, 25, 26, 27)
+  )
+  a <- cttab("age", data = d, group = "treat", print_plot = FALSE)
+  b <- cttab("bmi", data = d, group = "treat", row_split = "visit",
+             print_plot = FALSE)
+  cyc <- cttab("bmi", data = d, group = "treat", row_split = "cycle",
+               print_plot = FALSE)
+
+  expect_error(rbind(a, b), "different `row_split` variables")
+  expect_error(rbind(b, a), "different `row_split` variables")   # both orders
+  expect_error(rbind(b, cyc), "different `row_split` variables")
+
+  # Matching row_split still stacks fine, and the values stay values.
+  b2 <- cttab("age", data = d, group = "treat", row_split = "visit",
+              print_plot = FALSE)
+  out <- rbind(b, b2)
+  expect_s3_class(out, "cttab")
+  expect_identical(attr(out, "row_split"), "visit")
+})
+
+test_that("cttab_format refuses to render a table whose cast key is not unique", {
+  # Independent of the rbind guard: if the key ever stops identifying rows,
+  # dcast silently renders row counts as if they were statistics. The numbers
+  # stay small and plausible, so it does not look broken in a Word report.
+  attach_pop("1.1")
+  df <- extract_form(dt, "PatientReg", vars_keep = c("subjid"))
+  X <- cttab("AGE", group = "ARM", data = df, print_plot = FALSE)
+
+  # Duplicate a stat row so the key collides.
+  bad <- rbind(as.data.frame(unclass(X)), as.data.frame(unclass(X)))
+  bad <- data.table::as.data.table(bad)
+  for (a in c("group", "row_split", "nest")) {
+    data.table::setattr(bad, a, attr(X, a))
+  }
+  data.table::setattr(bad, "class", class(X))
+
+  expect_error(cttab_format(bad), "not uniquely identified")
 })

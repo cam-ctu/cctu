@@ -71,7 +71,7 @@
 ae_summary <- function(data, adsl,
                        id_var = cctu_opt("subjid_string"),
                        term_var,
-                       class_var = NULL, 
+                       class_var = NULL,
                        trt_var    = NULL,
                        overall    = TRUE,
                        grade_var  = NULL,

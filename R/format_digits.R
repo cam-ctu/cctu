@@ -89,6 +89,9 @@ signif_pad <- function(x,
 
   cx[is.na(x)] <- "0" # Put in a dummy value for missing x
   cx <- gsub("[^0-9]*$", "", cx) # Remove any trailing non-digit characters
+  # An exact zero is deliberately left as "0", not padded to "0.00": padding
+  # would read as "a small value that rounded down to zero" (e.g. 0.0001),
+  # whereas "0" is unambiguously exact.
   cx[c_pos] <- x[c_pos] # Restore non-numbers
 
   return(cx)
@@ -102,8 +105,12 @@ round_pad <- function(x,
                       ...) {
   args <- list(...)
 
+  # The nudge must go AWAY from zero, as it does in signif_pad() (which scales
+  # by `x`). A bare positive constant pulls negative values TOWARDS zero, so
+  # round_pad(-0.135, 2) gave "-0.13" where even base round() gives -0.14 --
+  # silently biasing signed values (e.g. change-from-baseline) toward zero.
   eps <- if (round5up) {
-    10^(-(digits + 3))
+    sign(x) * 10^(-(digits + 3))
   } else {
     0
   }
@@ -122,6 +129,10 @@ round_pad <- function(x,
       args[names(args) %in% names(formals(formatC))]
     )
   )
+  # An exact zero renders "0", not "0.00". This also disambiguates it from a
+  # genuinely small value that rounds down: round_pad(0.001, 2) is "0.00",
+  # round_pad(0, 2) is "0". `which()` drops NA positions from the index.
+  cx[which(x == 0)] <- "0"
   ifelse(is.na(x), NA, cx)
 }
 
@@ -137,6 +148,13 @@ round_pad <- function(x,
 format_percent <- function(x, digits = 1, ...) {
   if (!is.numeric(x)) {
     stop("x must be numeric.")
+  }
+
+  # A zero-length input must round-trip as zero-length. Without this the
+  # `out[!is_empty(x)] <- res` branch below extends a length-0 `out` to
+  # length 1 and returns NA.
+  if (length(x) == 0L) {
+    return(character(0))
   }
 
   res <- sapply(x[!is_empty(x)], function(v) {

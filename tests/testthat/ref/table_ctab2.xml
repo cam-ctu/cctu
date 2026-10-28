@@ -9,6 +9,10 @@
 <tr><td style='indent;firstleft'>Valid Obs.</td><td>48</td><td>52</td><td>100</td></tr>
 <tr><td style='indent;firstleft'>Mean (SD)</td><td>75.5 (7.86)</td><td>74.8 (8.04)</td><td>75.1 (7.93)</td></tr>
 <tr><td style='indent;firstleft'>Median [Min, Max]</td><td>78.0 [57.0, 88.0]</td><td>77.0 [56.0, 88.0]</td><td>77.0 [56.0, 88.0]</td></tr>
+<tr><td style='bold;span;firstleft'>Race (N)</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>WHITE</td><td>43/48 (89.6%)</td><td>46/51 (90.2%)</td><td>89/99 (89.9%)</td></tr>
+<tr><td style='indent;firstleft'>BLACK OR AFRICAN AMERICAN</td><td>5/48 (10.4%)</td><td>5/51 (9.8%)</td><td>10/99 (10.1%)</td></tr>
+<tr><td style='indent;firstleft'>Missing</td><td></td><td>1 (1.9%)</td><td>1 (1.0%)</td></tr>
 <tr><td style='bold;span;firstleft'>Sex</td><td></td><td></td><td></td></tr>
 <tr><td style='indent;firstleft'>Female</td><td>26/48 (54.2%)</td><td>25/52 (48.1%)</td><td>51/100 (51.0%)</td></tr>
 <tr><td style='indent;firstleft'>Male</td><td>22/48 (45.8%)</td><td>27/52 (51.9%)</td><td>49/100 (49.0%)</td></tr>
@@ -18,6 +22,9 @@
 <tr><td style='indent;firstleft'>Median [Min, Max]</td><td>27.9 [23.4, 32.8]</td><td>23.0 [21.3, 31.4]</td><td>24.2 [21.3, 32.8]</td></tr>
 <tr><td style='indent;firstleft'>Missing</td><td></td><td>1 (16.7%)</td><td>1 (9.1%)</td></tr>
 <tr><td style='bold;bgcol;span;firstleft'>Blood</td><td></td><td></td><td></td></tr>
+<tr><td style='bold;span;firstleft'>ALT performed</td><td></td><td></td><td></td></tr>
+<tr><td style='indent;firstleft'>No</td><td>3/48 (6.3%)</td><td>10/52 (19.2%)</td><td>13/100 (13.0%)</td></tr>
+<tr><td style='indent;firstleft'>Yes</td><td>45/48 (93.8%)</td><td>42/52 (80.8%)</td><td>87/100 (87.0%)</td></tr>
 <tr><td style='bold;span;firstleft'>Alanine Aminotransferase (U/L)</td><td></td><td></td><td></td></tr>
 <tr><td style='indent;firstleft'>Valid Obs.</td><td>45</td><td>40</td><td>85</td></tr>
 <tr><td style='indent;firstleft'>Mean (SD)</td><td>18.1 (8.01)</td><td>22.1 (13.2)</td><td>20.0 (10.9)</td></tr>
@@ -30,6 +37,6 @@
 <tr><td style='indent;firstleft'>Missing</td><td>1 (2.1%)</td><td></td><td>1 (1.0%)</td></tr>
 <tr><td style='bold;span;firstleft'>Patients with Abnormal</td><td></td><td></td><td></td></tr>
 <tr><td style='bold;firstleft'>AST abnormal</td><td>13/48 (27.1%)</td><td>17/52 (32.7%)</td><td>30/100 (30.0%)</td></tr>
-<tr><td style='bold;firstleft'>ALT abnormal</td><td>9/48 (18.8%)</td><td>11/52 (21.2%)</td><td>20/100 (20.0%)</td></tr>
+<tr><td style='bold;firstleft'>ALT abnormal</td><td>9/45 (20.0%)</td><td>11/42 (26.2%)</td><td>20/87 (23.0%)</td></tr>
 </tbody>
  </table>

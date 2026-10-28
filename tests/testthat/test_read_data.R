@@ -96,3 +96,15 @@ test_that("relative file paths", {
   df_summary <- data_table_summary(df)
   expect_false(grepl("\\.\\.", df_summary$full_file_path[1]))
 })
+
+
+test_that("different extra argument",{
+  #read.csv arg
+  expect_no_error(read_data(data_table[1,], colClasses="character"))
+  # read_xlsx arg
+  expect_no_error(read_data(data_table[2,], col_types="text"))
+  # put both together
+  expect_no_error(read_data(data_table, colClasses="character",col_types="text"))
+
+})
+

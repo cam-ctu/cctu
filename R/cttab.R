@@ -158,6 +158,16 @@ cttab.default <- function(x,
     stop("The variable list, group or row split variable have duplicated variable.")
   }
 
+  # A grouping variable is only ever valid as `group` / `row_split`, never as
+  # an input elsewhere -- the check above already enforces that for `x`. It has
+  # to hold for `select` too: filtering a variable by the group is meaningless
+  # (arm A's column filtered to arm A, arm B's to nothing), and it used to be
+  # silently WRONG rather than refused. `.SD` excludes the `by` columns, so the
+  # per-group cells could not see `group` and went unfiltered while the Total
+  # chunk -- which is not grouped -- did filter, making Total equal to a single
+  # arm instead of the whole population.
+  cttab_check_select_vars(select, c(group, row_split))
+
   # Drop rows with NA in group / row_split before fanning out to stat_tab,
   # cttab_plot, and report_missing so all three see the same population.
   data <- cttab_drop_na_grouping(data, c(group, row_split))
@@ -298,19 +308,29 @@ stat_tab <- function(vars,
     )
   }
 
-  # Defensive NA-grouping drop for direct callers; cttab.default already
-  # does this (with a message) before invoking stat_tab.
+  # Defensive checks for direct callers; cttab.default already performs both
+  # (the NA drop with a message) before invoking stat_tab. The select/grouping
+  # check is repeated here rather than only upstream because this is where the
+  # damage happens -- `.SD` excludes the `by` columns, so a filter naming the
+  # group silently went unapplied per group while the ungrouped Total chunk
+  # did apply it.
+  cttab_check_select_vars(select, c(group, row_split))
+
   for (g in c(group, row_split)) {
     data <- data[!is.na(data[[g]]), env = list(g = I(g))]
   }
   cttab_factorise(data, c(group, row_split), drop_levels = TRUE)
 
-  cols_toconvert <- vapply(data, function(z) has_labels(z) || is.character(z),
-                           logical(1L))
-  cols_toconvert <- intersect(names(cols_toconvert)[cols_toconvert], flat_vars)
-  if (length(cols_toconvert) > 0) {
-    data[, (cols_toconvert) := lapply(.SD, to_factor, ordered = TRUE),
-         .SDcols = cols_toconvert]
+  # Categorical analysis vars (value-labelled or character) are rendered as
+  # ordered factors. We do NOT convert them in place to allow filtering.
+  cat_vars <- intersect(
+    names(which(vapply(data, function(z) has_labels(z) || is.character(z),
+                       logical(1L)))),
+    flat_vars
+  )
+  fac_alias <- setNames(sprintf(".cttab_fac_%s", cat_vars), cat_vars)
+  for (v in cat_vars) {
+    set(data, j = fac_alias[[v]], value = to_factor(data[[v]], ordered = TRUE))
   }
 
   # Normalize variable groupings (Group_ID + Group_Label) when vars is a list
@@ -345,14 +365,21 @@ stat_tab <- function(vars,
     for (i in seq_along(flat_vars)) {
       col <- flat_vars[i]
 
-      if (!inherits(data[[col]], c("numeric", "integer", "factor",
-                                   "character", "logical"))) {
+      # Categorical vars render from their aliased factor copy; numeric/logical
+      # vars render from the original column. The `select` filter, however,
+      # always evaluates against the original columns in `.SD`.
+      render_col <- if (col %in% cat_vars) fac_alias[[col]] else col
+      render_vec <- data[[render_col]]
+
+      if (!inherits(render_vec, c("numeric", "integer", "factor",
+                                  "character", "logical"))) {
         stop(paste("The class of variable", col, "is",
                    class(data[[col]]), "and not supported!"))
       }
 
-      # Apply per-variable filter from `select`
-      val <- .SD[[col]][cttab_eval_select(.SD, col, select)]
+      # Apply per-variable filter from `select` (mask from the original column,
+      # values from the render column).
+      val <- .SD[[render_col]][cttab_eval_select(.SD, col, select)]
 
       lbl <- cttab_get_label(data[[col]], col)
 
@@ -367,7 +394,7 @@ stat_tab <- function(vars,
 
       stats <- NULL
 
-      if (inherits(data[[col]], c("numeric", "integer"))) {
+      if (inherits(render_vec, c("numeric", "integer"))) {
         stats <- render_numeric(
           val,
           what        = render_num,
@@ -375,12 +402,12 @@ stat_tab <- function(vars,
           digits_pct  = digits_pct,
           rounding_fn = rounding_fn
         )
-      } else if (inherits(data[[col]], c("factor", "character"))) {
+      } else if (inherits(render_vec, c("factor", "character"))) {
         stats <- render_cat(val, digits_pct = digits_pct)
-      } else if (inherits(data[[col]], "logical")) {
+      } else if (inherits(render_vec, "logical")) {
         # All-NA logical loses its categorical meaning; fall through to the
         # numeric render path so the user still sees Valid Obs. + Missing.
-        if (all(is.na(data[[col]]))) {
+        if (all(is.na(render_vec))) {
           stats <- render_numeric(
             val,
             what        = render_num,
@@ -401,9 +428,18 @@ stat_tab <- function(vars,
         }
       }
 
-      if (is.null(stats) || length(stats) == 0L) next
-
+      # Append `miss` BEFORE deciding whether there is anything to report. A
+      # categorical with no renderable categories still has to report its
+      # missingness: `to_factor()` builds levels from the observed values, so
+      # an all-NA / all-blank character yields a 0-level factor and render_cat
+      # returns nothing. Testing `stats` first dropped such a variable from the
+      # table entirely, leaving the reader unable to tell "not requested" from
+      # "100% missing" -- and a labelled-numeric in the same state reported
+      # Missing correctly, so the two disagreed on identical data.
+      if (length(stats) == 0L) stats <- NULL  # keep c() from returning a list
       stats <- c(stats, miss)
+
+      if (length(stats) == 0L) next
 
       rows_list[[length(rows_list) + 1L]] <- data.table(
         Group_ID    = var_group_id[i],
@@ -422,6 +458,18 @@ stat_tab <- function(vars,
 
   include_obs <- isTRUE(add_obs) && !is.null(group)
   by_cols <- c(group, row_split)  # NULLs drop out
+
+  # The synthetic Total column is written into the group column as the literal
+  # string "Total", so a real group level of that name is indistinguishable
+  # from it. Left alone this surfaced as a bare "factor level [3] is
+  # duplicated" from the level rebuild below; had that not errored first, the
+  # cast key would have collided and rendered row counts instead of statistics.
+  if (total && !is.null(group) &&
+        "Total" %in% as.character(unique(data[[group]]))) {
+    stop("The grouping variable '", group, "' has a level named 'Total', ",
+         "which collides with the generated Total column. Rename the level, ",
+         "or pass total = FALSE.")
+  }
 
   # Single grouped tabulation; the by argument copes with NULL group/row_split.
   long_res <- if (length(by_cols)) {

@@ -233,6 +233,17 @@ cttab_format <- function(x) {
 
   if (!is.null(group)) {
     f <- as.formula(paste(paste(meta_cols, collapse = " + "), "~", group))
+    # Guard the cast key. If `meta_cols + group` does not identify rows
+    # uniquely, dcast silently defaults to `fun.aggregate = length` and every
+    # value in the table -- not just the offending rows -- is replaced by a row
+    # COUNT. The numbers stay small and plausible, so it does not look broken
+    # in a Word report. Refuse instead of rendering counts as statistics.
+    if (anyDuplicated(dt, by = c(meta_cols, group)) > 0L) {
+      stop("Cannot render this cttab: the rows are not uniquely identified by ",
+           paste(c(meta_cols, group), collapse = " + "),
+           ". This usually means cttab objects with different `row_split` ",
+           "variables were combined.")
+    }
     wide <- dcast(dt, f, value.var = "Value", fill = "")
     data_cols <- setdiff(names(wide), meta_cols)
     grp_levels <- levels(dt[[group]])

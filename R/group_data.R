@@ -46,7 +46,15 @@ group_data <- function(data, groups, shift_to = NULL, indent = FALSE,
   # Shallow copy and ensure grouping variables are at the start
   temp_dt <- copy(as.data.table(data))
   orig_attrs <- attributes(data)
-  orig_attrs <- orig_attrs[!names(orig_attrs) %in% c("names", "class", "row.names", ".internal.selfref")]
+  # `sorted` / `index` are data.table's internal key and secondary indices.
+  # They describe the INPUT's row order and columns, both of which this
+  # function changes (rows are rebuilt and reordered, group columns dropped),
+  # so restoring them would leave the result claiming a key it does not have --
+  # sometimes naming a column that no longer exists. dcast() returns a keyed
+  # data.table, so cttab feeds keyed tables in here routinely.
+  orig_attrs <- orig_attrs[!names(orig_attrs) %in%
+                             c("names", "class", "row.names",
+                               ".internal.selfref", "sorted", "index")]
   
   # Ensure groups exist
   missing_cols <- setdiff(groups, names(temp_dt))

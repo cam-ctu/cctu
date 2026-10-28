@@ -36,8 +36,14 @@ operating_system <-    Sys.info()["sysname"]
   vdiffr::expect_doppelganger("labs", fig7, variant = operating_system )
 
 
-  skip_on_ci()
-  vdiffr::expect_doppelganger("pvalue", fig4, variant = operating_system )
+  #skip_on_ci()
+  file.copy(from=test_path("_snaps",Sys.info()["sysname"],"km_plot/pvalue.svg"),
+            test_path("_snaps",Sys.info()["sysname"],"km_plot/pvalue-copy.svg"),
+            overwrite=TRUE
+            )
+  vdiffr::expect_doppelganger("pvalue_copy", fig4, variant = operating_system )
+  #expect_equal(fig2, fig4)
+
   # checking that fig2 and fig4 are the same
   # Currently works locally. But on github it creates an error by insisting
   # that the "pvalue" is not repeated across tests.

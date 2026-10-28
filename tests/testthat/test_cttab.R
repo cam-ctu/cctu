@@ -75,7 +75,9 @@ test_that("Start from data reading", {
                               directory = tmp_dir,
                               clean_up = FALSE))
   expect_snapshot_file(file.path(tmp_dir, "table_1.1.xml"),
-                       name = "table_1.1.xml")
+                       name = "table_1.1.xml",
+                       compare = compare_file_text
+                       )
   expect_no_error(write_table(as.data.frame(df), directory = tmp_dir))
 })
 
